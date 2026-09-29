@@ -24,6 +24,7 @@
 | **2. Struktur & Innehåll** | Menystruktur, sidor som ska bort vs läggas till | 15 min | Fastställa ny sitemap (max 5 huvudval) |
 | **3. Funktioner & Flöden** | Bokning, schema, tränaransökan, shop & backstatus | 15 min | Definiera vilka funktioner MVP:n kräver |
 | **4. Design & Tonalitet** | Känslan på sajten och förberedelse för Lovable | 10 min | Spika visuell riktning och MoSCoW-prioritering |
+| **5. Övriga Önskemål & Idéer** | Swish, LOK-stöd, nyhetsbrev, bilder, event & fria inspel | 10 min | Fånga upp allt utanför standardmallen |
 
 ---
 
@@ -110,6 +111,24 @@ Idag har sajten 10 separata menyval: *Hem, Freeskiers Skidklubb, Helgskidskola, 
   - Interaktiv nivåguide ("Vilken grupp passar mitt barn?").
 - **Won't Have (i nuläget):**
   - Eget komplext medlemssystem (hanteras av Agendo/IdrottOnline).
+
+---
+
+## Block 5: Övriga Önskemål, Idéer & Styrelsens Fria Inspel (10 min)
+*Mål: Fånga upp specifika krav, administrativa rutiner, samarbeten och vilda visioner.*
+
+### Fråga 5.1: Särskilda integrationer och administrativa system
+- **Swish / Direktbetalning:** Behövs QR-koder eller Swish-nummer för direktbetalning vid prova-på, event eller köp av merch?
+- **IdrottOnline / LOK-stöd:** Behöver vi tydlig koppling/info kring medlemsregistrering och statligt/kommunalt LOK-stöd?
+- **Nyhetsbrev / E-post:** Ska intresserade föräldrar kunna lämna sin e-post för att få påminnelse inför anmälningssläpp?
+- **Flerspråkighet (Engelska):** Behövs en engelsk sammanfattningssida för internationella familjer på ön?
+
+### Fråga 5.2: Styrelsens öppna lista & vilda idéer (Fritext)
+- *Köp & Sälj / Utrustningsbytardag:* Möjlighet för medlemmar att sälja/byta urvuxen freeski-utrustning?
+- *Rookie Series & Tävlingar:* Ska det finnas en särskild undersida för klubbens egna tävlingar och resultat?
+- *Foto & Film / GDPR:* Rutiner för att samla in grymma videoklipp och bilder från föräldrar och tränare.
+- *Samarbeten:* Skolor, fritids eller idrottsdagar på Lidingö.
+- *Övriga inspel:* Styrelsen brainstormar fritt!
 
 ---
 

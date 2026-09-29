@@ -744,6 +744,75 @@
       </div>
     </section>
 
+    <!-- BLOCK 5: Övriga Önskemål & Fria Inspel -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">5</div>
+          <div>
+            <h3 class="block-title">Övriga Önskemål, Idéer & Styrelsens Fria Inspel</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Öppen sektion för allt annat styrelsen vill skriva in: integrationer, event, bilder eller framtida visioner.</p>
+          </div>
+        </div>
+        <div class="block-time">10 minuter</div>
+      </div>
+
+      <!-- Q5.1 Särskilda önskemål & integrationer -->
+      <div class="question-card">
+        <h4 class="question-title">5.1 Särskilda integrationer & system</h4>
+        <p class="question-desc">Kryssa i eller lägg till system som klubben använder eller vill koppla ihop med sajten:</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Swish-betalning / QR-kod för direktbetalning">
+            <div class="option-text">
+              <b>💳 Swish / Direktbetalning</b>
+              <span>Stöd för Swish-nummer, QR-koder för event eller medlemsavgift.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="IdrottOnline / LOK-stöd synk">
+            <div class="option-text">
+              <b>🏅 IdrottOnline / RF</b>
+              <span>Tydlig info eller länkning gällande medlemsregistrering och LOK-stöd.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Nyhetsbrev / Mailutskick (Mailchimp m.fl.)">
+            <div class="option-text">
+              <b>📬 Nyhetsbrev / E-postutskick</b>
+              <span>Möjlighet för intresserade föräldrar att prenumerera på anmälningsdatum.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Engelskt språkstöd / International friendly">
+            <div class="option-text">
+              <b>🌍 Engelska / Internationella gäster</b>
+              <span>Sammanfattning på engelska för utländska familjer på Lidingö eller turister.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Övriga system eller integrationer (t.ex. Fortnox, Google Drive):</label>
+          <textarea id="notesIntegrations" placeholder="Skriv in specifika system, administrativa rutiner eller verktyg här..."></textarea>
+        </div>
+      </div>
+
+      <!-- Q5.2 Övriga önskemål & fri brainstorm -->
+      <div class="question-card">
+        <h4 class="question-title">5.2 Styrelsens öppna önskelista & vilda idéer</h4>
+        <p class="question-desc">Här skriver ni in allt som dyker upp under kvällen som inte passar i övriga fack.</p>
+        <div class="notes-box" style="margin-top: 0;">
+          <label>Fritext / Övriga önskemål från kvällens diskussion:</label>
+          <textarea id="notesOtherWishes" style="min-height: 120px;" placeholder="Exempel:
+- Vill vi ha en 'Köp & Sälj'-hörna för urvuxen skidutrustning?
+- Särskild sektion för Rookie Series och tävlingar?
+- Foto/film från föräldrar – hur samlar vi in det?
+- Hur hanterar vi kontakt med skolor och fritids?
+- Andra idéer och tankar från styrelsen..."></textarea>
+        </div>
+      </div>
+    </section>
+
     <!-- Action bottom bar -->
     <div style="text-align: center; margin-top: 40px;">
       <button class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;" onclick="generateSpec()">
@@ -787,10 +856,13 @@
         features: Array.from(document.querySelectorAll('input[name="features"]:checked')).map(el => el.value),
         designTone: document.querySelector('input[name="designTone"]:checked')?.value || '',
         mvpScope: Array.from(document.querySelectorAll('input[name="mvpScope"]:checked')).map(el => el.value),
+        integrations: Array.from(document.querySelectorAll('input[name="integrations"]:checked')).map(el => el.value),
         notesGoal: document.getElementById('notesGoal').value,
         notesMenu: document.getElementById('notesMenu').value,
         notesFeatures: document.getElementById('notesFeatures').value,
         notesDesign: document.getElementById('notesDesign').value,
+        notesIntegrations: document.getElementById('notesIntegrations').value,
+        notesOtherWishes: document.getElementById('notesOtherWishes').value,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       const badge = document.getElementById('savedBadge');
@@ -825,18 +897,21 @@
         setChecks('menuItems', data.menuItems);
         setChecks('features', data.features);
         setChecks('mvpScope', data.mvpScope);
+        setChecks('integrations', data.integrations);
 
         if (data.notesGoal) document.getElementById('notesGoal').value = data.notesGoal;
         if (data.notesMenu) document.getElementById('notesMenu').value = data.notesMenu;
         if (data.notesFeatures) document.getElementById('notesFeatures').value = data.notesFeatures;
         if (data.notesDesign) document.getElementById('notesDesign').value = data.notesDesign;
+        if (data.notesIntegrations) document.getElementById('notesIntegrations').value = data.notesIntegrations;
+        if (data.notesOtherWishes) document.getElementById('notesOtherWishes').value = data.notesOtherWishes;
       } catch (e) {
         console.error("Kunde inte ladda sparade data", e);
       }
     }
 
     // Auto save on typing notes
-    ['notesGoal', 'notesMenu', 'notesFeatures', 'notesDesign'].forEach(id => {
+    ['notesGoal', 'notesMenu', 'notesFeatures', 'notesDesign', 'notesIntegrations', 'notesOtherWishes'].forEach(id => {
       document.getElementById(id).addEventListener('input', saveFormData);
     });
 
@@ -885,7 +960,17 @@ ${(data.mvpScope || []).map(s => `- [x] ${s}`).join('\n')}
 ${data.notesDesign ? `### Anteckningar om design och innehåll:\n${data.notesDesign}\n` : ''}
 ---
 
-## 5. Lovable System Prompt Instruktioner
+## 5. Särskilda Integrationer & System
+${(data.integrations || []).map(i => `- [x] ${i}`).join('\n')}
+${data.notesIntegrations ? `\n### Specifika system & administrativa rutiner:\n${data.notesIntegrations}\n` : ''}
+---
+
+## 6. Övriga Önskemål & Styrelsens Fria Inspel
+${data.notesOtherWishes ? data.notesOtherWishes : 'Inga ytterligare önskemål noterade.'}
+
+---
+
+## 7. Lovable System Prompt Instruktioner
 \`\`\`text
 Bygg en modern, responsiv och energifylld webbplats för IK Lidingö Freeskiers (Sveriges största friåkningsklubb för barn och unga i Ekholmsnäsbacken).
 Använd färgskalan: Snövitt, Mörk grafit/alpint mörkblå, Isblå (#00d2ff) och Säkerhetsorange accent.
@@ -896,6 +981,7 @@ Inkludera:
 4. Backstatus-banner för Ekholmsnäsbacken (öppettider/snöläge).
 5. FAQ-dragspel med svar på vanliga frågor om utrustning och nivåer.
 6. Partnersida med Gadelius, Alpingaraget, Ekholmsnäsbacken och Kang.
+${data.notesOtherWishes ? `Övriga styrelseönskemål: ${data.notesOtherWishes.replace(/\n/g, ' ')}` : ''}
 \`\`\`
 `;
 
