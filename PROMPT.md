@@ -17,13 +17,19 @@ Please completely overhaul the website to match our authentic club identity, lay
   - Card style: Clean white rounded surfaces, subtle soft drop-shadows (box-shadow: 0 4px 20px rgba(0,0,0,0.06)).
 - Font: Poppins across the entire site (Google Fonts).
 
-2. REAL SUBPAGES & ROUTING (Implement React Router):
+2. FULL-BLEED CINEMATIC HERO & SURFACE-FILLING PHOTOGRAPHY:
+- Hero: Edge-to-edge, full-width cinematic hero background (assets/images/hero-freeski-cinematic.jpg) featuring youth freeskiers carving crisp snow in twilight floodlights, bold white typography, stats strip ("500+ unga åkare", "Etabl. 2001", "6–18 år", "0% Tävlingshets"), and prominent action buttons.
+- 4 Activity Cards: Generous photo-cover cards that fill the grid for Helgskidskola (assets/images/skidskola-hero-day.jpg), Skidklubb (assets/images/freestyle-jump.jpg), Höstsäsong & Barmark (assets/images/park-rails.jpg), and Privatlektion/Tränare (assets/images/privatlektion-coach.jpg).
+- Full-Width Panoramic Gallery: 5-column edge-to-edge photo strip showcasing the authentic life, coaching, jumps, and magic sunsets of Ekholmsnäsbacken.
+- Subpage Photo Banners: Every subpage (/helgskidskola, /skidklubb, /hostsasong, /privatlektion, /om-oss, /kontakt) has a cinematic photo header banner.
+
+3. REAL SUBPAGES & ROUTING (Implement React Router):
 Do not make this a single one-page scroll. Create distinct, dedicated pages with full content and clean navigation:
-- "/" (Home: Hero with large authentic ski action photo, quick cards to ski school/club, slope webcam banner, event/news card, Instagram community section).
+- "/" (Home: Full-bleed hero, live slope status bar, 4 activity cards, interactive Årshjul, authentic story with mascot Ekis, full-width photo wall, values).
 - "/helgskidskola" (Weekend Ski School: Ages, weekend schedule Jan-Feb in Ekholmsnäs, prices, level info, prominent 'Boka Skidskola'-button).
 - "/skidklubb" (Freeskiers Skidklubb: Weekday training, groups, age info, 'Anmäl till Skidklubben'-button).
 - "/hostsasong" (Autumn dryland and trampoline training).
-- "/privatlektion" (Private lessons information).
+- "/privatlektion" (Private lessons information with direct coach booking).
 - "/om-oss" (About Freeskiers: Our vision 'ski joy without performance anxiety', Coach Gallery with individual photos and 'Boka med [Tränare]' buttons, Board of Directors, and 'Bli tränare'-section with application form).
 - "/kontakt" (FAQ with our Mascot 'Ekis', contact form, map to Ekholmsnäsbacken, and cancellation policies).
 
