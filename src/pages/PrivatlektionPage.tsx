@@ -4,29 +4,39 @@ import { Sparkles, Calendar, CheckCircle2, ArrowRight, UserCheck } from 'lucide-
 
 export const PrivatlektionPage: React.FC = () => {
   return (
-    <div className="bg-white py-12 sm:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-semibold text-freeskiers-cyan uppercase tracking-wider mb-4">
-          <Link to="/" className="hover:underline">Hem</Link>
-          <span>/</span>
-          <span>Privatlektion</span>
+    <div className="bg-white">
+      {/* Subpage Photo Hero Banner */}
+      <section className="relative min-h-[380px] sm:min-h-[460px] flex items-center bg-freeskiers-navy overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/assets/images/privatlektion-coach.jpg" 
+            alt="Privatlektion på skidor med coach" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-freeskiers-navy/95 via-freeskiers-navy/80 to-freeskiers-navy/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-freeskiers-navy/90 via-transparent to-black/30" />
         </div>
-
-        {/* Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-cyan/10 text-freeskiers-cyan text-xs font-bold uppercase tracking-wider mb-3">
-            <UserCheck className="w-3.5 h-3.5" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full text-white">
+          <div className="flex items-center gap-2 text-xs font-semibold text-freeskiers-lightcyan uppercase tracking-wider mb-4">
+            <Link to="/" className="hover:underline">Hem</Link>
+            <span>/</span>
+            <span>Privatlektion</span>
+          </div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-cyan/30 text-white text-xs font-bold uppercase tracking-wider mb-3 backdrop-blur-sm border border-freeskiers-lightcyan/40">
+            <UserCheck className="w-3.5 h-3.5 text-freeskiers-lightcyan" />
             <span>Individuell coachning</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-freeskiers-navy tracking-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
             Privatlektioner på skidor
           </h1>
-          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal">
             Vill du få personlig coachning och ta stora kliv på kort tid? Våra certifierade instruktörer erbjuder privatlektioner för både nybörjare som vill hitta balansen och erfarna åkare som vill slipa på specifika trick eller carvingsvängar.
           </p>
         </div>
+      </section>
+
+      <div className="py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Feature blocks */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14">
@@ -65,6 +75,7 @@ export const PrivatlektionPage: React.FC = () => {
           </div>
         </div>
 
+      </div>
       </div>
     </div>
   );

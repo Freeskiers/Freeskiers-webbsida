@@ -8,131 +8,105 @@ export const HomePage: React.FC = () => {
   return (
     <div className="bg-white">
       
+      {/* Cinematic Full-Bleed Hero Section */}
+      <section className="relative min-h-[620px] sm:min-h-[700px] lg:min-h-[780px] flex items-center justify-center overflow-hidden bg-freeskiers-navy">
+        {/* Full-bleed background image with dramatic lighting */}
+        <div className="absolute inset-0">
+          <img 
+            src="/assets/images/hero-freeski-cinematic.jpg" 
+            alt="IK Lidingö Freeskiers i Ekholmsnäsbacken" 
+            className="w-full h-full object-cover object-center scale-102 transform transition-transform duration-1000"
+          />
+          {/* Multi-layered gradient overlay for contrast, depth and readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-freeskiers-navy/95 via-freeskiers-navy/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-freeskiers-navy via-transparent to-black/40" />
+          <div className="absolute inset-0 bg-freeskiers-navy/20" />
+        </div>
+
+        {/* Content Container */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
+          <div className="max-w-3xl">
+            
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-freeskiers-cyan/30 border border-freeskiers-lightcyan/40 backdrop-blur-md text-white text-xs sm:text-sm font-bold tracking-wide uppercase mb-6 shadow-soft">
+              <Sparkles className="w-4 h-4 text-freeskiers-lightcyan" />
+              <span>Sveriges största friåkningsklubb i Ekholmsnäsbacken</span>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-md">
+              Lidingö <span className="text-freeskiers-lightcyan">Freeskiers</span>
+            </h1>
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-100 mt-3 drop-shadow">
+              100% Skidglädje & Gemenskap för barn och unga
+            </p>
+
+            {/* Subtext */}
+            <p className="mt-5 text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl drop-shadow">
+              Från de allra första svängarna i barnbacken till feta hopp, rails och friåkning. Helgskidskola och skidklubb där alla utvecklas i sin egen takt – helt utan prestationshets.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
+              <Link
+                to="/helgskidskola"
+                className="inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-7 py-4 rounded-full font-bold text-base shadow-elevated hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5"
+              >
+                <span>Boka Helgskidskola</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                to="/skidklubb"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-7 py-4 rounded-full font-bold text-base transition-all transform hover:-translate-y-0.5"
+              >
+                <span>Freeskiers Skidklubb</span>
+              </Link>
+              <a
+                href="#arshjul"
+                className="inline-flex items-center gap-2 text-slate-300 hover:text-white text-sm font-semibold px-3 py-2 transition-colors"
+              >
+                <Snowflake className="w-4 h-4 text-freeskiers-lightcyan" />
+                <span>Se Årshjulet 2026/27</span>
+              </a>
+            </div>
+
+            {/* Floating stats & highlights strip */}
+            <div className="mt-12 pt-8 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-4 text-white">
+              <div className="flex flex-col">
+                <span className="text-2xl lg:text-3xl font-black text-freeskiers-lightcyan">500+</span>
+                <span className="text-xs text-slate-300 font-medium">Aktiva unga åkare</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl lg:text-3xl font-black text-white">2001</span>
+                <span className="text-xs text-slate-300 font-medium">Etablerad i Ekholmsnäs</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl lg:text-3xl font-black text-freeskiers-lightcyan">6–18 år</span>
+                <span className="text-xs text-slate-300 font-medium">Från barn till junior</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl lg:text-3xl font-black text-white">0%</span>
+                <span className="text-xs text-slate-300 font-medium">Tävlingshets – ren glädje</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Live Backstatus Bar */}
       <SlopeStatus />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24 bg-gradient-to-b from-sky-50/50 via-white to-white">
+      {/* Season Alert Banner */}
+      <div className="bg-sky-50/70 border-b border-sky-100 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Main Hero Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-freeskiers-cyan/10 border border-freeskiers-cyan/20 text-freeskiers-cyan text-xs sm:text-sm font-bold tracking-wide uppercase mb-4">
-              <Sparkles className="w-4 h-4" />
-              <span>Sveriges största friåkningsklubb</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-freeskiers-navy tracking-tight leading-tight">
-              Lidingö Freeskiers
-            </h1>
-            <p className="text-xl sm:text-2xl font-semibold text-freeskiers-cyan mt-2">
-              – För skidälskande barn och unga
-            </p>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-normal">
-              Skidglädje, gemenskap och upplevelser på snö. Vi driver helgskidskola och skidklubb i Ekholmsnäsbacken där alla får utvecklas i sin egen takt – utan prestationskrav.
-            </p>
-          </div>
-
-          {/* Hero Featured Photo Card */}
-          <div className="max-w-5xl mx-auto mb-12 rounded-3xl overflow-hidden shadow-card border border-slate-200/80 relative group">
-            <img 
-              src="/assets/images/hero-ski.jpg" 
-              alt="Lidingö Freeskiers i Ekholmsnäsbacken" 
-              className="w-full h-64 sm:h-96 lg:h-[420px] object-cover object-center group-hover:scale-102 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-freeskiers-navy/80 via-transparent to-transparent flex items-end p-6 sm:p-10">
-              <div className="text-white max-w-xl">
-                <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">
-                  Vintern i Ekholmsnäsbacken
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold mt-1">
-                  Ren skidglädje och gemenskap
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-200 mt-2 line-clamp-2">
-                  Från de första svängarna i barnbacken till feta hopp och rails i parken.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Dual Action Cards (Skidskola & Skidklubb) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-14">
-            
-            {/* Helgskidskola Card with Image */}
-            <div className="group relative bg-white hover:bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-              <div className="relative h-48 sm:h-52 overflow-hidden">
-                <img 
-                  src="/assets/images/skidskola-kids.jpg" 
-                  alt="Freeskiers Helgskidskola" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-cyan text-white text-xs font-bold uppercase tracking-wider shadow-sm">
-                  Helger i Jan – Feb
-                </div>
-              </div>
-              <div className="p-7 sm:p-8 flex flex-col justify-between flex-grow">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-2">
-                    Freeskiers Helgskidskola
-                  </h2>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    För dig som vill lära dig åka skidor och ha roligt i backen under 5 tillfällen på helger under januari och februari i Ekholmsnäsbacken. Grupper från nybörjare till fortsättning.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-slate-100">
-                  <Link
-                    to="/helgskidskola"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
-                  >
-                    <span>Till skidskolan & Anmälan</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Skidklubb Card with Image */}
-            <div className="group relative bg-white hover:bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-              <div className="relative h-48 sm:h-52 overflow-hidden">
-                <img 
-                  src="/assets/images/park-jump.jpg" 
-                  alt="Freeskiers Skidklubb" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-navy text-white text-xs font-bold uppercase tracking-wider shadow-sm">
-                  Vardagskvällar i vintern
-                </div>
-              </div>
-              <div className="p-7 sm:p-8 flex flex-col justify-between flex-grow">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-2">
-                    Freeskiers Skidklubb
-                  </h2>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    För dig som vill träna regelbunden skidåkning under vardagarna. Träna friåkning, hopp, rails, carving och park med klubbens inspirerande tränare.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-slate-100">
-                  <Link
-                    to="/skidklubb"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
-                  >
-                    <span>Till skidklubben & Info</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Important Season Alert Banner */}
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-sky-50 via-white to-sky-50 border border-sky-200 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-full bg-freeskiers-cyan text-white flex items-center justify-center shrink-0 shadow-soft">
-                <Calendar className="w-6 h-6" />
+          <div className="bg-white border border-sky-200 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 text-center sm:text-left">
+              <div className="w-11 h-11 rounded-full bg-freeskiers-cyan text-white flex items-center justify-center shrink-0 shadow-soft">
+                <Calendar className="w-5 h-5" />
               </div>
               <div>
-                <div className="font-extrabold text-base sm:text-lg text-freeskiers-navy">
+                <div className="font-extrabold text-sm sm:text-base text-freeskiers-navy">
                   Anmälan öppnar 16 oktober kl. 09.00
                 </div>
                 <div className="text-xs sm:text-sm text-slate-600">
@@ -144,9 +118,164 @@ export const HomePage: React.FC = () => {
               to="/helgskidskola"
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-freeskiers-cyan hover:text-freeskiers-lightcyan hover:underline shrink-0"
             >
-              <span>Se tider & priser</span>
+              <span>Se tider & grupper</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Activities Grid Section */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider">
+              Vår Verksamhet på Snö & Barmark
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-freeskiers-navy tracking-tight mt-2">
+              Hitta din skidupplevelse
+            </h2>
+            <p className="mt-4 text-base sm:text-lg text-slate-600">
+              Oavsett om du tar dina första svängar eller vill sätta säsongens fetaste tricks i parken finns det en plats för dig hos Lidingö Freeskiers.
+            </p>
+          </div>
+
+          {/* 4 Rich Visual Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            
+            {/* 1. Helgskidskola */}
+            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src="/assets/images/skidskola-hero-day.jpg" 
+                  alt="Freeskiers Helgskidskola" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-cyan text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  Helger • Jan–Feb
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
+                    Helgskidskola
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    5 helgtillfällen i januari och februari. Grön, blå och röd nivå för barn från 5 år med utbildade instruktörer.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/helgskidskola"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm shadow-soft transition-all"
+                  >
+                    <span>Läs mer & Anmäl</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Skidklubb */}
+            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src="/assets/images/freestyle-jump.jpg" 
+                  alt="Freeskiers Skidklubb" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-navy text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  Vardagskvällar
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
+                    Skidklubb
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    Träna friåkning, hopp, rails, carving och park under vinterns vardagskvällar i Ekholmsnäsbacken.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/skidklubb"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm shadow-soft transition-all"
+                  >
+                    <span>Till skidklubben</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Höstsäsong & Barmark */}
+            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src="/assets/images/park-rails.jpg" 
+                  alt="Höstsäsong & Barmarksträning" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-800 text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  Okt – Dec
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
+                    Höstsäsong & Barmark
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    Bygg grundstyrka och luftkänsla med trampolinträning, barmark och Höstlovsläger innan snön lägger sig.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/hostsasong"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm transition-all"
+                  >
+                    <span>Se höstprogram</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Privatlektion & Tränare */}
+            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src="/assets/images/privatlektion-coach.jpg" 
+                  alt="Privatlektion och Tränare" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-cyan text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  1-på-1 & Coach
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
+                    Privatlektion & Tränare
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    Få personlig instruktör i backen eller gå klubbens ledarutbildning efter årskurs 9 och bli tränare.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/privatlektion"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm transition-all"
+                  >
+                    <span>Boka / Bli tränare</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -219,49 +348,89 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Photo Gallery Grid from Ekholmsnäs */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider flex items-center justify-center gap-1.5 mb-2">
-              <Camera className="w-4 h-4" />
-              <span>Glimtar från backen</span>
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy">
-              Livet och gemenskapen i Freeskiers
-            </h3>
+      {/* Full-Width Edge-to-Edge Action Photo Gallery */}
+      <section className="py-16 sm:py-20 bg-slate-900 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+          <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider flex items-center justify-center gap-1.5 mb-2">
+            <Camera className="w-4 h-4" />
+            <span>Glimtar från backen</span>
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Livet, farten och gemenskapen i Freeskiers
+          </h2>
+          <p className="mt-3 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+            Varje vecka fylls Ekholmsnäsbacken av skidglädje, skratt, framsteg och grym gemenskap. Här är några ögonblick från vår vardag.
+          </p>
+        </div>
+
+        {/* 5 Edge-to-Edge Panoramic Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 px-2 sm:px-4">
+          
+          <div className="relative h-72 sm:h-80 lg:h-96 rounded-2xl overflow-hidden group shadow-md">
+            <img 
+              src="/assets/images/skidskola-hero-day.jpg" 
+              alt="Skidglädje i barnbacken" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">Helgskidskola</span>
+              <h4 className="text-base font-extrabold text-white mt-1">Glädje & high fives</h4>
+              <p className="text-xs text-slate-300 mt-1 line-clamp-1">Trygga instruktörer och massor av skratt</p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
-              <img 
-                src="/assets/images/skidgladje-kids.jpg" 
-                alt="Skidglädje i backen" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
-              <img 
-                src="/assets/images/skidskola-action.jpg" 
-                alt="Skidskola i Ekholmsnäs" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
-              <img 
-                src="/assets/images/coaches-group.jpg" 
-                alt="Tränarteamet" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
-              <img 
-                src="/assets/images/ekholmsnas-sunset.jpg" 
-                alt="Solnedgång över Ekholmsnäs" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+          <div className="relative h-72 sm:h-80 lg:h-96 rounded-2xl overflow-hidden group shadow-md">
+            <img 
+              src="/assets/images/freestyle-jump.jpg" 
+              alt="Hopp och parkåkning" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">Snowparken</span>
+              <h4 className="text-base font-extrabold text-white mt-1">Hopp & Big Air</h4>
+              <p className="text-xs text-slate-300 mt-1 line-clamp-1">Träna på kickers, grabbar och luftkänsla</p>
             </div>
           </div>
+
+          <div className="relative h-72 sm:h-80 lg:h-96 rounded-2xl overflow-hidden group shadow-md">
+            <img 
+              src="/assets/images/freeski-powder-hero.jpg" 
+              alt="Carving i stora backen" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">Skidklubben</span>
+              <h4 className="text-base font-extrabold text-white mt-1">Snabba svängar</h4>
+              <p className="text-xs text-slate-300 mt-1 line-clamp-1">Carving och friåkning med tränare</p>
+            </div>
+          </div>
+
+          <div className="relative h-72 sm:h-80 lg:h-96 rounded-2xl overflow-hidden group shadow-md">
+            <img 
+              src="/assets/images/privatlektion-coach.jpg" 
+              alt="Unga tränare och ledare" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">Ledarskap</span>
+              <h4 className="text-base font-extrabold text-white mt-1">Klubbens tränarteam</h4>
+              <p className="text-xs text-slate-300 mt-1 line-clamp-1">Ungdomar som vuxit upp i föreningen</p>
+            </div>
+          </div>
+
+          <div className="relative h-72 sm:h-80 lg:h-96 rounded-2xl overflow-hidden group shadow-md sm:col-span-2 lg:col-span-1">
+            <img 
+              src="/assets/images/ekholmsnas-sunset.jpg" 
+              alt="Kvällsåkning i elljus" 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5">
+              <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">Ekholmsnäs</span>
+              <h4 className="text-base font-extrabold text-white mt-1">Magiska kvällar</h4>
+              <p className="text-xs text-slate-300 mt-1 line-clamp-1">Upplyst backe och solnedgång över Lidingö</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
