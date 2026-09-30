@@ -4,12 +4,11 @@ import { MapPin, Mail, Instagram, Facebook, ShieldCheck, Heart } from 'lucide-re
 
 export const Footer: React.FC = () => {
   const partners = [
-    { name: 'Ekholmsnäsbacken', desc: 'Hemmabacke & Lift' },
-    { name: 'Gadelius Fastighetsbyrå', desc: 'Huvudpartner' },
-    { name: 'Alpingaraget', desc: 'Utrustning & Skidvård' },
-    { name: 'Kang Poles', desc: 'Stavar & Åkglädje' },
-    { name: 'Lidingö Centrum', desc: 'Lokal samverkanspartner' },
-    { name: 'Stockholm Bordsuthyrning', desc: 'Eventpartner' }
+    { name: 'Gadelius', logo: '/assets/partners/gadelius.png' },
+    { name: 'Ekholmsnäsbacken', logo: '/assets/partners/ekholmsnas.png' },
+    { name: 'Alpingaraget', logo: '/assets/partners/alpingaraget.png' },
+    { name: 'Kang Poles', logo: '/assets/partners/kang.png' },
+    { name: 'Stockholm Bordsuthyrning', logo: '/assets/partners/stockholmbordsuthyrning.png' },
   ];
 
   return (
@@ -21,14 +20,17 @@ export const Footer: React.FC = () => {
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-freeskiers-lightcyan mb-8">
             Stolta Samarbetspartners & Vänner
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center text-center">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
             {partners.map((partner, i) => (
               <div 
                 key={i} 
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 transition-all duration-200 transform hover:-translate-y-1"
+                className="bg-white rounded-2xl p-4 sm:px-6 sm:py-3 shadow-md border border-white/20 flex items-center justify-center h-16 w-40 sm:w-44 transition-all duration-200 transform hover:scale-105"
               >
-                <div className="font-bold text-sm text-white tracking-tight">{partner.name}</div>
-                <div className="text-[11px] text-freeskiers-lightcyan font-medium mt-0.5">{partner.desc}</div>
+                <img 
+                  src={partner.logo} 
+                  alt={partner.name} 
+                  className="max-h-10 w-auto max-w-full object-contain filter"
+                />
               </div>
             ))}
           </div>
@@ -45,7 +47,6 @@ export const Footer: React.FC = () => {
                 alt="Freeskiers" 
                 className="h-10 w-auto"
                 onError={(e) => {
-                  // Fallback if white svg fails
                   (e.target as HTMLElement).style.display = 'none';
                 }}
               />

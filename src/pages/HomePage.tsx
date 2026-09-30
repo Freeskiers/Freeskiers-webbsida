@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SeasonWheel } from '../components/SeasonWheel';
 import { SlopeStatus } from '../components/SlopeStatus';
-import { Calendar, Users, Trophy, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake } from 'lucide-react';
+import { Calendar, Users, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake, Camera } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ export const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Hero Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-freeskiers-cyan/10 border border-freeskiers-cyan/20 text-freeskiers-cyan text-xs sm:text-sm font-bold tracking-wide uppercase mb-4">
               <Sparkles className="w-4 h-4" />
               <span>Sveriges största friåkningsklubb</span>
@@ -32,60 +32,94 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
+          {/* Hero Featured Photo Card */}
+          <div className="max-w-5xl mx-auto mb-12 rounded-3xl overflow-hidden shadow-card border border-slate-200/80 relative group">
+            <img 
+              src="/assets/images/hero-ski.jpg" 
+              alt="Lidingö Freeskiers i Ekholmsnäsbacken" 
+              className="w-full h-64 sm:h-96 lg:h-[420px] object-cover object-center group-hover:scale-102 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-freeskiers-navy/80 via-transparent to-transparent flex items-end p-6 sm:p-10">
+              <div className="text-white max-w-xl">
+                <span className="text-xs font-bold text-freeskiers-lightcyan uppercase tracking-wider">
+                  Vintern i Ekholmsnäsbacken
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold mt-1">
+                  Ren skidglädje och gemenskap
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-200 mt-2 line-clamp-2">
+                  Från de första svängarna i barnbacken till feta hopp och rails i parken.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Dual Action Cards (Skidskola & Skidklubb) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-14">
             
-            {/* Helgskidskola Card */}
-            <div className="group relative bg-freeskiers-lightgray hover:bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-freeskiers-cyan/15 flex items-center justify-center text-freeskiers-cyan mb-6 group-hover:scale-110 transition-transform">
-                  <Snowflake className="w-6 h-6" />
-                </div>
-                <div className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider mb-2">
+            {/* Helgskidskola Card with Image */}
+            <div className="group relative bg-white hover:bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-48 sm:h-52 overflow-hidden">
+                <img 
+                  src="/assets/images/skidskola-kids.jpg" 
+                  alt="Freeskiers Helgskidskola" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-cyan text-white text-xs font-bold uppercase tracking-wider shadow-sm">
                   Helger i Jan – Feb
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-3">
-                  Freeskiers Helgskidskola
-                </h2>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
-                  För dig som vill lära dig åka skidor och ha roligt i backen under 5 tillfällen på helger under januari och februari i Ekholmsnäsbacken. Grupper från nybörjare till fortsättning.
-                </p>
               </div>
-              <div className="pt-4 border-t border-slate-200/60">
-                <Link
-                  to="/helgskidskola"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
-                >
-                  <span>Till skidskolan & Anmälan</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+              <div className="p-7 sm:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-2">
+                    Freeskiers Helgskidskola
+                  </h2>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    För dig som vill lära dig åka skidor och ha roligt i backen under 5 tillfällen på helger under januari och februari i Ekholmsnäsbacken. Grupper från nybörjare till fortsättning.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/helgskidskola"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
+                  >
+                    <span>Till skidskolan & Anmälan</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             </div>
 
-            {/* Skidklubb Card */}
-            <div className="group relative bg-freeskiers-lightgray hover:bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-freeskiers-navy/10 flex items-center justify-center text-freeskiers-navy mb-6 group-hover:scale-110 transition-transform">
-                  <Users className="w-6 h-6" />
+            {/* Skidklubb Card with Image */}
+            <div className="group relative bg-white hover:bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-48 sm:h-52 overflow-hidden">
+                <img 
+                  src="/assets/images/park-jump.jpg" 
+                  alt="Freeskiers Skidklubb" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-navy text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  Vardagskvällar i vintern
                 </div>
-                <div className="text-xs font-bold text-freeskiers-navy uppercase tracking-wider mb-2">
-                  Vardagskvällar under vintern
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-3">
-                  Freeskiers Skidklubb
-                </h2>
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
-                  För dig som vill träna regelbunden skidåkning under vardagarna. Träna friåkning, hopp, rails, carving och park med klubbens inspirerande tränare.
-                </p>
               </div>
-              <div className="pt-4 border-t border-slate-200/60">
-                <Link
-                  to="/skidklubb"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
-                >
-                  <span>Till skidklubben & Info</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+              <div className="p-7 sm:p-8 flex flex-col justify-between flex-grow">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mb-2">
+                    Freeskiers Skidklubb
+                  </h2>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                    För dig som vill träna regelbunden skidåkning under vardagarna. Träna friåkning, hopp, rails, carving och park med klubbens inspirerande tränare.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/skidklubb"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
+                  >
+                    <span>Till skidklubben & Info</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -185,11 +219,57 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Photo Gallery Grid from Ekholmsnäs */}
+      <section className="py-16 bg-slate-50 border-t border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider flex items-center justify-center gap-1.5 mb-2">
+              <Camera className="w-4 h-4" />
+              <span>Glimtar från backen</span>
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy">
+              Livet och gemenskapen i Freeskiers
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
+              <img 
+                src="/assets/images/skidgladje-kids.jpg" 
+                alt="Skidglädje i backen" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
+              <img 
+                src="/assets/images/skidskola-action.jpg" 
+                alt="Skidskola i Ekholmsnäs" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
+              <img 
+                src="/assets/images/coaches-group.jpg" 
+                alt="Tränarteamet" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-200 h-64 group">
+              <img 
+                src="/assets/images/ekholmsnas-sunset.jpg" 
+                alt="Solnedgång över Ekholmsnäs" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Community Values Grid */}
-      <section className="py-16 bg-freeskiers-lightgray/50 border-t border-slate-200/80">
+      <section className="py-16 bg-white border-t border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
+            <div className="bg-freeskiers-lightgray p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
               <div className="w-10 h-10 rounded-xl bg-freeskiers-cyan/10 text-freeskiers-cyan flex items-center justify-center mb-4">
                 <Heart className="w-5 h-5" />
               </div>
@@ -198,7 +278,7 @@ export const HomePage: React.FC = () => {
                 Hos oss fokuserar vi på rörelseglädje, gemenskap och att ha roligt på snö. Alla är välkomna oavsett förkunskaper.
               </p>
             </div>
-            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
+            <div className="bg-freeskiers-lightgray p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
               <div className="w-10 h-10 rounded-xl bg-freeskiers-cyan/10 text-freeskiers-cyan flex items-center justify-center mb-4">
                 <Users className="w-5 h-5" />
               </div>
@@ -207,7 +287,7 @@ export const HomePage: React.FC = () => {
                 Klubbens tränare är äldre ungdomar och åkare som själva vuxit upp i föreningen. Tryggt, inspirerande och roligt!
               </p>
             </div>
-            <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
+            <div className="bg-freeskiers-lightgray p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-soft">
               <div className="w-10 h-10 rounded-xl bg-freeskiers-cyan/10 text-freeskiers-cyan flex items-center justify-center mb-4">
                 <ShieldCheck className="w-5 h-5" />
               </div>
