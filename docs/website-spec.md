@@ -3,33 +3,38 @@
 **Uppdragsgivare:** Styrelsen för IK Lidingö Freeskiers  
 **Nuvarande webb:** [lidingofreeskiers.se](https://www.lidingofreeskiers.se)  
 **Målarkitektur:** React, Vite, Tailwind CSS, Lucide Icons, Shadcn UI  
-**Design & Typsnitt:** Poppins (Google Fonts), Klubbens officiella färgpalett och nya logotyp  
-**Assets i repot:** `assets/logo/freeskiers-logo-skold.png`, `assets/logo/freeskiers-logo.svg`, `assets/logo/freeskiers-logo-white.svg`
+**Design & Typsnitt:** Poppins (Google Fonts), Klubbens officiella färgpalett och maskot  
+**Assets i repot:** 
+- Logotyper: `assets/logo/freeskiers-logo-skold.png`, `assets/logo/freeskiers-logo.svg`, `assets/logo/freeskiers-logo-white.svg`
+- Maskot (Ekis the Yeti): `assets/logo/ekis-yeti-transparent.png`, `assets/logo/ekis-yeti-avatar.png`
 
 ---
 
 ## 1. Vision, Syfte & Tonalitet
 - **Huvudsakligt mål:** Information & Träningstider samt Konvertering & Skidglädje (lika högt prioriterade).
-- **Varumärkeskänsla:** Nordisk vintersport, modern, hög energi, genuin skidglädje och stark gemenskap utan prestationshets.
+- **Varumärkeskänsla:** Ljus, krispig, nordisk vintersport, modern, hög energi, genuin skidglädje och stark gemenskap utan prestationshets (se referens: https://www.lidingofreeskiers.se).
 - **Prioriterade målgrupper:**
-  1. **Föräldrar till barn 5–15 år (Mobilförst):** Behöver snabbt hitta träningstider, priser, nivåer och sömlös anmälan via **SportAdmin**.
+  1. **Föräldrar till barn 5–15 år (Mobilförst):** Behöver snabbt hitta träningstider, priser, nivåer och enkel anmälan.
   2. **Unga ledare & tränare (åk 9+):** Klubbens ryggrad – tydlig väg till tränarutbildning, rollbeskrivning och intresseanmälan.
 
 ---
 
-## 2. Visuell Profil & Färgsystem (Exakta Färgkoder)
+## 2. Visuell Profil & Färgsystem (Äkta Freeskiers-färger)
 
-### Färgpalett
-- **Mörkblå (Rubriker & Footer-bas):** `RGB(59, 105, 161)` / Hex `#3B69A1`
-- **Ljusblå (Accenter & Footer-text):** `RGB(72, 161, 213)` / Hex `#48A1D5`
-- **Snövit (Bakgrund & Ren yta):** `#FFFFFF` / Off-white `#F8FAFC`
-- **Mörk grafit / Alpin skiffer (Text & Kontraster):** `#0F172A` / `#1E293B`
-- **Säkerhetsorange (Knappar / Call-to-Action):** `#FF6B35` / `#F97316` *(för att poppa mot snö/blått)*
+### Färgpalett (Referens: https://www.lidingofreeskiers.se)
+- **Freeskiers Himmelsblå / Cyan (Knappar & Accenter):** `#098ACB`
+- **Freeskiers Ljus Cyan:** `#04A4CC`
+- **Djup Marinblå (Rubriker & Footer-bas):** `#1B365D`
+- **Snövit (Bakgrund & Kort):** `#FFFFFF`
+- **Ljus Snögrå (Kortytor & Bakgrund):** `#F7F7F7`
+- **Mörk Charcoal (Brödtext):** `#424242`
+- **INGEN ORANGE FÄRG:** Orange färg tillhör inte klubben och ska tas bort helt.
 
-### Typografi & Logotyp
-- **Typsnitt:** **Poppins** (400, 500, 600, 700) för hela webbplatsen.
+### Typografi & Logotyp & Maskot
+- **Typsnitt:** **Poppins** (Google Fonts) för hela webbplatsen.
 - **Logotyp:** Nya sköldlogotypen (`assets/logo/freeskiers-logo-skold.png`) i header och navigation, vit variant (`assets/logo/freeskiers-logo-white.svg`) i footern.
-- **Bildval & Video:** Riktiga bilder och actionvideos från klubbens arkiv (hämtas via dedikerad Google Drive-mapp).
+- **Maskot:** Officiella "Ekis the Yeti" (`assets/logo/ekis-yeti-transparent.png`) för FAQ-bot och profil.
+- **Bildval & Video:** Riktiga bilder och actionvideos från klubbens arkiv.
 
 ---
 
@@ -122,53 +127,41 @@ Huvudmenyn hålls ren och modern med max 4–5 val + framträdande bokningsknapp
 ## 5. Lovable Master Prompt (Kopiera rakt in i Lovable)
 
 ```text
-Build a world-class, modern, high-energy, and responsive web application for IK Lidingö Freeskiers (Sweden's largest freeskiing and youth freestyle ski club based in Ekholmsnäsbacken, Lidingö).
+CRITICAL REDESIGN & REFACTORING INSTRUCTION (Reference: https://www.lidingofreeskiers.se)
 
-### Brand & Visual Identity:
-- Font: Poppins (Google Fonts, weights 400, 500, 600, 700).
-- Color Palette:
-  - Primary Dark Blue (Headers & Footer base): #3B69A1 (RGB 59, 105, 161)
-  - Accent Light Blue (Subheaders, badges, footer text): #48A1D5 (RGB 72, 161, 213)
-  - Pure Snow White background (#FFFFFF) with subtle cool gray card surfaces (#F8FAFC).
-  - High-visibility Call-To-Action buttons in vibrant safety orange (#FF6B35).
-- Logo: Freeskiers shield logo (assets/logo/freeskiers-logo-skold.png) in header and white SVG logo in footer.
-- Style: Nordic alpine freeskiing, playful, authentic, energetic, motion-filled, clean and welcoming for kids and parents. No generic corporate look!
+Please completely overhaul the website to match our authentic club identity, layout, colors, and structure:
 
-### Architecture & Navigation:
-1. Header:
-   - Logo left, navigation links center, high-contrast CTA button "Anmäl & Boka" right.
-   - Navigation:
-     - "Våra Grupper" (Dropdown / Section: Helgskidskola, Freeskiers Skidklubb, Höstsäsong, Privatlektioner).
-     - "Om Freeskiers" (Klubbvision, Våra Tränare, Bli Tränare, Styrelsen, Föräldraengagemang).
-     - "Resor & Event" (Kommande resor, Rookie Series, Skidbytardag).
-     - "FAQ & Kontakt" (Smart FAQ, Ekis the Yeti, Fritidskortet, Försäkring).
-2. Footer:
-   - Deep dark blue base (#3B69A1) with light blue text (#48A1D5).
-   - Partners section: Ekholmsnäsbacken, Gadelius, Alpingaraget, Kang Poles, Lidingö Centrum.
-   - Quick links, Club contact info, social links.
+1. COLOR PALETTE & VISUAL STYLE:
+- REMOVE the orange color completely. It does NOT belong to our brand.
+- Switch from the dark/black tech theme to a bright, fresh, Nordic alpine snow aesthetic:
+  - Background: Pure Crisp White (#FFFFFF) and Light Snow Gray (#F7F7F7) cards.
+  - Primary Brand Colors: Freeskiers Cyan Blue (#098ACB) and Bright Ski Cyan (#04A4CC).
+  - Deep Navy/Dark Slate for headings: #1B365D.
+  - Body text: Dark Charcoal (#424242) for high legibility.
+  - Card style: Clean white rounded surfaces, subtle soft drop-shadows (box-shadow: 0 4px 20px rgba(0,0,0,0.06)).
+- Font: Poppins across the entire site (Google Fonts).
 
-### Critical Booking & System Logic:
-- SportAdmin: All regular ski training (Skidklubben) and Helgskidskolan are booked through SportAdmin! Provide crystal clear, prominent "Boka via SportAdmin"-buttons with information on season start and first-come first-served rules.
-- Agendo: Used EXCLUSIVELY for private lessons ("Privatlektioner"). On the Coaches page ("Våra Tränare"), display coach cards with photo, bio, specialties, and a direct "Boka privatlektion via Agendo"-button for each coach.
+2. REAL SUBPAGES & ROUTING (Implement React Router):
+Do not make this a single one-page scroll. Create distinct, dedicated pages with full content and clean navigation:
+- "/" (Home: Hero with large authentic ski action photo, quick cards to ski school/club, slope webcam banner, event/news card, Instagram community section).
+- "/helgskidskola" (Weekend Ski School: Ages, weekend schedule Jan-Feb in Ekholmsnäs, prices, level info, prominent 'Boka Skidskola'-button).
+- "/skidklubb" (Freeskiers Skidklubb: Weekday training, groups, age info, 'Anmäl till Skidklubben'-button).
+- "/hostsasong" (Autumn dryland and trampoline training).
+- "/privatlektion" (Private lessons information).
+- "/om-oss" (About Freeskiers: Our vision 'ski joy without performance anxiety', Coach Gallery with individual photos and 'Boka med [Tränare]' buttons, Board of Directors, and 'Bli tränare'-section with application form).
+- "/kontakt" (FAQ with our Mascot 'Ekis', contact form, map to Ekholmsnäsbacken, and cancellation policies).
 
-### Special Interactive Features to Implement:
-1. "Ekis the Yeti" Chatbot Widget:
-   - A friendly floating AI mascot chatbot in the bottom right featuring "Ekis", the club's yeti mascot.
-   - Pre-programmed with smart answers for: Fritidskortet, SportAdmin booking steps, gear requirements (helmet/back protector), snow status & cancellation policy (no refund on injury, rescheduled on low snow), and level quiz.
-2. Ekholmsnäsbacken Live-Status Banner:
-   - Shows slope open/closed status, current temperature, snow depth, and a webcam view/link.
-3. Featured Event / Next Important Date Banner:
-   - Prominent alert/card on homepage for the next club milestone (e.g. registration opening countdown, Rookie Series Stockholm, or ski gear swap day).
-4. Interactive Level Guide ("Vilken grupp passar mitt barn?"):
-   - 3-step interactive selector helping parents find the right group (Nybörjare vs Fortsättning vs Skidklubb).
-5. Digital Forms:
-   - "Bli tränare" coach application form for teens (grade 9+).
-   - "Engagerade föräldrar" form for volunteer parents detailing expectations and tasks.
-   - Trip & Camp registration form.
-6. Pricing & Policy Section:
-   - Clear price cards under training including club membership fee, benefits, safety info, insurance coverage via Svenska Skidförbundet, and weather/injury policy.
-7. Curated Instagram Community Grid:
-   - Modern social feed showcase showing freeskiers doing jumps, rails, and having fun in the snow.
+3. BOOKING BUTTONS & BACKEND LOGIC:
+- DO NOT display backend system names like "SportAdmin" or "Agendo" in visible headings or buttons. Parents only care about booking their child easily.
+- Buttons should say natural things like: "Anmäl till Skidskolan", "Boka plats", or "Boka privatlektion".
+
+4. MASCOT COMPONENT ("Ekis the Yeti"):
+- Use our official club mascot image located in: assets/logo/ekis-yeti-transparent.png (and assets/logo/ekis-yeti-avatar.png for avatar).
+- Place 'Ekis' in a friendly floating FAQ widget in the bottom right corner with quick answers to common parent questions (levels, equipment, weather/cancellation).
+
+5. FOOTER:
+- Dark navy blue base (#1B365D) with light cyan/white text.
+- Display our club sponsors prominently: Gadelius, Ekholmsnäsbacken, Alpingaraget, Kang Poles, Lidingö Centrum.
 ```
 
 ---

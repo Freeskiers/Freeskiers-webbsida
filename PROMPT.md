@@ -1,0 +1,41 @@
+# Lovable Refactoring & Build Prompt: IK Lidingö Freeskiers
+
+Klistra in detta i chatten i Lovable (eller skriv *"Genomför alla ändringar enligt PROMPT.md"*):
+
+```text
+CRITICAL REDESIGN & REFACTORING INSTRUCTION (Reference: https://www.lidingofreeskiers.se)
+
+Please completely overhaul the website to match our authentic club identity, layout, colors, and structure:
+
+1. COLOR PALETTE & VISUAL STYLE:
+- REMOVE the orange color completely. It does NOT belong to our brand.
+- Switch from the dark/black tech theme to a bright, fresh, Nordic alpine snow aesthetic:
+  - Background: Pure Crisp White (#FFFFFF) and Light Snow Gray (#F7F7F7) cards.
+  - Primary Brand Colors: Freeskiers Cyan Blue (#098ACB) and Bright Ski Cyan (#04A4CC).
+  - Deep Navy/Dark Slate for headings: #1B365D.
+  - Body text: Dark Charcoal (#424242) for high legibility.
+  - Card style: Clean white rounded surfaces, subtle soft drop-shadows (box-shadow: 0 4px 20px rgba(0,0,0,0.06)).
+- Font: Poppins across the entire site (Google Fonts).
+
+2. REAL SUBPAGES & ROUTING (Implement React Router):
+Do not make this a single one-page scroll. Create distinct, dedicated pages with full content and clean navigation:
+- "/" (Home: Hero with large authentic ski action photo, quick cards to ski school/club, slope webcam banner, event/news card, Instagram community section).
+- "/helgskidskola" (Weekend Ski School: Ages, weekend schedule Jan-Feb in Ekholmsnäs, prices, level info, prominent 'Boka Skidskola'-button).
+- "/skidklubb" (Freeskiers Skidklubb: Weekday training, groups, age info, 'Anmäl till Skidklubben'-button).
+- "/hostsasong" (Autumn dryland and trampoline training).
+- "/privatlektion" (Private lessons information).
+- "/om-oss" (About Freeskiers: Our vision 'ski joy without performance anxiety', Coach Gallery with individual photos and 'Boka med [Tränare]' buttons, Board of Directors, and 'Bli tränare'-section with application form).
+- "/kontakt" (FAQ with our Mascot 'Ekis', contact form, map to Ekholmsnäsbacken, and cancellation policies).
+
+3. BOOKING BUTTONS & BACKEND LOGIC:
+- DO NOT display backend system names like "SportAdmin" or "Agendo" in visible headings or buttons. Parents only care about booking their child easily.
+- Buttons should say natural things like: "Anmäl till Skidskolan", "Boka plats", or "Boka privatlektion".
+
+4. MASCOT COMPONENT ("Ekis the Yeti"):
+- Use our official club mascot image located in: assets/logo/ekis-yeti-transparent.png (and assets/logo/ekis-yeti-avatar.png for avatar).
+- Place 'Ekis' in a friendly floating FAQ widget in the bottom right corner with quick answers to common parent questions (levels, equipment, weather/cancellation).
+
+5. FOOTER:
+- Dark navy blue base (#1B365D) with light cyan/white text.
+- Display our club sponsors prominently: Gadelius, Ekholmsnäsbacken, Alpingaraget, Kang Poles, Lidingö Centrum.
+```
