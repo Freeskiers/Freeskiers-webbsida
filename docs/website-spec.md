@@ -122,6 +122,14 @@ Huvudmenyn hålls ren och modern med max 4–5 val + framträdande bokningsknapp
 - **Engagerade föräldrar:** Anmälan för föräldrar som vill stötta backen, grilla korv, hjälpa till på event eller köra skidbytardag.
 - **Resor & Camp Freeskiers:** Smidig intresseanmälan för klubbresor.
 
+### 7. Interaktivt Årshjul ("Vad händer under säsongen i Freeskiers")
+- En visuell, pedagogisk säsongsöversikt (cirkulärt årshjul eller 4-säsongs tidslinje):
+  - **Tidig Höst (Sep–Okt):** Höstsäsongen drar igång (barmark, studsmatta), Tränarutbildning efter åk 9, *Anmälan till Helgskidskola & Skidklubb öppnar i mitten av oktober (först till kvarn!)*.
+  - **Förvinter (Nov–Dec):** Snötillverkning i Ekholmsnäs, Skidbytardag / Klubbkväll, tränarträff och utrustningscheck.
+  - **Vinter Högsäsong (Jan–Feb):** Helgskidskolan (5 helger), Freeskiers Skidklubb (vardagskvällar), Privatlektioner i backen.
+  - **Vårvinter & Event (Mars):** Klubbhelger, Rookie Series Stockholm (tävling), klubbmästerskap och säsongsavslutning.
+- Framhäver automatiskt aktuell fas ('Just nu!') och hjälper föräldrar att hålla koll på alla viktiga milstolpar.
+
 ---
 
 ## 5. Lovable Master Prompt (Kopiera rakt in i Lovable)
@@ -159,7 +167,16 @@ Do not make this a single one-page scroll. Create distinct, dedicated pages with
 - Use our official club mascot image located in: assets/logo/ekis-yeti-transparent.png (and assets/logo/ekis-yeti-avatar.png for avatar).
 - Place 'Ekis' in a friendly floating FAQ widget in the bottom right corner with quick answers to common parent questions (levels, equipment, weather/cancellation).
 
-5. FOOTER:
+5. INTERACTIVE "ÅRSHJUL" / SÄSONGSÖVERSIKT ("Vad händer under året i Freeskiers"):
+- Add an interactive, beautiful Season Cycle component on the homepage (and/or "/om-oss"):
+  - Shows what happens across the 4 club seasons with interactive phase cards / circular selector:
+    * "Tidig Höst (Sep–Okt)": Höstträning (barmark & studsmatta), tränarutbildning, och ANMÄLAN ÖPPNAR i mitten av oktober (först till kvarn!).
+    * "Förvinter (Nov–Dec)": Snöläggning i Ekholmsnäs, Skidbytardag, förberedelser och utrustning.
+    * "Vinter Högsäsong (Jan–Feb)": Helgskidskolan (5 helger), Skidklubben (vardagskvällar), Privatlektioner i Ekholmsnäsbacken.
+    * "Vårvinter & Event (Mars)": Klubbhelg, Rookie Series Stockholm (tävling), klubbmästerskap och säsongsavslutning.
+  - Automatically highlights the current active phase based on the real calendar month, with clear status tags (e.g. 'Just nu!', 'Kommande').
+
+6. FOOTER:
 - Dark navy blue base (#1B365D) with light cyan/white text.
 - Display our club sponsors prominently: Gadelius, Ekholmsnäsbacken, Alpingaraget, Kang Poles, Lidingö Centrum.
 ```

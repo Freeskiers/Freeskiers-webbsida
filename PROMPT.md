@@ -35,7 +35,16 @@ Do not make this a single one-page scroll. Create distinct, dedicated pages with
 - Use our official club mascot image located in: assets/logo/ekis-yeti-transparent.png (and assets/logo/ekis-yeti-avatar.png for avatar).
 - Place 'Ekis' in a friendly floating FAQ widget in the bottom right corner with quick answers to common parent questions (levels, equipment, weather/cancellation).
 
-5. FOOTER:
+5. INTERACTIVE "ÅRSHJUL" / SÄSONGSÖVERSIKT ("Vad händer under året i Freeskiers"):
+- Add an interactive, beautiful Season Cycle component on the homepage (and/or "/om-oss"):
+  - Shows what happens across the 4 club seasons with interactive phase cards / circular selector:
+    * "Tidig Höst (Sep–Okt)": Höstträning (barmark & studsmatta), tränarutbildning, och ANMÄLAN ÖPPNAR i mitten av oktober (först till kvarn!).
+    * "Förvinter (Nov–Dec)": Snöläggning i Ekholmsnäs, Skidbytardag, förberedelser och utrustning.
+    * "Vinter Högsäsong (Jan–Feb)": Helgskidskolan (5 helger), Skidklubben (vardagskvällar), Privatlektioner i Ekholmsnäsbacken.
+    * "Vårvinter & Event (Mars)": Klubbhelg, Rookie Series Stockholm (tävling), klubbmästerskap och säsongsavslutning.
+  - Automatically highlights the current active phase based on the real calendar month, with clear status tags (e.g. 'Just nu!', 'Kommande').
+
+6. FOOTER:
 - Dark navy blue base (#1B365D) with light cyan/white text.
 - Display our club sponsors prominently: Gadelius, Ekholmsnäsbacken, Alpingaraget, Kang Poles, Lidingö Centrum.
 ```
