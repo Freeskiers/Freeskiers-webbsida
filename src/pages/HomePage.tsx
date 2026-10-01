@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SeasonWheel } from '../components/SeasonWheel';
 import { SlopeStatus } from '../components/SlopeStatus';
-import { Calendar, Users, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake, Camera } from 'lucide-react';
+import { LevelFinder } from '../components/LevelFinder';
+import { useLevelFinder } from '../context/LevelFinderContext';
+import { Calendar, Users, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake, Camera, Trophy } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
+  const { openLevelFinder } = useLevelFinder();
+
   return (
     <div className="bg-white">
       
@@ -43,31 +47,32 @@ export const HomePage: React.FC = () => {
 
             {/* Subtext */}
             <p className="mt-5 text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl drop-shadow">
-              Från de allra första svängarna i barnbacken till feta hopp, rails och friåkning. Helgskidskola och skidklubb där alla utvecklas i sin egen takt – helt utan prestationshets.
+              Från de allra första svängarna i barnbacken till feta hopp, rails och friåkning. Skidklubb och helgskidskola där alla utvecklas i sin egen takt – helt utan prestationshets.
             </p>
 
-            {/* Action Buttons */}
-            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
+            {/* Action Buttons: Skidklubb first, then Helgskidskola, then Skidtest */}
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3.5 sm:gap-4">
               <Link
-                to="/helgskidskola"
+                to="/skidklubb"
                 className="inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-7 py-4 rounded-full font-bold text-base shadow-elevated hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5"
               >
-                <span>Boka Helgskidskola</span>
+                <span>Freeskiers Skidklubb</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/skidklubb"
+                to="/helgskidskola"
                 className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-7 py-4 rounded-full font-bold text-base transition-all transform hover:-translate-y-0.5"
               >
-                <span>Freeskiers Skidklubb</span>
+                <span>Boka Helgskidskola</span>
               </Link>
-              <a
-                href="#arshjul"
-                className="inline-flex items-center gap-2 text-slate-300 hover:text-white text-sm font-semibold px-3 py-2 transition-colors"
+              <button
+                onClick={openLevelFinder}
+                className="inline-flex items-center gap-2 bg-freeskiers-lightcyan/20 hover:bg-freeskiers-lightcyan/30 text-white border border-freeskiers-lightcyan/40 backdrop-blur-md px-6 py-4 rounded-full font-bold text-sm sm:text-base transition-all transform hover:-translate-y-0.5"
+                title="Gör ett snabbt test för att se vilken nivå och grupp som passar"
               >
-                <Snowflake className="w-4 h-4 text-freeskiers-lightcyan" />
-                <span>Se Årshjulet 2026/27</span>
-              </a>
+                <Sparkles className="w-4 h-4 text-freeskiers-lightcyan" />
+                <span>Hitta rätt nivå (skidtest)</span>
+              </button>
             </div>
 
             {/* Floating stats & highlights strip */}
@@ -144,7 +149,40 @@ export const HomePage: React.FC = () => {
           {/* 4 Rich Visual Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             
-            {/* 1. Helgskidskola */}
+            {/* 1. Skidklubb (Prioriterad först) */}
+            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
+              <div className="relative h-56 overflow-hidden">
+                <img 
+                  src="/assets/images/freestyle-jump.jpg" 
+                  alt="Freeskiers Skidklubb" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-navy text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                  Vardagskvällar
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-between flex-grow">
+                <div>
+                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
+                    Freeskiers Skidklubb
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                    Träna regelbunden friåkning, hopp, rails, carving och park under vinterns vardagskvällar i Ekholmsnäsbacken.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-slate-100">
+                  <Link
+                    to="/skidklubb"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm shadow-soft transition-all"
+                  >
+                    <span>Till skidklubben</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Helgskidskola */}
             <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
               <div className="relative h-56 overflow-hidden">
                 <img 
@@ -171,39 +209,6 @@ export const HomePage: React.FC = () => {
                     className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm shadow-soft transition-all"
                   >
                     <span>Läs mer & Anmäl</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Skidklubb */}
-            <div className="group bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col justify-between transform hover:-translate-y-1">
-              <div className="relative h-56 overflow-hidden">
-                <img 
-                  src="/assets/images/freestyle-jump.jpg" 
-                  alt="Freeskiers Skidklubb" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-freeskiers-navy text-white text-xs font-bold uppercase tracking-wider shadow-sm">
-                  Vardagskvällar
-                </div>
-              </div>
-              <div className="p-6 flex flex-col justify-between flex-grow">
-                <div>
-                  <h3 className="text-xl font-extrabold text-freeskiers-navy mb-2">
-                    Skidklubb
-                  </h3>
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
-                    Träna friåkning, hopp, rails, carving och park under vinterns vardagskvällar i Ekholmsnäsbacken.
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-slate-100">
-                  <Link
-                    to="/skidklubb"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-2.5 px-4 rounded-full font-bold text-xs sm:text-sm shadow-soft transition-all"
-                  >
-                    <span>Till skidklubben</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -278,6 +283,25 @@ export const HomePage: React.FC = () => {
 
           </div>
 
+        </div>
+      </section>
+
+      {/* Embedded Level Finder / Skidtest Section */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-sky-50/60 via-white to-white border-t border-slate-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider">
+              Interaktiv Nivåguide
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-freeskiers-navy tracking-tight mt-1">
+              Vilken grupp passar ditt barn?
+            </h2>
+            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+              Svara på 3 snabba frågor så guidar vi dig till rätt nivå och träning i Ekholmsnäsbacken!
+            </p>
+          </div>
+
+          <LevelFinder />
         </div>
       </section>
 

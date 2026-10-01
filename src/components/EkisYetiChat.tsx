@@ -37,9 +37,9 @@ export const EkisYetiChat: React.FC = () => {
       link: { label: 'Info om Fritidskortet', url: '/kontakt#fritidskortet' }
     },
     {
-      q: 'Hur bokar jag privatlektion?',
-      a: 'Under fliken "Om oss" hittar du alla våra tränare. Klicka på din favorittränare för att se lediga tider och boka!',
-      link: { label: 'Till tränarna', url: '/om-oss' }
+      q: 'Kan man boka privatlektion?',
+      a: 'Vissa av våra tränare erbjuder privatlektioner i mån av tid. Kontakta oss med åkarens ålder och nivå så hjälper vi till att matcha!',
+      link: { label: 'Läs om privatlektioner', url: '/privatlektion' }
     }
   ];
 

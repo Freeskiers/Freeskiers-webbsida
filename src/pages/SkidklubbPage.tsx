@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Calendar, ShieldCheck, CheckCircle2, ArrowRight, Zap } from 'lucide-react';
+import { Users, Calendar, ShieldCheck, CheckCircle2, ArrowRight, Zap, Sparkles } from 'lucide-react';
+import { useLevelFinder } from '../context/LevelFinderContext';
 
 export const SkidklubbPage: React.FC = () => {
+  const { openLevelFinder } = useLevelFinder();
+
   return (
     <div className="bg-white">
       {/* Subpage Photo Hero Banner */}
@@ -32,6 +35,24 @@ export const SkidklubbPage: React.FC = () => {
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal">
             För barn och unga som vill träna regelbunden friåkning och freestyle under vintersäsongen. Vi kör vardagskvällar i Ekholmsnäsbacken med fokus på hopp, rails, allsidig skidteknik och stark gemenskap.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="https://www.lidingofreeskiers.se"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-soft transition-all"
+            >
+              <span>Anmälan öppnar 16 okt</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <button
+              onClick={openLevelFinder}
+              className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-5 py-3 rounded-full text-xs sm:text-sm font-bold transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-freeskiers-lightcyan" />
+              <span>Gör skidtestet för att testa nivån</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -103,11 +124,18 @@ export const SkidklubbPage: React.FC = () => {
             För att delta i Freeskiers Skidklubb behöver åkaren kunna ta sig upp i liften själv, bromsa kontrollerat och svänga med parallella skidor i hela Ekholmsnäsbacken.
           </p>
           <div className="flex flex-wrap gap-4 items-center">
+            <button
+              onClick={openLevelFinder}
+              className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-soft transition-all"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Testa åkarens nivå i skidtestet</span>
+            </button>
             <Link
               to="/kontakt"
               className="inline-flex items-center gap-2 text-sm font-semibold text-freeskiers-cyan hover:underline"
             >
-              <span>Osäker på nivån? Fråga Ekis i FAQ</span>
+              <span>Fråga Ekis i FAQ</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

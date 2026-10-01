@@ -11,6 +11,10 @@ import { PrivatlektionPage } from './pages/PrivatlektionPage';
 import { OmOssPage } from './pages/OmOssPage';
 import { KontaktPage } from './pages/KontaktPage';
 
+import { LevelFinderProvider } from './context/LevelFinderContext';
+import { RookieSeriesPage } from './pages/RookieSeriesPage';
+import { SponsorPage } from './pages/SponsorPage';
+
 // Scroll to top on page navigation
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -26,23 +30,27 @@ export const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-white">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/helgskidskola" element={<HelgskidskolaPage />} />
-            <Route path="/skidklubb" element={<SkidklubbPage />} />
-            <Route path="/hostsasong" element={<HosasongPage />} />
-            <Route path="/privatlektion" element={<PrivatlektionPage />} />
-            <Route path="/om-oss" element={<OmOssPage />} />
-            <Route path="/kontakt" element={<KontaktPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </main>
-        <Footer />
-        <EkisYetiChat />
-      </div>
+      <LevelFinderProvider>
+        <div className="min-h-screen flex flex-col bg-white">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/helgskidskola" element={<HelgskidskolaPage />} />
+              <Route path="/skidklubb" element={<SkidklubbPage />} />
+              <Route path="/hostsasong" element={<HosasongPage />} />
+              <Route path="/privatlektion" element={<PrivatlektionPage />} />
+              <Route path="/rookie-series" element={<RookieSeriesPage />} />
+              <Route path="/sponsor" element={<SponsorPage />} />
+              <Route path="/om-oss" element={<OmOssPage />} />
+              <Route path="/kontakt" element={<KontaktPage />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+          </main>
+          <Footer />
+          <EkisYetiChat />
+        </div>
+      </LevelFinderProvider>
     </Router>
   );
 };

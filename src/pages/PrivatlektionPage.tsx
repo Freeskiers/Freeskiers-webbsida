@@ -60,16 +60,16 @@ export const PrivatlektionPage: React.FC = () => {
 
           <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-card flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-extrabold text-freeskiers-navy mb-4">Hur du bokar</h3>
+              <h3 className="text-xl font-extrabold text-freeskiers-navy mb-4">Förfrågan om Privatlektion</h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                Alla privatlektioner bokas direkt med respektive tränare via deras individuella bokningskalender. Gå in under "Om oss" för att läsa mer om våra instruktörer och se deras lediga tider i Ekholmsnäsbacken!
+                Privatlektioner erbjuds i mån av tid och ledig kapacitet hos klubbens instruktörer under säsongen (alla tränare har inte möjlighet att ge privatlektioner). Kontakta oss med åkarens ålder, nuvarande nivå samt vad ni önskar fokusera på, så kollar vi tillgänglighet!
               </p>
             </div>
             <Link
-              to="/om-oss"
+              to="/kontakt"
               className="inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 px-6 rounded-full font-bold text-sm shadow-soft transition-all"
             >
-              <span>Välj tränare & Se tider</span>
+              <span>Skicka förfrågan</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

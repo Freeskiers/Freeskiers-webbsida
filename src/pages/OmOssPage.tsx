@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Heart, Award, ArrowRight, CheckCircle2, Send, Calendar, ShieldCheck } from 'lucide-react';
+import { Users, Heart, Award, ArrowRight, CheckCircle2, Send, ShieldCheck, HeartHandshake, Sparkles } from 'lucide-react';
+import { useLevelFinder } from '../context/LevelFinderContext';
 
 export const OmOssPage: React.FC = () => {
+  const { openLevelFinder } = useLevelFinder();
   const [formSent, setFormSent] = useState(false);
   const [coachForm, setCoachForm] = useState({
     name: '',
     email: '',
     phone: '',
     birthYear: '',
-    experience: ''
+    skiExperience: '',
+    childExperience: '',
+    agreesSelfPayment: false
   });
 
   const coaches = [
@@ -17,35 +21,26 @@ export const OmOssPage: React.FC = () => {
       name: 'Filippa',
       role: 'Huvudtränare & Utbildare',
       specialty: 'Park, Rails & Trygghet för unga',
-      desc: 'Åkt i klubben sedan barnsben. Brinner för att hjälpa barn att våga testa nya saker och ha roligt i backen.',
-      bookingUrl: 'https://www.lidingofreeskiers.se/privatlektion/'
+      desc: 'Åkt i klubben sedan barnsben. Brinner för att hjälpa barn att våga testa nya saker och ha roligt i backen.'
     },
     {
       name: 'Oskar',
       role: 'Skidklubbstränare',
       specialty: 'Big Air, 360s & Carving',
-      desc: 'Mångårig åkare med stor passion för hoppteknik och skidkänsla. Certifierad instruktör.',
-      bookingUrl: 'https://www.lidingofreeskiers.se/privatlektion/'
+      desc: 'Mångårig åkare med stor passion för hoppteknik och skidkänsla. Certifierad instruktör.'
     },
     {
       name: 'Wilma',
       role: 'Skidskoleinstruktör',
       specialty: 'Nybörjare & Barnskidskola',
-      desc: 'Expert på att få de yngsta åkarna att känna sig trygga och glada i liften och barnbacken.',
-      bookingUrl: 'https://www.lidingofreeskiers.se/privatlektion/'
+      desc: 'Expert på att få de yngsta åkarna att känna sig trygga och glada i liften och barnbacken.'
     },
     {
       name: 'Hugo',
       role: 'Freestyletränare',
       specialty: 'Jibbing, Boxar & Switch',
-      desc: 'Kreativ skidåkare som inspirerar till rörelse och lekfullhet över hela berget.',
-      bookingUrl: 'https://www.lidingofreeskiers.se/privatlektion/'
+      desc: 'Kreativ skidåkare som inspirerar till rörelse och lekfullhet över hela berget.'
     }
-  ];
-
-  const boardMembers = [
-    { name: 'Stefan Aaröe', role: 'Styrelseledamot' },
-    { name: 'Styrelsen IK Lidingö Freeskiers', role: 'Ideellt engagemang för öns unga åkare' }
   ];
 
   const handleCoachSubmit = (e: React.FormEvent) => {
@@ -59,8 +54,8 @@ export const OmOssPage: React.FC = () => {
       <section className="relative min-h-[380px] sm:min-h-[460px] flex items-center bg-freeskiers-navy overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="/assets/images/coaches-group.jpg" 
-            alt="Lidingö Freeskiers tränarteam" 
+            src="/assets/images/privatlektion-coach.jpg" 
+            alt="Lidingö Freeskiers tränarteam och ledare" 
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-freeskiers-navy/95 via-freeskiers-navy/80 to-freeskiers-navy/40" />
@@ -88,17 +83,67 @@ export const OmOssPage: React.FC = () => {
       <div className="py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section 2: Våra Tränare */}
+        {/* Section 1.5: Medlem i Svenska Skidförbundet */}
+        <div className="mb-20 p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-slate-900 to-freeskiers-navy text-white shadow-elevated">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-cyan/30 text-freeskiers-lightcyan text-xs font-bold uppercase tracking-wider mb-3 border border-freeskiers-cyan/40">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Officiell Idrottsförening</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
+                Stolt medlem i Svenska Skidförbundet & RF
+              </h2>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mt-3">
+                IK Lidingö Freeskiers är en auktoriserad idrottsförening ansluten till <strong>Svenska Skidförbundet (SSF)</strong> och <strong>Riksidrottsförbundet (RF)</strong>. Det innebär att all vår verksamhet vilar på beprövad grund för trygg och utvecklande barn- och ungdomsidrott.
+              </p>
+              
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm text-slate-200">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-freeskiers-lightcyan shrink-0 mt-0.5" />
+                  <span><strong>Olycksfallsförsäkring:</strong> Folksam medlemsförsäkring ingår under alla träningar och klubbresor.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-freeskiers-lightcyan shrink-0 mt-0.5" />
+                  <span><strong>Tävlingslicens:</strong> Rätt att delta i Rookie Series och nationella tävlingar i hela landet.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-freeskiers-lightcyan shrink-0 mt-0.5" />
+                  <span><strong>Fritidskortet:</strong> Statligt stöd gäller för deltagar- och medlemsavgifter.</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 flex flex-col gap-3 justify-center items-start lg:items-end">
+              <Link
+                to="/rookie-series"
+                className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-6 py-3 rounded-full text-xs sm:text-sm font-bold shadow-soft transition-all"
+              >
+                <span>Läs om Rookie Series (SSF)</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button
+                onClick={openLevelFinder}
+                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/20 px-6 py-3 rounded-full text-xs sm:text-sm font-bold transition-all"
+              >
+                <Sparkles className="w-4 h-4 text-freeskiers-lightcyan" />
+                <span>Testa åkarens nivå</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 2: Våra Tränare (Presentation utan bokningsknapp) */}
         <div className="mb-20">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
               <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider">Klubbens Förebilder</span>
               <h2 className="text-3xl font-extrabold text-freeskiers-navy tracking-tight mt-1">
-                Våra Tränare & Instruktörer
+                Våra Tränare & Ledare
               </h2>
             </div>
             <p className="text-slate-600 text-sm max-w-md">
-              Alla våra tränare är utbildade ledare som brinner för skidglädje och pedagogik. Boka gärna en privatlektion med någon av dem!
+              Klubbens tränare är äldre ungdomar och erfarna åkare som själva vuxit upp i föreningen. Tryggt, inspirerande och fullt av skidglädje i backen!
             </p>
           </div>
 
@@ -113,124 +158,174 @@ export const OmOssPage: React.FC = () => {
                   <div className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider mt-0.5 mb-2">
                     {coach.role}
                   </div>
-                  <div className="text-xs font-medium text-slate-500 bg-slate-50 p-2 rounded-lg mb-3">
+                  <div className="text-xs font-medium text-slate-600 bg-slate-100 p-2.5 rounded-xl mb-3">
                     ⭐️ {coach.specialty}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {coach.desc}
                   </p>
                 </div>
                 
-                <a
-                  href={coach.bookingUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-1.5 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-2.5 px-4 rounded-xl text-xs font-bold tracking-wide uppercase transition-all shadow-soft"
-                >
-                  <Calendar className="w-3.5 h-3.5" />
-                  <span>Boka med {coach.name}</span>
-                </a>
+                <div className="pt-4 mt-6 border-t border-slate-100 text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-freeskiers-cyan" />
+                  <span>Tränare i Ekholmsnäsbacken</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Section 3: Bli Tränare */}
+        {/* Section 3: Bli Tränare (Uppdaterad med skidkunskap, barnerfarenhet & självbekostad kurs) */}
         <div id="bli-tranare" className="bg-gradient-to-br from-slate-50 via-white to-sky-50 rounded-3xl p-8 sm:p-14 border border-slate-200 shadow-card mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-navy/10 text-freeskiers-navy text-xs font-bold uppercase tracking-wider mb-3">
                 <Award className="w-3.5 h-3.5" />
-                <span>För dig som gått ut nian</span>
+                <span>För dig som gått ut nian (åk 9+)</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-freeskiers-navy tracking-tight mb-4">
                 Vill du bli tränare i Freeskiers?
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-                Att vara tränare hos oss är ett fantastiskt extrajobb där du får sprida skidglädje till barn, utveckla ditt eget ledarskap och bli del av en sammansvetsad tränarkår.
+                Att vara tränare hos oss är ett fantastiskt extrajobb där du får sprida skidglädje till barn, utveckla ditt eget ledarskap och bli en viktig del av klubbgemenskapen i Ekholmsnäsbacken.
               </p>
               
-              <div className="space-y-3 mb-6">
+              <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-2.5 text-sm text-slate-700">
                   <CheckCircle2 className="w-5 h-5 text-freeskiers-cyan shrink-0 mt-0.5" />
-                  <span>Klubben bekostar certifierad skid- eller snowboardinstruktörsutbildning.</span>
+                  <div>
+                    <strong>God skidkunskap & erfarenhet:</strong>
+                    <div className="text-xs text-slate-600 mt-0.5">Du är en trygg och skicklig skidåkare som behärskar backen väl och har en stabil skidteknik.</div>
+                  </div>
                 </div>
+
                 <div className="flex items-start gap-2.5 text-sm text-slate-700">
                   <CheckCircle2 className="w-5 h-5 text-freeskiers-cyan shrink-0 mt-0.5" />
-                  <span>Schysst timarvode och ledartröja/klubbjacka.</span>
+                  <div>
+                    <strong>Erfarenhet av att arbeta med barn:</strong>
+                    <div className="text-xs text-slate-600 mt-0.5">Tidigare erfarenhet som ungdomsledare, barnpassning, sportaktiviteter eller föreningsliv är ett stort plus.</div>
+                  </div>
                 </div>
+
                 <div className="flex items-start gap-2.5 text-sm text-slate-700">
                   <CheckCircle2 className="w-5 h-5 text-freeskiers-cyan shrink-0 mt-0.5" />
-                  <span>Värdefull merit på ditt CV inför framtida jobb och studier.</span>
+                  <div>
+                    <strong>Skräddarsydda instruktörskurser:</strong>
+                    <div className="text-xs text-slate-600 mt-0.5">Vi syr ihop certifierade instruktörskurser med externa utbildare (SLAO/SSF) som man bekostar själv. Efter genomförd kurs och godkänt resultat finns goda möjligheter till tränaruppdrag!</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2.5 text-sm text-slate-700">
+                  <CheckCircle2 className="w-5 h-5 text-freeskiers-cyan shrink-0 mt-0.5" />
+                  <div>
+                    <strong>Schysst timarvode & ledarkläder:</strong>
+                    <div className="text-xs text-slate-600 mt-0.5">Ersättning per timme, klubbjacka samt en mycket värdefull ledarmerit för framtida studier och jobb.</div>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Application Form */}
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-sm">
-              <h3 className="font-extrabold text-lg text-freeskiers-navy mb-4">
+              <h3 className="font-extrabold text-lg text-freeskiers-navy mb-2">
                 Skicka intresseanmälan som tränare
               </h3>
+              <p className="text-xs text-slate-500 mb-4">
+                Berätta om din skidåkning och din erfarenhet av barn och ledarskap.
+              </p>
               
               {formSent ? (
                 <div className="p-6 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center">
                   <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-2" />
-                  <div className="font-bold text-base">Tack för din anmälan!</div>
+                  <div className="font-bold text-base">Tack för din intresseanmälan!</div>
                   <p className="text-xs text-emerald-700 mt-1">
-                    Vi hör av oss inför kommande tränarutbildning under hösten!
+                    Vi i ledningen går igenom anmälningarna och återkopplar inför kommande instruktörskurser under hösten.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleCoachSubmit} className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1">Namn</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">Namn *</label>
                     <input
                       type="text"
                       required
                       value={coachForm.name}
                       onChange={(e) => setCoachForm({...coachForm, name: e.target.value})}
                       placeholder="För- och efternamn"
-                      className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
+                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
                     />
                   </div>
+                  
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1">E-post</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">E-post *</label>
                       <input
                         type="email"
                         required
                         value={coachForm.email}
                         onChange={(e) => setCoachForm({...coachForm, email: e.target.value})}
                         placeholder="din@epost.se"
-                        className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
+                        className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1">Telefon</label>
+                      <label className="block text-xs font-semibold text-slate-700 mb-1">Telefon *</label>
                       <input
                         type="tel"
                         required
                         value={coachForm.phone}
                         onChange={(e) => setCoachForm({...coachForm, phone: e.target.value})}
                         placeholder="070-123 45 67"
-                        className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
+                        className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
                       />
                     </div>
                   </div>
+
                   <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1">Kort om din skidbakgrund</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Skidkunskap & Åkerfarenhet *
+                    </label>
                     <textarea
-                      rows={3}
-                      value={coachForm.experience}
-                      onChange={(e) => setCoachForm({...coachForm, experience: e.target.value})}
-                      placeholder="Hur länge har du åkt skidor/snowboard? Har du åkt i klubben tidigare?"
+                      rows={2}
+                      required
+                      value={coachForm.skiExperience}
+                      onChange={(e) => setCoachForm({...coachForm, skiExperience: e.target.value})}
+                      placeholder="Hur länge har du åkt skidor/snowboard? Hur är din vana i backe/park/carving? Har du åkt i Freeskiers tidigare?"
                       className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
-                    ></textarea>
+                    />
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Erfarenhet av att arbeta med barn & unga
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={coachForm.childExperience}
+                      onChange={(e) => setCoachForm({...coachForm, childExperience: e.target.value})}
+                      placeholder="T.ex. barnpassning, idrottsledare, hjälpledare i skola eller förening..."
+                      className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
+                    />
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+                    <input 
+                      type="checkbox" 
+                      required 
+                      id="agreesSelfPayment"
+                      checked={coachForm.agreesSelfPayment}
+                      onChange={(e) => setCoachForm({...coachForm, agreesSelfPayment: e.target.checked})}
+                      className="mt-0.5 rounded text-freeskiers-cyan focus:ring-freeskiers-cyan"
+                    />
+                    <label htmlFor="agreesSelfPayment" className="cursor-pointer leading-tight">
+                      Jag är införstådd med att instruktörsutbildningen genomförs tillsammans med extern utbildare och bekostas av deltagaren själv.
+                    </label>
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3 rounded-xl font-bold text-sm shadow-soft transition-all"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
                   >
                     <Send className="w-4 h-4" />
                     <span>Skicka intresseanmälan</span>

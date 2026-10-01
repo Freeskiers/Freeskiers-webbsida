@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Snowflake, Calendar, Clock, CheckCircle2, ShieldAlert, ArrowRight, HelpCircle } from 'lucide-react';
+import { Snowflake, Calendar, Clock, CheckCircle2, ShieldAlert, ArrowRight, HelpCircle, Sparkles } from 'lucide-react';
+import { useLevelFinder } from '../context/LevelFinderContext';
+import { LevelFinder } from '../components/LevelFinder';
 
 export const HelgskidskolaPage: React.FC = () => {
+  const { openLevelFinder } = useLevelFinder();
   const groups = [
     {
       level: 'Grön Grupp – Nybörjare',
@@ -49,6 +52,23 @@ export const HelgskidskolaPage: React.FC = () => {
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal">
             För barn och unga som vill lära sig åka skidor eller utvecklas med glädje i backen. 5 intensiva och roliga helgtillfällen i januari och februari i Ekholmsnäsbacken.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              onClick={openLevelFinder}
+              className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-5 py-3 rounded-full text-xs sm:text-sm font-bold shadow-soft transition-all"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Hitta rätt grupp (Gör skidtestet)</span>
+            </button>
+            <a
+              href="https://www.lidingofreeskiers.se"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-5 py-3 rounded-full text-xs sm:text-sm font-bold transition-all"
+            >
+              <span>Anmälan öppnar 16 okt</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -126,6 +146,24 @@ export const HelgskidskolaPage: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Embedded Skidtest for finding level */}
+        <div className="mb-16 p-8 sm:p-12 rounded-3xl bg-sky-50/50 border border-sky-100">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <span className="text-xs font-bold text-freeskiers-cyan uppercase tracking-wider">
+              Interaktiv Nivåguide
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-freeskiers-navy tracking-tight mt-1">
+              Osäker på vilken grupp ditt barn ska gå i?
+            </h2>
+            <p className="mt-2 text-slate-600 text-sm">
+              Gör vårt 1-minuters skidtest så får du direkt rekommendation om Grön, Blå eller Röd grupp!
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <LevelFinder />
           </div>
         </div>
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Instagram, Facebook, ShieldCheck, Heart } from 'lucide-react';
+import { MapPin, Mail, Instagram, Facebook, ShieldCheck, Heart, Sparkles } from 'lucide-react';
+import { useLevelFinder } from '../context/LevelFinderContext';
 
 export const Footer: React.FC = () => {
+  const { openLevelFinder } = useLevelFinder();
   const partners = [
     { name: 'Gadelius', logo: '/assets/partners/gadelius.png' },
     { name: 'Ekholmsnäsbacken', logo: '/assets/partners/ekholmsnas.png' },
@@ -33,6 +35,16 @@ export const Footer: React.FC = () => {
                 />
               </div>
             ))}
+          </div>
+          
+          {/* Become sponsor link */}
+          <div className="text-center mt-8">
+            <Link 
+              to="/sponsor" 
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-freeskiers-lightcyan hover:text-white transition-colors border border-freeskiers-lightcyan/40 hover:border-white px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10"
+            >
+              <span>Vill ditt företag stötta barn & unga? Bli sponsor & partner →</span>
+            </Link>
           </div>
         </div>
 
@@ -84,10 +96,13 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-300">
               <li>
+                <Link to="/skidklubb" className="hover:text-white transition-colors">Freeskiers Skidklubb (vardagar)</Link>
+              </li>
+              <li>
                 <Link to="/helgskidskola" className="hover:text-white transition-colors">Helgskidskola (jan–feb)</Link>
               </li>
               <li>
-                <Link to="/skidklubb" className="hover:text-white transition-colors">Freeskiers Skidklubb</Link>
+                <Link to="/rookie-series" className="hover:text-white transition-colors">Rookie Series (SSF Tävling)</Link>
               </li>
               <li>
                 <Link to="/hostsasong" className="hover:text-white transition-colors">Höstträning (barmark & studsmatta)</Link>
@@ -96,7 +111,16 @@ export const Footer: React.FC = () => {
                 <Link to="/privatlektion" className="hover:text-white transition-colors">Privatlektioner</Link>
               </li>
               <li>
-                <Link to="/om-oss" className="hover:text-white transition-colors">Bli tränare (ungdomsledare)</Link>
+                <Link to="/om-oss#bli-tranare" className="hover:text-white transition-colors">Bli tränare (ungdomsledare)</Link>
+              </li>
+              <li className="pt-1">
+                <button
+                  onClick={openLevelFinder}
+                  className="inline-flex items-center gap-1.5 text-freeskiers-lightcyan hover:text-white transition-colors font-semibold text-xs"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>🎯 Hitta rätt nivå (skidtest)</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -107,6 +131,9 @@ export const Footer: React.FC = () => {
               Trygghet & Klubbinfo
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-300">
+              <li>
+                <Link to="/sponsor" className="hover:text-white font-bold text-freeskiers-lightcyan transition-colors">Bli sponsor & partner</Link>
+              </li>
               <li>
                 <Link to="/kontakt" className="hover:text-white transition-colors">Vanliga frågor (FAQ & Ekis)</Link>
               </li>
