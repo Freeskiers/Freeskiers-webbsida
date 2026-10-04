@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Calendar, ChevronRight, Sparkles } from 'lucide-react';
 import { useLevelFinder } from '../context/LevelFinderContext';
+import { TopEventBanner } from './TopEventBanner';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,8 +13,7 @@ export const Header: React.FC = () => {
     { name: 'Hem', path: '/' },
     { name: 'Skidklubb', path: '/skidklubb' },
     { name: 'Helgskidskola', path: '/helgskidskola' },
-    { name: 'Rookie Series', path: '/rookie-series' },
-    { name: 'Höstsäsong', path: '/hostsasong' },
+    { name: 'Kalender', path: '/kalender' },
     { name: 'Privatlektion', path: '/privatlektion' },
     { name: 'Om oss', path: '/om-oss' },
     { name: 'Kontakt', path: '/kontakt' },
@@ -23,6 +23,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
+      <TopEventBanner />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           

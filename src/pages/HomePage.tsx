@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SeasonWheel } from '../components/SeasonWheel';
 import { SlopeStatus } from '../components/SlopeStatus';
 import { LevelFinder } from '../components/LevelFinder';
 import { useLevelFinder } from '../context/LevelFinderContext';
-import { Calendar, Users, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake, Camera, Trophy } from 'lucide-react';
+import { clubEvents } from '../data/clubEvents';
+import { Calendar, Users, Sparkles, ArrowRight, ShieldCheck, Heart, Snowflake, Camera, Trophy, Bell } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const { openLevelFinder } = useLevelFinder();
@@ -305,8 +305,76 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* The Interactive Årshjul Component */}
-      <SeasonWheel />
+      {/* Säsongskalender & Event Preview Section */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-white via-slate-50 to-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-cyan/10 text-freeskiers-cyan text-xs font-bold uppercase tracking-wider mb-2">
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Säsongen 2026/2027</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-freeskiers-navy tracking-tight">
+                Klubbens Kalender & Event
+              </h2>
+              <p className="mt-2 text-slate-600 text-sm sm:text-base max-w-xl">
+                Håll koll på anmälningsdatum, klubbkvällar, tävlingar och läger i Ekholmsnäsbacken.
+              </p>
+            </div>
+
+            <Link
+              to="/kalender"
+              className="inline-flex items-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white px-6 py-3 rounded-full text-xs sm:text-sm font-bold shadow-soft transition-all self-start md:self-auto"
+            >
+              <span>Öppna hela kalendervyn</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* 3 Featured Events in Calendar Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+            {clubEvents.slice(0, 3).map((event) => (
+              <div 
+                key={event.id}
+                className="bg-white rounded-3xl p-6 border border-slate-200 shadow-card hover:shadow-elevated transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <div className="w-14 h-14 rounded-2xl bg-sky-50 border border-freeskiers-cyan/20 flex flex-col items-center justify-center text-center">
+                      <span className="text-[10px] font-bold text-freeskiers-cyan uppercase leading-none">{event.month}</span>
+                      <span className="text-xl font-black text-freeskiers-navy leading-none mt-0.5">{event.day}</span>
+                    </div>
+                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${event.categoryColor}`}>
+                      {event.categoryLabel}
+                    </span>
+                  </div>
+
+                  <h3 className="font-extrabold text-lg text-freeskiers-navy mb-2 leading-snug">
+                    {event.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                    {event.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs text-slate-500 font-medium">
+                    {event.time}
+                  </span>
+                  <Link 
+                    to="/kalender"
+                    className="text-xs font-bold text-freeskiers-cyan hover:underline flex items-center gap-1"
+                  >
+                    <span>I kalendern</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
 
       {/* About Club Story Section */}
       <section className="py-16 sm:py-24 bg-white border-t border-slate-100">

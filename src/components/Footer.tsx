@@ -102,6 +102,9 @@ export const Footer: React.FC = () => {
                 <Link to="/helgskidskola" className="hover:text-white transition-colors">Helgskidskola (jan–feb)</Link>
               </li>
               <li>
+                <Link to="/kalender" className="hover:text-white font-semibold text-freeskiers-lightcyan transition-colors">Säsongskalender & Event</Link>
+              </li>
+              <li>
                 <Link to="/rookie-series" className="hover:text-white transition-colors">Rookie Series (SSF Tävling)</Link>
               </li>
               <li>

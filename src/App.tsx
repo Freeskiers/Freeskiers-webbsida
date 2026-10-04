@@ -14,6 +14,7 @@ import { KontaktPage } from './pages/KontaktPage';
 import { LevelFinderProvider } from './context/LevelFinderContext';
 import { RookieSeriesPage } from './pages/RookieSeriesPage';
 import { SponsorPage } from './pages/SponsorPage';
+import { KalenderPage } from './pages/KalenderPage';
 
 // Scroll to top on page navigation
 const ScrollToTop: React.FC = () => {
@@ -38,6 +39,7 @@ export const App: React.FC = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="/helgskidskola" element={<HelgskidskolaPage />} />
               <Route path="/skidklubb" element={<SkidklubbPage />} />
+              <Route path="/kalender" element={<KalenderPage />} />
               <Route path="/hostsasong" element={<HosasongPage />} />
               <Route path="/privatlektion" element={<PrivatlektionPage />} />
               <Route path="/rookie-series" element={<RookieSeriesPage />} />
