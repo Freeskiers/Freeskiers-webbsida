@@ -196,6 +196,10 @@
 }
 
 @layer utilities {
+  :is(.surface-card, .bg-card).border-border {
+    border-color: var(--block-border);
+  }
+
   :where(.surface-card, .bg-card) {
     --color-foreground: var(--block-foreground);
     --color-card-foreground: var(--block-foreground);
