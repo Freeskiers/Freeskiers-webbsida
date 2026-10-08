@@ -13,6 +13,7 @@ const nav = [
   { to: "/privatlektion", label: "Privatlektion" },
   { to: "/om-oss", label: "Om oss" },
   { to: "/kontakt", label: "Kontakt" },
+  { to: "/medlem", label: "Medlem" },
 ] as const;
 
 export function Header() {
