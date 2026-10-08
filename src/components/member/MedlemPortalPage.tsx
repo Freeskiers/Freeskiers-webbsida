@@ -225,7 +225,7 @@ export const MedlemPortalPage: React.FC = () => {
                             {demo.guardianName}
                           </div>
                           <div className="text-[11px] text-slate-500">
-                            {demo.email} • {demo.skiers.map(s => s.firstName).join(', ')} ({demo.skiers[0].groupName})
+                            {demo.email} • {demo.skiers.map(s => s.firstName).join(', ')} ({demo.skiers[0]?.groupName})
                           </div>
                         </div>
                         <span className="text-[10px] font-bold text-freeskiers-cyan bg-white px-2 py-1 rounded-md border border-slate-200 shrink-0">

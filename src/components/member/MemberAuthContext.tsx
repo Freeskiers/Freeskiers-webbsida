@@ -38,7 +38,7 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
       const found = currentUser.skiers.find(s => s.id === activeSkierId);
       if (found) return found;
     }
-    return currentUser.skiers[0];
+    return currentUser.skiers[0] ?? null;
   }, [currentUser, activeSkierId]);
 
   const login = (email: string): boolean => {
