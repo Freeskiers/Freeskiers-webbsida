@@ -78,14 +78,11 @@
   /* #F7F7F7 cards */
   --card: oklch(0.975 0 0);
   --card-foreground: oklch(0.372 0 0);
-  /* Information blocks: a further approximately 15% contrast increase. */
-  --block-foreground: oklch(0.307 0 0);
-  --block-muted-foreground: oklch(0.453 0 0);
-  --block-primary: oklch(0.535 0.137 240);
-  --event-foreground: oklch(0.27 0 0);
-  --event-muted-foreground: oklch(0.37 0 0);
-  --event-primary: oklch(0.46 0.115 240);
-  --event-border: oklch(0.84 0.015 240);
+  /* Shared contrast for light information blocks on every page. */
+  --block-foreground: oklch(0.27 0 0);
+  --block-muted-foreground: oklch(0.37 0 0);
+  --block-primary: oklch(0.46 0.115 240);
+  --block-border: oklch(0.84 0.015 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.372 0 0);
   /* #098ACB Freeskiers cyan blue */
@@ -134,10 +131,7 @@
   --block-foreground: oklch(0.98 0.004 247);
   --block-muted-foreground: oklch(0.79 0.03 250);
   --block-primary: oklch(0.725 0.1052 238.8);
-  --event-foreground: var(--block-foreground);
-  --event-muted-foreground: var(--block-muted-foreground);
-  --event-primary: var(--block-primary);
-  --event-border: var(--border);
+  --block-border: var(--border);
   --popover: oklch(0.26 0.04 258);
   --popover-foreground: oklch(0.98 0.004 247);
   --primary: oklch(0.685 0.1052 238.8);
@@ -170,6 +164,13 @@
     border-color: var(--color-border);
   }
 
+  /* Keep full-width bands and image-only frames unchanged. */
+  :where(.surface-card:not(.group):not(figure):not(:has(> img)), .bg-card:not(section):not(figure):not(:has(> img))) {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--block-border);
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -195,18 +196,15 @@
 }
 
 @layer utilities {
-  article.surface-card.bg-card {
-    --block-foreground: var(--event-foreground);
-    --block-muted-foreground: var(--event-muted-foreground);
-    --block-primary: var(--event-primary);
-    --color-border: var(--event-border);
-    border: 1px solid var(--event-border);
+  :is(.surface-card, .bg-card).border-border {
+    border-color: var(--block-border);
   }
 
   :where(.surface-card, .bg-card) {
     --color-foreground: var(--block-foreground);
     --color-card-foreground: var(--block-foreground);
     --color-muted-foreground: var(--block-muted-foreground);
+    --color-border: var(--block-border);
     color: var(--block-foreground);
   }
 
