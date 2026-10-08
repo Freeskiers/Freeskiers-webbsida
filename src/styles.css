@@ -42,6 +42,13 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
+  /* Aliases used by the member pages ported from the Freeskiers repo */
+  --color-freeskiers-cyan: var(--primary);
+  --color-freeskiers-lightcyan: var(--accent);
+  --color-freeskiers-navy: var(--heading);
+  --color-freeskiers-charcoal: var(--foreground);
+  --shadow-soft: 0 4px 20px -6px color-mix(in oklab, var(--heading) 18%, transparent);
+  --shadow-elevated: 0 12px 32px -10px color-mix(in oklab, var(--heading) 28%, transparent);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
