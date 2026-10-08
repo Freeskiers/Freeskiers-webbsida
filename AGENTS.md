@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 # Project rules
+- Information-block text and border contrast is controlled by shared block tokens in src/styles.css, scoped to surface-card/bg-card regardless of element type; exclude full-width bands and photo frames from added borders to keep all pages consistent without altering buttons or photo overlays.
 - Club content (groups, coaches, FAQ, events, partners, booking URLs) lives in src/lib/club-data.ts — single source for all pages.
 - Each training group has its own route (/helgskidskola, /skidklubb, /hostsasong, /privatlektion) rendered via components/site/GroupPage — PROMPT.md requires distinct pages.
 - Official club assets come from the Freeskiers GitHub repo: logos/Ekis as asset pointers in src/assets/*.asset.json, photos and partner logos as vendored copies in src/assets/photos and src/assets/partners. Re-sync when the repo changes and never invent prices, dates or names the repo does not state.

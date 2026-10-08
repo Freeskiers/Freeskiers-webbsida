@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Förstärk textkontrasten försiktigt i informationsblock på alla sidor och kontrollera resultatet.
+
 - [x] Hämta verifierad information från klubbens gamla privatlektionssida.
 - [x] Anpassa sidan för en eller två personer, priser, liftkort, utrustning och samlingsplats.
 - [x] Koppla den befintliga bokningswidgeten med profil 252.

@@ -102,8 +102,6 @@ export function EkisChat() {
     },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
-  const pillRef = useRef<HTMLButtonElement>(null);
-  const [tucked, setTucked] = useState(false);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "nearest" });
@@ -116,61 +114,6 @@ export function EkisChat() {
     return () => window.removeEventListener(EKIS_OPEN_EVENT, handleOpen);
   }, []);
 
-  // Dra undan knappen när den ligger ovanpå rubriker, listor, faktabalken eller klickbara saker.
-  useEffect(() => {
-    if (open) return;
-    const blocking = new Set([
-      "A", "BUTTON", "SUMMARY", "LABEL", "INPUT", "SELECT", "TEXTAREA",
-      "H1", "H2", "H3", "H4", "H5", "H6", "LI", "DT", "DD",
-    ]);
-    let timer = 0;
-    let last = 0;
-    const check = () => {
-      const el = pillRef.current;
-      if (!el) return;
-      const off = window.innerWidth >= 640 ? 20 : 16;
-      const w = el.offsetWidth;
-      const h = el.offsetHeight;
-      const right = window.innerWidth - off;
-      const bottom = window.innerHeight - off;
-      const left = right - w;
-      const top = bottom - h;
-      const xs = [left + 6, left + w * 0.25, (left + right) / 2, right - w * 0.25, right - 6];
-      const ys = [top + 6, (top + bottom) / 2, bottom - 6];
-      let blocked = false;
-      for (const x of xs) {
-        for (const y of ys) {
-          for (const hit of document.elementsFromPoint(x, y)) {
-            if (hit === el || el.contains(hit) || hit.contains(el)) continue;
-            if (blocking.has(hit.tagName) || hit.closest("dl")) {
-              blocked = true;
-              break;
-            }
-          }
-          if (blocked) break;
-        }
-        if (blocked) break;
-      }
-      setTucked(blocked);
-    };
-    const run = () => {
-      last = Date.now();
-      check();
-    };
-    const onScroll = () => {
-      if (Date.now() - last >= 60) run();
-      window.clearTimeout(timer);
-      timer = window.setTimeout(run, 140);
-    };
-    check();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [open]);
 
   function send(text: string) {
     const value = text.trim();
@@ -301,12 +244,11 @@ export function EkisChat() {
       ) : null}
 
       <button
-        ref={pillRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Chatta med Ekis"
         title="Chatta med Ekis"
-        className={`fixed right-4 bottom-4 z-40 flex cursor-pointer items-center gap-2 rounded-full bg-cta py-2 pr-4 pl-1.5 text-sm font-semibold text-cta-foreground shadow-xl transition-transform duration-300 hover:-translate-y-0.5 sm:right-5 sm:bottom-5 ${open ? "hidden" : ""} ${tucked ? "translate-y-[135%]" : ""}`}
+        className={`fixed right-4 bottom-4 z-40 flex cursor-pointer items-center gap-2 rounded-full bg-cta py-2 pr-4 pl-1.5 text-sm font-semibold text-cta-foreground shadow-xl transition-transform duration-300 hover:-translate-y-0.5 sm:right-5 sm:bottom-5 ${open ? "hidden" : ""}`}
       >
         <img
           src={ekisFull.url}
