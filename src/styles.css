@@ -197,6 +197,15 @@
   :where(.surface-card, .bg-card) :is(.text-primary, .text-eyebrow) {
     color: var(--block-primary);
   }
+
+  :where(.surface-card, .bg-card).text-muted-foreground,
+  :where(.surface-card, .bg-card) .text-muted-foreground {
+    color: var(--block-muted-foreground);
+  }
+
+  :where(.surface-card, .bg-card) :is(.text-foreground, .text-card-foreground, .text-freeskiers-charcoal) {
+    color: var(--block-foreground);
+  }
 }
 
 @utility gradient-alpine {
