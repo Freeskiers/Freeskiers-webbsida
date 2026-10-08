@@ -55,8 +55,8 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
 
     setCurrentUser(account);
     if (account.skiers.length > 0) {
-      setActiveSkierId(account.skiers[0].id);
-      localStorage.setItem(ACTIVE_SKIER_KEY, account.skiers[0].id);
+      setActiveSkierId(account.skiers[0]!.id);
+      localStorage.setItem(ACTIVE_SKIER_KEY, account.skiers[0]!.id);
     }
 
     try {
