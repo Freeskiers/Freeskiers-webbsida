@@ -14,11 +14,13 @@ import { Route as HelgskidskolaRouteImport } from './routes/helgskidskola'
 import { Route as HostsasongRouteImport } from './routes/hostsasong'
 import { Route as KalenderRouteImport } from './routes/kalender'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as MedlemRouteImport } from './routes/medlem'
 import { Route as OmOssRouteImport } from './routes/om-oss'
 import { Route as PrivatlektionRouteImport } from './routes/privatlektion'
 import { Route as RookieSeriesRouteImport } from './routes/rookie-series'
 import { Route as SkidklubbRouteImport } from './routes/skidklubb'
 import { Route as SponsorRouteImport } from './routes/sponsor'
+import { Route as VerifieraRouteImport } from './routes/verifiera'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,6 +45,11 @@ const KalenderRoute = KalenderRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MedlemRoute = MedlemRouteImport.update({
+  id: '/medlem',
+  path: '/medlem',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OmOssRoute = OmOssRouteImport.update({
@@ -70,6 +77,11 @@ const SponsorRoute = SponsorRouteImport.update({
   path: '/sponsor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerifieraRoute = VerifieraRouteImport.update({
+  id: '/verifiera',
+  path: '/verifiera',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -77,11 +89,13 @@ export interface FileRoutesByFullPath {
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
   '/kontakt': typeof KontaktRoute
+  '/medlem': typeof MedlemRoute
   '/om-oss': typeof OmOssRoute
   '/privatlektion': typeof PrivatlektionRoute
   '/rookie-series': typeof RookieSeriesRoute
   '/skidklubb': typeof SkidklubbRoute
   '/sponsor': typeof SponsorRoute
+  '/verifiera': typeof VerifieraRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,11 +103,13 @@ export interface FileRoutesByTo {
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
   '/kontakt': typeof KontaktRoute
+  '/medlem': typeof MedlemRoute
   '/om-oss': typeof OmOssRoute
   '/privatlektion': typeof PrivatlektionRoute
   '/rookie-series': typeof RookieSeriesRoute
   '/skidklubb': typeof SkidklubbRoute
   '/sponsor': typeof SponsorRoute
+  '/verifiera': typeof VerifieraRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,11 +118,13 @@ export interface FileRoutesById {
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
   '/kontakt': typeof KontaktRoute
+  '/medlem': typeof MedlemRoute
   '/om-oss': typeof OmOssRoute
   '/privatlektion': typeof PrivatlektionRoute
   '/rookie-series': typeof RookieSeriesRoute
   '/skidklubb': typeof SkidklubbRoute
   '/sponsor': typeof SponsorRoute
+  '/verifiera': typeof VerifieraRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,11 +134,13 @@ export interface FileRouteTypes {
     | '/hostsasong'
     | '/kalender'
     | '/kontakt'
+    | '/medlem'
     | '/om-oss'
     | '/privatlektion'
     | '/rookie-series'
     | '/skidklubb'
     | '/sponsor'
+    | '/verifiera'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,11 +148,13 @@ export interface FileRouteTypes {
     | '/hostsasong'
     | '/kalender'
     | '/kontakt'
+    | '/medlem'
     | '/om-oss'
     | '/privatlektion'
     | '/rookie-series'
     | '/skidklubb'
     | '/sponsor'
+    | '/verifiera'
   id:
     | '__root__'
     | '/'
@@ -140,11 +162,13 @@ export interface FileRouteTypes {
     | '/hostsasong'
     | '/kalender'
     | '/kontakt'
+    | '/medlem'
     | '/om-oss'
     | '/privatlektion'
     | '/rookie-series'
     | '/skidklubb'
     | '/sponsor'
+    | '/verifiera'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -153,11 +177,13 @@ export interface RootRouteChildren {
   HostsasongRoute: typeof HostsasongRoute
   KalenderRoute: typeof KalenderRoute
   KontaktRoute: typeof KontaktRoute
+  MedlemRoute: typeof MedlemRoute
   OmOssRoute: typeof OmOssRoute
   PrivatlektionRoute: typeof PrivatlektionRoute
   RookieSeriesRoute: typeof RookieSeriesRoute
   SkidklubbRoute: typeof SkidklubbRoute
   SponsorRoute: typeof SponsorRoute
+  VerifieraRoute: typeof VerifieraRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -197,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/medlem': {
+      id: '/medlem'
+      path: '/medlem'
+      fullPath: '/medlem'
+      preLoaderRoute: typeof MedlemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/om-oss': {
       id: '/om-oss'
       path: '/om-oss'
@@ -232,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SponsorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verifiera': {
+      id: '/verifiera'
+      path: '/verifiera'
+      fullPath: '/verifiera'
+      preLoaderRoute: typeof VerifieraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -241,11 +281,13 @@ const rootRouteChildren: RootRouteChildren = {
   HostsasongRoute: HostsasongRoute,
   KalenderRoute: KalenderRoute,
   KontaktRoute: KontaktRoute,
+  MedlemRoute: MedlemRoute,
   OmOssRoute: OmOssRoute,
   PrivatlektionRoute: PrivatlektionRoute,
   RookieSeriesRoute: RookieSeriesRoute,
   SkidklubbRoute: SkidklubbRoute,
   SponsorRoute: SponsorRoute,
+  VerifieraRoute: VerifieraRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
