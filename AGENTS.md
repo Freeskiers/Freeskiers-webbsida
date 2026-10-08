@@ -17,3 +17,4 @@
 - Nivåväljaren (LevelFinder + LevelFinderProvider-modal) lives in src/components/site/LevelFinder.tsx, mounted once in __root — one test reused in footer and pages. Never surface it as a button in the top menu (Header) — the user had the "Hitta rätt nivå" button removed from there.
 - Club events (clubEvents in src/lib/club-data.ts) feed TopEventBanner (in Header), /kalender and the start-page preview — one list keeps dates consistent.
 - The private-lesson booking widget is loaded only by AgendoBooking on /privatlektion using profile 252, preventing duplicate global scripts and buttons.
+- Member portal (/medlem, /verifiera) lives in src/components/member with data in src/lib/memberData.ts and memberOffers.ts — ported from the Freeskiers-webbsida repo into the TanStack app, which stays the single codebase.

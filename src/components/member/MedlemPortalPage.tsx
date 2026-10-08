@@ -98,7 +98,7 @@ export const MedlemPortalPage: React.FC = () => {
             <span>Medlemsportal & Förmåner</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight max-w-3xl">
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight max-w-3xl text-primary-foreground">
             Mina Sidor <span className="text-freeskiers-lightcyan">& Medlemskort</span>
           </h1>
 
