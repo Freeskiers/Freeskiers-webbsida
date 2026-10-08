@@ -135,7 +135,10 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-sm text-slate-300">
               <li>
-                <Link to="/sponsor" className="hover:text-white font-bold text-freeskiers-lightcyan transition-colors">Bli sponsor & partner</Link>
+                <Link to="/medlem" className="hover:text-white font-bold text-freeskiers-lightcyan transition-colors">Mina Sidor & Medlemskort</Link>
+              </li>
+              <li>
+                <Link to="/sponsor" className="hover:text-white transition-colors">Bli sponsor & partner</Link>
               </li>
               <li>
                 <Link to="/kontakt" className="hover:text-white transition-colors">Vanliga frågor (FAQ & Ekis)</Link>

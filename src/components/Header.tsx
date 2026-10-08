@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Calendar, ChevronRight, Sparkles } from 'lucide-react';
+import { Menu, X, Calendar, ChevronRight, Sparkles, User } from 'lucide-react';
 import { useLevelFinder } from '../context/LevelFinderContext';
+import { useMemberAuth } from '../context/MemberAuthContext';
 import { TopEventBanner } from './TopEventBanner';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { openLevelFinder } = useLevelFinder();
+  const { isLoggedIn, currentUser } = useMemberAuth();
 
   const navLinks = [
     { name: 'Hem', path: '/' },
@@ -65,7 +67,7 @@ export const Header: React.FC = () => {
           <div className="hidden sm:flex items-center gap-2.5">
             <button
               onClick={openLevelFinder}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-freeskiers-cyan/40 bg-sky-50/50 text-freeskiers-cyan hover:bg-freeskiers-cyan hover:text-white font-bold text-xs transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-freeskiers-cyan/40 bg-sky-50/50 text-freeskiers-cyan hover:bg-freeskiers-cyan hover:text-white font-bold text-xs transition-all shadow-xs"
               title="Gör 1 min skidtest för att hitta rätt nivå"
             >
               <Sparkles className="w-3.5 h-3.5" />
@@ -73,11 +75,24 @@ export const Header: React.FC = () => {
             </button>
 
             <Link
+              to="/medlem"
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all shadow-xs border ${
+                isLoggedIn
+                  ? 'bg-slate-900 text-white border-slate-800 hover:bg-slate-800'
+                  : 'bg-white border-slate-200 text-slate-700 hover:border-freeskiers-cyan hover:text-freeskiers-cyan'
+              }`}
+              title="Mina Sidor & Digitalt Medlemskort"
+            >
+              <User className="w-3.5 h-3.5 text-freeskiers-cyan" />
+              <span>{isLoggedIn ? (currentUser?.guardianName.split(' ')[0] || 'Mina Sidor') : 'Mina Sidor'}</span>
+            </Link>
+
+            <Link
               to="/skidklubb"
-              className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold shadow-soft hover:shadow-elevated transition-all transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow-soft hover:shadow-elevated transition-all transform hover:-translate-y-0.5"
             >
               <Calendar className="w-4 h-4" />
-              <span>Anmäl & Boka</span>
+              <span>Boka Träning</span>
             </Link>
           </div>
 
@@ -111,6 +126,15 @@ export const Header: React.FC = () => {
             </Link>
           ))}
           <div className="pt-3 space-y-2">
+            <Link
+              to="/medlem"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 border border-slate-300 bg-white text-freeskiers-navy hover:bg-slate-50 py-3 rounded-xl font-bold text-sm transition-all shadow-xs"
+            >
+              <User className="w-4 h-4 text-freeskiers-cyan" />
+              <span>{isLoggedIn ? `Mina Sidor (${currentUser?.guardianName})` : 'Mina Sidor / Medlemskort'}</span>
+            </Link>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
