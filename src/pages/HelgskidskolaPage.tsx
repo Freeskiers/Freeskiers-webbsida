@@ -170,12 +170,29 @@ export const HelgskidskolaPage: React.FC = () => {
         {/* Pricing & Important Terms */}
         <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 sm:p-12 mb-12">
           <div className="max-w-3xl">
-            <h3 className="text-2xl font-extrabold text-freeskiers-navy mb-4">
-              Pris & Medlemskap
-            </h3>
-            <p className="text-slate-600 text-sm leading-relaxed mb-6">
+            <div className="flex items-baseline gap-3 mb-4">
+              <span className="text-4xl font-black text-freeskiers-navy">2 980 kr</span>
+              <span className="text-sm text-slate-500 font-medium">för 5 lektioner (75 min/pass)</span>
+            </div>
+            
+            <p className="text-slate-600 text-sm leading-relaxed mb-4">
               I deltagaravgiften för skidskolan ingår 5 lärarledda träningspass med våra certifierade ungdomsledare samt medlemskap i IK Lidingö Freeskiers och olycksfallsförsäkring via Svenska Skidförbundet.
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-xs text-slate-700">
+              <div className="p-3 bg-white rounded-xl border border-slate-200">
+                <div className="font-bold text-freeskiers-navy">Förmiddag</div>
+                <div className="text-slate-500">09.30 – 10.45</div>
+              </div>
+              <div className="p-3 bg-white rounded-xl border border-slate-200">
+                <div className="font-bold text-freeskiers-navy">Lunch</div>
+                <div className="text-slate-500">11.15 – 12.30</div>
+              </div>
+              <div className="p-3 bg-white rounded-xl border border-slate-200">
+                <div className="font-bold text-freeskiers-navy">Eftermiddag</div>
+                <div className="text-slate-500">13.15 – 14.30</div>
+              </div>
+            </div>
             
             <div className="p-4 rounded-xl bg-white border border-slate-200 flex items-start gap-3 text-xs sm:text-sm text-slate-700 mb-6">
               <ShieldAlert className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
