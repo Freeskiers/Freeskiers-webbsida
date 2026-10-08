@@ -78,10 +78,10 @@
   /* #F7F7F7 cards */
   --card: oklch(0.975 0 0);
   --card-foreground: oklch(0.372 0 0);
-  /* Information blocks: approximately 15% stronger text contrast. */
-  --block-foreground: oklch(0.346 0 0);
-  --block-muted-foreground: oklch(0.488 0 0);
-  --block-primary: oklch(0.567 0.137 240);
+  /* Information blocks: a further approximately 15% contrast increase. */
+  --block-foreground: oklch(0.307 0 0);
+  --block-muted-foreground: oklch(0.453 0 0);
+  --block-primary: oklch(0.535 0.137 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.372 0 0);
   /* #098ACB Freeskiers cyan blue */
