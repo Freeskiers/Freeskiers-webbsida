@@ -56,6 +56,8 @@ export const DigitalMembershipCard: React.FC<DigitalMembershipCardProps> = ({
       case 'bla': return 'bg-sky-500/20 text-sky-300 border-sky-400/40';
       case 'rod': return 'bg-rose-500/20 text-rose-300 border-rose-400/40';
       case 'tranare': return 'bg-amber-500/20 text-amber-300 border-amber-400/40';
+      case 'familj': return 'bg-purple-500/20 text-purple-300 border-purple-400/40';
+      case 'admin': return 'bg-indigo-500/20 text-indigo-200 border-indigo-400/40';
       default: return 'bg-freeskiers-cyan/20 text-freeskiers-lightcyan border-freeskiers-cyan/40';
     }
   };

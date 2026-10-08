@@ -4,10 +4,10 @@ export interface MemberSkier {
   lastName: string;
   birthYear: number;
   groupName: string; // e.g. "Freeskiers Skidklubb (Vardagar)" or "Helgskidskola – Röd Grupp"
-  groupLevel: 'gron' | 'bla' | 'rod' | 'skidklubb' | 'tranare' | 'familj';
+  groupLevel: 'gron' | 'bla' | 'rod' | 'skidklubb' | 'tranare' | 'familj' | 'admin';
   season: string; // "2026/2027"
   status: 'active' | 'pending' | 'expired';
-  role: 'åkare' | 'tränare' | 'styrelse' | 'familjemedlem';
+  role: 'åkare' | 'tränare' | 'styrelse' | 'familjemedlem' | 'admin';
   memberSince: string;
   insuranceStatus: string;
   trainingTime?: string;
@@ -20,12 +20,38 @@ export interface MemberAccount {
   email: string;
   guardianName: string;
   phone: string;
-  role: 'medlem' | 'tränare' | 'styrelse';
+  role: 'medlem' | 'tränare' | 'styrelse' | 'admin';
   skiers: MemberSkier[];
   alternateEmails?: string[];
 }
 
+export const adminAccount: MemberAccount = {
+  email: 'admin@lidingofreeskiers.se',
+  guardianName: 'Kansli & Klubbadmin',
+  phone: '08-767 00 00',
+  role: 'admin',
+  skiers: [
+    {
+      id: 'FS-ADMIN-2026',
+      firstName: 'Klubbadministratör',
+      lastName: 'Freeskiers',
+      birthYear: 2016,
+      groupName: 'Klubbledning & Kansli',
+      groupLevel: 'admin',
+      season: '2026/2027',
+      status: 'active',
+      role: 'admin',
+      memberSince: '2016',
+      insuranceStatus: 'Förenings- och ledarförsäkring via Svenska Skidförbundet & RF',
+      trainingTime: 'Alla sektioner & träningspass',
+      location: 'Ekholmsnäsbacken & Kansli',
+      paymentDate: '2026-10-04'
+    }
+  ]
+};
+
 export const demoAccounts: MemberAccount[] = [
+  adminAccount,
   {
     email: 'stefan@lidingofreeskiers.se',
     guardianName: 'Stefan Aaröe',
@@ -143,8 +169,14 @@ export const createDynamicAccount = (email: string): MemberAccount => {
   };
 };
 
-import { sportadminAccounts } from './sportadminData';
-export { sportadminAccounts };
+import { 
+  sportadminAccounts, 
+  sportadminSkiers, 
+  allUniqueMemberEmails, 
+  type SportAdminSkierRecord 
+} from './sportadminData';
+
+export { sportadminAccounts, sportadminSkiers, allUniqueMemberEmails, type SportAdminSkierRecord };
 
 export const allMemberAccounts: MemberAccount[] = [
   ...demoAccounts,
@@ -174,12 +206,12 @@ export const findMemberAccount = (email: string): MemberAccount | undefined => {
 
 // Curated accounts for instant 1-click testing in the UI
 export const featuredDemoAccounts: MemberAccount[] = [
-  demoAccounts[0]!, // Stefan Aaröe (Styrelse / 2 åkare)
-  findMemberAccount('jennifer.farde@gmail.com') ?? demoAccounts[0]!, // Jennifer & Johan Ståhle (Familjekonto / 4 medlemmar)
-  findMemberAccount('petter.samlin@altor.com') ?? demoAccounts[0]!, // Petter Samlin (3 åkare / Cesar, Astrid, Sofie)
-  findMemberAccount('beatricewestermark@hotmail.com') ?? demoAccounts[1]!, // Beatrice Lindgren (Helgskidskola / Molly)
-  findMemberAccount('carolinne.sjostedt@gmail.com') ?? demoAccounts[1]!, // Carolinne Sjöstedt (Skidklubb / James)
-  demoAccounts[2]!, // Filippa Berg (Certifierad tränare)
+  adminAccount, // Kansli & Klubbadmin (admin@lidingofreeskiers.se)
+  demoAccounts[1]!, // Stefan Aaröe (Styrelse / 2 åkare)
+  findMemberAccount('jennifer.farde@gmail.com') ?? demoAccounts[1]!, // Jennifer & Johan Ståhle (Familjekonto / 4 medlemmar)
+  findMemberAccount('petter.samlin@altor.com') ?? demoAccounts[1]!, // Petter Samlin (3 åkare / Cesar, Astrid, Sofie)
+  findMemberAccount('beatricewestermark@hotmail.com') ?? demoAccounts[2]!, // Beatrice Lindgren (Helgskidskola / Molly)
+  findMemberAccount('carolinne.sjostedt@gmail.com') ?? demoAccounts[2]!, // Carolinne Sjöstedt (Skidklubb / James)
 ];
 
 

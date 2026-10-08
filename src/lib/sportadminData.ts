@@ -7173,3 +7173,46 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   }
 ];
+
+export interface SportAdminSkierRecord {
+  id: string;
+  firstName: string;
+  lastName: string;
+  birthYear: number;
+  groupName: string;
+  groupLevel: 'gron' | 'bla' | 'rod' | 'skidklubb' | 'tranare' | 'familj' | 'admin';
+  season: string;
+  status: 'active' | 'pending' | 'expired';
+  role: 'åkare' | 'tränare' | 'styrelse' | 'familjemedlem' | 'admin';
+  memberSince: string;
+  insuranceStatus: string;
+  trainingTime?: string;
+  location?: string;
+  allergy?: string;
+  paymentDate?: string;
+  guardianName: string;
+  guardianPhone: string;
+  guardianEmail: string;
+}
+
+export const sportadminSkiers: SportAdminSkierRecord[] = (() => {
+  const map = new Map<string, SportAdminSkierRecord>();
+  for (const acc of sportadminAccounts) {
+    for (const s of acc.skiers) {
+      if (!map.has(s.id)) {
+        map.set(s.id, {
+          ...s,
+          guardianName: acc.guardianName,
+          guardianPhone: acc.phone,
+          guardianEmail: acc.email,
+        });
+      }
+    }
+  }
+  return Array.from(map.values());
+})();
+
+export const allUniqueMemberEmails: string[] = Array.from(
+  new Set(sportadminAccounts.map((a) => a.email))
+).sort();
+
