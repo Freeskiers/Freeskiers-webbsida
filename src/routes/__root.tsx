@@ -14,6 +14,7 @@ import { EkisChat } from "@/components/site/EkisChat";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { LevelFinderProvider } from "@/components/site/LevelFinder";
+import { MemberAuthProvider } from "@/components/member/MemberAuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -133,6 +134,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MemberAuthProvider>
       <LevelFinderProvider>
       <div className="flex min-h-screen flex-col">
         <Header />
@@ -144,6 +146,7 @@ function RootComponent() {
       </div>
       <EkisChat />
       </LevelFinderProvider>
+      </MemberAuthProvider>
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
