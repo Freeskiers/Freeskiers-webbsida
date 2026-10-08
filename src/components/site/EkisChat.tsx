@@ -102,8 +102,6 @@ export function EkisChat() {
     },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
-  const pillRef = useRef<HTMLButtonElement>(null);
-  const [tucked, setTucked] = useState(false);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "nearest" });
