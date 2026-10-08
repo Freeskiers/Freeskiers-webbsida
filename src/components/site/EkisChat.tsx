@@ -244,12 +244,11 @@ export function EkisChat() {
       ) : null}
 
       <button
-        ref={pillRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Chatta med Ekis"
         title="Chatta med Ekis"
-        className={`fixed right-4 bottom-4 z-40 flex cursor-pointer items-center gap-2 rounded-full bg-cta py-2 pr-4 pl-1.5 text-sm font-semibold text-cta-foreground shadow-xl transition-transform duration-300 hover:-translate-y-0.5 sm:right-5 sm:bottom-5 ${open ? "hidden" : ""} ${tucked ? "translate-y-[135%]" : ""}`}
+        className={`fixed right-4 bottom-4 z-40 flex cursor-pointer items-center gap-2 rounded-full bg-cta py-2 pr-4 pl-1.5 text-sm font-semibold text-cta-foreground shadow-xl transition-transform duration-300 hover:-translate-y-0.5 sm:right-5 sm:bottom-5 ${open ? "hidden" : ""}`}
       >
         <img
           src={ekisFull.url}
