@@ -4,14 +4,16 @@ export interface MemberSkier {
   lastName: string;
   birthYear: number;
   groupName: string; // e.g. "Freeskiers Skidklubb (Vardagar)" or "Helgskidskola – Röd Grupp"
-  groupLevel: 'gron' | 'bla' | 'rod' | 'skidklubb' | 'tranare';
+  groupLevel: 'gron' | 'bla' | 'rod' | 'skidklubb' | 'tranare' | 'familj';
   season: string; // "2026/2027"
   status: 'active' | 'pending' | 'expired';
-  role: 'åkare' | 'tränare' | 'styrelse';
+  role: 'åkare' | 'tränare' | 'styrelse' | 'familjemedlem';
   memberSince: string;
   insuranceStatus: string;
   trainingTime?: string;
   location?: string;
+  allergy?: string;
+  paymentDate?: string;
 }
 
 export interface MemberAccount {
@@ -20,6 +22,7 @@ export interface MemberAccount {
   phone: string;
   role: 'medlem' | 'tränare' | 'styrelse';
   skiers: MemberSkier[];
+  alternateEmails?: string[];
 }
 
 export const demoAccounts: MemberAccount[] = [
@@ -139,3 +142,44 @@ export const createDynamicAccount = (email: string): MemberAccount => {
     ]
   };
 };
+
+import { sportadminAccounts } from './sportadminData';
+export { sportadminAccounts };
+
+export const allMemberAccounts: MemberAccount[] = [
+  ...demoAccounts,
+  ...sportadminAccounts
+];
+
+export const findMemberAccount = (email: string): MemberAccount | undefined => {
+  const clean = email.toLowerCase().trim();
+  if (!clean) return undefined;
+
+  // 1. Check demo accounts first
+  const demoMatch = demoAccounts.find(a => a.email.toLowerCase() === clean);
+  if (demoMatch) return demoMatch;
+
+  // 2. Direct match on primary email in SportAdmin
+  const saDirect = sportadminAccounts.find(a => a.email.toLowerCase() === clean);
+  if (saDirect) return saDirect;
+
+  // 3. Match on alternate emails (co-guardian or skier email)
+  const saAlt = sportadminAccounts.find(a =>
+    a.alternateEmails?.some(alt => alt.toLowerCase() === clean)
+  );
+  if (saAlt) return saAlt;
+
+  return undefined;
+};
+
+// Curated accounts for instant 1-click testing in the UI
+export const featuredDemoAccounts: MemberAccount[] = [
+  demoAccounts[0]!, // Stefan Aaröe (Styrelse / 2 åkare)
+  findMemberAccount('jennifer.farde@gmail.com') ?? demoAccounts[0]!, // Jennifer & Johan Ståhle (Familjekonto / 4 medlemmar)
+  findMemberAccount('petter.samlin@altor.com') ?? demoAccounts[0]!, // Petter Samlin (3 åkare / Cesar, Astrid, Sofie)
+  findMemberAccount('beatricewestermark@hotmail.com') ?? demoAccounts[1]!, // Beatrice Lindgren (Helgskidskola / Molly)
+  findMemberAccount('carolinne.sjostedt@gmail.com') ?? demoAccounts[1]!, // Carolinne Sjöstedt (Skidklubb / James)
+  demoAccounts[2]!, // Filippa Berg (Certifierad tränare)
+];
+
+

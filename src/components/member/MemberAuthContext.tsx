@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { MemberAccount, MemberSkier, demoAccounts, createDynamicAccount } from '@/lib/memberData';
+import { 
+  MemberAccount, 
+  MemberSkier, 
+  demoAccounts, 
+  featuredDemoAccounts, 
+  findMemberAccount, 
+  createDynamicAccount 
+} from '@/lib/memberData';
 
 interface MemberAuthContextType {
   currentUser: MemberAccount | null;
@@ -45,8 +52,8 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
     const cleanEmail = email.toLowerCase().trim();
     if (!cleanEmail) return false;
 
-    // Check if it's one of the demo accounts
-    let account = demoAccounts.find(a => a.email.toLowerCase() === cleanEmail);
+    // Check if it's in our member database (SportAdmin or demo accounts)
+    let account = findMemberAccount(cleanEmail);
 
     // If not, generate a dynamic valid account
     if (!account) {
@@ -101,7 +108,7 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
         login,
         logout,
         switchActiveSkier,
-        demoAccounts
+        demoAccounts: featuredDemoAccounts
       }}
     >
       {children}

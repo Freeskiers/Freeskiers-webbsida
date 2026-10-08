@@ -20,11 +20,13 @@ import {
   Shield,
   ExternalLink,
   Award,
-  Smartphone
+  Smartphone,
+  Search
 } from 'lucide-react';
 import { useMemberAuth } from './MemberAuthContext';
 import { DigitalMembershipCard } from './DigitalMembershipCard';
 import { memberOffers, MemberOffer } from '@/lib/memberOffers';
+import { sportadminAccounts } from '@/lib/memberData';
 
 export const MedlemPortalPage: React.FC = () => {
   const { 
@@ -42,6 +44,8 @@ export const MedlemPortalPage: React.FC = () => {
   const [codeInput, setCodeInput] = useState('');
   const [activeTab, setActiveTab] = useState<'kort' | 'erbjudanden' | 'schema' | 'info'>('kort');
   const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
+  const [memberSearch, setMemberSearch] = useState('');
+  const [showMemberBrowser, setShowMemberBrowser] = useState(false);
 
   // Handle email submit
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -131,6 +135,19 @@ export const MedlemPortalPage: React.FC = () => {
                   </p>
                 </div>
 
+                {/* SportAdmin Real Data Status Banner */}
+                <div className="mb-6 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3 text-xs text-emerald-950">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse" />
+                  <div className="leading-snug">
+                    <span className="font-bold text-emerald-900 block">
+                      164 aktiva SportAdmin-medlemmar inlästa (2026/2027)
+                    </span>
+                    <span className="text-slate-600 text-[11px]">
+                      Ange den e-postadress du använde vid klubbanmälan för att logga in direkt, eller välj ett snabbval nedan.
+                    </span>
+                  </div>
+                </div>
+
                 {step === 'email' ? (
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <div>
@@ -142,11 +159,19 @@ export const MedlemPortalPage: React.FC = () => {
                         <input
                           type="email"
                           required
+                          list="sportadmin-email-list"
                           value={emailInput}
                           onChange={(e) => setEmailInput(e.target.value)}
-                          placeholder="namn@epost.se (samma som vid anmälan)"
+                          placeholder="namn@epost.se (samma som i SportAdmin)"
                           className="w-full pl-11 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
                         />
+                        <datalist id="sportadmin-email-list">
+                          {sportadminAccounts.map((a) => (
+                            <option key={a.email} value={a.email}>
+                              {a.guardianName} ({a.skiers.map(s => s.firstName).join(', ')})
+                            </option>
+                          ))}
+                        </datalist>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-1.5">
                         Skriv in den e-postadress som användes vid klubbanmälan.
@@ -210,9 +235,67 @@ export const MedlemPortalPage: React.FC = () => {
 
                 {/* Instant Demo Accounts for fast testing */}
                 <div className="mt-8 pt-6 border-t border-slate-200">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-3 text-center">
-                    Eller testa direkt med ett klick:
-                  </span>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                      Snabbval för att testa:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowMemberBrowser(!showMemberBrowser)}
+                      className="text-[11px] font-bold text-freeskiers-cyan hover:underline inline-flex items-center gap-1"
+                    >
+                      <Search className="w-3 h-3" />
+                      <span>{showMemberBrowser ? 'Dölj sök' : 'Sök bland alla 164'}</span>
+                    </button>
+                  </div>
+
+                  {/* Search Browser for all 164 SportAdmin members */}
+                  {showMemberBrowser && (
+                    <div className="mb-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 animate-in fade-in duration-150">
+                      <div className="relative mb-2.5">
+                        <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+                        <input
+                          type="text"
+                          value={memberSearch}
+                          onChange={(e) => setMemberSearch(e.target.value)}
+                          placeholder="Sök på efternamn, förnamn eller e-post..."
+                          className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-freeskiers-cyan"
+                        />
+                      </div>
+                      <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
+                        {sportadminAccounts
+                          .filter((acc) => {
+                            if (!memberSearch.trim()) return true;
+                            const q = memberSearch.toLowerCase().trim();
+                            return (
+                              acc.guardianName.toLowerCase().includes(q) ||
+                              acc.email.toLowerCase().includes(q) ||
+                              acc.skiers.some((s) => `${s.firstName} ${s.lastName}`.toLowerCase().includes(q))
+                            );
+                          })
+                          .slice(0, 12)
+                          .map((acc) => (
+                            <button
+                              key={acc.email}
+                              type="button"
+                              onClick={() => handleDemoLogin(acc.email)}
+                              className="w-full text-left p-2 rounded-lg bg-white border border-slate-200 hover:border-freeskiers-cyan hover:bg-sky-50/50 flex items-center justify-between text-xs transition-colors"
+                            >
+                              <div className="truncate pr-2">
+                                <span className="font-bold text-slate-800">{acc.guardianName}</span>
+                                <span className="text-[10px] text-slate-500 block truncate">
+                                  {acc.skiers.map((s) => s.firstName).join(', ')} ({acc.skiers.length} åkare) • {acc.email}
+                                </span>
+                              </div>
+                              <span className="text-[10px] font-bold text-freeskiers-cyan shrink-0">
+                                Välj →
+                              </span>
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-2">
                     {demoAccounts.map((demo) => (
                       <button
@@ -388,15 +471,31 @@ export const MedlemPortalPage: React.FC = () => {
                       </div>
 
                       {/* Quick Details of Active Skier */}
-                      <div className="p-6 rounded-2xl bg-sky-50/70 border border-sky-100 text-xs text-slate-700 space-y-2">
-                        <div className="font-extrabold text-freeskiers-navy text-sm">
-                          Medlemsuppgifter för {activeSkier.firstName}:
+                      <div className="p-6 rounded-2xl bg-sky-50/70 border border-sky-100 text-xs text-slate-700 space-y-3">
+                        <div className="font-extrabold text-freeskiers-navy text-sm flex items-center justify-between">
+                          <span>Medlemsuppgifter för {activeSkier.firstName}:</span>
+                          <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-300/60 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                            <span>SportAdmin Bekräftad</span>
+                          </span>
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-[11px]">
                           <div>Grupp: <strong>{activeSkier.groupName}</strong></div>
+                          <div>Födelseår: <strong>{activeSkier.birthYear}</strong></div>
                           <div>Medlem sedan: <strong>{activeSkier.memberSince}</strong></div>
+                          <div>Medlemsavgift: <strong className="text-emerald-700">✓ Betald ({activeSkier.paymentDate || '2026/2027'})</strong></div>
                           <div>Försäkring: <strong>Folksam (Aktiv)</strong></div>
                           <div>Säsong: <strong>{activeSkier.season}</strong></div>
+                          {activeSkier.allergy && (
+                            <div className="col-span-2 text-amber-900 bg-amber-50/90 p-2 rounded-xl border border-amber-200">
+                              Allergi / Specialkost: <strong>{activeSkier.allergy}</strong>
+                            </div>
+                          )}
+                          {currentUser.alternateEmails && currentUser.alternateEmails.length > 0 && (
+                            <div className="col-span-2 text-slate-500 pt-1 text-[10px]">
+                              Kopplade familjekonton: {currentUser.alternateEmails.join(', ')}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
