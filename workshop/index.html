@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lidingö Freeskiers – Styrelseworkshop & Webbplats-spec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090e17;
+      --surface: #111a28;
+      --surface-border: #1e2c42;
+      --surface-hover: #172437;
+      --text: #f0f4f8;
+      --text-muted: #8b9bb4;
+      --accent: #00d2ff;
+      --accent-glow: rgba(0, 210, 255, 0.25);
+      --accent-warm: #ff6b35;
+      --accent-green: #10b981;
+      --card-radius: 16px;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.5;
+      padding-bottom: 100px;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(9, 14, 23, 0.85);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-brand img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-brand span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00d2ff 0%, #0099ff 100%);
+      color: #05101a;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--surface-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(180deg, rgba(17, 26, 40, 0.9) 0%, rgba(13, 20, 32, 0.6) 100%);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 36px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(0, 210, 255, 0.12);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      border-radius: 20px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-banner h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .hero-banner p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 720px;
+    }
+
+    .workshop-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface-border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .workshop-meta b {
+      color: var(--text);
+    }
+
+    /* Blocks */
+    .block-section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      margin-bottom: 32px;
+      transition: border-color 0.3s ease;
+    }
+
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 16px;
+    }
+
+    .block-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .block-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 210, 255, 0.12);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .block-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .block-time {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-warm);
+      background: rgba(255, 107, 53, 0.1);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* Questions */
+    .question-card {
+      background: rgba(10, 16, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .question-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .option-label {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      border-color: var(--accent);
+      background: var(--surface-hover);
+    }
+
+    .option-label input {
+      margin-top: 3px;
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .option-label.checked {
+      border-color: var(--accent);
+      background: rgba(0, 210, 255, 0.08);
+    }
+
+    .option-text b {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .option-text span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .notes-box {
+      margin-top: 12px;
+    }
+
+    .notes-box label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .notes-box textarea {
+      width: 100%;
+      background: #090e17;
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      resize: vertical;
+      min-height: 60px;
+      transition: border-color 0.2s;
+    }
+
+    .notes-box textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Modal / Result View */
+    #exportModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      max-width: 900px;
+      margin: 20px auto;
+      border-radius: var(--card-radius);
+      border: 1px solid var(--surface-border);
+      padding: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    pre.export-code {
+      background: #050a12;
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #93c5fd;
+      max-height: 500px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .saved-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top sticky navigation -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <img src="../assets/logo/freeskiers-logo-skold.png" alt="Freeskiers Logotyp" onerror="this.src='../assets/logo/freeskiers-logo.svg'">
+      <div>
+        <span>IK Lidingö Freeskiers</span>
+        <h1>Styrelseworkshop: Ny webbplats</h1>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <span class="saved-badge" id="savedBadge">✓ Sparas automatiskt</span>
+      <button class="btn btn-secondary" onclick="resetForm()">Rensa</button>
+      <button class="btn btn-primary" onclick="generateSpec()">🚀 Exportera Lovable PRD</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Introduction -->
+    <section class="hero-banner">
+      <div class="hero-tag">❄️ Workshop Ikväll • 5 Personer</div>
+      <h2>Ny webb för Lidingö Freeskiers</h2>
+      <p>
+        Syftet med denna session är att tillsammans i styrelsen ta snabba, välgrundade beslut kring sajtens innehåll,
+        målgrupper, struktur och funktioner. Resultatet exporteras direkt till en specifikation som pushas till GitHub och byggs i <b>Lovable</b>.
+      </p>
+      <div class="workshop-meta">
+        <div>Nuläge: <b>lidingofreeskiers.se</b> (10 menyval, WordPress)</div>
+        <div>Målarkitektur: <b>React / Vite / Tailwind</b> (Lovable)</div>
+        <div>Logotyper: <b>Redo i /assets/logo/</b></div>
+      </div>
+    </section>
+
+    <!-- BLOCK 1: Syfte & Målgrupp -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">1</div>
+          <div>
+            <h3 class="block-title">Syfte, Identitet & Målgrupper</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Vem är sajten till för och vad ska besökaren göra?</p>
+          </div>
+        </div>
+        <div class="block-time">10 minuter</div>
+      </div>
+
+      <!-- Q1.1 -->
+      <div class="question-card">
+        <h4 class="question-title">1.1 Vad är sajtens enskilt viktigaste huvuduppgift?</h4>
+        <p class="question-desc">Välj primärt fokus för förstasidan och call-to-actions.</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="primaryGoal" value="Konvertering till anmälan/bokning" checked>
+            <div class="option-text">
+              <b>A) Anmälan & Bokning (Konvertering)</b>
+              <span>Göra det extremt lätt för föräldrar att anmäla barn till Helgskidskola, Skidklubb och Höstsäsong.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="primaryGoal" value="Information & Träningstider">
+            <div class="option-text">
+              <b>B) Information & Träningstider</b>
+              <span>Samlingsinfo, datum, utrustningskrav och scheman för redan aktiva medlemmar.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="primaryGoal" value="Varumärke, Skidglädje & Rekrytering">
+            <div class="option-text">
+              <b>C) Skidglädje & Tränarrekrytering</b>
+              <span>Förmedla klubbens själ: rörelseglädje utan tävlingshets och rekrytera framtidens unga ledare.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Styrelsens anteckningar kring mål:</label>
+          <textarea id="notesGoal" placeholder="Egna reflektioner eller kommentarer..."></textarea>
+        </div>
+      </div>
+
+      <!-- Q1.2 -->
+      <div class="question-card">
+        <h4 class="question-title">1.2 Målgruppsprioritering</h4>
+        <p class="question-desc">Kryssa i de målgrupper sajten måste optimeras för i första hand.</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="targetGroup" value="Föräldrar till barn 5-15 år (mobilt)" checked>
+            <div class="option-text">
+              <b>Föräldrar (Mobilförst)</b>
+              <span>Söker tider, priser, datum och vill boka snabbt via telefonen.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="targetGroup" value="Ungdomar / Aktiva åkare" checked>
+            <div class="option-text">
+              <b>Barn & Ungdomar</b>
+              <span>Vill se coola filmer/bilder, åkglädje, vad som händer i backen och events.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="targetGroup" value="Unga ledare & tränare (åk 9+)" checked>
+            <div class="option-text">
+              <b>Unga ledare / Blivande tränare</b>
+              <span>Klubbens ryggrad! Information om tränarutbildning och ansökan.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="targetGroup" value="Sponsorer och Ekholmsnäsbacken">
+            <div class="option-text">
+              <b>Sponsorer & Partners</b>
+              <span>Gadelius, Alpingaraget, Kang, Lidingö Centrum etc.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCK 2: Sitemap & Innehåll -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">2</div>
+          <div>
+            <h3 class="block-title">Sidstruktur & Innehållsarkitektur</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Idag finns 10 menyval. Hur bantar vi till en modern och överskådlig meny?</p>
+          </div>
+        </div>
+        <div class="block-time">15 minuter</div>
+      </div>
+
+      <!-- Q2.1 -->
+      <div class="question-card">
+        <h4 class="question-title">2.1 Huvudnavigering – Vilka toppmeny-val vill vi ha?</h4>
+        <p class="question-desc">Rekommendation: Max 5 tydliga toppflikar + en sticker-ut "Boka"-knapp.</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="Våra Grupper (Helgskidskola, Skidklubb, Höstsäsong, O&G)" checked>
+            <div class="option-text">
+              <b>1. Träning & Skidskola</b>
+              <span>Samlingssida för Helgskidskola, Freeskiers Skidklubb, Höstsäsong och Oldies & Goldies.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="Bli Tränare (Utbildning och ansökan)" checked>
+            <div class="option-text">
+              <b>2. Bli Tränare</b>
+              <span>Egen tydlig menyknapp för instruktörsutbildning och tränarkarriär.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="Om Freeskiers (Vision, styrelse, historia)" checked>
+            <div class="option-text">
+              <b>3. Om Klubben</b>
+              <span>Vår vision, styrelsen, tränarteamet och Ekholmsnäsbacken.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="Partners & Vänner" checked>
+            <div class="option-text">
+              <b>4. Partners & Backen</b>
+              <span>Ekholmsnäs, Gadelius, Alpingaraget och förmåner.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="FAQ & Kontakt" checked>
+            <div class="option-text">
+              <b>5. Kontakt & FAQ</b>
+              <span>Snabb kontakt, vanliga frågor och avbokningsregler.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="menuItems" value="Webbshop / Merch (Länk eller sektion)">
+            <div class="option-text">
+              <b>6. Klubbkläder / Shop</b>
+              <span>Länk till klubbens klädpartner / merch.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Önskade justeringar i menyn:</label>
+          <textarea id="notesMenu" placeholder="T.ex. vad gör vi med 'European Snowsport'? Ska Privatlektion ligga under Träning?"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCK 3: Funktioner -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">3</div>
+          <div>
+            <h3 class="block-title">Funktioner, Bokning & Flöden</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Vilka digitala funktioner skapar störst nytta för föräldrar och klubben?</p>
+          </div>
+        </div>
+        <div class="block-time">15 minuter</div>
+      </div>
+
+      <div class="question-card">
+        <h4 class="question-title">3.1 Bokningslösning & Anmälningsflöde</h4>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="bookingSolution" value="Agendo djup-länkar med snygga bokningskort" checked>
+            <div class="option-text">
+              <b>Snygga bokningskort med Agendo-länkar</b>
+              <span>Tydliga kort på sajten (Ålder, tider, pris, status) som direkt öppnar rätt bokningsval i Agendo.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="bookingSolution" value="Inbäddad Agendo-widget direkt på sidan">
+            <div class="option-text">
+              <b>Inbäddad widget</b>
+              <span>Fullständig Agendo loader-widget direkt integrerad i sidan.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h4 class="question-title">3.2 Smarta nya funktioner</h4>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Backstatus Ekholmsnäs (Öppet/Stängt, Snöläge)" checked>
+            <div class="option-text">
+              <b>❄️ Backstatus & Snöläge</b>
+              <span>Live statusbanner: Ekholmsnäsbackens öppettider och snöläge.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Digitalt Tränaransökningsformulär" checked>
+            <div class="option-text">
+              <b>📋 Digital Tränaransökan</b>
+              <span>Smidigt formulär på webben (ersätter Word-mallar och manuella mejl).</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Interaktiv FAQ med dragspel" checked>
+            <div class="option-text">
+              <b>❓ Smart FAQ med dragspel</b>
+              <span>Besvarar frågor om utrustning, liftkort, skidnivå och sjukanmälan.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Säsongskalender och viktiga datum" checked>
+            <div class="option-text">
+              <b>📅 Säsongskalender</b>
+              <span>Tydlig tidslinje: Anmälningsstart, uppstartsläger, träningstider.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Instagram-grid för gemenskap och action">
+            <div class="option-text">
+              <b>📸 Instagram / Videoflöde</b>
+              <span>Levande flöde som visar åkarna i parken och backen.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="features" value="Nivåväljare (Vilken grupp passar mitt barn?)">
+            <div class="option-text">
+              <b>🎿 Nivåguide för föräldrar</b>
+              <span>Enkel guide: 'Kan svänga och bromsa' -> Rekommenderas grupp X.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Övriga önskemål kring funktioner:</label>
+          <textarea id="notesFeatures" placeholder="Egna tankar eller specifika behov..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCK 4: Design & Lovable -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">4</div>
+          <div>
+            <h3 class="block-title">Design, Tonalitet & Lovable-redo Spec</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Vilken känsla ska förmedlas och vad måste ingå i MVP:n?</p>
+          </div>
+        </div>
+        <div class="block-time">10 minuter</div>
+      </div>
+
+      <div class="question-card">
+        <h4 class="question-title">4.1 Visuell tonalitet</h4>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="designTone" value="Nordisk vintersport, modern, hög energi, gemenskap" checked>
+            <div class="option-text">
+              <b>Nordisk sport & energi</b>
+              <span>Mörka alpina toner (navy/skiffer), snövitt och friska accenter (cyan/isblå/orange). Professionell men lekfull.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="radio" name="designTone" value="Klassisk klubbkänsla, ljus och traditionell">
+            <div class="option-text">
+              <b>Klassisk svensk förening</b>
+              <span>Vit bakgrund, traditionell ren layout, fokus på text och enkelhet.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Övrigt kring design och bilder:</label>
+          <textarea id="notesDesign" placeholder="T.ex. bildval från klubbens arkiv, video i bakgrunden etc."></textarea>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <h4 class="question-title">4.2 Prioritering för Lovable (MVP)</h4>
+        <p class="question-desc">Vad MÅSTE vara med vid första releasen?</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="mvpScope" value="Hero med logo och starkt budskap" checked>
+            <div class="option-text"><b>Stark Hero-sektion</b><span>Logga, rubrik och tydliga bokningspuffar.</span></div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="mvpScope" value="Sidor för Helgskidskola, Skidklubb och Höstträning" checked>
+            <div class="option-text"><b>Tränings- & Skidskolesidor</b><span>Priser, tider, nivåer och bokningslänkar.</span></div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="mvpScope" value="Bli tränare-sida med intresseanmälan" checked>
+            <div class="option-text"><b>Bli Tränare-portal</b><span>Info om utbildning och ansökan.</span></div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="mvpScope" value="Om klubben och partners" checked>
+            <div class="option-text"><b>Om oss & Partners</b><span>Styrelse, ledare, Gadelius, Alpingaraget.</span></div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="mvpScope" value="FAQ och kontakt" checked>
+            <div class="option-text"><b>FAQ & Kontakt</b><span>Vanliga frågor och snabbformulär.</span></div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCK 5: Övriga Önskemål & Fria Inspel -->
+    <section class="block-section">
+      <div class="block-header">
+        <div class="block-title-wrap">
+          <div class="block-number">5</div>
+          <div>
+            <h3 class="block-title">Övriga Önskemål, Idéer & Styrelsens Fria Inspel</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted)">Öppen sektion för allt annat styrelsen vill skriva in: integrationer, event, bilder eller framtida visioner.</p>
+          </div>
+        </div>
+        <div class="block-time">10 minuter</div>
+      </div>
+
+      <!-- Q5.1 Särskilda önskemål & integrationer -->
+      <div class="question-card">
+        <h4 class="question-title">5.1 Särskilda integrationer & system</h4>
+        <p class="question-desc">Kryssa i eller lägg till system som klubben använder eller vill koppla ihop med sajten:</p>
+        <div class="options-grid">
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Swish-betalning / QR-kod för direktbetalning">
+            <div class="option-text">
+              <b>💳 Swish / Direktbetalning</b>
+              <span>Stöd för Swish-nummer, QR-koder för event eller medlemsavgift.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="IdrottOnline / LOK-stöd synk">
+            <div class="option-text">
+              <b>🏅 IdrottOnline / RF</b>
+              <span>Tydlig info eller länkning gällande medlemsregistrering och LOK-stöd.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Nyhetsbrev / Mailutskick (Mailchimp m.fl.)">
+            <div class="option-text">
+              <b>📬 Nyhetsbrev / E-postutskick</b>
+              <span>Möjlighet för intresserade föräldrar att prenumerera på anmälningsdatum.</span>
+            </div>
+          </label>
+          <label class="option-label" onclick="toggleOption(this)">
+            <input type="checkbox" name="integrations" value="Engelskt språkstöd / International friendly">
+            <div class="option-text">
+              <b>🌍 Engelska / Internationella gäster</b>
+              <span>Sammanfattning på engelska för utländska familjer på Lidingö eller turister.</span>
+            </div>
+          </label>
+        </div>
+        <div class="notes-box">
+          <label>Övriga system eller integrationer (t.ex. Fortnox, Google Drive):</label>
+          <textarea id="notesIntegrations" placeholder="Skriv in specifika system, administrativa rutiner eller verktyg här..."></textarea>
+        </div>
+      </div>
+
+      <!-- Q5.2 Övriga önskemål & fri brainstorm -->
+      <div class="question-card">
+        <h4 class="question-title">5.2 Styrelsens öppna önskelista & vilda idéer</h4>
+        <p class="question-desc">Här skriver ni in allt som dyker upp under kvällen som inte passar i övriga fack.</p>
+        <div class="notes-box" style="margin-top: 0;">
+          <label>Fritext / Övriga önskemål från kvällens diskussion:</label>
+          <textarea id="notesOtherWishes" style="min-height: 120px;" placeholder="Exempel:
+- Vill vi ha en 'Köp & Sälj'-hörna för urvuxen skidutrustning?
+- Särskild sektion för Rookie Series och tävlingar?
+- Foto/film från föräldrar – hur samlar vi in det?
+- Hur hanterar vi kontakt med skolor och fritids?
+- Andra idéer och tankar från styrelsen..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action bottom bar -->
+    <div style="text-align: center; margin-top: 40px;">
+      <button class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;" onclick="generateSpec()">
+        🚀 Sammanställ & Generera Specifikation för Lovable & GitHub
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Export Modal -->
+  <div id="exportModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.4rem;">Färdig Specifikation för Lovable & GitHub</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Kopiera texten nedan eller klicka för att spara direkt till GitHub-repot.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="closeModal()">Stäng</button>
+      </div>
+      <pre class="export-code" id="exportOutput"></pre>
+      <div style="margin-top: 20px; display: flex; gap: 12px; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="copyToClipboard()">📋 Kopiera till Urklipp</button>
+        <button class="btn btn-primary" onclick="downloadSpecFile()">💾 Ladda ner spec (.md)</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'freeskiers_workshop_data_v1';
+
+    function toggleOption(label) {
+      setTimeout(saveFormData, 50);
+    }
+
+    function saveFormData() {
+      const data = {
+        primaryGoal: document.querySelector('input[name="primaryGoal"]:checked')?.value || '',
+        targetGroups: Array.from(document.querySelectorAll('input[name="targetGroup"]:checked')).map(el => el.value),
+        menuItems: Array.from(document.querySelectorAll('input[name="menuItems"]:checked')).map(el => el.value),
+        bookingSolution: document.querySelector('input[name="bookingSolution"]:checked')?.value || '',
+        features: Array.from(document.querySelectorAll('input[name="features"]:checked')).map(el => el.value),
+        designTone: document.querySelector('input[name="designTone"]:checked')?.value || '',
+        mvpScope: Array.from(document.querySelectorAll('input[name="mvpScope"]:checked')).map(el => el.value),
+        integrations: Array.from(document.querySelectorAll('input[name="integrations"]:checked')).map(el => el.value),
+        notesGoal: document.getElementById('notesGoal').value,
+        notesMenu: document.getElementById('notesMenu').value,
+        notesFeatures: document.getElementById('notesFeatures').value,
+        notesDesign: document.getElementById('notesDesign').value,
+        notesIntegrations: document.getElementById('notesIntegrations').value,
+        notesOtherWishes: document.getElementById('notesOtherWishes').value,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const badge = document.getElementById('savedBadge');
+      badge.textContent = '✓ Sparat ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+    }
+
+    function loadFormData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        if (data.primaryGoal) {
+          const el = document.querySelector(`input[name="primaryGoal"][value="${data.primaryGoal}"]`);
+          if (el) el.checked = true;
+        }
+        if (data.bookingSolution) {
+          const el = document.querySelector(`input[name="bookingSolution"][value="${data.bookingSolution}"]`);
+          if (el) el.checked = true;
+        }
+        if (data.designTone) {
+          const el = document.querySelector(`input[name="designTone"][value="${data.designTone}"]`);
+          if (el) el.checked = true;
+        }
+
+        const setChecks = (name, values) => {
+          if (!values) return;
+          document.querySelectorAll(`input[name="${name}"]`).forEach(el => {
+            el.checked = values.includes(el.value);
+          });
+        };
+        setChecks('targetGroup', data.targetGroups);
+        setChecks('menuItems', data.menuItems);
+        setChecks('features', data.features);
+        setChecks('mvpScope', data.mvpScope);
+        setChecks('integrations', data.integrations);
+
+        if (data.notesGoal) document.getElementById('notesGoal').value = data.notesGoal;
+        if (data.notesMenu) document.getElementById('notesMenu').value = data.notesMenu;
+        if (data.notesFeatures) document.getElementById('notesFeatures').value = data.notesFeatures;
+        if (data.notesDesign) document.getElementById('notesDesign').value = data.notesDesign;
+        if (data.notesIntegrations) document.getElementById('notesIntegrations').value = data.notesIntegrations;
+        if (data.notesOtherWishes) document.getElementById('notesOtherWishes').value = data.notesOtherWishes;
+      } catch (e) {
+        console.error("Kunde inte ladda sparade data", e);
+      }
+    }
+
+    // Auto save on typing notes
+    ['notesGoal', 'notesMenu', 'notesFeatures', 'notesDesign', 'notesIntegrations', 'notesOtherWishes'].forEach(id => {
+      document.getElementById(id).addEventListener('input', saveFormData);
+    });
+
+    function generateSpec() {
+      saveFormData();
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const data = raw ? JSON.parse(raw) : {};
+
+      const markdown = `# Webbplats-specifikation: Lidingö Freeskiers (PRD för Lovable & GitHub)
+**Datum:** ${new Date().toLocaleDateString('sv-SE')}
+**Uppdragsgivare:** Styrelsen för IK Lidingö Freeskiers
+**Nuvarande webb:** https://www.lidingofreeskiers.se
+**Målarkitektur:** React, Vite, Tailwind CSS, Lucide Icons, Shadcn UI
+**Assets i repot:** Logotyper tillgängliga i \`assets/logo/\` (freeskiers-logo-skold.png, freeskiers-logo.svg)
+
+---
+
+## 1. Vision & Syfte
+- **Huvudsakligt mål:** ${data.primaryGoal || 'Konvertering till anmälan/bokning'}
+- **Varumärkeskänsla:** ${data.designTone || 'Nordisk vintersport, modern, hög energi, gemenskap utan tävlingshets'}
+- **Prioriterade målgrupper:**
+${(data.targetGroups || []).map(g => `  - ${g}`).join('\n')}
+
+${data.notesGoal ? `### Styrelsens anteckningar kring mål:\n${data.notesGoal}\n` : ''}
+---
+
+## 2. Struktur & Huvudmeny (Sitemap)
+Följande huvudsektioner ska ingå i sajten:
+${(data.menuItems || []).map(m => `- ${m}`).join('\n')}
+- **Header Call-To-Action:** Framträdande knapp "Anmäl & Boka" med direktkoppling till bokningsöversikt.
+
+${data.notesMenu ? `### Anteckningar om menystruktur:\n${data.notesMenu}\n` : ''}
+---
+
+## 3. Funktioner & Interaktionsflöden
+- **Bokningshantering:** ${data.bookingSolution || 'Agendo djup-länkar med snygga bokningskort'}
+- **Valda funktioner för webben:**
+${(data.features || []).map(f => `  - [x] ${f}`).join('\n')}
+
+${data.notesFeatures ? `### Anteckningar om funktioner:\n${data.notesFeatures}\n` : ''}
+---
+
+## 4. MVP Omfattning (Vad Lovable ska generera först)
+${(data.mvpScope || []).map(s => `- [x] ${s}`).join('\n')}
+
+${data.notesDesign ? `### Anteckningar om design och innehåll:\n${data.notesDesign}\n` : ''}
+---
+
+## 5. Särskilda Integrationer & System
+${(data.integrations || []).map(i => `- [x] ${i}`).join('\n')}
+${data.notesIntegrations ? `\n### Specifika system & administrativa rutiner:\n${data.notesIntegrations}\n` : ''}
+---
+
+## 6. Övriga Önskemål & Styrelsens Fria Inspel
+${data.notesOtherWishes ? data.notesOtherWishes : 'Inga ytterligare önskemål noterade.'}
+
+---
+
+## 7. Lovable System Prompt Instruktioner
+\`\`\`text
+Bygg en modern, responsiv och energifylld webbplats för IK Lidingö Freeskiers (Sveriges största friåkningsklubb för barn och unga i Ekholmsnäsbacken).
+Använd färgskalan: Snövitt, Mörk grafit/alpint mörkblå, Isblå (#00d2ff) och Säkerhetsorange accent.
+Inkludera:
+1. Hero med klubbens sköld-logotyp, video/bildbakgrund och tydlig knapp för anmälan.
+2. Träningsöversikt med interaktiva kort för Helgskidskola, Skidklubb och Höstsäsong (med tider, priser och 'Boka via Agendo'-knapp).
+3. 'Bli tränare'-sektion för ungdomar som gått ut nian med ansökningsformulär.
+4. Backstatus-banner för Ekholmsnäsbacken (öppettider/snöläge).
+5. FAQ-dragspel med svar på vanliga frågor om utrustning och nivåer.
+6. Partnersida med Gadelius, Alpingaraget, Ekholmsnäsbacken och Kang.
+${data.notesOtherWishes ? `Övriga styrelseönskemål: ${data.notesOtherWishes.replace(/\n/g, ' ')}` : ''}
+\`\`\`
+`;
+
+      document.getElementById('exportOutput').textContent = markdown;
+      document.getElementById('exportModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('exportModal').style.display = 'none';
+    }
+
+    function copyToClipboard() {
+      const text = document.getElementById('exportOutput').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Kopierat till urklipp! Klistra in i Lovable eller spara i repot.');
+      });
+    }
+
+    function downloadSpecFile() {
+      const text = document.getElementById('exportOutput').textContent;
+      const blob = new Blob([text], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'website-spec.md';
+      a.click();
+    }
+
+    function resetForm() {
+      if (confirm('Vill du återställa formuläret till standardvärden?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', loadFormData);
+  </script>
+</body>
+</html>
