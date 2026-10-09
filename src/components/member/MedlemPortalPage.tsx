@@ -23,7 +23,12 @@ import {
   Smartphone,
   Search,
   Database,
-  Filter
+  Filter,
+  Radio,
+  RefreshCw,
+  CheckCircle2,
+  AlertCircle,
+  Key
 } from 'lucide-react';
 import { useMemberAuth } from './MemberAuthContext';
 import { DigitalMembershipCard } from './DigitalMembershipCard';
@@ -33,6 +38,10 @@ import {
   sportadminSkiers, 
   allUniqueMemberEmails 
 } from '@/lib/memberData';
+import { 
+  testSportAdminConnection, 
+  SPORTADMIN_BASE_URL 
+} from '@/lib/sportadminApi';
 
 export const MedlemPortalPage: React.FC = () => {
   const { 
@@ -55,6 +64,36 @@ export const MedlemPortalPage: React.FC = () => {
   const [adminGroupFilter, setAdminGroupFilter] = useState<string>('alla');
   const [adminSearchTerm, setAdminSearchTerm] = useState<string>('');
   const [copiedEmails, setCopiedEmails] = useState(false);
+  const [apiKeyInput, setApiKeyInput] = useState('');
+  const [apiTesting, setApiTesting] = useState(false);
+  const [apiTestResult, setApiTestResult] = useState<{
+    success: boolean;
+    message: string;
+    clubs?: { clubId: number; name: string }[];
+  } | null>(null);
+
+  const handleTestApi = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!apiKeyInput.trim()) return;
+    setApiTesting(true);
+    setApiTestResult(null);
+
+    const res = await testSportAdminConnection(apiKeyInput);
+    setApiTesting(false);
+
+    if (res.success && res.clubs) {
+      setApiTestResult({
+        success: true,
+        message: `Anslutning lyckades! Hittade ${res.clubs.length} ansluten förening: ${res.clubs.map(c => `${c.name} (ClubId: ${c.clubId})`).join(', ')}`,
+        clubs: res.clubs
+      });
+    } else {
+      setApiTestResult({
+        success: false,
+        message: res.error || 'Kunde inte ansluta till SportAdmin API v4.'
+      });
+    }
+  };
 
   // Handle email submit
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -827,6 +866,129 @@ export const MedlemPortalPage: React.FC = () => {
                         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kontaktpersoner</div>
                         <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">{allUniqueMemberEmails.length}</div>
                         <div className="text-[11px] text-sky-600 font-semibold mt-0.5">Unika e-postadresser</div>
+                      </div>
+                    </div>
+
+                    {/* SportAdmin API v4 Live Integration Panel */}
+                    <div className="bg-gradient-to-br from-slate-900 to-freeskiers-navy text-white p-6 sm:p-8 rounded-3xl shadow-card border border-slate-700">
+                      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-freeskiers-cyan/20 text-freeskiers-lightcyan text-[11px] font-bold border border-freeskiers-cyan/30">
+                              <Radio className="w-3 h-3 animate-pulse text-emerald-400" />
+                              <span>SportAdmin API v4</span>
+                            </span>
+                            <span className="text-xs text-slate-400">Officiell OpenAPI 3.0-specifikation</span>
+                          </div>
+                          <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                            Direktkoppling & Live-synkronisering
+                          </h4>
+                          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
+                            Webbplatsen läser just nu in klubbens medlemsregister via den exporterade SportAdmin-databasen (164 aktiva åkare). Du kan även ansluta live via SportAdmins v4 REST API för automatisk realtidssynk.
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <a
+                            href="https://api.sportadmin.se/index.html?urls.primaryName=v4"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold border border-white/20 transition-all backdrop-blur-sm shadow-soft"
+                          >
+                            <span>Swagger API v4 Docs</span>
+                            <ExternalLink className="w-3.5 h-3.5 text-freeskiers-cyan" />
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* API Key Tester */}
+                      <div className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm mb-6">
+                        <div className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-2 flex items-center gap-1.5">
+                          <Key className="w-3.5 h-3.5 text-freeskiers-cyan" />
+                          <span>Testa SportAdmin Client Secret (API-nyckel)</span>
+                        </div>
+                        <form onSubmit={handleTestApi} className="flex flex-col sm:flex-row gap-3">
+                          <input
+                            type="text"
+                            value={apiKeyInput}
+                            onChange={(e) => setApiKeyInput(e.target.value)}
+                            placeholder="Klistra in Client secret utfärdad av SportAdmin..."
+                            className="flex-1 px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-600 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-freeskiers-cyan font-mono"
+                          />
+                          <button
+                            type="submit"
+                            disabled={apiTesting || !apiKeyInput.trim()}
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-freeskiers-cyan hover:bg-freeskiers-lightcyan disabled:opacity-50 text-white text-xs font-bold transition-all shadow-soft shrink-0"
+                          >
+                            {apiTesting ? (
+                              <>
+                                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                                <span>Ansluter...</span>
+                              </>
+                            ) : (
+                              <>
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>Testa koppling</span>
+                              </>
+                            )}
+                          </button>
+                        </form>
+
+                        {apiTestResult && (
+                          <div className={`mt-3 p-3.5 rounded-xl text-xs flex items-start gap-2.5 ${
+                            apiTestResult.success 
+                              ? 'bg-emerald-950/80 border border-emerald-500/60 text-emerald-200' 
+                              : 'bg-rose-950/80 border border-rose-500/60 text-rose-200'
+                          }`}>
+                            {apiTestResult.success ? (
+                              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                            ) : (
+                              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                            )}
+                            <div className="leading-relaxed">
+                              <strong>{apiTestResult.success ? 'Succé: ' : 'Anslutningsfel: '}</strong>
+                              {apiTestResult.message}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* 3 Core Endpoints Explanation */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                          <div className="font-mono text-freeskiers-lightcyan font-bold text-[11px] mb-1">
+                            GET /v4/Membership
+                          </div>
+                          <div className="font-extrabold text-white mb-1">Medlemskort & Verifiering</div>
+                          <p className="text-slate-300 text-[11px] leading-relaxed">
+                            Slår upp medlemmar direkt på e-post, returnerar giltighetstid, åkare och partnererbjudanden vid inloggning.
+                          </p>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                          <div className="font-mono text-freeskiers-lightcyan font-bold text-[11px] mb-1">
+                            GET /v4/Persons
+                          </div>
+                          <div className="font-extrabold text-white mb-1">Fullständigt Register</div>
+                          <p className="text-slate-300 text-[11px] leading-relaxed">
+                            Hämtar alla klubbens åkare, målsmän, kontaktuppgifter, grupper och bekräftade betalningsdatum (<span className="font-mono">paidMembershipAtUtc</span>).
+                          </p>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                          <div className="font-mono text-freeskiers-lightcyan font-bold text-[11px] mb-1">
+                            GET /v4/Activities
+                          </div>
+                          <div className="font-extrabold text-white mb-1">Träningar & Kalender</div>
+                          <p className="text-slate-300 text-[11px] leading-relaxed">
+                            Hämtar gruppers schemalagda träningstider och klubbaktiviteter direkt in i klubbkalendern och på "Mina sidor".
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-400 gap-2">
+                        <span>Beställ Client Secret från SportAdmin: Kontakta kanslisupport via <strong>support@sportadmin.se</strong>.</span>
+                        <span className="text-emerald-400 font-bold">Autentisering: Authorization-header</span>
                       </div>
                     </div>
 
