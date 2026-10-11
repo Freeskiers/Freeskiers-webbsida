@@ -48,11 +48,11 @@ export const helgskidskola2027 = {
       "Vi planerar för 5 tillfällen, med ett extra reservdatum om vädret skulle ställa till det.",
     dateListIntro: "Följande datum gäller:",
     dates: [
-      { name: "HSS 1", date: "Söndag 25 januari" },
-      { name: "HSS 2", date: "Lördag 31 januari" },
-      { name: "HSS 3", date: "Söndag 1 februari" },
-      { name: "HSS 4", date: "Söndag 8 februari" },
-      { name: "HSS 5", date: "Söndag 15 februari" },
+      { name: "HSS 1", date: "Söndag 25 januari", reserve: false },
+      { name: "HSS 2", date: "Lördag 31 januari", reserve: false },
+      { name: "HSS 3", date: "Söndag 1 februari", reserve: false },
+      { name: "HSS 4", date: "Söndag 8 februari", reserve: false },
+      { name: "HSS 5", date: "Söndag 15 februari", reserve: false },
       { name: "Reservdatum", date: "Lördag 14 mars", reserve: true },
     ],
     timeInfo:
