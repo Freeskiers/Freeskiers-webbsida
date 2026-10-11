@@ -18,3 +18,4 @@
 - [x] Byt ut bilden i "Möt våra tränare & ledare"-rutan på startsidan mot den bifogade nattbilden med hopp och eldkorg
 - [x] Dela upp trampolindatumen i två spalter: åk 1–4 kl. 18.00–19.30 och åk 5–9 kl. 19.30–21.00, med varje datum plus tid i respektive spalt.
 - [x] Återställa vår version efter att repot skrev över den och föra in medlemssidan (/medlem, /verifiera)
+- [x] Dela upp "Datum och tider" på /helgskidskola i två rubriker: datum (HSS 1–5 + reservdatum 14 mars) och tider (förmiddag/lunch/eftermiddag väljs vid anmälan som nivå)
