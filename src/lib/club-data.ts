@@ -48,15 +48,15 @@ export const helgskidskola2027 = {
       "Vi planerar för 5 tillfällen, med ett extra reservdatum om vädret skulle ställa till det.",
     dateListIntro: "Följande datum gäller:",
     dates: [
-      { name: "HSS 1", date: "Söndag 25 januari", reserve: false },
-      { name: "HSS 2", date: "Lördag 31 januari", reserve: false },
-      { name: "HSS 3", date: "Söndag 1 februari", reserve: false },
-      { name: "HSS 4", date: "Söndag 8 februari", reserve: false },
-      { name: "HSS 5", date: "Söndag 15 februari", reserve: false },
+      { name: "TILLFÄLLE 1", date: "Söndag 25 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a02", date: "Lördag 31 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a03", date: "Söndag 1 februari", reserve: false },
+      { name: "TILLFÄLLE\u00a04", date: "Söndag 8 februari", reserve: false },
+      { name: "TILLFÄLLE\u00a05", date: "Söndag 15 februari", reserve: false },
       { name: "Reservdatum", date: "Lördag 14 mars", reserve: true },
     ],
     timeInfo:
-      "Du väljer förmiddag, lunch eller eftermiddag vid anmälan – precis som du väljer nivå (grön, blå eller röd grupp). Tiden du väljer gäller alla tillfällen, så man kan inte välja fritt mellan passen från gång till gång.",
+      "Du väljer pass vid anmälan. Tiden du väljer gäller vid samtliga tillfällen.",
     sessions: ["Förmiddag 09.30–10.45", "Lunch 11.15–12.30", "Eftermiddag 13.15–14.30"],
     gathering:
       "Kom i god tid för att hitta rätt grupp och delta i uppropet. Barnen delas in i mindre grupper med färgade västar. Efter lektionen samlas alla på samma plats som vid starten.",
