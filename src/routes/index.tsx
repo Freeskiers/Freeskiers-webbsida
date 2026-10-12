@@ -69,7 +69,7 @@ function Home() {
               <Button variant="onDark" size="xl" className="rounded-full" asChild>
                 <Link to="/helgskidskola">Anmäl till Helgskidskolan</Link>
               </Button>
-              <LevelFinderButton variant="onDark" label="Hitta rätt nivå (skidtest)" className="h-14 px-6" />
+              <LevelFinderButton variant="onDark" size="xl" label="Hitta rätt nivå (skidtest)" />
             </div>
           </div>
         </div>

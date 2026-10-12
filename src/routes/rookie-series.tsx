@@ -45,7 +45,7 @@ function RookieSeries() {
           <Button variant="cta" size="xl" className="rounded-full" asChild>
             <a href="https://www.skidor.com" target="_blank" rel="noreferrer">Se tävlingskalendern (SSF) <ArrowRight className="size-5" /></a>
           </Button>
-          <LevelFinderButton variant="onDark" label="Gör vårt skidtest" className="h-14 px-6" />
+          <LevelFinderButton variant="onDark" size="xl" label="Gör vårt skidtest" />
         </div>
       </PageBanner>
 
