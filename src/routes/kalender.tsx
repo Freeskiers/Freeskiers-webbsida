@@ -101,7 +101,7 @@ function KalenderPage() {
           <a href="#kalender" className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground hover:bg-primary/90">
             Bläddra i kalendern <ArrowRight className="size-4" />
           </a>
-          <LevelFinderButton variant="onDark" label="Gör vårt skidtest" />
+          <LevelFinderButton variant="onDark" label="Gör vårt skidtest" className="h-11 px-5" />
         </div>
       </PageBanner>
 

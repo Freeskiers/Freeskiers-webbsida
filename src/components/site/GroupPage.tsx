@@ -36,7 +36,7 @@ export function GroupPage({ slug, intro, children, showFacts = true, showOvervie
               {cta}
             </Button>
           )}
-          {coach || !showHeroLevelFinder ? null : <LevelFinderButton variant="onDark" label="Gör skidtestet" className="h-14 px-6" />}
+          {coach || !showHeroLevelFinder ? null : <LevelFinderButton variant="onDark" size="xl" label="Gör skidtestet" />}
         </div>
       </PageBanner>
 
