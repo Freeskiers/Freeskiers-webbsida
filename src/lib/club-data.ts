@@ -48,12 +48,12 @@ export const helgskidskola2027 = {
       "Vi planerar för 5 tillfällen, med ett extra reservdatum om vädret skulle ställa till det.",
     dateListIntro: "Följande datum gäller:",
     dates: [
-      { name: "TILLFÄLLE 1", date: "Söndag 25 januari", reserve: false },
-      { name: "TILLFÄLLE\u00a02", date: "Lördag 31 januari", reserve: false },
-      { name: "TILLFÄLLE\u00a03", date: "Söndag 1 februari", reserve: false },
-      { name: "TILLFÄLLE\u00a04", date: "Söndag 8 februari", reserve: false },
-      { name: "TILLFÄLLE\u00a05", date: "Söndag 15 februari", reserve: false },
-      { name: "Reservdatum", date: "Lördag 14 mars", reserve: true },
+      { name: "TILLFÄLLE 1", date: "Lördag 23 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a02", date: "Lördag 30 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a03", date: "Söndag 31 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a04", date: "Lördag 6 februari", reserve: false },
+      { name: "TILLFÄLLE\u00a05", date: "Lördag 20 februari", reserve: false },
+      { name: "Reservdatum", date: "Söndag 21 februari", reserve: true },
     ],
     timeInfo:
       "Du väljer pass vid anmälan. Tiden du väljer gäller vid samtliga tillfällen.",
