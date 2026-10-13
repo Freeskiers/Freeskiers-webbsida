@@ -132,6 +132,7 @@ function Helgskidskola() {
             </li>
           ))}
         </ul>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed">{helgskidskola2027.schedule.dateNote}</p>
       </section>
 
       <section className="border-t border-border pt-6">
