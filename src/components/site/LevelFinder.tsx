@@ -269,10 +269,10 @@ export function LevelFinderProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function LevelFinderButton({ label = "Hitta rätt nivå", className, variant = "outline" }: { label?: string; className?: string; variant?: "outline" | "cta" | "onDark" }) {
+export function LevelFinderButton({ label = "Hitta rätt nivå", className, variant = "outline", size }: { label?: string; className?: string; variant?: "outline" | "cta" | "onDark"; size?: "default" | "sm" | "lg" | "xl" }) {
   const { openLevelFinder } = useLevelFinder();
   return (
-    <Button type="button" variant={variant} className={`rounded-full ${className ?? ""}`} onClick={openLevelFinder}>
+    <Button type="button" variant={variant} size={size} className={`rounded-full ${className ?? ""}`} onClick={openLevelFinder}>
       {label}
     </Button>
   );

@@ -56,7 +56,7 @@ function Skidklubb() {
           <Button variant="cta" size="xl" className="rounded-full" asChild>
             {cta}
           </Button>
-          <LevelFinderButton variant="onDark" label="Gör skidtestet" className="h-14 px-6" />
+          <LevelFinderButton variant="onDark" size="xl" label="Gör skidtestet" />
         </div>
       </PageBanner>
 

@@ -107,11 +107,40 @@ function Helgskidskola() {
 
       <section>
         <div className="flex items-center gap-3">
-          <Clock3 className="size-6 text-primary" aria-hidden="true" />
-          <h2 className="text-2xl sm:text-3xl">Datum och tider</h2>
+          <CalendarDays className="size-6 text-primary" aria-hidden="true" />
+          <h2 className="text-2xl sm:text-3xl">Datum</h2>
         </div>
         <p className="mt-4">{helgskidskola2027.schedule.extent}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{helgskidskola2027.schedule.dateStatus}</p>
+        <p className="mt-2 max-w-3xl leading-relaxed">{helgskidskola2027.schedule.dateInfo}</p>
+        <p className="mt-6 font-semibold text-heading">{helgskidskola2027.schedule.dateListIntro}</p>
+        <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {helgskidskola2027.schedule.dates.map((datum) => (
+            <li
+              key={datum.name}
+              className={`border-l-4 px-4 py-3 ${
+                datum.reserve ? "border-border bg-secondary/30" : "border-primary bg-secondary/40"
+              }`}
+            >
+              <span
+                className={`block text-xs font-bold uppercase tracking-wider ${
+                  datum.reserve ? "text-muted-foreground" : "text-primary"
+                }`}
+              >
+                {datum.name}
+              </span>
+              <span className="mt-1 block font-semibold text-heading">{datum.date}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed">{helgskidskola2027.schedule.dateNote}</p>
+      </section>
+
+      <section className="border-t border-border pt-6">
+        <div className="flex items-center gap-3">
+          <Clock3 className="size-6 text-primary" aria-hidden="true" />
+          <h2 className="text-2xl sm:text-3xl">Tider</h2>
+        </div>
+        <p className="mt-4 max-w-3xl leading-relaxed">{helgskidskola2027.schedule.timeInfo}</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
           {helgskidskola2027.schedule.sessions.map((session) => (
             <div key={session} className="border-l-4 border-primary bg-secondary/40 px-4 py-3 font-semibold text-heading">
