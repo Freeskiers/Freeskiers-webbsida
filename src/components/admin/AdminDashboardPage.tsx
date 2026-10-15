@@ -59,9 +59,9 @@ export const AdminDashboardPage: React.FC = () => {
   // SportAdmin API State
   const [apiKeyInput, setApiKeyInput] = useState(() => {
     try {
-      return localStorage.getItem(LOCAL_KEY_STORAGE) || '';
+      return localStorage.getItem(LOCAL_KEY_STORAGE) || 'I8THIkhP7lzrrtvlsZfNWKukcjJHTazmG5LaAqzDfGzgzadssu';
     } catch {
-      return '';
+      return 'I8THIkhP7lzrrtvlsZfNWKukcjJHTazmG5LaAqzDfGzgzadssu';
     }
   });
   const [isTesting, setIsTesting] = useState(false);
