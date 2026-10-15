@@ -238,6 +238,14 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     ? person.paidMembershipAtUtc.slice(0, 10) 
     : undefined;
 
+  const isAutumn = mainGroup?.toLowerCase().includes('höst') || mainGroup?.toLowerCase().includes('vikingahallen');
+  const trainingTime = isAutumn 
+    ? 'Måndagar & Torsdagar 18:00 – 19:30 (Inomhusträning)' 
+    : (groupLevel === 'skidklubb' ? 'Tisdagar & Torsdagar 18:00 – 19:30' : 'Helger (Jan–Feb)');
+  const location = mainGroup?.toLowerCase().includes('vikingahallen') 
+    ? 'Vikingahallen Lidingö' 
+    : 'Ekholmsnäsbacken';
+
   const skier: MemberSkier = {
     id: `FS-2026-${(index + 1).toString().padStart(4, '0')}`,
     firstName: person.firstName || 'Medlem',
@@ -250,8 +258,8 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     role: birthYear <= 1990 ? 'familjemedlem' : 'åkare',
     memberSince: person.addedAtUtc ? person.addedAtUtc.slice(0, 4) : '2026',
     insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-    trainingTime: groupLevel === 'skidklubb' ? 'Tisdagar & Torsdagar 18:00 – 19:30' : 'Helger (Jan–Feb)',
-    location: 'Ekholmsnäsbacken'
+    trainingTime,
+    location
   };
 
   if (paymentDate) {

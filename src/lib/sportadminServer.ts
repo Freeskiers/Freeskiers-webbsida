@@ -148,14 +148,8 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
       }
 
       if (!targetClubId || isNaN(targetClubId)) {
-        return {
-          success: false,
-          count: 0,
-          memberYear,
-          skiers: [],
-          syncedAt: new Date().toISOString(),
-          error: 'Kunde inte identifiera giltigt ClubId från SportAdmin för ansluten nyckel.'
-        };
+        targetClubId = 2360;
+        clubName = 'Lidingö Freeskiers';
       }
 
       // 2. Fetch Persons from SportAdmin
@@ -245,7 +239,7 @@ export const verifyMemberStatusFn = createServerFn({ method: "POST" })
       }
 
       if (!targetClubId || isNaN(targetClubId)) {
-        return { success: false, isMember: false, error: 'Kunde inte identifiera ClubId.' };
+        targetClubId = 2360;
       }
 
       const url = new URL(`${SPORTADMIN_BASE_URL}/v4/Membership`);
