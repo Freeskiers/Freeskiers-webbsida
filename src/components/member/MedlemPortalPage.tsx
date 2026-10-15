@@ -65,7 +65,7 @@ export const MedlemPortalPage: React.FC = () => {
   const [adminGroupFilter, setAdminGroupFilter] = useState<string>('alla');
   const [adminSearchTerm, setAdminSearchTerm] = useState<string>('');
   const [copiedEmails, setCopiedEmails] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState('I8THIkhP7lzrrtvlsZfNWKukcjJHTazmG5LaAqzDfGzgzadssu');
+  const [apiKeyInput, setApiKeyInput] = useState('htU1yq98vd7TzQmJYWmoHISSZ3T0MLJRCCrtJTSHZSpPCXOIcy');
   const [apiTesting, setApiTesting] = useState(false);
   const [apiTestResult, setApiTestResult] = useState<{
     success: boolean;

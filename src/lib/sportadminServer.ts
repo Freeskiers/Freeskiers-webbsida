@@ -41,7 +41,7 @@ export interface SportAdminVerifyResult {
   error?: string | undefined;
 }
 
-export const DEFAULT_CLUB_SECRET = "I8THIkhP7lzrrtvlsZfNWKukcjJHTazmG5LaAqzDfGzgzadssu";
+export const DEFAULT_CLUB_SECRET = "htU1yq98vd7TzQmJYWmoHISSZ3T0MLJRCCrtJTSHZSpPCXOIcy";
 
 /**
  * Server function: Test SportAdmin API authentication & retrieve connected clubs.
