@@ -68,6 +68,7 @@ export const AdminDashboardPage: React.FC = () => {
   const [testResult, setTestResult] = useState<SportAdminConnectionResult | null>(null);
 
   // Sync state
+  const [onlySkiers, setOnlySkiers] = useState<boolean>(true); // Standard: Importera bara åkare för 2026/2027
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<SportAdminSyncResult | null>(null);
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
@@ -144,7 +145,11 @@ export const AdminDashboardPage: React.FC = () => {
 
     try {
       const res = await fetchLiveMembersFn({
-        data: { apiKey: apiKeyInput.trim() || undefined, memberYear: 2026 }
+        data: { 
+          apiKey: apiKeyInput.trim() || undefined, 
+          memberYear: 2027,
+          onlySkiers
+        }
       });
       setSyncResult(res);
 
@@ -163,7 +168,7 @@ export const AdminDashboardPage: React.FC = () => {
       setSyncResult({
         success: false,
         count: 0,
-        memberYear: 2026,
+        memberYear: 2027,
         skiers: [],
         syncedAt: new Date().toISOString(),
         error: msg
@@ -180,7 +185,8 @@ export const AdminDashboardPage: React.FC = () => {
       if (groupFilter === 'rod' && s.groupLevel !== 'rod') return false;
       if (groupFilter === 'bla' && s.groupLevel !== 'bla') return false;
       if (groupFilter === 'gron' && s.groupLevel !== 'gron') return false;
-      if (groupFilter === 'familj' && s.groupLevel !== 'familj' && s.groupLevel !== 'tranare') return false;
+      if (groupFilter === 'tranare' && s.groupLevel !== 'tranare' && s.role !== 'tränare') return false;
+      if (groupFilter === 'familj' && s.groupLevel !== 'familj' && s.role !== 'familjemedlem') return false;
 
       if (!searchTerm.trim()) return true;
       const q = searchTerm.toLowerCase().trim();
@@ -468,6 +474,39 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
             </form>
 
+            {/* Season & Import Mode Options */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10 mt-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-semibold text-slate-400">Säsong 2026/2027:</span>
+                <button
+                  type="button"
+                  onClick={() => setOnlySkiers(true)}
+                  className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${
+                    onlySkiers 
+                      ? 'bg-freeskiers-cyan text-white shadow-soft ring-2 ring-white/30' 
+                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                  }`}
+                >
+                  🎿 Endast åkare (rekommenderas)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOnlySkiers(false)}
+                  className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${
+                    !onlySkiers 
+                      ? 'bg-freeskiers-cyan text-white shadow-soft ring-2 ring-white/30' 
+                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                  }`}
+                >
+                  👥 Alla betalande medlemmar (inkl. föräldrar & ledare)
+                </button>
+              </div>
+              <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                <span>Importerar enbart medlemmar med bekräftad betalning</span>
+              </div>
+            </div>
+
             {/* Test Feedback Box */}
             {testResult && (
               <div className={`mt-3.5 p-3.5 rounded-xl text-xs flex items-start gap-2.5 ${
@@ -508,9 +547,16 @@ export const AdminDashboardPage: React.FC = () => {
                 <div className="leading-relaxed">
                   <strong>{syncResult.success ? 'Synkning klar: ' : 'Synkfel: '}</strong>
                   {syncResult.success ? (
-                    <span>
-                      Läste in <strong>{syncResult.count} åkare</strong> för säsong {syncResult.memberYear} från {syncResult.clubName || 'SportAdmin'}. Medlemsregistret nedan är uppdaterat!
-                    </span>
+                    <div>
+                      <span>
+                        Läste in <strong>{syncResult.count} {syncResult.onlySkiers ? 'åkare' : 'medlemmar'}</strong> med betalt medlemskap för säsong 2026/2027 från {syncResult.clubName || 'SportAdmin'}.
+                      </span>
+                      {syncResult.totalPaidCount ? (
+                        <div className="mt-1 text-[11px] text-emerald-300/90 font-mono">
+                          Totalt betalda i SportAdmin (år {syncResult.memberYear}): {syncResult.skiersCount ?? syncResult.count} åkare, {syncResult.coachesCount ?? 0} tränare, {syncResult.familyCount ?? 0} föräldrar/stödmedlemmar ({syncResult.totalPaidCount} totalt).
+                        </div>
+                      ) : null}
+                    </div>
                   ) : (
                     <span>{syncResult.error}</span>
                   )}
@@ -640,6 +686,7 @@ export const AdminDashboardPage: React.FC = () => {
                 { id: 'rod', label: 'Röd Grupp' },
                 { id: 'bla', label: 'Blå Grupp' },
                 { id: 'gron', label: 'Grön Grupp' },
+                { id: 'tranare', label: 'Tränare' },
                 { id: 'familj', label: 'Förälder / Stöd' }
               ].map((f) => (
                 <button

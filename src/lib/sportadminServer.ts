@@ -19,6 +19,11 @@ export interface SportAdminConnectionResult {
 export interface SportAdminSyncResult {
   success: boolean;
   count: number;
+  totalPaidCount?: number;
+  skiersCount?: number;
+  coachesCount?: number;
+  familyCount?: number;
+  onlySkiers?: boolean;
   clubId?: number;
   clubName?: string;
   memberYear: number;
@@ -106,14 +111,15 @@ export const testSportAdminConnectionFn = createServerFn({ method: "POST" })
  * Server function: Fetch all registered members/persons for a club and year live from SportAdmin.
  */
 export const fetchLiveMembersFn = createServerFn({ method: "POST" })
-  .validator((d: { apiKey?: string; clubId?: number; memberYear?: number } = {}) => d)
+  .validator((d: { apiKey?: string; clubId?: number; memberYear?: number; onlySkiers?: boolean } = {}) => d)
   .handler(async ({ data }): Promise<SportAdminSyncResult> => {
     const envKey = (typeof process !== 'undefined' ? process.env['SPORTADMIN_API_KEY'] : '') || '';
     const inputKey = data?.apiKey?.trim() || '';
     const activeKey = inputKey || envKey || DEFAULT_CLUB_SECRET;
 
-    const envYear = (typeof process !== 'undefined' ? process.env['SPORTADMIN_MEMBER_YEAR'] : '') || '2026';
-    const memberYear = data?.memberYear || Number(envYear) || 2026;
+    const envYear = (typeof process !== 'undefined' ? process.env['SPORTADMIN_MEMBER_YEAR'] : '') || '2027';
+    const memberYear = data?.memberYear || Number(envYear) || 2027;
+    const onlySkiers = data?.onlySkiers !== false; // Standard: Importera bara åkare för 2026/2027
 
     if (!activeKey) {
       return {
@@ -182,15 +188,41 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
 
       const body = await res.json();
       const rawPersons: SportAdminPerson[] = Array.isArray(body) ? body : (body.persons || []);
-      const skiers: MemberSkier[] = rawPersons.map((p, idx) => mapSportAdminPersonToSkier(p, idx));
+
+      // Filtrera strikt: Endast aktiva medlemmar som har betalat medlemskap för säsongen 2026/2027
+      const paidActivePersons = rawPersons.filter((p) => {
+        // 1. Måste vara aktiv medlem
+        if (!p.isMember) return false;
+        // 2. Måste ha ett bekräftat betaldatum
+        if (!p.paidMembershipAtUtc || p.paidMembershipAtUtc.trim() === '') return false;
+        // 3. Om personen har grupper men har slutat i samtliga, exkludera
+        if (p.groups && p.groups.length > 0 && p.groups.every(g => g.hasQuit)) return false;
+        return true;
+      });
+
+      const allMapped = paidActivePersons.map((p, idx) => mapSportAdminPersonToSkier(p, idx));
+
+      const skiersCount = allMapped.filter(s => s.role === 'åkare').length;
+      const coachesCount = allMapped.filter(s => s.role === 'tränare').length;
+      const familyCount = allMapped.filter(s => s.role === 'familjemedlem').length;
+
+      // Om onlySkiers är sant, importera bara aktiva åkare för säsongen 2026/2027
+      const finalSkiers: MemberSkier[] = onlySkiers 
+        ? allMapped.filter(s => s.role === 'åkare')
+        : allMapped;
 
       return {
         success: true,
-        count: skiers.length,
+        count: finalSkiers.length,
+        totalPaidCount: paidActivePersons.length,
+        skiersCount,
+        coachesCount,
+        familyCount,
+        onlySkiers,
         clubId: targetClubId,
         clubName,
         memberYear,
-        skiers,
+        skiers: finalSkiers,
         rawPersons,
         syncedAt: new Date().toISOString()
       };
@@ -215,7 +247,7 @@ export const verifyMemberStatusFn = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<SportAdminVerifyResult> => {
     const envKey = (typeof process !== 'undefined' ? process.env['SPORTADMIN_API_KEY'] : '') || '';
     const activeKey = data.apiKey?.trim() || envKey || DEFAULT_CLUB_SECRET;
-    const memberYear = data.memberYear || 2026;
+    const memberYear = data.memberYear || 2027;
     const cleanEmail = data.email?.toLowerCase().trim();
 
     if (!cleanEmail) {
