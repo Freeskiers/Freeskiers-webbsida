@@ -42,6 +42,7 @@ import {
   testSportAdminConnection, 
   SPORTADMIN_BASE_URL 
 } from '@/lib/sportadminApi';
+import { testSportAdminConnectionFn } from '@/lib/sportadminServer';
 
 export const MedlemPortalPage: React.FC = () => {
   const { 
@@ -78,19 +79,28 @@ export const MedlemPortalPage: React.FC = () => {
     setApiTesting(true);
     setApiTestResult(null);
 
-    const res = await testSportAdminConnection(apiKeyInput);
-    setApiTesting(false);
+    try {
+      const res = await testSportAdminConnectionFn({ data: { apiKey: apiKeyInput.trim() } });
+      setApiTesting(false);
 
-    if (res.success && res.clubs) {
-      setApiTestResult({
-        success: true,
-        message: `Anslutning lyckades! Hittade ${res.clubs.length} ansluten förening: ${res.clubs.map(c => `${c.name} (ClubId: ${c.clubId})`).join(', ')}`,
-        clubs: res.clubs
-      });
-    } else {
+      if (res.success && res.clubs) {
+        setApiTestResult({
+          success: true,
+          message: `Anslutning lyckades via serverfunktion! Hittade ${res.clubs.length} ansluten förening: ${res.clubs.map(c => `${c.name} (ClubId: ${c.clubId})`).join(', ')}`,
+          clubs: res.clubs
+        });
+      } else {
+        setApiTestResult({
+          success: false,
+          message: res.error || 'Kunde inte ansluta till SportAdmin API v4.'
+        });
+      }
+    } catch (err: unknown) {
+      setApiTesting(false);
+      const msg = err instanceof Error ? err.message : 'Ett fel uppstod vid testning.';
       setApiTestResult({
         success: false,
-        message: res.error || 'Kunde inte ansluta till SportAdmin API v4.'
+        message: msg
       });
     }
   };
@@ -825,7 +835,15 @@ export const MedlemPortalPage: React.FC = () => {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-2 self-start md:self-auto">
+                      <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
+                        <Link
+                          to="/admin"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white text-xs font-bold shadow-soft transition-colors"
+                        >
+                          <ShieldCheck className="w-4 h-4" />
+                          <span>Öppna Kanslicenter /admin →</span>
+                        </Link>
+
                         <button
                           onClick={handleCopyAllEmails}
                           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-freeskiers-navy hover:bg-slate-800 text-white text-xs font-bold shadow-soft transition-colors"

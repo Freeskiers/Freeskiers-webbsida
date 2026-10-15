@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as HelgskidskolaRouteImport } from './routes/helgskidskola'
 import { Route as HostsasongRouteImport } from './routes/hostsasong'
 import { Route as KalenderRouteImport } from './routes/kalender'
@@ -25,6 +26,11 @@ import { Route as VerifieraRouteImport } from './routes/verifiera'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HelgskidskolaRoute = HelgskidskolaRouteImport.update({
@@ -85,6 +91,7 @@ const VerifieraRoute = VerifieraRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
   '/kalender': typeof KalenderRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/helgskidskola'
     | '/hostsasong'
     | '/kalender'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/helgskidskola'
     | '/hostsasong'
     | '/kalender'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/helgskidskola'
     | '/hostsasong'
     | '/kalender'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   HelgskidskolaRoute: typeof HelgskidskolaRoute
   HostsasongRoute: typeof HostsasongRoute
   KalenderRoute: typeof KalenderRoute
@@ -193,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/helgskidskola': {
@@ -277,6 +297,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   HelgskidskolaRoute: HelgskidskolaRoute,
   HostsasongRoute: HostsasongRoute,
   KalenderRoute: KalenderRoute,

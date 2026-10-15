@@ -79,6 +79,7 @@ export function Footer() {
               <li><Link to="/om-oss" hash="bli-tranare" className="hover:text-primary-foreground">Bli tränare</Link></li>
               <li><Link to="/medlem" className="font-bold hover:text-primary-foreground">Mina sidor &amp; medlemskort</Link></li>
               <li><Link to="/sponsor" className="font-bold hover:text-primary-foreground">Bli sponsor</Link></li>
+              <li><Link to="/admin" className="hover:text-primary-foreground text-xs opacity-80">Kansli &amp; Admin</Link></li>
               <li className="col-span-2 pt-1">
                 <button type="button" onClick={openLevelFinder} className="inline-flex items-center gap-1.5 text-xs font-semibold hover:text-primary-foreground">
                   <Sparkles className="size-3.5" /> Hitta rätt nivå (skidtest)
