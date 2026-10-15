@@ -291,6 +291,11 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     ? 'Vikingahallen Lidingö' 
     : 'Ekholmsnäsbacken';
 
+  const primaryGuardian = person.guardians?.[0];
+  const guardianName = primaryGuardian?.name || `${person.firstName || ''} ${person.lastName || ''}`.trim() || 'Målsman';
+  const guardianPhone = primaryGuardian?.phoneNumber || person.phoneNumber || '';
+  const guardianEmail = primaryGuardian?.email || person.email || '';
+
   const skier: MemberSkier = {
     id: `FS-2026-${(index + 1).toString().padStart(4, '0')}`,
     firstName: person.firstName || 'Medlem',
@@ -305,7 +310,10 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
     trainingTime,
     location,
-    paymentDate
+    paymentDate,
+    guardianName,
+    guardianPhone,
+    guardianEmail
   };
 
   if (paymentDate) {

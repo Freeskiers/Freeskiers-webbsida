@@ -38,11 +38,14 @@ import {
   sportadminSkiers, 
   allUniqueMemberEmails 
 } from '@/lib/memberData';
+import { type SportAdminSkierRecord } from '@/lib/sportadminData';
 import { 
   testSportAdminConnection, 
   SPORTADMIN_BASE_URL 
 } from '@/lib/sportadminApi';
 import { testSportAdminConnectionFn } from '@/lib/sportadminServer';
+
+const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v1';
 
 export const MedlemPortalPage: React.FC = () => {
   const { 
@@ -144,8 +147,45 @@ export const MedlemPortalPage: React.FC = () => {
     setActiveTab('kort');
   };
 
+  const [adminMembersList, setAdminMembersList] = useState<SportAdminSkierRecord[]>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem(SYNCED_MEMBERS_STORAGE);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+    return sportadminSkiers;
+  });
+
+  React.useEffect(() => {
+    const handleStorage = () => {
+      try {
+        const saved = localStorage.getItem(SYNCED_MEMBERS_STORAGE);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setAdminMembersList(parsed);
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
+  const familyAccountsCount = React.useMemo(() => {
+    return sportadminAccounts.filter(a => a.skiers.length > 1).length;
+  }, []);
+
   const filteredAdminSkiers = React.useMemo(() => {
-    return sportadminSkiers.filter((s) => {
+    return adminMembersList.filter((s) => {
       // Group filter
       if (adminGroupFilter === 'skidklubb' && s.groupLevel !== 'skidklubb') return false;
       if (adminGroupFilter === 'rod' && s.groupLevel !== 'rod') return false;
@@ -160,12 +200,12 @@ export const MedlemPortalPage: React.FC = () => {
         s.firstName.toLowerCase().includes(q) ||
         s.lastName.toLowerCase().includes(q) ||
         s.id.toLowerCase().includes(q) ||
-        s.guardianName.toLowerCase().includes(q) ||
-        s.guardianEmail.toLowerCase().includes(q) ||
-        s.guardianPhone.toLowerCase().includes(q)
+        (s.guardianName && s.guardianName.toLowerCase().includes(q)) ||
+        (s.guardianEmail && s.guardianEmail.toLowerCase().includes(q)) ||
+        (s.guardianPhone && s.guardianPhone.includes(q))
       );
     });
-  }, [adminGroupFilter, adminSearchTerm]);
+  }, [adminMembersList, adminGroupFilter, adminSearchTerm]);
 
   return (
     <div className="bg-white min-h-[85vh]">
@@ -232,7 +272,7 @@ export const MedlemPortalPage: React.FC = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse" />
                   <div className="leading-snug">
                     <span className="font-bold text-emerald-900 block">
-                      164 aktiva SportAdmin-medlemmar inlästa (2026/2027)
+                      {adminMembersList.length} aktiva SportAdmin-medlemmar inlästa (2026/2027)
                     </span>
                     <span className="text-slate-600 text-[11px]">
                       Ange den e-postadress du använde vid klubbanmälan för att logga in direkt, eller välj ett snabbval nedan.
@@ -337,7 +377,7 @@ export const MedlemPortalPage: React.FC = () => {
                       className="text-[11px] font-bold text-freeskiers-cyan hover:underline inline-flex items-center gap-1"
                     >
                       <Search className="w-3 h-3" />
-                      <span>{showMemberBrowser ? 'Dölj sök' : 'Sök bland alla 164'}</span>
+                      <span>{showMemberBrowser ? 'Dölj sök' : `Sök bland alla ${sportadminAccounts.length} konton`}</span>
                     </button>
                   </div>
 
@@ -514,9 +554,6 @@ export const MedlemPortalPage: React.FC = () => {
                     >
                       <Database className="w-4 h-4 text-rose-500" />
                       <span>Kansli & Medlemsregister</span>
-                      <span className="text-[10px] bg-rose-600 text-white px-1.5 py-0.5 rounded-full font-black">
-                        164
-                      </span>
                     </button>
                   )}
                 </div>
@@ -867,23 +904,33 @@ export const MedlemPortalPage: React.FC = () => {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Aktiva Åkare</div>
-                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">164</div>
+                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">
+                          {adminMembersList.length}
+                        </div>
                         <div className="text-[11px] text-emerald-600 font-semibold mt-0.5">✓ 100% SportAdmin-aktiva</div>
                       </div>
                       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Familjekonton</div>
-                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">13</div>
-                        <div className="text-[11px] text-slate-500 font-semibold mt-0.5">49 familjemedlemmar</div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Medlemskonton</div>
+                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">
+                          {sportadminAccounts.length}
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
+                          {familyAccountsCount} familjer med flera åkare
+                        </div>
                       </div>
                       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Betalda Medlemskap</div>
-                        <div className="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">164 / 164</div>
-                        <div className="text-[11px] text-slate-500 font-semibold mt-0.5">Bekräftade 4–8 okt 2026</div>
+                        <div className="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                          {adminMembersList.length} / {adminMembersList.length}
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-semibold mt-0.5">Säsong 2026/2027</div>
                       </div>
                       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
-                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kontaktpersoner</div>
-                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">{allUniqueMemberEmails.length}</div>
-                        <div className="text-[11px] text-sky-600 font-semibold mt-0.5">Unika e-postadresser</div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Målsmäns E-post</div>
+                        <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">
+                          {allUniqueMemberEmails.length}
+                        </div>
+                        <div className="text-[11px] text-sky-600 font-semibold mt-0.5">Klara för klubbutskick</div>
                       </div>
                     </div>
 
@@ -902,7 +949,7 @@ export const MedlemPortalPage: React.FC = () => {
                             Direktkoppling & Live-synkronisering
                           </h4>
                           <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
-                            Webbplatsen läser just nu in klubbens medlemsregister via den exporterade SportAdmin-databasen (164 aktiva åkare). Du kan även ansluta live via SportAdmins v4 REST API för automatisk realtidssynk.
+                            Webbplatsen läser just nu in klubbens medlemsregister via den exporterade SportAdmin-databasen ({adminMembersList.length} aktiva åkare). Du kan även ansluta live via SportAdmins v4 REST API för automatisk realtidssynk.
                           </p>
                         </div>
 
@@ -1025,7 +1072,7 @@ export const MedlemPortalPage: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
                           {[
-                            { id: 'alla', label: 'Alla (164)' },
+                            { id: 'alla', label: `Alla (${adminMembersList.length})` },
                             { id: 'skidklubb', label: 'Skidklubb' },
                             { id: 'rod', label: 'Skidskola Röd' },
                             { id: 'bla', label: 'Skidskola Blå' },
@@ -1049,7 +1096,7 @@ export const MedlemPortalPage: React.FC = () => {
 
                       {/* Skier Count summary */}
                       <div className="text-xs text-slate-500 font-medium flex items-center justify-between border-t border-slate-100 pt-3">
-                        <span>Visar {filteredAdminSkiers.length} av 164 medlemmar</span>
+                        <span>Visar {filteredAdminSkiers.length} av {adminMembersList.length} medlemmar</span>
                         <span className="text-[11px] text-slate-400">Sorterat efter SportAdmin-ordning</span>
                       </div>
 

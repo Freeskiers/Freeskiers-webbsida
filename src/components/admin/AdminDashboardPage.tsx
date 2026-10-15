@@ -204,6 +204,11 @@ export const AdminDashboardPage: React.FC = () => {
     });
   }, [membersList, groupFilter, searchTerm]);
 
+  // Accounts with multiple skiers (true family accounts)
+  const familyAccountsCount = useMemo(() => {
+    return sportadminAccounts.filter(a => a.skiers.length > 1).length;
+  }, []);
+
   // Copy emails to clipboard
   const handleCopyEmails = () => {
     navigator.clipboard.writeText(allUniqueMemberEmails.join(', '));
@@ -589,14 +594,14 @@ export const AdminDashboardPage: React.FC = () => {
 
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between text-slate-400">
-              <span className="text-[10px] font-bold uppercase tracking-wider">Familjekonton</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider">Medlemskonton</span>
               <Building2 className="w-4 h-4 text-freeskiers-cyan" />
             </div>
             <div className="text-2xl sm:text-3xl font-black text-freeskiers-navy mt-1">
               {sportadminAccounts.length}
             </div>
             <div className="text-[11px] text-slate-500 font-semibold mt-0.5">
-              49 familjemedlemmar
+              {familyAccountsCount} familjer med flera åkare
             </div>
           </div>
 

@@ -14,6 +14,9 @@ export interface MemberSkier {
   location?: string;
   allergy?: string;
   paymentDate?: string;
+  guardianName?: string;
+  guardianPhone?: string;
+  guardianEmail?: string;
 }
 
 export interface MemberAccount {
