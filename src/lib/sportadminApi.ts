@@ -216,12 +216,17 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
   const activeGroups = person.groups?.filter(g => !g.hasQuit) || [];
   const activeGroupObj = activeGroups[0] || person.groups?.[0];
   const groupNames = activeGroups.map(g => (g.groupName || '').toLowerCase());
+  const groupConnectionNames = activeGroups.map(g => (g.groupConnectionName || '').toLowerCase());
   const mainGroup = activeGroupObj?.groupName;
   const gLower = (mainGroup || '').toLowerCase();
 
-  const isTrainer = groupNames.some(g => g.includes('tränare'));
+  const isTrainer = groupNames.some(g => g.includes('tränare')) || groupConnectionNames.some(c => c.includes('tränare') || c.includes('ledare'));
   const isParentGroup = groupNames.some(g => g.includes('föräldra') || g.includes('engagerade'));
   const isSkiGroup = groupNames.some(g => g.includes('skidor') || g.includes('snowboard') || g.includes('skidklubb') || g.includes('helgskidskola'));
+  const hasFakturerasEj = activeGroups.some(g => {
+    const conn = (g.groupConnectionName || '').toLowerCase().trim();
+    return conn.includes('faktureras ej') || g.dontInvoice === true;
+  });
 
   let role: MemberSkier['role'] = 'åkare';
   let groupLevel: MemberSkier['groupLevel'] = 'bla';
@@ -270,7 +275,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
 
   const paymentDate = person.paidMembershipAtUtc 
     ? person.paidMembershipAtUtc.slice(0, 10) 
-    : undefined;
+    : (hasFakturerasEj ? 'Faktureras ej' : undefined);
 
   const isAutumn = gLower.includes('höst') || gLower.includes('vikingahallen');
   let trainingTime = 'Helger & Vardagskvällar (Ekholmsnäsbacken)';
@@ -304,7 +309,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     groupName,
     groupLevel,
     season: '2026/2027',
-    status: person.isMember ? 'active' : 'pending',
+    status: (person.isMember || hasFakturerasEj) ? 'active' : 'pending',
     role,
     memberSince: person.addedAtUtc ? person.addedAtUtc.slice(0, 4) : '2026',
     insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
@@ -315,10 +320,6 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     guardianPhone,
     guardianEmail
   };
-
-  if (paymentDate) {
-    skier.paymentDate = paymentDate;
-  }
 
   return skier;
 }

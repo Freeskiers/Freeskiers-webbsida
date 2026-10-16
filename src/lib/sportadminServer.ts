@@ -119,7 +119,7 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
 
     const envYear = (typeof process !== 'undefined' ? process.env['SPORTADMIN_MEMBER_YEAR'] : '') || '2027';
     const memberYear = data?.memberYear || Number(envYear) || 2027;
-    const onlySkiers = data?.onlySkiers !== false; // Standard: Importera bara åkare för 2026/2027
+    const onlySkiers = data?.onlySkiers === true; // Om true: importera enbart åkare. Standard: alla medlemmar
 
     if (!activeKey) {
       return {
@@ -189,18 +189,29 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
       const body = await res.json();
       const rawPersons: SportAdminPerson[] = Array.isArray(body) ? body : (body.persons || []);
 
-      // Filtrera strikt: Endast aktiva medlemmar som har betalat medlemskap för säsongen 2026/2027
-      const paidActivePersons = rawPersons.filter((p) => {
-        // 1. Måste vara aktiv medlem
-        if (!p.isMember) return false;
-        // 2. Måste ha ett bekräftat betaldatum
-        if (!p.paidMembershipAtUtc || p.paidMembershipAtUtc.trim() === '') return false;
-        // 3. Om personen har grupper men har slutat i samtliga, exkludera
-        if (p.groups && p.groups.length > 0 && p.groups.every(g => g.hasQuit)) return false;
-        return true;
+      // Filtrera enligt klubbregler:
+      // 1. Samtliga som definieras som medlemmar under personregister under aktuellt år 2027 (isMember === true)
+      // 2. Alla som har gruppkoppling "faktureras ej" under aktuell säsong 2026/2027
+      const validPersons = rawPersons.filter((p) => {
+        // 1. Samtliga som definieras som medlemmar under personregister under aktuellt år 2027
+        if (p.isMember === true) {
+          if (p.groups && p.groups.length > 0 && p.groups.every(g => g.hasQuit)) return false;
+          return true;
+        }
+
+        // 2. Alla som har gruppkoppling "faktureras ej" under aktuell säsong 2026/2027
+        const hasFakturerasEj = (p.groups || []).some((g) => {
+          if (g.hasQuit) return false;
+          const conn = (g.groupConnectionName || '').toLowerCase().trim();
+          const period = (g.periodName || '').toLowerCase();
+          const isSeason = period.includes('2026/2027') || period.includes('26/27') || g.memberYear === 2027 || g.memberYear === 2026;
+          return isSeason && (conn.includes('faktureras ej') || g.dontInvoice === true);
+        });
+
+        return hasFakturerasEj;
       });
 
-      const allMapped = paidActivePersons.map((p, idx) => mapSportAdminPersonToSkier(p, idx));
+      const allMapped = validPersons.map((p, idx) => mapSportAdminPersonToSkier(p, idx));
 
       const skiersCount = allMapped.filter(s => s.role === 'åkare').length;
       const coachesCount = allMapped.filter(s => s.role === 'tränare').length;
@@ -214,7 +225,7 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
       return {
         success: true,
         count: finalSkiers.length,
-        totalPaidCount: paidActivePersons.length,
+        totalPaidCount: validPersons.length,
         skiersCount,
         coachesCount,
         familyCount,

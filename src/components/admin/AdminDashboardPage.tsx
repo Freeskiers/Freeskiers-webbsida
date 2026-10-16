@@ -72,7 +72,7 @@ export const AdminDashboardPage: React.FC = () => {
   const [testResult, setTestResult] = useState<SportAdminConnectionResult | null>(null);
 
   // Sync state
-  const [onlySkiers, setOnlySkiers] = useState<boolean>(true); // Standard: Importera bara åkare för 2026/2027
+  const [onlySkiers, setOnlySkiers] = useState<boolean>(false); // Standard: Alla medlemmar (personregister 2027 + faktureras ej 2026/2027)
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<SportAdminSyncResult | null>(null);
   const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
@@ -486,18 +486,7 @@ export const AdminDashboardPage: React.FC = () => {
             {/* Season & Import Mode Options */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10 mt-3 text-xs">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-semibold text-slate-400">Säsong 2026/2027:</span>
-                <button
-                  type="button"
-                  onClick={() => setOnlySkiers(true)}
-                  className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${
-                    onlySkiers 
-                      ? 'bg-freeskiers-cyan text-white shadow-soft ring-2 ring-white/30' 
-                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
-                  }`}
-                >
-                  🎿 Endast åkare (rekommenderas)
-                </button>
+                <span className="font-semibold text-slate-400">Urval SportAdmin:</span>
                 <button
                   type="button"
                   onClick={() => setOnlySkiers(false)}
@@ -507,12 +496,23 @@ export const AdminDashboardPage: React.FC = () => {
                       : 'bg-white/10 text-slate-300 hover:bg-white/20'
                   }`}
                 >
-                  👥 Alla betalande medlemmar (inkl. föräldrar & ledare)
+                  👥 Samtliga medlemmar (Personregister 2027 + Faktureras ej 26/27)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOnlySkiers(true)}
+                  className={`px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${
+                    onlySkiers 
+                      ? 'bg-freeskiers-cyan text-white shadow-soft ring-2 ring-white/30' 
+                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                  }`}
+                >
+                  🎿 Endast åkare
                 </button>
               </div>
               <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
                 <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                <span>Importerar enbart medlemmar med bekräftad betalning</span>
+                <span>Hämtar personregister 2027 samt &quot;faktureras ej&quot; 2026/2027</span>
               </div>
             </div>
 
