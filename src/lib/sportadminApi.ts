@@ -220,19 +220,24 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
   const mainGroup = activeGroupObj?.groupName;
   const gLower = (mainGroup || '').toLowerCase();
 
+  const isBoard = groupNames.some(g => g.includes('engagerade') || g.includes('styrelse')) || groupConnectionNames.some(c => c.includes('styrelse'));
   const isTrainer = groupNames.some(g => g.includes('tränare')) || groupConnectionNames.some(c => c.includes('tränare') || c.includes('ledare'));
   const isParentGroup = groupNames.some(g => g.includes('föräldra') || g.includes('engagerade'));
   const isSkiGroup = groupNames.some(g => g.includes('skidor') || g.includes('snowboard') || g.includes('skidklubb') || g.includes('helgskidskola'));
   const hasFakturerasEj = activeGroups.some(g => {
     const conn = (g.groupConnectionName || '').toLowerCase().trim();
-    return conn.includes('faktureras ej') || g.dontInvoice === true;
+    return conn.includes('faktureras ej') || conn.includes('styrelse') || g.dontInvoice === true;
   });
 
   let role: MemberSkier['role'] = 'åkare';
   let groupLevel: MemberSkier['groupLevel'] = 'bla';
   let groupName = mainGroup || 'IK Lidingö Freeskiers';
 
-  if (isTrainer) {
+  if (isBoard) {
+    role = 'styrelse';
+    groupLevel = 'admin';
+    groupName = mainGroup || 'Styrelse & Klubbledning';
+  } else if (isTrainer) {
     role = 'tränare';
     groupLevel = 'tranare';
     groupName = mainGroup || 'Certifierad Tränare & Ledare';
@@ -275,7 +280,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
 
   const paymentDate = person.paidMembershipAtUtc 
     ? person.paidMembershipAtUtc.slice(0, 10) 
-    : (hasFakturerasEj ? 'Faktureras ej' : undefined);
+    : (isBoard ? 'Faktureras ej (Styrelse)' : (isTrainer ? 'Faktureras ej (Tränare)' : (hasFakturerasEj ? 'Faktureras ej' : undefined)));
 
   const isAutumn = gLower.includes('höst') || gLower.includes('vikingahallen');
   let trainingTime = 'Helger & Vardagskvällar (Ekholmsnäsbacken)';
@@ -309,7 +314,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     groupName,
     groupLevel,
     season: '2026/2027',
-    status: (person.isMember || hasFakturerasEj) ? 'active' : 'pending',
+    status: (person.isMember || hasFakturerasEj || isBoard || isTrainer) ? 'active' : 'pending',
     role,
     memberSince: person.addedAtUtc ? person.addedAtUtc.slice(0, 4) : '2026',
     insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',

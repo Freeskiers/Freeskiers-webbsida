@@ -38,7 +38,7 @@ import {
 } from '@/lib/sportadminServer';
 
 const LOCAL_KEY_STORAGE = 'freeskiers_sportadmin_client_secret_v1';
-const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v1';
+const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v2';
 
 export const AdminDashboardPage: React.FC = () => {
   const { currentUser, login, logout } = useMemberAuth();
@@ -185,12 +185,13 @@ export const AdminDashboardPage: React.FC = () => {
   // Filter members
   const filteredMembers = useMemo(() => {
     return membersList.filter((s) => {
+      if (groupFilter === 'faktureras_ej' && !(s.paymentDate && s.paymentDate.toLowerCase().includes('faktureras ej')) && s.role !== 'styrelse') return false;
       if (groupFilter === 'skidklubb' && s.groupLevel !== 'skidklubb') return false;
       if (groupFilter === 'rod' && s.groupLevel !== 'rod') return false;
       if (groupFilter === 'bla' && s.groupLevel !== 'bla') return false;
       if (groupFilter === 'gron' && s.groupLevel !== 'gron') return false;
       if (groupFilter === 'tranare' && s.groupLevel !== 'tranare' && s.role !== 'tränare') return false;
-      if (groupFilter === 'familj' && s.groupLevel !== 'familj' && s.role !== 'familjemedlem') return false;
+      if (groupFilter === 'familj' && s.groupLevel !== 'familj' && s.role !== 'familjemedlem' && s.role !== 'styrelse') return false;
 
       if (!searchTerm.trim()) return true;
       const q = searchTerm.toLowerCase().trim();
@@ -199,7 +200,11 @@ export const AdminDashboardPage: React.FC = () => {
         s.lastName.toLowerCase().includes(q) ||
         s.id.toLowerCase().includes(q) ||
         s.birthYear.toString().includes(q) ||
-        s.groupName.toLowerCase().includes(q)
+        s.groupName.toLowerCase().includes(q) ||
+        (s.guardianName && s.guardianName.toLowerCase().includes(q)) ||
+        (s.guardianEmail && s.guardianEmail.toLowerCase().includes(q)) ||
+        (s.paymentDate && s.paymentDate.toLowerCase().includes(q)) ||
+        (s.role && s.role.toLowerCase().includes(q))
       );
     });
   }, [membersList, groupFilter, searchTerm]);
@@ -691,6 +696,7 @@ export const AdminDashboardPage: React.FC = () => {
             <div className="flex flex-wrap items-center gap-1.5">
               {[
                 { id: 'alla', label: 'Alla' },
+                { id: 'faktureras_ej', label: 'Faktureras ej / Styrelse' },
                 { id: 'skidklubb', label: 'Skidklubb' },
                 { id: 'rod', label: 'Röd Grupp' },
                 { id: 'bla', label: 'Blå Grupp' },
@@ -719,11 +725,12 @@ export const AdminDashboardPage: React.FC = () => {
               <thead className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <tr>
                   <th className="py-3 px-4">Medlems-ID</th>
-                  <th className="py-3 px-4">Åkare</th>
-                  <th className="py-3 px-4">Födelseår</th>
+                  <th className="py-3 px-4">Medlem / Åkare</th>
+                  <th className="py-3 px-4">Målsman & Kontakt</th>
+                  <th className="py-3 px-4">Född</th>
                   <th className="py-3 px-4">Träningsgrupp</th>
                   <th className="py-3 px-4">Nivå</th>
-                  <th className="py-3 px-4">Status</th>
+                  <th className="py-3 px-4">Status & Betalning</th>
                   <th className="py-3 px-4">Försäkring</th>
                 </tr>
               </thead>
@@ -733,8 +740,15 @@ export const AdminDashboardPage: React.FC = () => {
                     <td className="py-3 px-4 font-mono font-bold text-slate-500 text-[11px]">
                       {skier.id}
                     </td>
-                    <td className="py-3 px-4 font-bold text-freeskiers-navy">
-                      {skier.firstName} {skier.lastName}
+                    <td className="py-3 px-4">
+                      <div className="font-bold text-freeskiers-navy text-xs">{skier.firstName} {skier.lastName}</div>
+                      {skier.role && skier.role !== 'åkare' && (
+                        <span className="text-[10px] font-bold uppercase text-freeskiers-cyan block">{skier.role}</span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="font-medium text-slate-800 text-[11px]">{skier.guardianName || '-'}</div>
+                      <div className="text-[10px] text-slate-500">{skier.guardianEmail || skier.guardianPhone || ''}</div>
                     </td>
                     <td className="py-3 px-4 text-slate-600">
                       {skier.birthYear}
@@ -748,15 +762,25 @@ export const AdminDashboardPage: React.FC = () => {
                         skier.groupLevel === 'rod' ? 'bg-rose-100 text-rose-800' :
                         skier.groupLevel === 'bla' ? 'bg-sky-100 text-sky-800' :
                         skier.groupLevel === 'gron' ? 'bg-emerald-100 text-emerald-800' :
+                        skier.groupLevel === 'admin' ? 'bg-indigo-100 text-indigo-800' :
+                        skier.groupLevel === 'tranare' ? 'bg-amber-100 text-amber-800' :
                         'bg-slate-100 text-slate-800'
                       }`}>
                         {skier.groupLevel}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center gap-1 text-emerald-600 font-bold text-[11px]">
+                      <span className={`inline-flex items-center gap-1 font-bold text-[11px] px-2 py-0.5 rounded-full ${
+                        skier.paymentDate && skier.paymentDate.toLowerCase().includes('faktureras ej')
+                          ? 'text-amber-800 bg-amber-50 border border-amber-200'
+                          : 'text-emerald-700 bg-emerald-50 border border-emerald-200'
+                      }`}>
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Aktiv & Betald</span>
+                        <span>
+                          {skier.paymentDate && skier.paymentDate.toLowerCase().includes('faktureras ej')
+                            ? skier.paymentDate
+                            : 'Aktiv & Betald'}
+                        </span>
                       </span>
                     </td>
                     <td className="py-3 px-4 text-slate-500 text-[11px]">

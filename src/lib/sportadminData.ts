@@ -1,8 +1,8 @@
 import { MemberAccount } from './memberData';
 
 // SportAdmin Active Members Export – Season 2026/2027
-// 472 verified active club members, linked by family and household (365 accounts).
-// Filter: Medlemmar under personregister 2027 + gruppkoppling 'faktureras ej' under 2026/2027.
+// 510 verified active club members, linked by family and household (396 accounts).
+// Filter: Medlemmar under personregister 2027 + gruppkoppling 'faktureras ej', styrelse, tränare & ledare under 2026/2027.
 export const sportadminAccounts: MemberAccount[] = [
   {
     "email": "abbec.olofsson@gmail.com",
@@ -24,10 +24,37 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Abbe Olofsson",
         "guardianPhone": "+46733171312",
         "guardianEmail": "abbec.olofsson@gmail.com"
+      }
+    ]
+  },
+  {
+    "email": "grander.adam@gmail.com",
+    "guardianName": "Adam Grander Hasselblad",
+    "phone": "0790770660",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0002",
+        "firstName": "Adam",
+        "lastName": "Grander Hasselblad",
+        "birthYear": 2007,
+        "groupName": "Skidor Åk 3 Grupp C - Måndag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Adam Grander Hasselblad",
+        "guardianPhone": "0790770660",
+        "guardianEmail": "grander.adam@gmail.com"
       }
     ]
   },
@@ -38,7 +65,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0002",
+        "id": "FS-2026-0003",
         "firstName": "Adam",
         "lastName": "Ståhle",
         "birthYear": 2019,
@@ -57,7 +84,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jennifer.farde@gmail.com"
       },
       {
-        "id": "FS-2026-0138",
+        "id": "FS-2026-0143",
         "firstName": "Elli",
         "lastName": "Stahle",
         "birthYear": 2016,
@@ -76,7 +103,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jennifer.farde@gmail.com"
       },
       {
-        "id": "FS-2026-0240",
+        "id": "FS-2026-0257",
         "firstName": "Jennifer",
         "lastName": "Ståhle",
         "birthYear": 1980,
@@ -106,7 +133,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0003",
+        "id": "FS-2026-0004",
         "firstName": "Adrian",
         "lastName": "Tagel",
         "birthYear": 2018,
@@ -136,7 +163,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0004",
+        "id": "FS-2026-0005",
         "firstName": "Agnes",
         "lastName": "Ankar",
         "birthYear": 2017,
@@ -166,7 +193,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0005",
+        "id": "FS-2026-0006",
         "firstName": "Agnes",
         "lastName": "Christiansson",
         "birthYear": 2016,
@@ -185,7 +212,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "marcus.christiansson@gmail.com"
       },
       {
-        "id": "FS-2026-0047",
+        "id": "FS-2026-0051",
         "firstName": "Astrid",
         "lastName": "Christiansson",
         "birthYear": 2019,
@@ -215,7 +242,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0006",
+        "id": "FS-2026-0007",
         "firstName": "aimee",
         "lastName": "van der Poort",
         "birthYear": 2015,
@@ -245,7 +272,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0007",
+        "id": "FS-2026-0008",
         "firstName": "Aimée ",
         "lastName": "Cavalli-Björkman",
         "birthYear": 2018,
@@ -275,7 +302,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0008",
+        "id": "FS-2026-0009",
         "firstName": "Albert",
         "lastName": "Siegborn",
         "birthYear": 2015,
@@ -299,13 +326,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "abbzo.graaf@gmail.com",
+    "guardianName": "Albert Graaf",
+    "phone": "0732309988",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0010",
+        "firstName": "Albert",
+        "lastName": "Graaf",
+        "birthYear": 1994,
+        "groupName": "Snowboard Barn åk 1-5",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "11/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Albert Graaf",
+        "guardianPhone": "0732309988",
+        "guardianEmail": "abbzo.graaf@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "hampus@pnco.se",
     "guardianName": "Hampus Edenman",
     "phone": "0707667000",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0009",
+        "id": "FS-2026-0011",
         "firstName": "Albin",
         "lastName": "Edenman",
         "birthYear": 2013,
@@ -335,7 +389,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0010",
+        "id": "FS-2026-0012",
         "firstName": "Alessia",
         "lastName": "Rojas",
         "birthYear": 2017,
@@ -354,7 +408,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "rojas.javier85@gmail.com"
       },
       {
-        "id": "FS-2026-0155",
+        "id": "FS-2026-0164",
         "firstName": "Estelle",
         "lastName": "Rojas",
         "birthYear": 2021,
@@ -381,7 +435,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0011",
+        "id": "FS-2026-0013",
         "firstName": "Alex",
         "lastName": "Willaume",
         "birthYear": 2016,
@@ -411,7 +465,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0012",
+        "id": "FS-2026-0014",
         "firstName": "Alexander",
         "lastName": "Tengbom",
         "birthYear": 2013,
@@ -430,7 +484,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cwessel78@gmail.com"
       },
       {
-        "id": "FS-2026-0434",
+        "id": "FS-2026-0472",
         "firstName": "tom",
         "lastName": "tengbom",
         "birthYear": 2011,
@@ -457,7 +511,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0013",
+        "id": "FS-2026-0015",
         "firstName": "Alexander",
         "lastName": "Blagodirov",
         "birthYear": 2019,
@@ -487,7 +541,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0014",
+        "id": "FS-2026-0016",
         "firstName": "Alexander",
         "lastName": "Fichtel",
         "birthYear": 2018,
@@ -517,7 +571,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0015",
+        "id": "FS-2026-0017",
         "firstName": "Alexander",
         "lastName": "Banér",
         "birthYear": 2018,
@@ -536,7 +590,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jennie_loow@hotmail.com"
       },
       {
-        "id": "FS-2026-0376",
+        "id": "FS-2026-0407",
         "firstName": "Philip",
         "lastName": "Baner",
         "birthYear": 2019,
@@ -563,7 +617,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0016",
+        "id": "FS-2026-0018",
         "firstName": "Alexander",
         "lastName": "Pahnke Backman",
         "birthYear": 2019,
@@ -590,7 +644,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0017",
+        "id": "FS-2026-0019",
         "firstName": "Alexander",
         "lastName": "Jonsson",
         "birthYear": 2019,
@@ -620,7 +674,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0018",
+        "id": "FS-2026-0020",
         "firstName": "Alexander",
         "lastName": "Edholm",
         "birthYear": 2014,
@@ -639,7 +693,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "michael.edholm@outlook.com"
       },
       {
-        "id": "FS-2026-0416",
+        "id": "FS-2026-0453",
         "firstName": "Ted",
         "lastName": "Engwall",
         "birthYear": 2012,
@@ -669,7 +723,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0019",
+        "id": "FS-2026-0021",
         "firstName": "Alexandra",
         "lastName": "Taube",
         "birthYear": 2011,
@@ -682,13 +736,13 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Christopher Taube",
         "guardianPhone": "0736505567",
         "guardianEmail": "cta@spd.dk"
       },
       {
-        "id": "FS-2026-0228",
+        "id": "FS-2026-0245",
         "firstName": "Isabella",
         "lastName": "Taube",
         "birthYear": 2017,
@@ -719,7 +773,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0020",
+        "id": "FS-2026-0022",
         "firstName": "Alexandra ",
         "lastName": "Carlborg ",
         "birthYear": 2018,
@@ -738,7 +792,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "pernillacarlborg@gmail.com"
       },
       {
-        "id": "FS-2026-0358",
+        "id": "FS-2026-0389",
         "firstName": "Oscar",
         "lastName": "Carlborg",
         "birthYear": 2016,
@@ -765,7 +819,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0021",
+        "id": "FS-2026-0023",
         "firstName": "Alexis",
         "lastName": "De Wever",
         "birthYear": 2015,
@@ -792,7 +846,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0022",
+        "id": "FS-2026-0024",
         "firstName": "Alfred",
         "lastName": "Eksteöm nilsson",
         "birthYear": 2014,
@@ -811,7 +865,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "susanneekstrom@gmail.com"
       },
       {
-        "id": "FS-2026-0348",
+        "id": "FS-2026-0379",
         "firstName": "Oliver",
         "lastName": "Eksteöm nilsson",
         "birthYear": 2017,
@@ -838,7 +892,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0023",
+        "id": "FS-2026-0025",
         "firstName": "Alice",
         "lastName": "Kroon",
         "birthYear": 2015,
@@ -857,7 +911,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "magnus.kroon@gmail.com"
       },
       {
-        "id": "FS-2026-0105",
+        "id": "FS-2026-0109",
         "firstName": "Clara",
         "lastName": "Kroon",
         "birthYear": 2018,
@@ -887,7 +941,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0024",
+        "id": "FS-2026-0026",
         "firstName": "Alice",
         "lastName": "Engqvist",
         "birthYear": 2015,
@@ -906,7 +960,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "a@andrejblom.se"
       },
       {
-        "id": "FS-2026-0291",
+        "id": "FS-2026-0316",
         "firstName": "Lucas",
         "lastName": "Engqvist",
         "birthYear": 2017,
@@ -936,7 +990,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0025",
+        "id": "FS-2026-0027",
         "firstName": "Alice",
         "lastName": "Lind",
         "birthYear": 2017,
@@ -966,7 +1020,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0026",
+        "id": "FS-2026-0028",
         "firstName": "Alice",
         "lastName": "Pergament",
         "birthYear": 2018,
@@ -985,7 +1039,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "olof.pergament@gmail.com"
       },
       {
-        "id": "FS-2026-0099",
+        "id": "FS-2026-0103",
         "firstName": "Charlie",
         "lastName": "Pergament",
         "birthYear": 2016,
@@ -1015,7 +1069,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0027",
+        "id": "FS-2026-0029",
         "firstName": "Alicia",
         "lastName": "Pan",
         "birthYear": 2012,
@@ -1045,7 +1099,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0028",
+        "id": "FS-2026-0030",
         "firstName": "Alicia",
         "lastName": "Klagsmark",
         "birthYear": 2019,
@@ -1075,7 +1129,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0029",
+        "id": "FS-2026-0031",
         "firstName": "Alma",
         "lastName": "Rudberg",
         "birthYear": 2016,
@@ -1094,7 +1148,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "daniel@oppethav.se"
       },
       {
-        "id": "FS-2026-0421",
+        "id": "FS-2026-0458",
         "firstName": "Thea",
         "lastName": "Rudberg",
         "birthYear": 2013,
@@ -1124,7 +1178,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0030",
+        "id": "FS-2026-0032",
         "firstName": "Alma ",
         "lastName": "Lyth ",
         "birthYear": 2014,
@@ -1154,7 +1208,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0031",
+        "id": "FS-2026-0033",
         "firstName": "Alva",
         "lastName": "Zavari",
         "birthYear": 2013,
@@ -1173,7 +1227,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "steven.zavari@gmail.com"
       },
       {
-        "id": "FS-2026-0442",
+        "id": "FS-2026-0480",
         "firstName": "Vera",
         "lastName": "Zavari",
         "birthYear": 2011,
@@ -1204,7 +1258,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0032",
+        "id": "FS-2026-0034",
         "firstName": "Amanda",
         "lastName": "Sheik",
         "birthYear": 2013,
@@ -1223,7 +1277,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "kajsa.sheik@gmail.com"
       },
       {
-        "id": "FS-2026-0222",
+        "id": "FS-2026-0239",
         "firstName": "Iris",
         "lastName": "Sheik",
         "birthYear": 2017,
@@ -1253,7 +1307,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0033",
+        "id": "FS-2026-0035",
         "firstName": "Anastasia",
         "lastName": "Polyzois",
         "birthYear": 2017,
@@ -1272,7 +1326,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "isabellekalldin@gmail.com"
       },
       {
-        "id": "FS-2026-0332",
+        "id": "FS-2026-0361",
         "firstName": "Nicole",
         "lastName": "Polyzois",
         "birthYear": 2017,
@@ -1302,7 +1356,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0034",
+        "id": "FS-2026-0036",
         "firstName": "Andrea",
         "lastName": "Tham",
         "birthYear": 2012,
@@ -1321,7 +1375,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "elinore.tham@gmail.com"
       },
       {
-        "id": "FS-2026-0103",
+        "id": "FS-2026-0107",
         "firstName": "Christopher",
         "lastName": "Tham",
         "birthYear": 2014,
@@ -1351,7 +1405,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0035",
+        "id": "FS-2026-0037",
         "firstName": "Andressa",
         "lastName": "Persson",
         "birthYear": 1983,
@@ -1370,7 +1424,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "per_persson@hotmail.com"
       },
       {
-        "id": "FS-2026-0068",
+        "id": "FS-2026-0072",
         "firstName": "Benicio",
         "lastName": "Persson",
         "birthYear": 2017,
@@ -1389,7 +1443,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "per_persson@hotmail.com"
       },
       {
-        "id": "FS-2026-0095",
+        "id": "FS-2026-0099",
         "firstName": "Cauan ",
         "lastName": "Persson ",
         "birthYear": 2015,
@@ -1408,7 +1462,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "per_persson@hotmail.com"
       },
       {
-        "id": "FS-2026-0366",
+        "id": "FS-2026-0397",
         "firstName": "Per",
         "lastName": "Persson",
         "birthYear": 1979,
@@ -1429,13 +1483,78 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "ann.sainer@gmail.com",
+    "guardianName": "Ann Winitsky Säiner",
+    "phone": "0736931010",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0038",
+        "firstName": "Ann",
+        "lastName": "Winitsky Säiner",
+        "birthYear": 1976,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "02/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Ann Winitsky Säiner",
+        "guardianPhone": "0736931010",
+        "guardianEmail": "ann.sainer@gmail.com"
+      },
+      {
+        "id": "FS-2026-0071",
+        "firstName": "Ben",
+        "lastName": "Säiner",
+        "birthYear": 2016,
+        "groupName": "Skidor Åk 4 Grupp A - Onsdag",
+        "groupLevel": "bla",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "10/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej",
+        "guardianName": "Ann Säiner",
+        "guardianPhone": "0736931010",
+        "guardianEmail": "ann.sainer@gmail.com"
+      },
+      {
+        "id": "FS-2026-0457",
+        "firstName": "Teddy",
+        "lastName": "Säiner",
+        "birthYear": 2014,
+        "groupName": "Skidor Åk 6 Grupp A",
+        "groupLevel": "rod",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "10/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej",
+        "guardianName": "Ann Säiner",
+        "guardianPhone": "0736931010",
+        "guardianEmail": "ann.sainer@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "annabjorklund88@gmail.com",
     "guardianName": "Anna Björklund",
     "phone": "0733760760",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0036",
+        "id": "FS-2026-0039",
         "firstName": "Anna",
         "lastName": "Björklund",
         "birthYear": 1988,
@@ -1454,7 +1573,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "annabjorklund88@gmail.com"
       },
       {
-        "id": "FS-2026-0170",
+        "id": "FS-2026-0181",
         "firstName": "Fred",
         "lastName": "Lindqvist",
         "birthYear": 2018,
@@ -1473,7 +1592,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "annabjorklund88@gmail.com"
       },
       {
-        "id": "FS-2026-0191",
+        "id": "FS-2026-0206",
         "firstName": "Harry",
         "lastName": "Lindqvist",
         "birthYear": 2021,
@@ -1500,7 +1619,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0037",
+        "id": "FS-2026-0040",
         "firstName": "Anna",
         "lastName": "Björlin",
         "birthYear": 1979,
@@ -1527,7 +1646,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0038",
+        "id": "FS-2026-0041",
         "firstName": "Anna",
         "lastName": "Ahrencrantz",
         "birthYear": 1986,
@@ -1554,7 +1673,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0039",
+        "id": "FS-2026-0042",
         "firstName": "Anneli",
         "lastName": "Blixt",
         "birthYear": 2016,
@@ -1581,7 +1700,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0040",
+        "id": "FS-2026-0043",
         "firstName": "Anton",
         "lastName": "Knave",
         "birthYear": 2011,
@@ -1612,7 +1731,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0041",
+        "id": "FS-2026-0044",
         "firstName": "Anton",
         "lastName": "Persson",
         "birthYear": 2016,
@@ -1631,7 +1750,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "ursulampersson@gmail.com"
       },
       {
-        "id": "FS-2026-0132",
+        "id": "FS-2026-0137",
         "firstName": "Elisa",
         "lastName": "Persson",
         "birthYear": 2014,
@@ -1655,13 +1774,78 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "daviesanton@gmail.com",
+    "guardianName": "Anton Davies",
+    "phone": "0707761361",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0045",
+        "firstName": "Anton",
+        "lastName": "Davies",
+        "birthYear": 1983,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "01/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Anton Davies",
+        "guardianPhone": "0707761361",
+        "guardianEmail": "daviesanton@gmail.com"
+      },
+      {
+        "id": "FS-2026-0061",
+        "firstName": "Axel",
+        "lastName": "Davies",
+        "birthYear": 2014,
+        "groupName": "Snowboard Ungdom åk 6-9",
+        "groupLevel": "rod",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "10/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "10/15/2026",
+        "guardianName": "Anton",
+        "guardianPhone": "0707761361",
+        "guardianEmail": "daviesanton@gmail.com"
+      },
+      {
+        "id": "FS-2026-0336",
+        "firstName": "Matilda",
+        "lastName": "Davies",
+        "birthYear": 2016,
+        "groupName": "Skidor Åk 4 Grupp A - Onsdag",
+        "groupLevel": "bla",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "01/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "10/15/2026",
+        "guardianName": "Anton Davies",
+        "guardianPhone": "0707761361",
+        "guardianEmail": "daviesanton@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "janjsward@gmail.com",
     "guardianName": "Jan Swärd",
     "phone": "0702465076",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0042",
+        "id": "FS-2026-0046",
         "firstName": "Antonia",
         "lastName": "Swärd",
         "birthYear": 2015,
@@ -1680,7 +1864,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "janjsward@gmail.com"
       },
       {
-        "id": "FS-2026-0055",
+        "id": "FS-2026-0059",
         "firstName": "Axel",
         "lastName": "Swärd",
         "birthYear": 2012,
@@ -1699,7 +1883,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "janjsward@gmail.com"
       },
       {
-        "id": "FS-2026-0127",
+        "id": "FS-2026-0132",
         "firstName": "Edward",
         "lastName": "Swärd",
         "birthYear": 2017,
@@ -1726,7 +1910,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0043",
+        "id": "FS-2026-0047",
         "firstName": "ari",
         "lastName": "brummer",
         "birthYear": 2019,
@@ -1756,7 +1940,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0044",
+        "id": "FS-2026-0048",
         "firstName": "Artur",
         "lastName": "Piehl",
         "birthYear": 2015,
@@ -1775,7 +1959,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "svenpiehltrygg@gmail.com"
       },
       {
-        "id": "FS-2026-0073",
+        "id": "FS-2026-0077",
         "firstName": "Bill",
         "lastName": "Piehl",
         "birthYear": 2021,
@@ -1805,7 +1989,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0045",
+        "id": "FS-2026-0049",
         "firstName": "Arvid",
         "lastName": "Rydheimer",
         "birthYear": 2014,
@@ -1835,7 +2019,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0046",
+        "id": "FS-2026-0050",
         "firstName": "Astor",
         "lastName": "Öhrskog",
         "birthYear": 2017,
@@ -1862,7 +2046,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0048",
+        "id": "FS-2026-0052",
         "firstName": "Astrid",
         "lastName": "von Platen",
         "birthYear": 2019,
@@ -1892,7 +2076,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0049",
+        "id": "FS-2026-0053",
         "firstName": "Astrid",
         "lastName": "Kronberg",
         "birthYear": 2019,
@@ -1922,7 +2106,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0050",
+        "id": "FS-2026-0054",
         "firstName": "Astrid",
         "lastName": "Samlin",
         "birthYear": 2018,
@@ -1941,7 +2125,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "petter.samlin@altor.com"
       },
       {
-        "id": "FS-2026-0097",
+        "id": "FS-2026-0101",
         "firstName": "Cesar",
         "lastName": "Samlin",
         "birthYear": 2016,
@@ -1960,7 +2144,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "petter.samlin@altor.com"
       },
       {
-        "id": "FS-2026-0407",
+        "id": "FS-2026-0441",
         "firstName": "Sofie",
         "lastName": "Samlin",
         "birthYear": 2018,
@@ -1990,7 +2174,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0051",
+        "id": "FS-2026-0055",
         "firstName": "August",
         "lastName": "Ornby",
         "birthYear": 2011,
@@ -2021,7 +2205,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0052",
+        "id": "FS-2026-0056",
         "firstName": "August",
         "lastName": "From Lazar",
         "birthYear": 2013,
@@ -2040,7 +2224,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "julia@fromlazar.com"
       },
       {
-        "id": "FS-2026-0079",
+        "id": "FS-2026-0083",
         "firstName": "Bruno",
         "lastName": "From Lazar",
         "birthYear": 2016,
@@ -2059,7 +2243,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "julia@fromlazar.com"
       },
       {
-        "id": "FS-2026-0141",
+        "id": "FS-2026-0147",
         "firstName": "Eloise",
         "lastName": "From Lazar",
         "birthYear": 2018,
@@ -2078,7 +2262,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "julia@fromlazar.com"
       },
       {
-        "id": "FS-2026-0249",
+        "id": "FS-2026-0268",
         "firstName": "Julia",
         "lastName": "From Lazar",
         "birthYear": 1980,
@@ -2097,7 +2281,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "julia@fromlazar.com"
       },
       {
-        "id": "FS-2026-0265",
+        "id": "FS-2026-0290",
         "firstName": "Leonor Kaisa",
         "lastName": "From Lazar",
         "birthYear": 2018,
@@ -2116,7 +2300,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "julia@fromlazar.com"
       },
       {
-        "id": "FS-2026-0306",
+        "id": "FS-2026-0334",
         "firstName": "Markus",
         "lastName": "From",
         "birthYear": 1979,
@@ -2146,7 +2330,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0053",
+        "id": "FS-2026-0057",
         "firstName": "August",
         "lastName": "Wering",
         "birthYear": 2017,
@@ -2165,7 +2349,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "thomaswering@yahoo.com"
       },
       {
-        "id": "FS-2026-0344",
+        "id": "FS-2026-0374",
         "firstName": "Noelle",
         "lastName": "Wering",
         "birthYear": 2019,
@@ -2195,7 +2379,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0054",
+        "id": "FS-2026-0058",
         "firstName": "August",
         "lastName": "Wingårdh",
         "birthYear": 2017,
@@ -2225,7 +2409,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0056",
+        "id": "FS-2026-0060",
         "firstName": "Axel",
         "lastName": "Lundqvist",
         "birthYear": 2014,
@@ -2246,59 +2430,13 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
-    "email": "daviesanton@gmail.com",
-    "guardianName": "Anton",
-    "phone": "0707761361",
-    "role": "medlem",
-    "skiers": [
-      {
-        "id": "FS-2026-0057",
-        "firstName": "Axel",
-        "lastName": "Davies",
-        "birthYear": 2014,
-        "groupName": "Snowboard Ungdom åk 6-9",
-        "groupLevel": "rod",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "åkare",
-        "memberSince": "10/1",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "10/15/2026",
-        "guardianName": "Anton",
-        "guardianPhone": "0707761361",
-        "guardianEmail": "daviesanton@gmail.com"
-      },
-      {
-        "id": "FS-2026-0308",
-        "firstName": "Matilda",
-        "lastName": "Davies",
-        "birthYear": 2016,
-        "groupName": "Skidor Åk 4 Grupp A - Onsdag",
-        "groupLevel": "bla",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "åkare",
-        "memberSince": "01/2",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "10/15/2026",
-        "guardianName": "Anton Davies",
-        "guardianPhone": "0707761361",
-        "guardianEmail": "daviesanton@gmail.com"
-      }
-    ]
-  },
-  {
     "email": "ehn.rebecca@gmail.com",
     "guardianName": "Rebecca ",
     "phone": "0768188456",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0058",
+        "id": "FS-2026-0062",
         "firstName": "Axel",
         "lastName": "Ehn",
         "birthYear": 2018,
@@ -2328,7 +2466,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0059",
+        "id": "FS-2026-0063",
         "firstName": "Axel",
         "lastName": "Donner",
         "birthYear": 2017,
@@ -2358,7 +2496,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0060",
+        "id": "FS-2026-0064",
         "firstName": "Axel",
         "lastName": "Årvik",
         "birthYear": 2014,
@@ -2388,7 +2526,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0061",
+        "id": "FS-2026-0065",
         "firstName": "Axel",
         "lastName": "Edeen",
         "birthYear": 2018,
@@ -2418,7 +2556,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0062",
+        "id": "FS-2026-0066",
         "firstName": "Axel",
         "lastName": "Lundgren Dahl",
         "birthYear": 2010,
@@ -2431,7 +2569,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Paula Dahl",
         "guardianPhone": "0709147611",
         "guardianEmail": "paula@valu8group.com"
@@ -2449,7 +2587,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0063",
+        "id": "FS-2026-0067",
         "firstName": "Axel",
         "lastName": "Parkbring Olsson",
         "birthYear": 2014,
@@ -2479,7 +2617,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0064",
+        "id": "FS-2026-0068",
         "firstName": "Beata",
         "lastName": "Kulling",
         "birthYear": 2017,
@@ -2509,7 +2647,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0065",
+        "id": "FS-2026-0069",
         "firstName": "Beata",
         "lastName": "Banér",
         "birthYear": 2021,
@@ -2528,7 +2666,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "charlotte.baner@gmail.com"
       },
       {
-        "id": "FS-2026-0116",
+        "id": "FS-2026-0121",
         "firstName": "Ebba",
         "lastName": "Banér",
         "birthYear": 2018,
@@ -2547,7 +2685,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "charlotte.baner@gmail.com"
       },
       {
-        "id": "FS-2026-0399",
+        "id": "FS-2026-0431",
         "firstName": "Sigrid",
         "lastName": "Banér",
         "birthYear": 2016,
@@ -2574,7 +2712,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0066",
+        "id": "FS-2026-0070",
         "firstName": "Belle",
         "lastName": "Lindqvist",
         "birthYear": 2017,
@@ -2593,7 +2731,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "niklas.c.lindqvist@gmail.com"
       },
       {
-        "id": "FS-2026-0163",
+        "id": "FS-2026-0173",
         "firstName": "Filip",
         "lastName": "Lindqvist ",
         "birthYear": 2014,
@@ -2617,62 +2755,13 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
-    "email": "ann.sainer@gmail.com",
-    "guardianName": "Ann Säiner",
-    "phone": "0736931010",
-    "role": "medlem",
-    "skiers": [
-      {
-        "id": "FS-2026-0067",
-        "firstName": "Ben",
-        "lastName": "Säiner",
-        "birthYear": 2016,
-        "groupName": "Skidor Åk 4 Grupp A - Onsdag",
-        "groupLevel": "bla",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "åkare",
-        "memberSince": "10/1",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
-        "guardianName": "Ann Säiner",
-        "guardianPhone": "0736931010",
-        "guardianEmail": "ann.sainer@gmail.com"
-      },
-      {
-        "id": "FS-2026-0420",
-        "firstName": "Teddy",
-        "lastName": "Säiner",
-        "birthYear": 2014,
-        "groupName": "Skidor Åk 6 Grupp A",
-        "groupLevel": "rod",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "åkare",
-        "memberSince": "10/1",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
-        "guardianName": "Ann Säiner",
-        "guardianPhone": "0736931010",
-        "guardianEmail": "ann.sainer@gmail.com"
-      }
-    ],
-    "alternateEmails": [
-      "daniel.sainer@maxm.se"
-    ]
-  },
-  {
     "email": "ellen.agreniuskushner@gmail.com",
     "guardianName": "Ellen Kushner",
     "phone": "0760207833",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0069",
+        "id": "FS-2026-0073",
         "firstName": "Benjamin",
         "lastName": "Kushner",
         "birthYear": 2018,
@@ -2699,7 +2788,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0070",
+        "id": "FS-2026-0074",
         "firstName": "Benjamin",
         "lastName": "Bassan",
         "birthYear": 2019,
@@ -2718,7 +2807,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jessica@safir.se"
       },
       {
-        "id": "FS-2026-0426",
+        "id": "FS-2026-0464",
         "firstName": "Theodora",
         "lastName": "Bassan",
         "birthYear": 2017,
@@ -2748,7 +2837,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0071",
+        "id": "FS-2026-0075",
         "firstName": "Benjamin",
         "lastName": "Palmer Ndubai",
         "birthYear": 2018,
@@ -2778,7 +2867,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0072",
+        "id": "FS-2026-0076",
         "firstName": "Bianca",
         "lastName": "Grieco",
         "birthYear": 2012,
@@ -2808,7 +2897,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0074",
+        "id": "FS-2026-0078",
         "firstName": "Billie",
         "lastName": "Åberg",
         "birthYear": 2009,
@@ -2821,7 +2910,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Billie Åberg",
         "guardianPhone": "0768787875",
         "guardianEmail": "abergbillie@gmail.com"
@@ -2835,7 +2924,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0075",
+        "id": "FS-2026-0079",
         "firstName": "Bonnie",
         "lastName": "Svedman Tryde",
         "birthYear": 2017,
@@ -2865,7 +2954,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0076",
+        "id": "FS-2026-0080",
         "firstName": "Bror",
         "lastName": "Lee",
         "birthYear": 2018,
@@ -2884,7 +2973,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "kakansundberg@gmail.com"
       },
       {
-        "id": "FS-2026-0109",
+        "id": "FS-2026-0113",
         "firstName": "Dag",
         "lastName": "Lee",
         "birthYear": 2016,
@@ -2903,7 +2992,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "kakansundberg@gmail.com"
       },
       {
-        "id": "FS-2026-0275",
+        "id": "FS-2026-0300",
         "firstName": "Liv",
         "lastName": "Lee",
         "birthYear": 2020,
@@ -2933,7 +3022,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0077",
+        "id": "FS-2026-0081",
         "firstName": "Bror",
         "lastName": "Ekesiöö",
         "birthYear": 2018,
@@ -2963,7 +3052,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0078",
+        "id": "FS-2026-0082",
         "firstName": "Bror",
         "lastName": "Walther",
         "birthYear": 2018,
@@ -2982,7 +3071,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "linasjodin@gmail.com"
       },
       {
-        "id": "FS-2026-0271",
+        "id": "FS-2026-0296",
         "firstName": "Lina",
         "lastName": "Walther Sjödin",
         "birthYear": 1982,
@@ -3001,7 +3090,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "linasjodin@gmail.com"
       },
       {
-        "id": "FS-2026-0395",
+        "id": "FS-2026-0426",
         "firstName": "Selma",
         "lastName": "Walther",
         "birthYear": 2016,
@@ -3031,7 +3120,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0080",
+        "id": "FS-2026-0084",
         "firstName": "Bruno",
         "lastName": "Magnusson",
         "birthYear": 2014,
@@ -3061,7 +3150,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0081",
+        "id": "FS-2026-0085",
         "firstName": "Carl",
         "lastName": "Wallentin",
         "birthYear": 2017,
@@ -3080,7 +3169,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "louisewallentin@msn.com"
       },
       {
-        "id": "FS-2026-0206",
+        "id": "FS-2026-0223",
         "firstName": "Hugo",
         "lastName": "Wallentin",
         "birthYear": 2013,
@@ -3099,7 +3188,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "louisewallentin@msn.com"
       },
       {
-        "id": "FS-2026-0361",
+        "id": "FS-2026-0392",
         "firstName": "Otto",
         "lastName": "Wallentin",
         "birthYear": 2011,
@@ -3129,7 +3218,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0082",
+        "id": "FS-2026-0086",
         "firstName": "Carl",
         "lastName": "Elmfeldt",
         "birthYear": 2009,
@@ -3142,7 +3231,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Carl Elmfeldt",
         "guardianPhone": "0732675148",
         "guardianEmail": "carl@elmfeldt.se"
@@ -3156,7 +3245,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0083",
+        "id": "FS-2026-0087",
         "firstName": "Carl",
         "lastName": "Nordlander",
         "birthYear": 2008,
@@ -3169,7 +3258,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Carl Nordlander",
         "guardianPhone": "0721525823",
         "guardianEmail": "carlnordlander08@gmail.com"
@@ -3183,7 +3272,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0084",
+        "id": "FS-2026-0088",
         "firstName": "Carl",
         "lastName": "Leuhusen",
         "birthYear": 2008,
@@ -3196,7 +3285,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Carl Leuhusen",
         "guardianPhone": "0706944474",
         "guardianEmail": "carl.leuhusen@icloud.com"
@@ -3210,7 +3299,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0085",
+        "id": "FS-2026-0089",
         "firstName": "Carl",
         "lastName": "Tham",
         "birthYear": 1979,
@@ -3229,7 +3318,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "kalletham@gmail.com"
       },
       {
-        "id": "FS-2026-0158",
+        "id": "FS-2026-0167",
         "firstName": "Felicia",
         "lastName": "Tham",
         "birthYear": 2021,
@@ -3256,7 +3345,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0086",
+        "id": "FS-2026-0090",
         "firstName": "Carl",
         "lastName": "Viberg",
         "birthYear": 2015,
@@ -3286,7 +3375,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0087",
+        "id": "FS-2026-0091",
         "firstName": "Carl",
         "lastName": "Schäder Johansson",
         "birthYear": 2015,
@@ -3316,7 +3405,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0088",
+        "id": "FS-2026-0092",
         "firstName": "Carl",
         "lastName": "Holmström",
         "birthYear": 2018,
@@ -3346,7 +3435,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0089",
+        "id": "FS-2026-0093",
         "firstName": "Carl Harry",
         "lastName": "Mellin Lidfeldt",
         "birthYear": 2016,
@@ -3376,7 +3465,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0090",
+        "id": "FS-2026-0094",
         "firstName": "Carlaxel",
         "lastName": "Vikström",
         "birthYear": 2011,
@@ -3395,7 +3484,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "fvikstrom@me.com"
       },
       {
-        "id": "FS-2026-0357",
+        "id": "FS-2026-0388",
         "firstName": "Oscar",
         "lastName": "Vikström",
         "birthYear": 2014,
@@ -3425,7 +3514,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0091",
+        "id": "FS-2026-0095",
         "firstName": "Carl-Hugo",
         "lastName": "Lundberg",
         "birthYear": 2012,
@@ -3455,7 +3544,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0092",
+        "id": "FS-2026-0096",
         "firstName": "Caspar",
         "lastName": "Blomberg",
         "birthYear": 2011,
@@ -3472,6 +3561,25 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianName": "Erik Blomberg",
         "guardianPhone": "0707929793",
         "guardianEmail": "erik.blomberg@gmail.com"
+      },
+      {
+        "id": "FS-2026-0163",
+        "firstName": "Erik",
+        "lastName": "Blomberg",
+        "birthYear": 1975,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Erik Blomberg",
+        "guardianPhone": "0707929793",
+        "guardianEmail": "erik.blomberg@gmail.com"
       }
     ],
     "alternateEmails": [
@@ -3485,7 +3593,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0093",
+        "id": "FS-2026-0097",
         "firstName": "Casper",
         "lastName": "Nordin",
         "birthYear": 2017,
@@ -3515,7 +3623,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0094",
+        "id": "FS-2026-0098",
         "firstName": "Casper",
         "lastName": "Lüthi",
         "birthYear": 2016,
@@ -3545,7 +3653,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0096",
+        "id": "FS-2026-0100",
         "firstName": "Celine",
         "lastName": "Freudmann",
         "birthYear": 2019,
@@ -3564,7 +3672,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "katarinafreudmann@hotmail.com"
       },
       {
-        "id": "FS-2026-0233",
+        "id": "FS-2026-0250",
         "firstName": "Jacob",
         "lastName": "Dahlgren Freudmann",
         "birthYear": 2017,
@@ -3594,7 +3702,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0098",
+        "id": "FS-2026-0102",
         "firstName": "Charlie",
         "lastName": "Kostyal",
         "birthYear": 2014,
@@ -3624,7 +3732,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0100",
+        "id": "FS-2026-0104",
         "firstName": "Charlotta",
         "lastName": "Jönsson",
         "birthYear": 1982,
@@ -3651,7 +3759,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0101",
+        "id": "FS-2026-0105",
         "firstName": "Chloe",
         "lastName": "Panahi",
         "birthYear": 2016,
@@ -3670,7 +3778,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "amandampanahi@gmail.com"
       },
       {
-        "id": "FS-2026-0377",
+        "id": "FS-2026-0408",
         "firstName": "Philippe ",
         "lastName": "Panahi ",
         "birthYear": 2019,
@@ -3700,7 +3808,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0102",
+        "id": "FS-2026-0106",
         "firstName": "Chloé",
         "lastName": "Plathán Giordani",
         "birthYear": 2018,
@@ -3719,7 +3827,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "sofiaplathan@icloud.com"
       },
       {
-        "id": "FS-2026-0264",
+        "id": "FS-2026-0289",
         "firstName": "Léonie",
         "lastName": "Plathán Giordani",
         "birthYear": 2019,
@@ -3749,7 +3857,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0104",
+        "id": "FS-2026-0108",
         "firstName": "Chuyi",
         "lastName": "Ma",
         "birthYear": 2012,
@@ -3779,7 +3887,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0106",
+        "id": "FS-2026-0110",
         "firstName": "Cornelia",
         "lastName": "Liljekvist",
         "birthYear": 2017,
@@ -3798,7 +3906,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "ghasemi.tina@gmail.com"
       },
       {
-        "id": "FS-2026-0202",
+        "id": "FS-2026-0218",
         "firstName": "Hermine",
         "lastName": "Liljekvist",
         "birthYear": 2019,
@@ -3828,7 +3936,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0107",
+        "id": "FS-2026-0111",
         "firstName": "Cristine",
         "lastName": "Edeus",
         "birthYear": 2013,
@@ -3858,7 +3966,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0108",
+        "id": "FS-2026-0112",
         "firstName": "Cristoffer",
         "lastName": "Övergaard",
         "birthYear": 1985,
@@ -3877,7 +3985,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cristoffer.overgaard@gmail.com"
       },
       {
-        "id": "FS-2026-0133",
+        "id": "FS-2026-0138",
         "firstName": "Ella",
         "lastName": "Övergaard",
         "birthYear": 2016,
@@ -3896,7 +4004,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cristoffer.overgaard@gmail.com"
       },
       {
-        "id": "FS-2026-0396",
+        "id": "FS-2026-0427",
         "firstName": "Sigge",
         "lastName": "Övergaard",
         "birthYear": 2019,
@@ -3923,7 +4031,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0110",
+        "id": "FS-2026-0114",
         "firstName": "Daniel",
         "lastName": "Eldevig",
         "birthYear": 2016,
@@ -3947,13 +4055,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "danjo75@hotmail.com",
+    "guardianName": "Daniel Ryman",
+    "phone": "0706122120",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0115",
+        "firstName": "Daniel",
+        "lastName": "Ryman",
+        "birthYear": 1975,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Daniel Ryman",
+        "guardianPhone": "0706122120",
+        "guardianEmail": "danjo75@hotmail.com"
+      }
+    ]
+  },
+  {
     "email": "karen.nordblom@gmail.com",
     "guardianName": "Karen Nordblom ",
     "phone": "0706403154",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0111",
+        "id": "FS-2026-0116",
         "firstName": "David",
         "lastName": "Nordblom",
         "birthYear": 2011,
@@ -3984,7 +4119,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0112",
+        "id": "FS-2026-0117",
         "firstName": "Didrik",
         "lastName": "Melander",
         "birthYear": 2015,
@@ -4014,7 +4149,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0113",
+        "id": "FS-2026-0118",
         "firstName": "Didrik ",
         "lastName": "Ericsson",
         "birthYear": 2019,
@@ -4044,7 +4179,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0114",
+        "id": "FS-2026-0119",
         "firstName": "Douglas",
         "lastName": "Bogner",
         "birthYear": 2016,
@@ -4071,7 +4206,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0115",
+        "id": "FS-2026-0120",
         "firstName": "Ebba",
         "lastName": "Gottlieb Murray",
         "birthYear": 2016,
@@ -4098,7 +4233,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0117",
+        "id": "FS-2026-0122",
         "firstName": "Ebba",
         "lastName": "Dangré",
         "birthYear": 2011,
@@ -4111,7 +4246,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Ebba Dangré",
         "guardianPhone": "0704910314",
         "guardianEmail": "ebbadangre@gmail.com"
@@ -4125,7 +4260,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0118",
+        "id": "FS-2026-0123",
         "firstName": "Ebbot",
         "lastName": "Leander",
         "birthYear": 2013,
@@ -4155,7 +4290,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0119",
+        "id": "FS-2026-0124",
         "firstName": "Edgar",
         "lastName": "Piehl",
         "birthYear": 2017,
@@ -4185,7 +4320,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0120",
+        "id": "FS-2026-0125",
         "firstName": "Edgar",
         "lastName": "Berling Sjöstedt",
         "birthYear": 2014,
@@ -4215,7 +4350,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0121",
+        "id": "FS-2026-0126",
         "firstName": "Edith",
         "lastName": "Walther",
         "birthYear": 2019,
@@ -4234,7 +4369,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "mw@rosfelt.com"
       },
       {
-        "id": "FS-2026-0318",
+        "id": "FS-2026-0346",
         "firstName": "Mikael",
         "lastName": "Walther",
         "birthYear": 1981,
@@ -4264,7 +4399,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0122",
+        "id": "FS-2026-0127",
         "firstName": "Edward",
         "lastName": "Willamo",
         "birthYear": 2013,
@@ -4294,7 +4429,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0123",
+        "id": "FS-2026-0128",
         "firstName": "Edvard",
         "lastName": "Gerdin",
         "birthYear": 2015,
@@ -4321,7 +4456,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0124",
+        "id": "FS-2026-0129",
         "firstName": "Edward",
         "lastName": "Alm",
         "birthYear": 2011,
@@ -4351,7 +4486,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0125",
+        "id": "FS-2026-0130",
         "firstName": "Edvard",
         "lastName": "Nordfjäll",
         "birthYear": 2017,
@@ -4378,7 +4513,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0126",
+        "id": "FS-2026-0131",
         "firstName": "Edvard",
         "lastName": "Lind",
         "birthYear": 2016,
@@ -4408,7 +4543,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0128",
+        "id": "FS-2026-0133",
         "firstName": "Edvin ",
         "lastName": "Hoel",
         "birthYear": 2014,
@@ -4427,7 +4562,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cecilia_hoel@hotmail.com"
       },
       {
-        "id": "FS-2026-0465",
+        "id": "FS-2026-0503",
         "firstName": "Vilmer ",
         "lastName": "Hoel ",
         "birthYear": 2014,
@@ -4457,7 +4592,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0129",
+        "id": "FS-2026-0134",
         "firstName": "Ela",
         "lastName": "Ahrencrantz",
         "birthYear": 2018,
@@ -4487,7 +4622,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0130",
+        "id": "FS-2026-0135",
         "firstName": "Elin",
         "lastName": "Kantermo",
         "birthYear": 2012,
@@ -4506,7 +4641,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "johan@kantermobygg.se"
       },
       {
-        "id": "FS-2026-0209",
+        "id": "FS-2026-0226",
         "firstName": "Hugo",
         "lastName": "Kantermo",
         "birthYear": 2016,
@@ -4536,7 +4671,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0131",
+        "id": "FS-2026-0136",
         "firstName": "Elin",
         "lastName": "Wallner",
         "birthYear": 2015,
@@ -4566,7 +4701,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0134",
+        "id": "FS-2026-0139",
         "firstName": "Ella",
         "lastName": "Verneholt",
         "birthYear": 2016,
@@ -4596,7 +4731,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0135",
+        "id": "FS-2026-0140",
         "firstName": "Ella",
         "lastName": "Riisberg",
         "birthYear": 2008,
@@ -4609,13 +4744,13 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Åsa Riisberg",
         "guardianPhone": "0701432342",
         "guardianEmail": "asa.c.riisberg@gmail.com"
       },
       {
-        "id": "FS-2026-0208",
+        "id": "FS-2026-0225",
         "firstName": "Hugo",
         "lastName": "Riisberg",
         "birthYear": 2010,
@@ -4628,7 +4763,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Åsa",
         "guardianPhone": "0701432341",
         "guardianEmail": "asa.c.riisberg@gmail.com"
@@ -4645,7 +4780,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0136",
+        "id": "FS-2026-0141",
         "firstName": "Ella-Milou",
         "lastName": "Feigin Hamilton",
         "birthYear": 2011,
@@ -4676,7 +4811,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0137",
+        "id": "FS-2026-0142",
         "firstName": "Elle",
         "lastName": "Derelöv Sager",
         "birthYear": 2016,
@@ -4706,7 +4841,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0139",
+        "id": "FS-2026-0144",
         "firstName": "Elli",
         "lastName": "Byggningsbacka ",
         "birthYear": 2018,
@@ -4730,13 +4865,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "ellinorcarlsson82@gmail.com",
+    "guardianName": "Ellinor Strömstedt",
+    "phone": "0725640102",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0145",
+        "firstName": "Ellinor",
+        "lastName": "Strömstedt",
+        "birthYear": 1982,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "01/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Ellinor Strömstedt",
+        "guardianPhone": "0725640102",
+        "guardianEmail": "ellinorcarlsson82@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "alexander.hjertstrom@gmail.com",
     "guardianName": "Alexander Hjertström",
     "phone": "0762860660",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0140",
+        "id": "FS-2026-0146",
         "firstName": "Ellis",
         "lastName": "Hjertström",
         "birthYear": 2017,
@@ -4766,7 +4928,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0142",
+        "id": "FS-2026-0148",
         "firstName": "Elouan",
         "lastName": "Pagoria",
         "birthYear": 2015,
@@ -4785,7 +4947,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "charl.pele@gmail.com"
       },
       {
-        "id": "FS-2026-0409",
+        "id": "FS-2026-0443",
         "firstName": "Soren",
         "lastName": "Pagoria",
         "birthYear": 2019,
@@ -4812,7 +4974,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0143",
+        "id": "FS-2026-0149",
         "firstName": "Elsa",
         "lastName": "Björlin",
         "birthYear": 2013,
@@ -4831,7 +4993,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "info@fbjorlin.se"
       },
       {
-        "id": "FS-2026-0154",
+        "id": "FS-2026-0160",
         "firstName": "Erik",
         "lastName": "Björlin",
         "birthYear": 2018,
@@ -4850,7 +5012,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "info@fbjorlin.se"
       },
       {
-        "id": "FS-2026-0176",
+        "id": "FS-2026-0187",
         "firstName": "Fredrik",
         "lastName": "Björlin",
         "birthYear": 1981,
@@ -4880,7 +5042,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0144",
+        "id": "FS-2026-0150",
         "firstName": "Elton",
         "lastName": "Wiig",
         "birthYear": 2017,
@@ -4910,7 +5072,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0145",
+        "id": "FS-2026-0151",
         "firstName": "Elton",
         "lastName": "Wennberg",
         "birthYear": 2017,
@@ -4929,7 +5091,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "villewennberg@hotmail.com"
       },
       {
-        "id": "FS-2026-0223",
+        "id": "FS-2026-0240",
         "firstName": "Iris",
         "lastName": "Wennberg",
         "birthYear": 2014,
@@ -4959,7 +5121,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0146",
+        "id": "FS-2026-0152",
         "firstName": "Emelie",
         "lastName": "Sylvén",
         "birthYear": 2015,
@@ -4989,7 +5151,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0147",
+        "id": "FS-2026-0153",
         "firstName": "Emma",
         "lastName": "Lauxtermann",
         "birthYear": 2019,
@@ -5008,7 +5170,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "philippa.vseydlitz@gmail.com"
       },
       {
-        "id": "FS-2026-0340",
+        "id": "FS-2026-0370",
         "firstName": "Noah",
         "lastName": "Lauxtermann",
         "birthYear": 2016,
@@ -5038,7 +5200,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0148",
+        "id": "FS-2026-0154",
         "firstName": "Emmerick ",
         "lastName": "Falkenäng",
         "birthYear": 2015,
@@ -5065,7 +5227,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0149",
+        "id": "FS-2026-0155",
         "firstName": "Eric",
         "lastName": "Ryman",
         "birthYear": 2011,
@@ -5084,7 +5246,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "ryman.katarina@gmail.com"
       },
       {
-        "id": "FS-2026-0248",
+        "id": "FS-2026-0267",
         "firstName": "Josefine",
         "lastName": "Ryman",
         "birthYear": 2013,
@@ -5115,7 +5277,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0150",
+        "id": "FS-2026-0156",
         "firstName": "Erik",
         "lastName": "Winberg",
         "birthYear": 2014,
@@ -5145,7 +5307,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0151",
+        "id": "FS-2026-0157",
         "firstName": "Erik",
         "lastName": "Rydius",
         "birthYear": 2015,
@@ -5172,7 +5334,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0152",
+        "id": "FS-2026-0158",
         "firstName": "Erik",
         "lastName": "Bergström",
         "birthYear": 2012,
@@ -5191,15 +5353,15 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "johan.bergstrom0411@gmail.com"
       },
       {
-        "id": "FS-2026-0242",
+        "id": "FS-2026-0260",
         "firstName": "Johan",
         "lastName": "Bergström",
         "birthYear": 1973,
         "groupName": "Engagerade vuxna - Lidingö Freeskiers",
-        "groupLevel": "familj",
+        "groupLevel": "admin",
         "season": "2026/2027",
         "status": "active",
-        "role": "familjemedlem",
+        "role": "styrelse",
         "memberSince": "11/2",
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
@@ -5221,7 +5383,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0153",
+        "id": "FS-2026-0159",
         "firstName": "Erik",
         "lastName": "Norinder",
         "birthYear": 2011,
@@ -5246,13 +5408,86 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "kvellstenerik3@gmail.com",
+    "guardianName": "Erik Kvellsten",
+    "phone": "0739993764",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0161",
+        "firstName": "Erik",
+        "lastName": "Kvellsten",
+        "birthYear": 2007,
+        "groupName": "Skidor Åk 2 Grupp B - Onsdag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "08/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Erik Kvellsten",
+        "guardianPhone": "0739993764",
+        "guardianEmail": "kvellstenerik3@gmail.com"
+      }
+    ]
+  },
+  {
+    "email": "emrune@me.com",
+    "guardianName": "Erik Rune",
+    "phone": "0707130339",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0162",
+        "firstName": "Erik",
+        "lastName": "Rune",
+        "birthYear": 1975,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Erik Rune",
+        "guardianPhone": "0707130339",
+        "guardianEmail": "emrune@me.com"
+      },
+      {
+        "id": "FS-2026-0308",
+        "firstName": "Louie",
+        "lastName": "Rune",
+        "birthYear": 2014,
+        "groupName": "Skidor Åk 6 Grupp A",
+        "groupLevel": "rod",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej",
+        "guardianName": "erik rune",
+        "guardianPhone": "0707130339",
+        "guardianEmail": "emrune@me.com"
+      }
+    ]
+  },
+  {
     "email": "gerhard.caspar@gmail.com",
     "guardianName": "Gerhard Caspar",
     "phone": "0727284730",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0156",
+        "id": "FS-2026-0165",
         "firstName": "Eugen",
         "lastName": "Caspar",
         "birthYear": 2015,
@@ -5271,7 +5506,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "gerhard.caspar@gmail.com"
       },
       {
-        "id": "FS-2026-0181",
+        "id": "FS-2026-0193",
         "firstName": "Gerhard",
         "lastName": "Caspar",
         "birthYear": 1980,
@@ -5290,7 +5525,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "gerhard.caspar@gmail.com"
       },
       {
-        "id": "FS-2026-0296",
+        "id": "FS-2026-0321",
         "firstName": "Ludvig",
         "lastName": "Caspar",
         "birthYear": 2017,
@@ -5317,7 +5552,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0157",
+        "id": "FS-2026-0166",
         "firstName": "Fabienne",
         "lastName": "Stahle",
         "birthYear": 2014,
@@ -5336,7 +5571,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "henriette.stahle@gmail.com"
       },
       {
-        "id": "FS-2026-0197",
+        "id": "FS-2026-0213",
         "firstName": "Henriette ",
         "lastName": "Stahle",
         "birthYear": 1982,
@@ -5366,7 +5601,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0159",
+        "id": "FS-2026-0168",
         "firstName": "Felicia",
         "lastName": "Heyne",
         "birthYear": 2014,
@@ -5385,7 +5620,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "sophiaheyne86@gmail.com"
       },
       {
-        "id": "FS-2026-0370",
+        "id": "FS-2026-0406",
         "firstName": "Philip",
         "lastName": "Heyne",
         "birthYear": 2016,
@@ -5412,7 +5647,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0160",
+        "id": "FS-2026-0169",
         "firstName": "Felix",
         "lastName": "Jonsberg Nordahl",
         "birthYear": 2011,
@@ -5443,7 +5678,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0161",
+        "id": "FS-2026-0170",
         "firstName": "Felix",
         "lastName": "Burman Otte",
         "birthYear": 2019,
@@ -5464,13 +5699,70 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "bergstromfelix37@gmail.com",
+    "guardianName": "Felix Bergström",
+    "phone": "0702816909",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0171",
+        "firstName": "Felix",
+        "lastName": "Bergström",
+        "birthYear": 2009,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Felix Bergström",
+        "guardianPhone": "0702816909",
+        "guardianEmail": "bergstromfelix37@gmail.com"
+      }
+    ]
+  },
+  {
+    "email": "sebastian.svartz@gmail.com",
+    "guardianName": "Sebastian Svartz",
+    "phone": "0706774093",
+    "role": "medlem",
+    "skiers": [
+      {
+        "id": "FS-2026-0172",
+        "firstName": "Ferdinand",
+        "lastName": "Svartz Winberg",
+        "birthYear": 2016,
+        "groupName": "Skidor Åk 4 Grupp B - Måndag",
+        "groupLevel": "bla",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "åkare",
+        "memberSince": "10/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "10/16/2026",
+        "guardianName": "Sebastian Svartz",
+        "guardianPhone": "0706774093",
+        "guardianEmail": "sebastian.svartz@gmail.com"
+      }
+    ],
+    "alternateEmails": [
+      "amelie.winberg@gmail.com"
+    ]
+  },
+  {
     "email": "filip.ryman2@gmail.com",
     "guardianName": "Filip Ryman",
     "phone": "0731553353",
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0162",
+        "id": "FS-2026-0174",
         "firstName": "Filip",
         "lastName": "Ryman",
         "birthYear": 2008,
@@ -5483,7 +5775,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Filip Ryman",
         "guardianPhone": "0731553353",
         "guardianEmail": "filip.ryman2@gmail.com"
@@ -5497,7 +5789,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0164",
+        "id": "FS-2026-0175",
         "firstName": "Filippa",
         "lastName": "Kock",
         "birthYear": 2016,
@@ -5524,7 +5816,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0165",
+        "id": "FS-2026-0176",
         "firstName": "Fiona",
         "lastName": "Fejzullahu",
         "birthYear": 2017,
@@ -5551,7 +5843,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0166",
+        "id": "FS-2026-0177",
         "firstName": "Franca",
         "lastName": "Peilitz",
         "birthYear": 2011,
@@ -5582,7 +5874,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0167",
+        "id": "FS-2026-0178",
         "firstName": "Frank",
         "lastName": "Walden",
         "birthYear": 2014,
@@ -5612,7 +5904,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0168",
+        "id": "FS-2026-0179",
         "firstName": "Frans Henrik",
         "lastName": "Kockum",
         "birthYear": 2014,
@@ -5642,7 +5934,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0169",
+        "id": "FS-2026-0180",
         "firstName": "Fred",
         "lastName": "Lundgren ",
         "birthYear": 2019,
@@ -5669,7 +5961,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0171",
+        "id": "FS-2026-0182",
         "firstName": "Fred",
         "lastName": "Båtelson",
         "birthYear": 2014,
@@ -5699,7 +5991,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0172",
+        "id": "FS-2026-0183",
         "firstName": "Fred",
         "lastName": "Svennersjö",
         "birthYear": 2012,
@@ -5729,7 +6021,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0173",
+        "id": "FS-2026-0184",
         "firstName": "Fred",
         "lastName": "Yazdi",
         "birthYear": 2016,
@@ -5748,7 +6040,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "andreaarppe@gmail.com"
       },
       {
-        "id": "FS-2026-0224",
+        "id": "FS-2026-0241",
         "firstName": "Iris",
         "lastName": "Yazdi",
         "birthYear": 2018,
@@ -5778,7 +6070,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0174",
+        "id": "FS-2026-0185",
         "firstName": "Fred",
         "lastName": "Miler",
         "birthYear": 2019,
@@ -5808,7 +6100,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0175",
+        "id": "FS-2026-0186",
         "firstName": "Fred",
         "lastName": "Emthen",
         "birthYear": 2017,
@@ -5832,13 +6124,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "fredrik.akenes@gmail.com",
+    "guardianName": "Fredrik Åkenes",
+    "phone": "0734322590",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0188",
+        "firstName": "Fredrik",
+        "lastName": "Åkenes",
+        "birthYear": 2007,
+        "groupName": "Snowboard Barn åk 1-5",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "09/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Fredrik Åkenes",
+        "guardianPhone": "0734322590",
+        "guardianEmail": "fredrik.akenes@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "filippa.nyblaeus@gmail.com",
     "guardianName": "Filippa ",
     "phone": "0702099839",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0177",
+        "id": "FS-2026-0189",
         "firstName": "Fredrika",
         "lastName": "Nyblaeus",
         "birthYear": 2018,
@@ -5865,7 +6184,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0178",
+        "id": "FS-2026-0190",
         "firstName": "Freja",
         "lastName": "Bergström",
         "birthYear": 2017,
@@ -5895,7 +6214,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0179",
+        "id": "FS-2026-0191",
         "firstName": "Gabriel",
         "lastName": "Meurling",
         "birthYear": 2011,
@@ -5914,7 +6233,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "edward.meurling@gmail.com"
       },
       {
-        "id": "FS-2026-0400",
+        "id": "FS-2026-0432",
         "firstName": "Sigrid",
         "lastName": "Meurling",
         "birthYear": 2014,
@@ -5944,7 +6263,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0180",
+        "id": "FS-2026-0192",
         "firstName": "Gabriel",
         "lastName": "Brännhult Wyszynski",
         "birthYear": 2021,
@@ -5963,7 +6282,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "malinbrannhult@gmail.com"
       },
       {
-        "id": "FS-2026-0304",
+        "id": "FS-2026-0330",
         "firstName": "Malin",
         "lastName": "Brännhult",
         "birthYear": 1988,
@@ -5982,7 +6301,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "malinbrannhult@gmail.com"
       },
       {
-        "id": "FS-2026-0459",
+        "id": "FS-2026-0497",
         "firstName": "William",
         "lastName": "Brännhult Wyszynski",
         "birthYear": 2018,
@@ -6009,7 +6328,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0182",
+        "id": "FS-2026-0194",
         "firstName": "Greta",
         "lastName": "Tengstrand",
         "birthYear": 2014,
@@ -6028,7 +6347,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "klara.tengstrand@gmail.com"
       },
       {
-        "id": "FS-2026-0205",
+        "id": "FS-2026-0221",
         "firstName": "Hjalmar",
         "lastName": "Tengstrand",
         "birthYear": 2019,
@@ -6047,7 +6366,26 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "klara.tengstrand@gmail.com"
       },
       {
-        "id": "FS-2026-0316",
+        "id": "FS-2026-0281",
+        "firstName": "Klara",
+        "lastName": "Tengstrand",
+        "birthYear": 1983,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "08/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Klara Tengstrand",
+        "guardianPhone": "+46707412654",
+        "guardianEmail": "klara.tengstrand@gmail.com"
+      },
+      {
+        "id": "FS-2026-0344",
         "firstName": "Melker",
         "lastName": "Tengstrand",
         "birthYear": 2016,
@@ -6077,7 +6415,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0183",
+        "id": "FS-2026-0195",
         "firstName": "Greta",
         "lastName": "Josephson",
         "birthYear": 2015,
@@ -6107,7 +6445,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0184",
+        "id": "FS-2026-0196",
         "firstName": "Gus",
         "lastName": "Sundberg",
         "birthYear": 2018,
@@ -6137,7 +6475,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0185",
+        "id": "FS-2026-0197",
         "firstName": "Gustaf",
         "lastName": "Isakson",
         "birthYear": 2009,
@@ -6150,7 +6488,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Gustaf Isakson",
         "guardianPhone": "0793400934",
         "guardianEmail": "09guisa@skola.lidingo.se"
@@ -6164,7 +6502,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0186",
+        "id": "FS-2026-0198",
         "firstName": "Gustav",
         "lastName": "Axehult",
         "birthYear": 1977,
@@ -6191,7 +6529,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0187",
+        "id": "FS-2026-0199",
         "firstName": "Gustav",
         "lastName": "Stjernström",
         "birthYear": 2012,
@@ -6221,7 +6559,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0188",
+        "id": "FS-2026-0200",
         "firstName": "Gustav",
         "lastName": "S Johansson",
         "birthYear": 2019,
@@ -6242,13 +6580,59 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "gustav.leuhusen@outlook.com",
+    "guardianName": "Gustav Leuhusen",
+    "phone": "0708610303",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0201",
+        "firstName": "Gustav",
+        "lastName": "Leuhusen",
+        "birthYear": 1976,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Gustav Leuhusen",
+        "guardianPhone": "0708610303",
+        "guardianEmail": "gustav.leuhusen@outlook.com"
+      },
+      {
+        "id": "FS-2026-0471",
+        "firstName": "Tom",
+        "lastName": "Leuhusen",
+        "birthYear": 2010,
+        "groupName": "Tränare - Lidingö Freeskiers",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Gustav Leuhusen",
+        "guardianPhone": "0708610303",
+        "guardianEmail": "gustav.leuhusen@outlook.com"
+      }
+    ]
+  },
+  {
     "email": "karin@waldvogel.se",
     "guardianName": "Karin Waldvogel",
     "phone": "0736225577",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0189",
+        "id": "FS-2026-0202",
         "firstName": "Hailey",
         "lastName": "Waldvogel",
         "birthYear": 2015,
@@ -6267,7 +6651,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "karin@waldvogel.se"
       },
       {
-        "id": "FS-2026-0378",
+        "id": "FS-2026-0409",
         "firstName": "Phoenix",
         "lastName": "Waldvogel",
         "birthYear": 2013,
@@ -6291,13 +6675,67 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "kullberg.hannes@gmail.com",
+    "guardianName": "Hannes Kullberg",
+    "phone": "0708556985",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0203",
+        "firstName": "Hannes",
+        "lastName": "Kullberg",
+        "birthYear": 2007,
+        "groupName": "Arena - Skidklubb",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "08/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Hannes Kullberg",
+        "guardianPhone": "0708556985",
+        "guardianEmail": "kullberg.hannes@gmail.com"
+      }
+    ]
+  },
+  {
+    "email": "harald.schibbye@icloud.com",
+    "guardianName": "Harald Schibbye",
+    "phone": "0763060152",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0204",
+        "firstName": "Harald",
+        "lastName": "Schibbye",
+        "birthYear": 2007,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Harald Schibbye",
+        "guardianPhone": "0763060152",
+        "guardianEmail": "harald.schibbye@icloud.com"
+      }
+    ]
+  },
+  {
     "email": "madeleine.e.persson@gmail.com",
     "guardianName": "Madeleine Persson",
     "phone": "0701494750",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0190",
+        "id": "FS-2026-0205",
         "firstName": "Harald",
         "lastName": "Persson",
         "birthYear": 2019,
@@ -6327,7 +6765,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0192",
+        "id": "FS-2026-0207",
         "firstName": "Harry",
         "lastName": "Dahlman",
         "birthYear": 2017,
@@ -6357,7 +6795,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0193",
+        "id": "FS-2026-0208",
         "firstName": "Harry",
         "lastName": "Backman",
         "birthYear": 2019,
@@ -6387,7 +6825,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0194",
+        "id": "FS-2026-0209",
         "firstName": "Hector",
         "lastName": "Nelker",
         "birthYear": 2008,
@@ -6400,7 +6838,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Hector Nelker",
         "guardianPhone": "0730277756",
         "guardianEmail": "hector.nelker@icloud.com"
@@ -6414,7 +6852,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0195",
+        "id": "FS-2026-0210",
         "firstName": "Hedvig",
         "lastName": "Nelker",
         "birthYear": 2010,
@@ -6427,7 +6865,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Mikael Nelker",
         "guardianPhone": "0708257769",
         "guardianEmail": "mikaelnelker@hotmail.com"
@@ -6445,7 +6883,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0196",
+        "id": "FS-2026-0211",
         "firstName": "Hedvig",
         "lastName": "von Richthofen",
         "birthYear": 2018,
@@ -6469,13 +6907,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "helenenordell@gmail.com",
+    "guardianName": "Helene Nordell",
+    "phone": "0705553456",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0212",
+        "firstName": "Helene",
+        "lastName": "Nordell",
+        "birthYear": 2016,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "01/3",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Helene Nordell",
+        "guardianPhone": "0705553456",
+        "guardianEmail": "helenenordell@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "cecilia.held@hotmail.com",
     "guardianName": "Cecilia Held",
     "phone": "0703526518",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0198",
+        "id": "FS-2026-0214",
         "firstName": "Henrik",
         "lastName": "Held",
         "birthYear": 2016,
@@ -6494,7 +6959,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cecilia.held@hotmail.com"
       },
       {
-        "id": "FS-2026-0253",
+        "id": "FS-2026-0273",
         "firstName": "Karl",
         "lastName": "Held",
         "birthYear": 2014,
@@ -6513,7 +6978,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "cecilia.held@hotmail.com"
       },
       {
-        "id": "FS-2026-0454",
+        "id": "FS-2026-0492",
         "firstName": "Vilhelm",
         "lastName": "Held",
         "birthYear": 2018,
@@ -6544,7 +7009,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0199",
+        "id": "FS-2026-0215",
         "firstName": "Henry",
         "lastName": "Lysell",
         "birthYear": 2017,
@@ -6563,7 +7028,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "sofialysell@hotmail.com"
       },
       {
-        "id": "FS-2026-0282",
+        "id": "FS-2026-0307",
         "firstName": "Lotten",
         "lastName": "Lysell",
         "birthYear": 2019,
@@ -6593,7 +7058,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0200",
+        "id": "FS-2026-0216",
         "firstName": "Henry",
         "lastName": "Bonnevier Eberson",
         "birthYear": 2018,
@@ -6623,7 +7088,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0201",
+        "id": "FS-2026-0217",
         "firstName": "Hermine",
         "lastName": "Stiernstedt",
         "birthYear": 2016,
@@ -6642,7 +7107,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jenny.stiernstedt@icloud.com"
       },
       {
-        "id": "FS-2026-0362",
+        "id": "FS-2026-0393",
         "firstName": "Otto",
         "lastName": "Stiernstedt",
         "birthYear": 2015,
@@ -6672,7 +7137,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0203",
+        "id": "FS-2026-0219",
         "firstName": "Hilding",
         "lastName": "Sundberg",
         "birthYear": 2012,
@@ -6691,7 +7156,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "mia.hemgren@gmail.com"
       },
       {
-        "id": "FS-2026-0381",
+        "id": "FS-2026-0412",
         "firstName": "Reidun",
         "lastName": "Sundberg",
         "birthYear": 2016,
@@ -6710,7 +7175,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "mia.hemgren@gmail.com"
       },
       {
-        "id": "FS-2026-0437",
+        "id": "FS-2026-0475",
         "firstName": "Truls",
         "lastName": "Sundberg",
         "birthYear": 2018,
@@ -6740,7 +7205,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0204",
+        "id": "FS-2026-0220",
         "firstName": "Hilma",
         "lastName": "Newman",
         "birthYear": 2010,
@@ -6753,10 +7218,37 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Hilma Newman",
         "guardianPhone": "0761335304",
         "guardianEmail": "hilmanewman@icloud.com"
+      }
+    ]
+  },
+  {
+    "email": "hugo.fharm@gmail.com",
+    "guardianName": "Hugo Fhärm",
+    "phone": "0700454581",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0222",
+        "firstName": "Hugo",
+        "lastName": "Fhärm",
+        "birthYear": 2007,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Hugo Fhärm",
+        "guardianPhone": "0700454581",
+        "guardianEmail": "hugo.fharm@gmail.com"
       }
     ]
   },
@@ -6767,7 +7259,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0207",
+        "id": "FS-2026-0224",
         "firstName": "Hugo",
         "lastName": "Wallström",
         "birthYear": 2013,
@@ -6797,7 +7289,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0210",
+        "id": "FS-2026-0227",
         "firstName": "Hugo",
         "lastName": "Moderato Ahlström",
         "birthYear": 2014,
@@ -6827,7 +7319,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0211",
+        "id": "FS-2026-0228",
         "firstName": "Hugo",
         "lastName": "Jarnhammar",
         "birthYear": 2018,
@@ -6857,7 +7349,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0212",
+        "id": "FS-2026-0229",
         "firstName": "Hugo ",
         "lastName": "Colldahl ",
         "birthYear": 2018,
@@ -6887,7 +7379,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0213",
+        "id": "FS-2026-0230",
         "firstName": "Hugo",
         "lastName": "Löfgren",
         "birthYear": 2016,
@@ -6917,7 +7409,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0214",
+        "id": "FS-2026-0231",
         "firstName": "Hugo Sho",
         "lastName": "Cosani",
         "birthYear": 2018,
@@ -6947,7 +7439,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0215",
+        "id": "FS-2026-0232",
         "firstName": "Hunter",
         "lastName": "Beke Rothschild ",
         "birthYear": 2017,
@@ -6977,7 +7469,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0216",
+        "id": "FS-2026-0233",
         "firstName": "Ines",
         "lastName": "Granström",
         "birthYear": 2013,
@@ -7007,7 +7499,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0217",
+        "id": "FS-2026-0234",
         "firstName": "Ines ",
         "lastName": "Wibaeus",
         "birthYear": 2019,
@@ -7034,7 +7526,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0218",
+        "id": "FS-2026-0235",
         "firstName": "Ingmar",
         "lastName": "Sjölund",
         "birthYear": 2014,
@@ -7064,7 +7556,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0219",
+        "id": "FS-2026-0236",
         "firstName": "Ingrid",
         "lastName": "Roth",
         "birthYear": 2011,
@@ -7095,7 +7587,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0220",
+        "id": "FS-2026-0237",
         "firstName": "Ingrid",
         "lastName": "Holmström Sjöberg ",
         "birthYear": 2019,
@@ -7122,7 +7614,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0221",
+        "id": "FS-2026-0238",
         "firstName": "Ioannis",
         "lastName": "Dritsas",
         "birthYear": 2016,
@@ -7149,7 +7641,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0225",
+        "id": "FS-2026-0242",
         "firstName": "Irma",
         "lastName": "Ahrencrantz",
         "birthYear": 2023,
@@ -7168,7 +7660,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "lidingofreeskiers@manges.se"
       },
       {
-        "id": "FS-2026-0300",
+        "id": "FS-2026-0325",
         "firstName": "Magnus",
         "lastName": "Granberg",
         "birthYear": 1980,
@@ -7195,7 +7687,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0226",
+        "id": "FS-2026-0243",
         "firstName": "Isabel",
         "lastName": "Kaunitz",
         "birthYear": 2014,
@@ -7225,7 +7717,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0227",
+        "id": "FS-2026-0244",
         "firstName": "Isabella",
         "lastName": "Södergren",
         "birthYear": 2016,
@@ -7244,7 +7736,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "johannawahlin@gmail.com"
       },
       {
-        "id": "FS-2026-0245",
+        "id": "FS-2026-0264",
         "firstName": "John",
         "lastName": "Södergren",
         "birthYear": 2019,
@@ -7271,7 +7763,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0229",
+        "id": "FS-2026-0246",
         "firstName": "Isak",
         "lastName": "Risberg ",
         "birthYear": 2018,
@@ -7298,7 +7790,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0230",
+        "id": "FS-2026-0247",
         "firstName": "Ivar",
         "lastName": "Cedell",
         "birthYear": 2015,
@@ -7328,7 +7820,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0231",
+        "id": "FS-2026-0248",
         "firstName": "Ivar",
         "lastName": "Zetterström",
         "birthYear": 2011,
@@ -7341,13 +7833,13 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Cecilia Zetterström",
         "guardianPhone": "0702922869",
         "guardianEmail": "cissizetterstrom@gmail.com"
       },
       {
-        "id": "FS-2026-0398",
+        "id": "FS-2026-0430",
         "firstName": "Sigrid",
         "lastName": "Zetterström",
         "birthYear": 2009,
@@ -7360,7 +7852,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Cecilia Zetterström",
         "guardianPhone": "0702922869",
         "guardianEmail": "cissizetterstrom@gmail.com"
@@ -7377,7 +7869,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0232",
+        "id": "FS-2026-0249",
         "firstName": "Jack",
         "lastName": "Barje",
         "birthYear": 2017,
@@ -7407,7 +7899,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0234",
+        "id": "FS-2026-0251",
         "firstName": "Jacob",
         "lastName": "Salén",
         "birthYear": 2019,
@@ -7437,7 +7929,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0235",
+        "id": "FS-2026-0252",
         "firstName": "Jacob",
         "lastName": "Svenby",
         "birthYear": 2014,
@@ -7467,7 +7959,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0236",
+        "id": "FS-2026-0253",
         "firstName": "James",
         "lastName": "Schwieler",
         "birthYear": 2019,
@@ -7494,7 +7986,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0237",
+        "id": "FS-2026-0254",
         "firstName": "James",
         "lastName": "Engellau",
         "birthYear": 2019,
@@ -7524,7 +8016,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0238",
+        "id": "FS-2026-0255",
         "firstName": "James",
         "lastName": "Ohre",
         "birthYear": 2014,
@@ -7551,7 +8043,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0239",
+        "id": "FS-2026-0256",
         "firstName": "Jax",
         "lastName": "Monö",
         "birthYear": 2017,
@@ -7578,7 +8070,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0241",
+        "id": "FS-2026-0258",
         "firstName": "Joel",
         "lastName": "Strängberg",
         "birthYear": 2016,
@@ -7602,13 +8094,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "yttringe@gmail.com",
+    "guardianName": "Johan Claesson",
+    "phone": "0722323855",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0259",
+        "firstName": "Johan",
+        "lastName": "Claesson",
+        "birthYear": 2016,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "06/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Johan Claesson",
+        "guardianPhone": "0722323855",
+        "guardianEmail": "yttringe@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "johan.stahle@gmail.com",
     "guardianName": "Johan Ståhle",
     "phone": "0736220772",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0243",
+        "id": "FS-2026-0261",
         "firstName": "Johan",
         "lastName": "Ståhle",
         "birthYear": 1984,
@@ -7629,13 +8148,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "johanna.ekendredi@gmail.com",
+    "guardianName": "Johanna Ek Endredi",
+    "phone": "0723270000",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0262",
+        "firstName": "Johanna",
+        "lastName": "Ek Endredi",
+        "birthYear": 2004,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "08/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Johanna Ek Endredi",
+        "guardianPhone": "0723270000",
+        "guardianEmail": "johanna.ekendredi@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "johnedeus@icloud.com",
     "guardianName": "John Edeus",
     "phone": "0704935257",
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0244",
+        "id": "FS-2026-0263",
         "firstName": "John",
         "lastName": "Edeus",
         "birthYear": 2010,
@@ -7648,7 +8194,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "John Edeus",
         "guardianPhone": "0704935257",
         "guardianEmail": "johnedeus@icloud.com"
@@ -7662,7 +8208,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0246",
+        "id": "FS-2026-0265",
         "firstName": "John-John",
         "lastName": "Kronbrink",
         "birthYear": 2013,
@@ -7689,7 +8235,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0247",
+        "id": "FS-2026-0266",
         "firstName": "Joline",
         "lastName": "Stenmark",
         "birthYear": 2016,
@@ -7708,7 +8254,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "carl@pettersson.ch"
       },
       {
-        "id": "FS-2026-0314",
+        "id": "FS-2026-0342",
         "firstName": "Melissa",
         "lastName": "Stenmark",
         "birthYear": 2018,
@@ -7738,7 +8284,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0250",
+        "id": "FS-2026-0269",
         "firstName": "Julia ",
         "lastName": "Lüthi",
         "birthYear": 2019,
@@ -7762,13 +8308,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "julienordell@icloud.com",
+    "guardianName": "Julie Nordell",
+    "phone": "0727172025",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0270",
+        "firstName": "Julie",
+        "lastName": "Nordell",
+        "birthYear": 2009,
+        "groupName": "Skidor Åk 4 Grupp C - Måndag",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Julie Nordell",
+        "guardianPhone": "0727172025",
+        "guardianEmail": "julienordell@icloud.com"
+      }
+    ]
+  },
+  {
     "email": "iohn.ryott@gmail.com",
     "guardianName": "Iohn Ryott",
     "phone": "0707433479",
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0251",
+        "id": "FS-2026-0271",
         "firstName": "Julie",
         "lastName": "Ryott",
         "birthYear": 2011,
@@ -7781,7 +8354,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Iohn Ryott",
         "guardianPhone": "0707433479",
         "guardianEmail": "iohn.ryott@gmail.com"
@@ -7799,7 +8372,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0252",
+        "id": "FS-2026-0272",
         "firstName": "Juliette",
         "lastName": "Almström",
         "birthYear": 2014,
@@ -7829,7 +8402,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0254",
+        "id": "FS-2026-0274",
         "firstName": "Karl",
         "lastName": "Sandberg ",
         "birthYear": 2013,
@@ -7859,7 +8432,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0255",
+        "id": "FS-2026-0275",
         "firstName": "Karl August",
         "lastName": "Engellau",
         "birthYear": 2019,
@@ -7886,7 +8459,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0256",
+        "id": "FS-2026-0276",
         "firstName": "Kayla",
         "lastName": "Malo",
         "birthYear": 2016,
@@ -7913,7 +8486,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0257",
+        "id": "FS-2026-0277",
         "firstName": "Ken",
         "lastName": "Chen",
         "birthYear": 2019,
@@ -7934,13 +8507,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "kianblomberg.09@gmail.com",
+    "guardianName": "Kian Blomberg",
+    "phone": "0705522775",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0278",
+        "firstName": "Kian",
+        "lastName": "Blomberg",
+        "birthYear": 2009,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Kian Blomberg",
+        "guardianPhone": "0705522775",
+        "guardianEmail": "kianblomberg.09@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "mayunian@gmail.com",
     "guardianName": "Yunian Ma",
     "phone": "0738089899",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0258",
+        "id": "FS-2026-0279",
         "firstName": "Kim",
         "lastName": "Ma",
         "birthYear": 2016,
@@ -7964,13 +8564,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "klara.malmsten@telia.com",
+    "guardianName": "Klara Malmsten",
+    "phone": "0702116431",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0280",
+        "firstName": "Klara",
+        "lastName": "Malmsten",
+        "birthYear": 2006,
+        "groupName": "Skidor Åk 3 Grupp B - Onsdag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Klara Malmsten",
+        "guardianPhone": "0702116431",
+        "guardianEmail": "klara.malmsten@telia.com"
+      }
+    ]
+  },
+  {
     "email": "klas.lagerstrom@gmail.com",
     "guardianName": "Klas Lagerström",
     "phone": "0703523262",
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0259",
+        "id": "FS-2026-0282",
         "firstName": "Klas",
         "lastName": "Lagerström",
         "birthYear": 2009,
@@ -7983,7 +8610,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Klas Lagerström",
         "guardianPhone": "0703523262",
         "guardianEmail": "klas.lagerstrom@gmail.com"
@@ -7997,7 +8624,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0260",
+        "id": "FS-2026-0283",
         "firstName": "Knut",
         "lastName": "Karnsund",
         "birthYear": 2019,
@@ -8024,7 +8651,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0261",
+        "id": "FS-2026-0284",
         "firstName": "Kristofer ",
         "lastName": "Alm",
         "birthYear": 2017,
@@ -8048,13 +8675,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "lars.hadzin@outlook.com",
+    "guardianName": "Lars Hadzin",
+    "phone": "0707311019",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0285",
+        "firstName": "Lars",
+        "lastName": "Hadzin",
+        "birthYear": 1962,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Lars Hadzin",
+        "guardianPhone": "0707311019",
+        "guardianEmail": "lars.hadzin@outlook.com"
+      }
+    ]
+  },
+  {
     "email": "lollopope@gmail.com",
     "guardianName": "Louise Pope",
     "phone": "0735077095",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0262",
+        "id": "FS-2026-0286",
         "firstName": "Laura",
         "lastName": "Pope",
         "birthYear": 2015,
@@ -8078,13 +8732,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "leiafallanrodelgh@gmail.com",
+    "guardianName": "Leia Fallan Röd Elgh",
+    "phone": "0763033222",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0287",
+        "firstName": "Leia",
+        "lastName": "Fallan Röd Elgh",
+        "birthYear": 2009,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Leia Fallan Röd Elgh",
+        "guardianPhone": "0763033222",
+        "guardianEmail": "leiafallanrodelgh@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "bea.walter@hotmail.com",
     "guardianName": "Bea Walter",
     "phone": "0736849992",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0263",
+        "id": "FS-2026-0288",
         "firstName": "Leo",
         "lastName": "Ljunggren",
         "birthYear": 2018,
@@ -8114,7 +8795,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0266",
+        "id": "FS-2026-0291",
         "firstName": "Leontine",
         "lastName": "Lindahl",
         "birthYear": 2017,
@@ -8133,7 +8814,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "axellindahl@gmail.com"
       },
       {
-        "id": "FS-2026-0369",
+        "id": "FS-2026-0405",
         "firstName": "Philip",
         "lastName": "Lindahl",
         "birthYear": 2015,
@@ -8163,7 +8844,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0267",
+        "id": "FS-2026-0292",
         "firstName": "Leopold",
         "lastName": "Bomgren",
         "birthYear": 2015,
@@ -8193,7 +8874,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0268",
+        "id": "FS-2026-0293",
         "firstName": "Liam",
         "lastName": "Worwick",
         "birthYear": 2014,
@@ -8220,7 +8901,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0269",
+        "id": "FS-2026-0294",
         "firstName": "Liam",
         "lastName": "Lind-Hokholt",
         "birthYear": 2017,
@@ -8239,7 +8920,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "famcarinahokholt@gmail.com"
       },
       {
-        "id": "FS-2026-0273",
+        "id": "FS-2026-0298",
         "firstName": "Linus",
         "lastName": "Lind-Hokholt",
         "birthYear": 2019,
@@ -8269,7 +8950,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0270",
+        "id": "FS-2026-0295",
         "firstName": "Lily",
         "lastName": "Wetternin Nyberg",
         "birthYear": 2018,
@@ -8299,7 +8980,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0272",
+        "id": "FS-2026-0297",
         "firstName": "Linda",
         "lastName": "Nilsson",
         "birthYear": 1979,
@@ -8318,7 +8999,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "lindaannanilsson@hotmail.com"
       },
       {
-        "id": "FS-2026-0325",
+        "id": "FS-2026-0354",
         "firstName": "Natalie",
         "lastName": "Axehult",
         "birthYear": 2018,
@@ -8337,7 +9018,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "lindaannanilsson@hotmail.com"
       },
       {
-        "id": "FS-2026-0393",
+        "id": "FS-2026-0424",
         "firstName": "Sebastian",
         "lastName": "Axehult",
         "birthYear": 2016,
@@ -8364,7 +9045,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0274",
+        "id": "FS-2026-0299",
         "firstName": "Liv",
         "lastName": "Bimberg",
         "birthYear": 2015,
@@ -8391,7 +9072,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0276",
+        "id": "FS-2026-0301",
         "firstName": "Liv",
         "lastName": "Enerskog",
         "birthYear": 2019,
@@ -8421,7 +9102,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0277",
+        "id": "FS-2026-0302",
         "firstName": "Liv",
         "lastName": "Rammer",
         "birthYear": 2008,
@@ -8434,7 +9115,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Henrik Rammer",
         "guardianPhone": "0702772304",
         "guardianEmail": "henrikrammer@gmail.com"
@@ -8452,7 +9133,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0278",
+        "id": "FS-2026-0303",
         "firstName": "Liv",
         "lastName": "Roald Billgren",
         "birthYear": 2014,
@@ -8471,7 +9152,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "anna.roaldbillgren@gmail.com"
       },
       {
-        "id": "FS-2026-0438",
+        "id": "FS-2026-0476",
         "firstName": "Ulrik",
         "lastName": "Roald Billgren",
         "birthYear": 2016,
@@ -8501,7 +9182,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0279",
+        "id": "FS-2026-0304",
         "firstName": "Livia",
         "lastName": "Wetternin",
         "birthYear": 2010,
@@ -8514,7 +9195,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Ingrid",
         "guardianPhone": "0704503236",
         "guardianEmail": "ingrid.wetternin.nyberg@gmail.com"
@@ -8532,7 +9213,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0280",
+        "id": "FS-2026-0305",
         "firstName": "Loa",
         "lastName": "Håkansson",
         "birthYear": 2019,
@@ -8559,7 +9240,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0281",
+        "id": "FS-2026-0306",
         "firstName": "Lorenz",
         "lastName": "Hölcke",
         "birthYear": 2019,
@@ -8580,43 +9261,13 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
-    "email": "emrune@me.com",
-    "guardianName": "erik rune",
-    "phone": "0707130339",
-    "role": "medlem",
-    "skiers": [
-      {
-        "id": "FS-2026-0283",
-        "firstName": "Louie",
-        "lastName": "Rune",
-        "birthYear": 2014,
-        "groupName": "Skidor Åk 6 Grupp A",
-        "groupLevel": "rod",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "åkare",
-        "memberSince": "03/1",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
-        "guardianName": "erik rune",
-        "guardianPhone": "0707130339",
-        "guardianEmail": "emrune@me.com"
-      }
-    ],
-    "alternateEmails": [
-      "jennierune@me.com"
-    ]
-  },
-  {
     "email": "liljanilsmagnus@gmail.com",
     "guardianName": "Magnus Lilja",
     "phone": "0703368300",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0284",
+        "id": "FS-2026-0309",
         "firstName": "Louisa",
         "lastName": "Lilja",
         "birthYear": 2009,
@@ -8635,7 +9286,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "liljanilsmagnus@gmail.com"
       },
       {
-        "id": "FS-2026-0301",
+        "id": "FS-2026-0326",
         "firstName": "Magnus",
         "lastName": "Lilja",
         "birthYear": 1969,
@@ -8654,7 +9305,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "liljanilsmagnus@gmail.com"
       },
       {
-        "id": "FS-2026-0443",
+        "id": "FS-2026-0481",
         "firstName": "Victor",
         "lastName": "Lilja",
         "birthYear": 2015,
@@ -8681,7 +9332,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0285",
+        "id": "FS-2026-0310",
         "firstName": "Louise",
         "lastName": "Olander",
         "birthYear": 2013,
@@ -8711,7 +9362,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0286",
+        "id": "FS-2026-0311",
         "firstName": "Louise",
         "lastName": "Skruvfors",
         "birthYear": 2013,
@@ -8741,7 +9392,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0287",
+        "id": "FS-2026-0312",
         "firstName": "Louise",
         "lastName": "Rengstedt",
         "birthYear": 2015,
@@ -8771,7 +9422,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0288",
+        "id": "FS-2026-0313",
         "firstName": "Lova",
         "lastName": "Edshammar",
         "birthYear": 2017,
@@ -8801,7 +9452,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0289",
+        "id": "FS-2026-0314",
         "firstName": "Lovisa",
         "lastName": "Högström",
         "birthYear": 2011,
@@ -8832,7 +9483,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0290",
+        "id": "FS-2026-0315",
         "firstName": "Lovisa",
         "lastName": "Hartman",
         "birthYear": 2013,
@@ -8862,7 +9513,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0292",
+        "id": "FS-2026-0317",
         "firstName": "Lucas",
         "lastName": "Lignell",
         "birthYear": 2018,
@@ -8881,7 +9532,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "annika.lignell@gmail.com"
       },
       {
-        "id": "FS-2026-0448",
+        "id": "FS-2026-0486",
         "firstName": "Victor",
         "lastName": "Lignell",
         "birthYear": 2016,
@@ -8911,7 +9562,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0293",
+        "id": "FS-2026-0318",
         "firstName": "Ludvig",
         "lastName": "Spångö Nämnd",
         "birthYear": 2017,
@@ -8941,7 +9592,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0294",
+        "id": "FS-2026-0319",
         "firstName": "Ludvig",
         "lastName": "Laurén",
         "birthYear": 2016,
@@ -8971,7 +9622,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0295",
+        "id": "FS-2026-0320",
         "firstName": "Ludvig",
         "lastName": "Holmgren",
         "birthYear": 2010,
@@ -8984,7 +9635,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Jenny Holmgren",
         "guardianPhone": "0700803270",
         "guardianEmail": "jholmgren@deloitte.se"
@@ -9002,7 +9653,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0297",
+        "id": "FS-2026-0322",
         "firstName": "Ludvig",
         "lastName": "Berg",
         "birthYear": 2016,
@@ -9032,7 +9683,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0298",
+        "id": "FS-2026-0323",
         "firstName": "Lukas",
         "lastName": "Lyth",
         "birthYear": 2017,
@@ -9059,7 +9710,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0299",
+        "id": "FS-2026-0324",
         "firstName": "Lykke",
         "lastName": "Conradsson Dalén",
         "birthYear": 2019,
@@ -9083,13 +9734,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "maja.ac.wolf@icloud.com",
+    "guardianName": "Maja Wolf",
+    "phone": "0793412460",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0327",
+        "firstName": "Maja",
+        "lastName": "Wolf",
+        "birthYear": 2008,
+        "groupName": "Skidor Åk 2 Grupp nybörjare - Måndag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Maja Wolf",
+        "guardianPhone": "0793412460",
+        "guardianEmail": "maja.ac.wolf@icloud.com"
+      }
+    ]
+  },
+  {
     "email": "dahlgren.frida@gmail.com",
     "guardianName": "Frida Dahlgren",
     "phone": "0767973502",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0302",
+        "id": "FS-2026-0328",
         "firstName": "Majken",
         "lastName": "Dahlgren Åberg",
         "birthYear": 2019,
@@ -9119,7 +9797,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0303",
+        "id": "FS-2026-0329",
         "firstName": "Malcolm",
         "lastName": "Stenius",
         "birthYear": 2012,
@@ -9150,7 +9828,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0305",
+        "id": "FS-2026-0331",
         "firstName": "Marcus",
         "lastName": "Oliw",
         "birthYear": 2013,
@@ -9171,13 +9849,67 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "malalia.blomberg@gmail.com",
+    "guardianName": "Maria Blomberg",
+    "phone": "0727356525",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0332",
+        "firstName": "Maria",
+        "lastName": "Blomberg",
+        "birthYear": 1976,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Maria Blomberg",
+        "guardianPhone": "0727356525",
+        "guardianEmail": "malalia.blomberg@gmail.com"
+      }
+    ]
+  },
+  {
+    "email": "marius.fredriksson@gmail.com",
+    "guardianName": "Marius Fredriksson",
+    "phone": "0725851005",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0333",
+        "firstName": "Marius",
+        "lastName": "Fredriksson",
+        "birthYear": 2007,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Marius Fredriksson",
+        "guardianPhone": "0725851005",
+        "guardianEmail": "marius.fredriksson@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "ahlstrommellbergmartina@gmail.com",
     "guardianName": "Martina Mellberg Ahlström",
     "phone": "0733113877",
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0307",
+        "id": "FS-2026-0335",
         "firstName": "Martina",
         "lastName": "Mellberg Ahlström",
         "birthYear": 2008,
@@ -9190,7 +9922,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Martina Mellberg Ahlström",
         "guardianPhone": "0733113877",
         "guardianEmail": "ahlstrommellbergmartina@gmail.com"
@@ -9204,7 +9936,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0309",
+        "id": "FS-2026-0337",
         "firstName": "Max",
         "lastName": "Erlandsson",
         "birthYear": 2017,
@@ -9231,7 +9963,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0310",
+        "id": "FS-2026-0338",
         "firstName": "Max",
         "lastName": "Wrange",
         "birthYear": 2009,
@@ -9244,7 +9976,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Max Wrange",
         "guardianPhone": "0735409944",
         "guardianEmail": "max.wrange@gmail.com"
@@ -9258,7 +9990,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0311",
+        "id": "FS-2026-0339",
         "firstName": "Max landgård Edwards",
         "lastName": "Landgard",
         "birthYear": 2016,
@@ -9277,7 +10009,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "josefin@landgard.se"
       },
       {
-        "id": "FS-2026-0415",
+        "id": "FS-2026-0452",
         "firstName": "Ted",
         "lastName": "Landgard Edwards",
         "birthYear": 2015,
@@ -9304,7 +10036,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0312",
+        "id": "FS-2026-0340",
         "firstName": "Maximilian",
         "lastName": "Stahle",
         "birthYear": 2016,
@@ -9323,7 +10055,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "peder.stahle@gmail.com"
       },
       {
-        "id": "FS-2026-0365",
+        "id": "FS-2026-0396",
         "firstName": "Peder",
         "lastName": "Stahle",
         "birthYear": 1982,
@@ -9342,7 +10074,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "peder.stahle@gmail.com"
       },
       {
-        "id": "FS-2026-0423",
+        "id": "FS-2026-0460",
         "firstName": "Theodor",
         "lastName": "Stahle",
         "birthYear": 2018,
@@ -9372,7 +10104,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0313",
+        "id": "FS-2026-0341",
         "firstName": "Maximilian",
         "lastName": "Dellham",
         "birthYear": 2014,
@@ -9402,7 +10134,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0315",
+        "id": "FS-2026-0343",
         "firstName": "Melker",
         "lastName": "Wetterborg",
         "birthYear": 2014,
@@ -9421,7 +10153,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "jessica.wetterborg@gmail.com"
       },
       {
-        "id": "FS-2026-0320",
+        "id": "FS-2026-0348",
         "firstName": "Moa",
         "lastName": "Wetterborg",
         "birthYear": 2016,
@@ -9451,7 +10183,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0317",
+        "id": "FS-2026-0345",
         "firstName": "Mia",
         "lastName": "Efendic Paolino",
         "birthYear": 2019,
@@ -9481,7 +10213,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0319",
+        "id": "FS-2026-0347",
         "firstName": "Milton",
         "lastName": "Rönnholm",
         "birthYear": 2013,
@@ -9511,7 +10243,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0321",
+        "id": "FS-2026-0349",
         "firstName": "Molly",
         "lastName": "Brott",
         "birthYear": 2018,
@@ -9530,7 +10262,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "rasmusbrott@gmail.com"
       },
       {
-        "id": "FS-2026-0424",
+        "id": "FS-2026-0462",
         "firstName": "Theodor",
         "lastName": "Brott",
         "birthYear": 2015,
@@ -9560,7 +10292,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0322",
+        "id": "FS-2026-0350",
         "firstName": "Molly",
         "lastName": "Lindgren",
         "birthYear": 2019,
@@ -9587,7 +10319,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0323",
+        "id": "FS-2026-0351",
         "firstName": "Molly",
         "lastName": "Brandt",
         "birthYear": 2013,
@@ -9608,13 +10340,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "mansakerman231@gmail.com",
+    "guardianName": "Måns Åkerman",
+    "phone": "0708950318",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0352",
+        "firstName": "Måns",
+        "lastName": "Åkerman",
+        "birthYear": 2007,
+        "groupName": "Skidor Åk 3 Grupp C - Onsdag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "01/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Måns Åkerman",
+        "guardianPhone": "0708950318",
+        "guardianEmail": "mansakerman231@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "malin.m.jarl@gmail.com",
     "guardianName": "Malin Jarl",
     "phone": "0736889623",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0324",
+        "id": "FS-2026-0353",
         "firstName": "Märtha",
         "lastName": "Jarl",
         "birthYear": 2017,
@@ -9644,7 +10403,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0326",
+        "id": "FS-2026-0355",
         "firstName": "Nathalie",
         "lastName": "Jonsson",
         "birthYear": 2016,
@@ -9674,7 +10433,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0327",
+        "id": "FS-2026-0356",
         "firstName": "Nathan",
         "lastName": "Fors Gabrielson",
         "birthYear": 2011,
@@ -9704,7 +10463,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0328",
+        "id": "FS-2026-0357",
         "firstName": "Nellie ",
         "lastName": "Bergsman",
         "birthYear": 2015,
@@ -9731,7 +10490,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0329",
+        "id": "FS-2026-0358",
         "firstName": "Nelly",
         "lastName": "Lenac",
         "birthYear": 2018,
@@ -9750,7 +10509,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "kristinljungdahl@hotmail.com"
       },
       {
-        "id": "FS-2026-0343",
+        "id": "FS-2026-0373",
         "firstName": "Noel",
         "lastName": "Lenac",
         "birthYear": 2016,
@@ -9780,7 +10539,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0330",
+        "id": "FS-2026-0359",
         "firstName": "Nicholas",
         "lastName": "Kock",
         "birthYear": 2019,
@@ -9807,7 +10566,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0331",
+        "id": "FS-2026-0360",
         "firstName": "Nicolas",
         "lastName": "Gaber",
         "birthYear": 2019,
@@ -9837,7 +10596,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0333",
+        "id": "FS-2026-0362",
         "firstName": "Nils",
         "lastName": "Kaunitz",
         "birthYear": 2017,
@@ -9867,7 +10626,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0334",
+        "id": "FS-2026-0363",
         "firstName": "Nils",
         "lastName": "Carlbring",
         "birthYear": 2015,
@@ -9891,13 +10650,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "nils.hadzin@icloud.com",
+    "guardianName": "Nils Hadzin",
+    "phone": "0707310202",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0364",
+        "firstName": "Nils",
+        "lastName": "Hadzin",
+        "birthYear": 2009,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Nils Hadzin",
+        "guardianPhone": "0707310202",
+        "guardianEmail": "nils.hadzin@icloud.com"
+      }
+    ]
+  },
+  {
     "email": "peter.bergenwald@gmail.com",
     "guardianName": "Peter Bergenwald",
     "phone": "0704803072",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0335",
+        "id": "FS-2026-0365",
         "firstName": "Nils",
         "lastName": "Bergenwald",
         "birthYear": 2015,
@@ -9927,7 +10713,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0336",
+        "id": "FS-2026-0366",
         "firstName": "Nils",
         "lastName": "Rahm",
         "birthYear": 2017,
@@ -9954,7 +10740,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0337",
+        "id": "FS-2026-0367",
         "firstName": "Nils ",
         "lastName": "Tesch Morawetz ",
         "birthYear": 2019,
@@ -9985,7 +10771,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0338",
+        "id": "FS-2026-0368",
         "firstName": "Nils",
         "lastName": "Nordblad",
         "birthYear": 2013,
@@ -10004,7 +10790,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "mans.nordblad@gmail.com"
       },
       {
-        "id": "FS-2026-0397",
+        "id": "FS-2026-0429",
         "firstName": "Signe",
         "lastName": "Nordblad",
         "birthYear": 2009,
@@ -10017,7 +10803,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "MÅNS",
         "guardianPhone": "0735200968",
         "guardianEmail": "mans.nordblad@gmail.com"
@@ -10034,7 +10820,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0339",
+        "id": "FS-2026-0369",
         "firstName": "Nils",
         "lastName": "Bennett",
         "birthYear": 2017,
@@ -10053,7 +10839,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "ebbamagnuson@hotmail.com"
       },
       {
-        "id": "FS-2026-0428",
+        "id": "FS-2026-0466",
         "firstName": "Thor",
         "lastName": "Bennett",
         "birthYear": 2019,
@@ -10083,7 +10869,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0341",
+        "id": "FS-2026-0371",
         "firstName": "Noah",
         "lastName": "Baba",
         "birthYear": 2015,
@@ -10113,7 +10899,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0342",
+        "id": "FS-2026-0372",
         "firstName": "Noah",
         "lastName": "Oscarsson",
         "birthYear": 2010,
@@ -10126,7 +10912,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Noah Oscarsson",
         "guardianPhone": "0769155413",
         "guardianEmail": "oscarssonnoah@gmail.com"
@@ -10140,7 +10926,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0345",
+        "id": "FS-2026-0375",
         "firstName": "Nora",
         "lastName": "Zethraeus ",
         "birthYear": 2017,
@@ -10170,7 +10956,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0346",
+        "id": "FS-2026-0376",
         "firstName": "Oliver",
         "lastName": "Lundström",
         "birthYear": 2015,
@@ -10197,7 +10983,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0347",
+        "id": "FS-2026-0377",
         "firstName": "Oliver",
         "lastName": "Boisen Nordlander",
         "birthYear": 2019,
@@ -10221,13 +11007,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "routledgeojg@outlook.com",
+    "guardianName": "Oliver Routledge",
+    "phone": "0735713614",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0378",
+        "firstName": "Oliver",
+        "lastName": "Routledge",
+        "birthYear": 2006,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Oliver Routledge",
+        "guardianPhone": "0735713614",
+        "guardianEmail": "routledgeojg@outlook.com"
+      }
+    ]
+  },
+  {
     "email": "johannadahl79@gmail.com",
     "guardianName": "Johanna Dahl ",
     "phone": "0706877193",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0349",
+        "id": "FS-2026-0380",
         "firstName": "Olivia",
         "lastName": "Dahl",
         "birthYear": 2013,
@@ -10257,7 +11070,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0350",
+        "id": "FS-2026-0381",
         "firstName": "Olle",
         "lastName": "Tikkakoski Lundström",
         "birthYear": 2016,
@@ -10284,7 +11097,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0351",
+        "id": "FS-2026-0382",
         "firstName": "Olle",
         "lastName": "Tesch Morawetz",
         "birthYear": 2017,
@@ -10314,7 +11127,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0352",
+        "id": "FS-2026-0383",
         "firstName": "Olle",
         "lastName": "Dahlqvist",
         "birthYear": 2010,
@@ -10327,7 +11140,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Anna Dahlqvist",
         "guardianPhone": "0708990116",
         "guardianEmail": "anna.dahlqvist@live.se"
@@ -10344,7 +11157,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0353",
+        "id": "FS-2026-0384",
         "firstName": "Oscar",
         "lastName": "Tillmark",
         "birthYear": 2014,
@@ -10374,7 +11187,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0354",
+        "id": "FS-2026-0385",
         "firstName": "Oscar",
         "lastName": "Andersson",
         "birthYear": 2018,
@@ -10404,7 +11217,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0355",
+        "id": "FS-2026-0386",
         "firstName": "Oscar",
         "lastName": "Wolf",
         "birthYear": 2010,
@@ -10417,7 +11230,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Oscar Wolf",
         "guardianPhone": "0793101158",
         "guardianEmail": "oscar.nl.wolf@icloud.com"
@@ -10431,7 +11244,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0356",
+        "id": "FS-2026-0387",
         "firstName": "Oscar",
         "lastName": "Garpe",
         "birthYear": 2018,
@@ -10461,7 +11274,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0359",
+        "id": "FS-2026-0390",
         "firstName": "Oskar",
         "lastName": "Atallah ",
         "birthYear": 2016,
@@ -10491,7 +11304,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0360",
+        "id": "FS-2026-0391",
         "firstName": "Ossian",
         "lastName": "Kihlblom",
         "birthYear": 2019,
@@ -10521,7 +11334,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0363",
+        "id": "FS-2026-0394",
         "firstName": "Patrik",
         "lastName": "Lindqvist",
         "birthYear": 1984,
@@ -10548,7 +11361,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0364",
+        "id": "FS-2026-0395",
         "firstName": "Pawel",
         "lastName": "Wyszynski",
         "birthYear": 1983,
@@ -10575,7 +11388,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0367",
+        "id": "FS-2026-0398",
         "firstName": "Petter",
         "lastName": "Wejstorp",
         "birthYear": 2010,
@@ -10588,7 +11401,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Petter Wejstorp",
         "guardianPhone": "0727475511",
         "guardianEmail": "petterwej.10@gmail.com"
@@ -10602,7 +11415,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0368",
+        "id": "FS-2026-0399",
         "firstName": "Philip",
         "lastName": "Dahlbeck Nobel",
         "birthYear": 2011,
@@ -10633,7 +11446,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0371",
+        "id": "FS-2026-0400",
         "firstName": "Philip",
         "lastName": "Norell",
         "birthYear": 2019,
@@ -10663,7 +11476,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0372",
+        "id": "FS-2026-0401",
         "firstName": "Philip",
         "lastName": "Wolf",
         "birthYear": 2014,
@@ -10693,7 +11506,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0373",
+        "id": "FS-2026-0402",
         "firstName": "Philip",
         "lastName": "Salestrand ",
         "birthYear": 2017,
@@ -10723,7 +11536,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0374",
+        "id": "FS-2026-0403",
         "firstName": "Philip",
         "lastName": "Forsman",
         "birthYear": 2018,
@@ -10750,7 +11563,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0375",
+        "id": "FS-2026-0404",
         "firstName": "Philip",
         "lastName": "Holmgren",
         "birthYear": 2016,
@@ -10777,7 +11590,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0379",
+        "id": "FS-2026-0410",
         "firstName": "Pontus",
         "lastName": "Antonisen",
         "birthYear": 2016,
@@ -10807,7 +11620,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0380",
+        "id": "FS-2026-0411",
         "firstName": "Rasmus",
         "lastName": "Brott",
         "birthYear": 1980,
@@ -10826,7 +11639,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "rasmus@nicegarden.se"
       },
       {
-        "id": "FS-2026-0458",
+        "id": "FS-2026-0496",
         "firstName": "William",
         "lastName": "Brott",
         "birthYear": 2021,
@@ -10853,7 +11666,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0382",
+        "id": "FS-2026-0413",
         "firstName": "Richardo",
         "lastName": "Loschiavo",
         "birthYear": 2015,
@@ -10883,7 +11696,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0383",
+        "id": "FS-2026-0414",
         "firstName": "Rosa",
         "lastName": "Hallman",
         "birthYear": 2017,
@@ -10910,7 +11723,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0384",
+        "id": "FS-2026-0415",
         "firstName": "Ruben",
         "lastName": "Ranner",
         "birthYear": 2014,
@@ -10940,7 +11753,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0385",
+        "id": "FS-2026-0416",
         "firstName": "Ruben",
         "lastName": "Aaröe Von Der Lancken",
         "birthYear": 2012,
@@ -10957,6 +11770,25 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianName": "Stefan Aaröe",
         "guardianPhone": "0706356591",
         "guardianEmail": "stefan.aaroe@me.com"
+      },
+      {
+        "id": "FS-2026-0444",
+        "firstName": "Stefan",
+        "lastName": "Aaröe",
+        "birthYear": 1976,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "08/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Stefan Aaröe",
+        "guardianPhone": "+46706356591",
+        "guardianEmail": "stefan.aaroe@me.com"
       }
     ],
     "alternateEmails": [
@@ -10970,7 +11802,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0386",
+        "id": "FS-2026-0417",
         "firstName": "Rufus",
         "lastName": "Ryberg",
         "birthYear": 2017,
@@ -11000,7 +11832,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0387",
+        "id": "FS-2026-0418",
         "firstName": "Rut",
         "lastName": "Tufvasson",
         "birthYear": 2012,
@@ -11019,7 +11851,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "sofiatufvasson@yahoo.se"
       },
       {
-        "id": "FS-2026-0405",
+        "id": "FS-2026-0438",
         "firstName": "Siri",
         "lastName": "Tufvasson",
         "birthYear": 2012,
@@ -11046,7 +11878,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0388",
+        "id": "FS-2026-0419",
         "firstName": "Saga",
         "lastName": "Boldt-Christmas",
         "birthYear": 2009,
@@ -11059,7 +11891,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Saga Boldt-Christmas",
         "guardianPhone": "0793041034",
         "guardianEmail": "sagaboldtchristmas@gmail.com"
@@ -11073,7 +11905,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0389",
+        "id": "FS-2026-0420",
         "firstName": "Sam",
         "lastName": "Martinsson",
         "birthYear": 2010,
@@ -11086,7 +11918,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Stig Martinsson",
         "guardianPhone": "0703969197",
         "guardianEmail": "stig.martinsson@gmail.com"
@@ -11103,7 +11935,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0390",
+        "id": "FS-2026-0421",
         "firstName": "Sam",
         "lastName": "Olsson",
         "birthYear": 2016,
@@ -11122,7 +11954,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "caroline.marie.olsson@gmail.com"
       },
       {
-        "id": "FS-2026-0431",
+        "id": "FS-2026-0469",
         "firstName": "Tom",
         "lastName": "Olsson",
         "birthYear": 2018,
@@ -11152,7 +11984,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0391",
+        "id": "FS-2026-0422",
         "firstName": "Samuel",
         "lastName": "Malmquist",
         "birthYear": 2010,
@@ -11165,7 +11997,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Rebecka Fransson",
         "guardianPhone": "0765499095",
         "guardianEmail": "rebecka.fransson@sjobefal.se"
@@ -11182,7 +12014,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0392",
+        "id": "FS-2026-0423",
         "firstName": "Sara",
         "lastName": "Brott",
         "birthYear": 1982,
@@ -11209,7 +12041,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0394",
+        "id": "FS-2026-0425",
         "firstName": "Selma",
         "lastName": "Lilja",
         "birthYear": 2007,
@@ -11230,13 +12062,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "sighsten@gmail.com",
+    "guardianName": "Sighsten Dahl",
+    "phone": "0728536208",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0428",
+        "firstName": "Sighsten",
+        "lastName": "Dahl",
+        "birthYear": 1978,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "01/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Sighsten Dahl",
+        "guardianPhone": "0728536208",
+        "guardianEmail": "sighsten@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "marta.olausson@sonjaholding.se",
     "guardianName": "Märta Olausson",
     "phone": "0739089781",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0401",
+        "id": "FS-2026-0433",
         "firstName": "Sigrid",
         "lastName": "Olausson",
         "birthYear": 2018,
@@ -11266,7 +12125,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0402",
+        "id": "FS-2026-0434",
         "firstName": "Sigrid",
         "lastName": "Rytter Rosén",
         "birthYear": 2017,
@@ -11296,7 +12155,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0403",
+        "id": "FS-2026-0435",
         "firstName": "Simon",
         "lastName": "Malmros Olsson",
         "birthYear": 2016,
@@ -11326,7 +12185,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0404",
+        "id": "FS-2026-0436",
         "firstName": "Simon",
         "lastName": "Agnblad",
         "birthYear": 2011,
@@ -11351,13 +12210,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "simon@areakorrekt.se",
+    "guardianName": "Simon Ornby",
+    "phone": "0707473657",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0437",
+        "firstName": "Simon",
+        "lastName": "Ornby",
+        "birthYear": 1976,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/2",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Simon Ornby",
+        "guardianPhone": "0707473657",
+        "guardianEmail": "simon@areakorrekt.se"
+      }
+    ]
+  },
+  {
     "email": "carlmagnusblix@gmail.com",
     "guardianName": "Magnus Blix",
     "phone": "0736402938",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0406",
+        "id": "FS-2026-0439",
         "firstName": "Siri",
         "lastName": "Blix",
         "birthYear": 2019,
@@ -11381,13 +12267,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "sixten.lundstrom07@gmail.com",
+    "guardianName": "Sixten Lundström",
+    "phone": "0763261541",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0440",
+        "firstName": "Sixten",
+        "lastName": "Lundström",
+        "birthYear": 2007,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "03/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Sixten Lundström",
+        "guardianPhone": "0763261541",
+        "guardianEmail": "sixten.lundstrom07@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "elin.hoelcke@gmail.com",
     "guardianName": "Elin",
     "phone": "0704790344",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0408",
+        "id": "FS-2026-0442",
         "firstName": "Solveig",
         "lastName": "Hölcke",
         "birthYear": 2015,
@@ -11417,7 +12330,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0410",
+        "id": "FS-2026-0445",
         "firstName": "Stella",
         "lastName": "Af Sandeberg",
         "birthYear": 2010,
@@ -11430,7 +12343,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Carl-Fredrik af Sandeberg",
         "guardianPhone": "0707910491",
         "guardianEmail": "cf@boldscandinavia.com"
@@ -11442,13 +12355,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "sten.berggren@icloud.com",
+    "guardianName": "Sten Berggren",
+    "phone": "0722181618",
+    "role": "styrelse",
+    "skiers": [
+      {
+        "id": "FS-2026-0446",
+        "firstName": "Sten",
+        "lastName": "Berggren",
+        "birthYear": 1971,
+        "groupName": "Engagerade vuxna - Lidingö Freeskiers",
+        "groupLevel": "admin",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "styrelse",
+        "memberSince": "11/1",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Styrelse)",
+        "guardianName": "Sten Berggren",
+        "guardianPhone": "0722181618",
+        "guardianEmail": "sten.berggren@icloud.com"
+      }
+    ]
+  },
+  {
     "email": "hakanstajens@gmail.com",
     "guardianName": "Jens Håkansta ",
     "phone": "0760508920",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0411",
+        "id": "FS-2026-0447",
         "firstName": "Stina",
         "lastName": "Håkansta",
         "birthYear": 2017,
@@ -11475,7 +12415,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0412",
+        "id": "FS-2026-0448",
         "firstName": "Sven",
         "lastName": "Andreasson",
         "birthYear": 2014,
@@ -11499,13 +12439,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "taraherte00@gmail.com",
+    "guardianName": "Tara Herte",
+    "phone": "070-959 79 04",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0449",
+        "firstName": "Tara",
+        "lastName": "Herte",
+        "birthYear": 2008,
+        "groupName": "Skidor Åk 4 Grupp C - Måndag",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Måndagar 18:00 – 19:30 (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Tara Herte",
+        "guardianPhone": "070-959 79 04",
+        "guardianEmail": "taraherte00@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "martina@swedmark.se",
     "guardianName": "Martina Swedmark ",
     "phone": "0700924470",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0413",
+        "id": "FS-2026-0450",
         "firstName": "Tashi",
         "lastName": "Swedmark",
         "birthYear": 2012,
@@ -11535,7 +12502,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0414",
+        "id": "FS-2026-0451",
         "firstName": "Ted",
         "lastName": "Axelson",
         "birthYear": 2019,
@@ -11565,7 +12532,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0417",
+        "id": "FS-2026-0454",
         "firstName": "Ted",
         "lastName": "Åström",
         "birthYear": 2019,
@@ -11592,7 +12559,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0418",
+        "id": "FS-2026-0455",
         "firstName": "Ted",
         "lastName": "Pontes",
         "birthYear": 2014,
@@ -11622,7 +12589,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0419",
+        "id": "FS-2026-0456",
         "firstName": "Ted",
         "lastName": "Bogner",
         "birthYear": 2014,
@@ -11652,7 +12619,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0422",
+        "id": "FS-2026-0459",
         "firstName": "Thea",
         "lastName": "Elmfeldt",
         "birthYear": 2011,
@@ -11665,7 +12632,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "david elmfeldt",
         "guardianPhone": "0706345819",
         "guardianEmail": "david@elmfeldt.se"
@@ -11677,13 +12644,40 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
+    "email": "t.i.r.lindgren@gmail.com",
+    "guardianName": "Theodor Lindgren",
+    "phone": "0793359391",
+    "role": "tränare",
+    "skiers": [
+      {
+        "id": "FS-2026-0461",
+        "firstName": "Theodor",
+        "lastName": "Lindgren",
+        "birthYear": 2007,
+        "groupName": "Snowboard Barn åk 1-5",
+        "groupLevel": "tranare",
+        "season": "2026/2027",
+        "status": "active",
+        "role": "tränare",
+        "memberSince": "10/0",
+        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
+        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
+        "location": "Ekholmsnäsbacken",
+        "paymentDate": "Faktureras ej (Tränare)",
+        "guardianName": "Theodor Lindgren",
+        "guardianPhone": "0793359391",
+        "guardianEmail": "t.i.r.lindgren@gmail.com"
+      }
+    ]
+  },
+  {
     "email": "williamwenkel@gmail.com",
     "guardianName": "William Wenkel ",
     "phone": "0707409038",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0425",
+        "id": "FS-2026-0463",
         "firstName": "Theodor ",
         "lastName": "Wenkel ",
         "birthYear": 2018,
@@ -11713,7 +12707,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0427",
+        "id": "FS-2026-0465",
         "firstName": "Theodore ",
         "lastName": "Zheng ",
         "birthYear": 2019,
@@ -11740,7 +12734,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0429",
+        "id": "FS-2026-0467",
         "firstName": "Tim",
         "lastName": "Aronsson",
         "birthYear": 2014,
@@ -11770,7 +12764,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0430",
+        "id": "FS-2026-0468",
         "firstName": "Todd",
         "lastName": "Lundkvist",
         "birthYear": 2013,
@@ -11797,7 +12791,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0432",
+        "id": "FS-2026-0470",
         "firstName": "Tom",
         "lastName": "Anell",
         "birthYear": 2013,
@@ -11821,43 +12815,13 @@ export const sportadminAccounts: MemberAccount[] = [
     ]
   },
   {
-    "email": "gustav.leuhusen@outlook.com",
-    "guardianName": "Gustav Leuhusen",
-    "phone": "0708610303",
-    "role": "tränare",
-    "skiers": [
-      {
-        "id": "FS-2026-0433",
-        "firstName": "Tom",
-        "lastName": "Leuhusen",
-        "birthYear": 2010,
-        "groupName": "Tränare - Lidingö Freeskiers",
-        "groupLevel": "tranare",
-        "season": "2026/2027",
-        "status": "active",
-        "role": "tränare",
-        "memberSince": "10/1",
-        "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
-        "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
-        "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
-        "guardianName": "Gustav Leuhusen",
-        "guardianPhone": "0708610303",
-        "guardianEmail": "gustav.leuhusen@outlook.com"
-      }
-    ],
-    "alternateEmails": [
-      "tomleuhusen1@gmail.com"
-    ]
-  },
-  {
     "email": "teresa.gustavsson@gmail.com",
     "guardianName": "Teresa Carlsson",
     "phone": "0702728669",
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0435",
+        "id": "FS-2026-0473",
         "firstName": "Tom",
         "lastName": "Carlsson",
         "birthYear": 2017,
@@ -11887,7 +12851,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0436",
+        "id": "FS-2026-0474",
         "firstName": "Tom",
         "lastName": "Foulds",
         "birthYear": 2010,
@@ -11900,7 +12864,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Maria Foulds",
         "guardianPhone": "0723776304",
         "guardianEmail": "maria.foulds@hotmail.com"
@@ -11918,7 +12882,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0439",
+        "id": "FS-2026-0477",
         "firstName": "Walter",
         "lastName": "Lange Ströberg",
         "birthYear": 2015,
@@ -11945,7 +12909,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0440",
+        "id": "FS-2026-0478",
         "firstName": "Valter",
         "lastName": "Dahl",
         "birthYear": 2010,
@@ -11958,7 +12922,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Onsdagar 18:00 – 19:30 (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Valter Dahl",
         "guardianPhone": "0793345518",
         "guardianEmail": "valterdahl@gmail.com"
@@ -11972,7 +12936,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0441",
+        "id": "FS-2026-0479",
         "firstName": "Vendela",
         "lastName": "Linderoth",
         "birthYear": 2018,
@@ -12002,7 +12966,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0444",
+        "id": "FS-2026-0482",
         "firstName": "Victor",
         "lastName": "Nordahl",
         "birthYear": 2018,
@@ -12032,7 +12996,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0445",
+        "id": "FS-2026-0483",
         "firstName": "Victor ",
         "lastName": "Dangre",
         "birthYear": 2013,
@@ -12059,7 +13023,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0446",
+        "id": "FS-2026-0484",
         "firstName": "Victor",
         "lastName": "Lundgren",
         "birthYear": 2013,
@@ -12089,7 +13053,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0447",
+        "id": "FS-2026-0485",
         "firstName": "Victor",
         "lastName": "Oliw",
         "birthYear": 2015,
@@ -12119,7 +13083,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0449",
+        "id": "FS-2026-0487",
         "firstName": "Wictor",
         "lastName": "Hammer",
         "birthYear": 2018,
@@ -12149,7 +13113,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0450",
+        "id": "FS-2026-0488",
         "firstName": "Viggo",
         "lastName": "Severin",
         "birthYear": 2015,
@@ -12179,7 +13143,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0451",
+        "id": "FS-2026-0489",
         "firstName": "Viggo",
         "lastName": "Navarro olsson",
         "birthYear": 2017,
@@ -12209,7 +13173,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0452",
+        "id": "FS-2026-0490",
         "firstName": "Wilhelm",
         "lastName": "Källsson",
         "birthYear": 2015,
@@ -12239,7 +13203,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0453",
+        "id": "FS-2026-0491",
         "firstName": "Wilhelm",
         "lastName": "Ahlqvist Granath",
         "birthYear": 2018,
@@ -12269,7 +13233,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0455",
+        "id": "FS-2026-0493",
         "firstName": "Wilhelm",
         "lastName": "Lang",
         "birthYear": 2011,
@@ -12282,7 +13246,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Madeleine Limberg Lang",
         "guardianPhone": "0767216498",
         "guardianEmail": "madeleinelimberglang@gmail.com"
@@ -12300,7 +13264,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0456",
+        "id": "FS-2026-0494",
         "firstName": "Wilhelm",
         "lastName": "Lilja",
         "birthYear": 2019,
@@ -12319,7 +13283,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "guardianEmail": "lauraklilja@gmail.com"
       },
       {
-        "id": "FS-2026-0468",
+        "id": "FS-2026-0506",
         "firstName": "Vincent",
         "lastName": "Lilja",
         "birthYear": 2013,
@@ -12346,7 +13310,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0457",
+        "id": "FS-2026-0495",
         "firstName": "Wilhelmina ",
         "lastName": "Hamilton",
         "birthYear": 1982,
@@ -12373,7 +13337,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0460",
+        "id": "FS-2026-0498",
         "firstName": "William",
         "lastName": "Boyd",
         "birthYear": 2017,
@@ -12403,7 +13367,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0461",
+        "id": "FS-2026-0499",
         "firstName": "William",
         "lastName": "Björnsund colliander ",
         "birthYear": 2019,
@@ -12433,7 +13397,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0462",
+        "id": "FS-2026-0500",
         "firstName": "William",
         "lastName": "af Sandeberg",
         "birthYear": 2019,
@@ -12463,7 +13427,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0463",
+        "id": "FS-2026-0501",
         "firstName": "William",
         "lastName": "Broms",
         "birthYear": 2017,
@@ -12490,7 +13454,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0464",
+        "id": "FS-2026-0502",
         "firstName": "William",
         "lastName": "Nagenius",
         "birthYear": 2010,
@@ -12503,7 +13467,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "William Nagenius",
         "guardianPhone": "0734629550",
         "guardianEmail": "william.nagenius@gmail.com"
@@ -12517,7 +13481,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "tränare",
     "skiers": [
       {
-        "id": "FS-2026-0466",
+        "id": "FS-2026-0504",
         "firstName": "Vincent",
         "lastName": "Lindau Carloni",
         "birthYear": 2010,
@@ -12530,7 +13494,7 @@ export const sportadminAccounts: MemberAccount[] = [
         "insuranceStatus": "Folksam Olycksfallsförsäkring via Svenska Skidförbundet",
         "trainingTime": "Helger & Vardagskvällar (Ekholmsnäsbacken)",
         "location": "Ekholmsnäsbacken",
-        "paymentDate": "Faktureras ej",
+        "paymentDate": "Faktureras ej (Tränare)",
         "guardianName": "Marcus Carloni",
         "guardianPhone": "0708253920",
         "guardianEmail": "marcuscarloni@gmail.com"
@@ -12548,7 +13512,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0467",
+        "id": "FS-2026-0505",
         "firstName": "Vincent ",
         "lastName": "David",
         "birthYear": 2017,
@@ -12575,7 +13539,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0469",
+        "id": "FS-2026-0507",
         "firstName": "Vinston ",
         "lastName": "Eghammer",
         "birthYear": 2015,
@@ -12605,7 +13569,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0470",
+        "id": "FS-2026-0508",
         "firstName": "Viveca",
         "lastName": "Kronqvist",
         "birthYear": 2016,
@@ -12635,7 +13599,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0471",
+        "id": "FS-2026-0509",
         "firstName": "Wynja",
         "lastName": "ahlvarsson",
         "birthYear": 2018,
@@ -12662,7 +13626,7 @@ export const sportadminAccounts: MemberAccount[] = [
     "role": "medlem",
     "skiers": [
       {
-        "id": "FS-2026-0472",
+        "id": "FS-2026-0510",
         "firstName": "Yanchu",
         "lastName": "Pu",
         "birthYear": 2019,

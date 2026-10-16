@@ -191,7 +191,7 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
 
       // Filtrera enligt klubbregler:
       // 1. Samtliga som definieras som medlemmar under personregister under aktuellt år 2027 (isMember === true)
-      // 2. Alla som har gruppkoppling "faktureras ej" under aktuell säsong 2026/2027
+      // 2. Alla som har gruppkoppling "faktureras ej", styrelse, tränare eller ledare under aktuell säsong 2026/2027
       const validPersons = rawPersons.filter((p) => {
         // 1. Samtliga som definieras som medlemmar under personregister under aktuellt år 2027
         if (p.isMember === true) {
@@ -199,16 +199,24 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
           return true;
         }
 
-        // 2. Alla som har gruppkoppling "faktureras ej" under aktuell säsong 2026/2027
-        const hasFakturerasEj = (p.groups || []).some((g) => {
+        // 2. Alla som har gruppkoppling "faktureras ej" eller är styrelse/ledare/tränare under aktuell säsong 2026/2027
+        const hasFakturerasEjOrLeader = (p.groups || []).some((g) => {
           if (g.hasQuit) return false;
           const conn = (g.groupConnectionName || '').toLowerCase().trim();
           const period = (g.periodName || '').toLowerCase();
           const isSeason = period.includes('2026/2027') || period.includes('26/27') || g.memberYear === 2027 || g.memberYear === 2026;
-          return isSeason && (conn.includes('faktureras ej') || g.dontInvoice === true);
+          return isSeason && (
+            conn.includes('faktureras ej') || 
+            conn.includes('styrelse') || 
+            conn.includes('tränare') || 
+            conn.includes('ledare') || 
+            conn.includes('engagerad') || 
+            g.dontInvoice === true ||
+            g.isLeader === true
+          );
         });
 
-        return hasFakturerasEj;
+        return hasFakturerasEjOrLeader;
       });
 
       const allMapped = validPersons.map((p, idx) => mapSportAdminPersonToSkier(p, idx));

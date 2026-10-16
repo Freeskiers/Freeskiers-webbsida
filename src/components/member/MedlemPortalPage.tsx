@@ -45,7 +45,7 @@ import {
 } from '@/lib/sportadminApi';
 import { testSportAdminConnectionFn } from '@/lib/sportadminServer';
 
-const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v1';
+const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v2';
 
 export const MedlemPortalPage: React.FC = () => {
   const { 
@@ -187,11 +187,12 @@ export const MedlemPortalPage: React.FC = () => {
   const filteredAdminSkiers = React.useMemo(() => {
     return adminMembersList.filter((s) => {
       // Group filter
+      if (adminGroupFilter === 'faktureras_ej' && !(s.paymentDate && s.paymentDate.toLowerCase().includes('faktureras ej')) && s.role !== 'styrelse') return false;
       if (adminGroupFilter === 'skidklubb' && s.groupLevel !== 'skidklubb') return false;
       if (adminGroupFilter === 'rod' && s.groupLevel !== 'rod') return false;
       if (adminGroupFilter === 'bla' && s.groupLevel !== 'bla') return false;
       if (adminGroupFilter === 'gron' && s.groupLevel !== 'gron') return false;
-      if (adminGroupFilter === 'familj' && s.groupLevel !== 'familj' && s.groupLevel !== 'tranare') return false;
+      if (adminGroupFilter === 'familj' && s.groupLevel !== 'familj' && s.groupLevel !== 'tranare' && s.role !== 'familjemedlem' && s.role !== 'styrelse') return false;
 
       // Search term
       if (!adminSearchTerm.trim()) return true;
@@ -200,9 +201,13 @@ export const MedlemPortalPage: React.FC = () => {
         s.firstName.toLowerCase().includes(q) ||
         s.lastName.toLowerCase().includes(q) ||
         s.id.toLowerCase().includes(q) ||
+        s.birthYear.toString().includes(q) ||
+        s.groupName.toLowerCase().includes(q) ||
         (s.guardianName && s.guardianName.toLowerCase().includes(q)) ||
         (s.guardianEmail && s.guardianEmail.toLowerCase().includes(q)) ||
-        (s.guardianPhone && s.guardianPhone.includes(q))
+        (s.guardianPhone && s.guardianPhone.includes(q)) ||
+        (s.paymentDate && s.paymentDate.toLowerCase().includes(q)) ||
+        (s.role && s.role.toLowerCase().includes(q))
       );
     });
   }, [adminMembersList, adminGroupFilter, adminSearchTerm]);
@@ -1073,6 +1078,7 @@ export const MedlemPortalPage: React.FC = () => {
                         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
                           {[
                             { id: 'alla', label: `Alla (${adminMembersList.length})` },
+                            { id: 'faktureras_ej', label: 'Faktureras ej / Styrelse' },
                             { id: 'skidklubb', label: 'Skidklubb' },
                             { id: 'rod', label: 'Skidskola Röd' },
                             { id: 'bla', label: 'Skidskola Blå' },
@@ -1120,19 +1126,26 @@ export const MedlemPortalPage: React.FC = () => {
                                 <td className="py-3 px-4">
                                   <div className="font-extrabold text-freeskiers-navy">{s.firstName} {s.lastName}</div>
                                   <div className="font-mono text-[10px] text-slate-400">{s.id}</div>
+                                  {s.role && s.role !== 'åkare' && (
+                                    <span className="text-[9px] font-bold uppercase text-freeskiers-cyan block">{s.role}</span>
+                                  )}
                                 </td>
                                 <td className="py-3 px-4 font-semibold text-slate-600">{s.birthYear}</td>
                                 <td className="py-3 px-4">
                                   <span className="font-bold text-slate-700">{s.groupName}</span>
                                 </td>
                                 <td className="py-3 px-4">
-                                  <div className="font-bold text-slate-800">{s.guardianName}</div>
-                                  <div className="text-[11px] text-slate-500">{s.guardianPhone} • {s.guardianEmail}</div>
+                                  <div className="font-bold text-slate-800">{s.guardianName || '-'}</div>
+                                  <div className="text-[11px] text-slate-500">{s.guardianPhone || ''} • {s.guardianEmail || ''}</div>
                                 </td>
                                 <td className="py-3 px-4">
-                                  <span className="inline-flex items-center gap-1 text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60 text-[10px]">
+                                  <span className={`inline-flex items-center gap-1 font-bold px-2 py-0.5 rounded-full border text-[10px] ${
+                                    s.paymentDate && s.paymentDate.toLowerCase().includes('faktureras ej')
+                                      ? 'text-amber-800 bg-amber-50 border-amber-200'
+                                      : 'text-emerald-700 bg-emerald-50 border-emerald-200/60'
+                                  }`}>
                                     <Check className="w-3 h-3" />
-                                    <span>Betald</span>
+                                    <span>{s.paymentDate && s.paymentDate.toLowerCase().includes('faktureras ej') ? s.paymentDate : 'Betald'}</span>
                                   </span>
                                 </td>
                                 <td className="py-3 px-4">
