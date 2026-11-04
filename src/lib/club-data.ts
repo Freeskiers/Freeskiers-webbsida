@@ -130,7 +130,7 @@ export const skidklubbSida = {
       {
         title: "Förtur — tidigare medlemmar & Höstsäsongen",
         tag: "Förtur",
-        text: "Den 4 oktober skickas en avisering till alla tidigare medlemmar, där väljer du att behålla eller frigöra din plats. Den som är anmäld till årets Höstsäsong har förtur till vintersäsongen och får ett mail med betalningslänk den 4 oktober. Sista betalningsdag är 14 oktober.",
+        text: "Den 4 oktober skickas en betalningsavisering till alla tidigare medlemmar och de som är anmälda till årets Höstsäsong, där väljer du att behålla eller frigöra din plats. Sista betalningsdag är 14 oktober.",
       },
       {
         title: "Nya medlemmar",
