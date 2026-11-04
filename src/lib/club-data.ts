@@ -764,7 +764,7 @@ export const departmentEmails: DepartmentEmail[] = [
   { id: "admin", name: "Administration", email: "admin@lidingofreeskiers.se", shortDesc: "Föreningsfrågor, ekonomi, avgifter & sponsring", focus: "Övergripande föreningsfrågor, medlemsregister, fakturor och partnerskap." },
   { id: "helg", name: "Helgskidskolan", email: "helg@lidingofreeskiers.se", shortDesc: "", focus: "Frågor gällande gruppindelning (Grön, Blå, Röd), lektionstider och anmälan i Helgskidskolan." },
   { id: "skidklubb", name: "Freeskiers Skidklubb", email: "skidklubb@lidingofreeskiers.se", shortDesc: "Vardagsträning, park & friåkning", focus: "Frågor gällande skidklubbens grupper, anmälan och träningar." },
-  { id: "privatlektioner", name: "Privatlektioner", email: "privatlektioner@lidingofreeskiers.se", shortDesc: "Individuell coachning & teknikpass", focus: "Frågor gällande bokning, ändringar, avbokning eller annat angånde privatlektioner." },
+  { id: "privatlektioner", name: "Privatlektioner", email: "privatlektion@lidingofreeskiers.se", shortDesc: "Individuell coachning & teknikpass", focus: "Frågor gällande bokning, ändringar, avbokning eller annat angånde privatlektioner." },
 ];
 
 /** Mejladressen för en av klubbens funktioner, t.ex. departmentEmail("helg"). */
