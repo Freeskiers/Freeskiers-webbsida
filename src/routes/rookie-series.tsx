@@ -22,10 +22,10 @@ export const Route = createFileRoute("/rookie-series")({
 });
 
 const facts = [
-  { icon: MapPin, l: "Plats", v: "Ekholmsnäsbacken, Lidingö", s: "Snowparken & hoppen" },
-  { icon: Calendar, l: "När", v: "Februari / Mars årligen", s: "En helg fylld av åkglädje" },
-  { icon: Users, l: "Klasser", v: "Kids, Ungdom & Junior", s: "Killar & tjejer, skidor & bräda" },
-  { icon: ShieldCheck, l: "Förbundssamarbete", v: "Svenska Skidförbundet", s: "Officiell nationell tour" },
+  { icon: MapPin, l: "Plats", v: "Ekholmsnäsbacken, Lidingö" },
+  { icon: Calendar, l: "När", v: "Februari / Mars årligen" },
+  { icon: Users, l: "Klasser", v: "Kids, Ungdom & Junior" },
+  { icon: ShieldCheck, l: "Förbundssamarbete", v: "Svenska Skidförbundet" },
 ];
 
 const classes = [
@@ -51,12 +51,11 @@ function RookieSeries() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map(({ icon: Icon, l, v, s }) => (
+          {facts.map(({ icon: Icon, l, v }) => (
             <div key={l} className="surface-card p-5">
               <Icon className="size-6 text-primary" />
               <dt className="mt-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{l}</dt>
               <dd className="mt-1 font-bold text-heading">{v}</dd>
-              <dd className="text-xs text-muted-foreground">{s}</dd>
             </div>
           ))}
         </dl>
