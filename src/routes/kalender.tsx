@@ -120,7 +120,7 @@ function KalenderPage() {
           </div>
 
           <div className="surface-card bg-card p-6">
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">🎿 Helgskidskola (HSS 1–5)</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-primary">🎿 HELGSKIDSKOLA</p>
             <h3 className="mt-1 text-lg">5 helgtillfällen jan–feb</h3>
             <ul className="mt-3 space-y-1 text-xs leading-relaxed text-muted-foreground">
               <li>Lör 30 jan · Sön 31 jan</li>
