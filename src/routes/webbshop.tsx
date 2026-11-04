@@ -77,7 +77,7 @@ function WebbshopPage() {
 
             <div className="mt-6 flex items-start gap-2.5 rounded-xl bg-secondary/70 p-4 text-sm font-semibold text-heading">
               <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
-              <span>💡 {webbshopSida.pickupNote}</span>
+              <span>{webbshopSida.pickupNote}</span>
             </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
