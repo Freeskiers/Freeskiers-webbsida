@@ -27,7 +27,9 @@ type Props = {
 
 export function ClubForm({ title, description, fields, submitLabel, consent, recipients }: Props) {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [to, setTo] = useState(recipients?.[0]?.value ?? "");
+  const submitForm = useServerFn(submitClubForm);
 
   return (
     <div className="surface-card p-6 sm:p-8">
