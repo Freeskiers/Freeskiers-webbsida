@@ -240,8 +240,7 @@ function Skidklubb() {
 
         {/* Säsongens events */}
         <div className="surface-card bg-card p-6">
-          <h2 className="flex items-center gap-3 text-xl">
-            <Sparkles className="size-5 text-primary" aria-hidden />
+          <h2 className="text-xl">
             Säsongens events
           </h2>
           <p className="mt-3 text-sm leading-relaxed">{skidklubbSida.eventsIntro}</p>
