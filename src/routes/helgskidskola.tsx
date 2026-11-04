@@ -165,11 +165,7 @@ function Helgskidskola() {
         <div>
           <h3 className="text-xl">Hyra utrustning</h3>
           <p className="mt-3 text-sm leading-relaxed">{helgskidskola2027.equipment.rental}</p>
-          <p className="mt-3 text-sm">
-            Vill du lägga till hyra i efterhand? Mejla
-            {" "}<a className="font-semibold text-primary underline underline-offset-4" href="mailto:helg@lidingofreeskiers.se">helg@lidingofreeskiers.se</a>
-            {" "}och ange barnets namn, längd, vikt och skostorlek.
-          </p>
+          <p className="mt-3 text-sm">{"Är du intresserad? Klicka på knappen nedan.\nBokningen är öppen mellan 1 november och 20 december.\n\n"}</p>
         </div>
       </section>
 
