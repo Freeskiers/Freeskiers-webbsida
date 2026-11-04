@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CheckCircle2,
   HeartHandshake,
@@ -300,6 +300,9 @@ function Skidklubb() {
             Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
             eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
           </p>
+          <Link to="/avbokning" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            Läs alla avboknings- och återbetalningsregler →
+          </Link>
         </div>
 
         <GroupContact topic="Freeskiers Skidklubb" email={departmentEmail("skidklubb")} />
