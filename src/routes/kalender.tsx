@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Clock, Copy, Download, Facebook, Grid, Instagram, List, MapPin, Share2 } from "lucide-react";
 import { useState } from "react";
 
-import jump from "@/assets/photos/freestyle-jump.jpg";
+import jump from "@/assets/kalender-banner-natt.jpg.asset.json";
 import { LevelFinderButton } from "@/components/site/LevelFinder";
 import { PageBanner } from "@/components/site/PageBanner";
 import { CLUB_URL, clubEvents, eventLink, FACEBOOK_URL, INSTAGRAM_URL, SEASON, type ClubEvent } from "@/lib/club-data";
