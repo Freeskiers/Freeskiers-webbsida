@@ -51,7 +51,7 @@ function RookieSeries() {
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map(({ icon: Icon, l, v, s }) => (
+          {facts.map(({ icon: Icon, l, v }) => (
             <div key={l} className="surface-card p-5">
               <Icon className="size-6 text-primary" />
               <dt className="mt-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{l}</dt>
