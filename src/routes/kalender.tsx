@@ -111,7 +111,8 @@ function KalenderPage() {
             <p className="text-xs font-bold uppercase tracking-wider text-primary">SKIDKLUBB 2027</p>
             <h3 className="mt-1 text-lg">Träningstider Skidklubb</h3>
             <ul className="mt-3 space-y-1.5 text-xs leading-relaxed text-muted-foreground">
-              <li><strong className="text-heading">Årskurs 1–4:</strong> måndagar eller onsdagar, kl. 18.15–19.45</li>
+              <li><strong className="text-heading">Åk 1–4 – måndag:</strong> måndagar, kl. 18.15–19.45</li>
+              <li><strong className="text-heading">Åk 1–4 – onsdag:</strong> onsdagar, kl. 18.15–19.45</li>
               <li><strong className="text-heading">Årskurs 5:</strong> onsdagar, kl. 19.45–21.15</li>
               <li><strong className="text-heading">Årskurs 6–9:</strong> måndagar och onsdagar, kl. 19.45–21.15</li>
             </ul>
