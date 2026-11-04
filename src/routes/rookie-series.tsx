@@ -22,10 +22,10 @@ export const Route = createFileRoute("/rookie-series")({
 });
 
 const facts = [
-  { icon: MapPin, l: "Plats", v: "Ekholmsnäsbacken, Lidingö", s: "Snowparken & hoppen" },
-  { icon: Calendar, l: "När", v: "Februari / Mars årligen", s: "En helg fylld av åkglädje" },
-  { icon: Users, l: "Klasser", v: "Kids, Ungdom & Junior", s: "Killar & tjejer, skidor & bräda" },
-  { icon: ShieldCheck, l: "Förbundssamarbete", v: "Svenska Skidförbundet", s: "Officiell nationell tour" },
+  { icon: MapPin, l: "Plats", v: "Ekholmsnäsbacken, Lidingö" },
+  { icon: Calendar, l: "När", v: "Februari / Mars årligen" },
+  { icon: Users, l: "Klasser", v: "Kids, Ungdom & Junior" },
+  { icon: ShieldCheck, l: "Förbundssamarbete", v: "Svenska Skidförbundet" },
 ];
 
 const classes = [
