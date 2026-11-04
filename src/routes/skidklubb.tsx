@@ -158,7 +158,7 @@ function Skidklubb() {
             <span className="h-1.5 w-8 rounded-full bg-primary" aria-hidden />
             {skidklubbSida.anmalan.title}
           </h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {skidklubbSida.anmalan.steps.map((s) => (
               <div key={s.title} className="surface-card bg-card p-5">
                 <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
