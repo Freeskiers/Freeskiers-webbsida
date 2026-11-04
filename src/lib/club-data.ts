@@ -177,7 +177,7 @@ export const skidklubbSida = {
       time: "19.45–21.15",
       price: "4 390 kr",
       perWeek: "2 gånger/vecka",
-      highlight: true,
+      highlight: false,
     },
   ],
   priceNote:
