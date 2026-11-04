@@ -17,7 +17,7 @@ const submissionSchema = z.object({
 
 /** Sparar en inkommen anmälan från något av klubbens formulär. */
 export const submitClubForm = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => {
+  .validator((input: unknown) => {
     const parsed = submissionSchema.safeParse(input);
     if (!parsed.success) {
       throw new Error("Ogiltig inmatning");
