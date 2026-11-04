@@ -132,13 +132,10 @@ function WebbshopPage() {
                 {webbshopSida.products.map((item) => (
                   <li
                     key={item.name}
-                    className="flex items-center justify-between py-3 text-sm sm:text-base"
+                    className="py-3 text-sm sm:text-base"
                   >
                     <span className="font-bold uppercase tracking-wide text-heading">
                       {item.name}
-                    </span>
-                    <span className="rounded-full bg-secondary px-3 py-1 text-sm font-bold text-primary">
-                      {item.price}
                     </span>
                   </li>
                 ))}
