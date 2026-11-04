@@ -165,7 +165,7 @@ function Helgskidskola() {
         <div>
           <h3 className="text-xl">Hyra utrustning</h3>
           <p className="mt-3 text-sm leading-relaxed">{helgskidskola2027.equipment.rental}</p>
-          <p className="mt-3 text-sm">{"Är du intresserad? Klicka på knappen nedan.\nBokningen är öppen mellan 1 november och 20 december.\n\n"}</p>
+          <p className="mt-3 text-sm">{"Är du intresserad? Klicka på knappen nedan.\u00a0\nBokningen är öppen mellan 1 november och 20 december."}</p>
         </div>
       </section>
 
