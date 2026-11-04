@@ -292,7 +292,7 @@ export const groups: Group[] = [
       { label: "Plats", value: "Ekholmsnäsbacken, Lidingö" },
     ],
     photo: skidklubbHopp.url,
-    photoAlt: "Freeskiers skidklubb i Ekholmsnäsbacken",
+    photoAlt: "Freeskiers-åkare i hopp med röda skidor i Ekholmsnäsbacken på kvällen",
   },
   {
     slug: "hostsasong",
@@ -779,7 +779,7 @@ export type GalleryPhoto = { src: string; alt: string };
 
 export const gallery: GalleryPhoto[] = [
   { src: helgskidskolaGrupp, alt: "Helgskidskolan i toppen av Ekholmsnäsbacken" },
-  { src: skidklubbHopp.url, alt: "Freeskiers skidklubb i Ekholmsnäsbacken" },
+  { src: skidklubbHopp.url, alt: "Freeskiers-åkare i hopp med röda skidor i Ekholmsnäsbacken på kvällen" },
   { src: freeskiPowder, alt: "Friåkning i lössnö" },
   { src: privatCoach, alt: "Tränare och åkare i backen" },
   { src: ekholmsnasSunset, alt: "Solnedgång över Ekholmsnäs" },
