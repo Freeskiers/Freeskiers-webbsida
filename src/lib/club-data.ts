@@ -963,7 +963,7 @@ export const webbshopSida = {
     "Betala enkelt och säkert online",
     "Välj mellan postleverans eller upphämtning i butik",
   ],
-  pickupNote: "OBS: Upphämtning sker endast hos Intersport i Lidingö Centrum",
+  pickupNote: "Upphämtning sker endast hos Intersport i Lidingö Centrum",
   ctaLabel: "Kom till Freeskiers webbshop",
   shopUrl: WEBBSHOP_URL,
   originalPageUrl: "https://www.lidingofreeskiers.se/resor/",
