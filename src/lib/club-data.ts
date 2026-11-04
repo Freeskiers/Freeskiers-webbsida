@@ -156,8 +156,16 @@ export const skidklubbSida = {
   ],
   schedule: [
     {
-      group: "Årskurs 1–4",
-      days: "Måndag eller onsdag",
+      group: "Åk 1–4 – måndag",
+      days: "Måndag",
+      time: "18.15–19.45",
+      price: "3 130 kr",
+      perWeek: "1 gång/vecka",
+      highlight: false,
+    },
+    {
+      group: "Åk 1–4 – onsdag",
+      days: "Onsdag",
       time: "18.15–19.45",
       price: "3 130 kr",
       perWeek: "1 gång/vecka",
