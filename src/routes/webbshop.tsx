@@ -87,15 +87,6 @@ function WebbshopPage() {
                   <ExternalLink className="size-4" />
                 </a>
               </Button>
-              <a
-                href={webbshopSida.originalPageUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-primary underline hover:opacity-80"
-              >
-                Länk till lidingofreeskiers.se/resor/
-                <ExternalLink className="size-3.5" />
-              </a>
             </div>
           </div>
 
