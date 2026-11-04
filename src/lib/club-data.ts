@@ -72,7 +72,7 @@ export const helgskidskola2027 = {
     preparation:
       "Kontrollera före säsongsstart att skidorna är i gott skick, att pjäxorna passar och att bindningarna är korrekt inställda.",
     rental:
-      "Skidor, pjäxor, stavar och hjälm kan hyras för samtliga skidskoletillfällen. Utrustningen tas med hem och används under Helgskidskolans veckor. Lägg till skidhyra vid anmälan. Information om uthämtning skickas inför kursstart och utrustningen återlämnas vid sista tillfället.",
+      "Tillsammans med Ekholmsnäsbacken erbjuder vi uthyrning av skidor, pjäxor, stavar och hjälm för Helgskidskolans samtliga tillfällen.\n\n\nUtrustningen hämtas ut innan den första lektionen och tas med hem så att ni kan använda den som er egen under hela Helgskidskolans period. Återlämning sker i samband med det sista tillfället.\n\n\nÄr du intresserad? Klicka på knappen nedan\nBokningen är öppen mellan 1 november och 20 december.",
   },
   membership: {
     intro:
