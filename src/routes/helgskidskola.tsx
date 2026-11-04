@@ -193,6 +193,14 @@ function Helgskidskola() {
         <p className="mt-3 text-xs text-muted-foreground">{helgskidskola2027.membership.note}</p>
       </section>
 
+        <section className="surface-card bg-card p-6">
+          <h2 className="text-xl">Avbokning &amp; återbetalning</h2>
+          <p className="mt-3 text-sm leading-relaxed">
+            Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
+            eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
+          </p>
+        </section>
+
       <GroupContact topic="Helgskidskolan" email={departmentEmail("helg")} />
 
       <section className="rounded-3xl border border-border bg-secondary/40 p-6 sm:p-10">
