@@ -166,6 +166,9 @@ function Helgskidskola() {
           <h3 className="text-xl">Hyra utrustning</h3>
           <p className="mt-3 text-sm leading-relaxed">{helgskidskola2027.equipment.rental}</p>
           <p className="mt-3 text-sm">{"Är du intresserad? Klicka på knappen nedan. Bokningen är öppen mellan 1 november och 20 december."}</p>
+          <Button variant="cta" size="lg" className="mt-4 rounded-full" asChild>
+            <a href="https://entry.sportadmin.se/groupsOverview?uid=k3zfkH" target="_blank" rel="noreferrer">Boka skidhyra här</a>
+          </Button>
         </div>
       </section>
 
