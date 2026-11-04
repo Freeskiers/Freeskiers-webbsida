@@ -56,7 +56,6 @@ function RookieSeries() {
               <Icon className="size-6 text-primary" />
               <dt className="mt-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{l}</dt>
               <dd className="mt-1 font-bold text-heading">{v}</dd>
-              <dd className="text-xs text-muted-foreground">{s}</dd>
             </div>
           ))}
         </dl>
