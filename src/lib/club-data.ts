@@ -206,7 +206,7 @@ export const skidklubbSida = {
   },
   backen: {
     intro:
-      "Vi tränar i Ekholmsnäsbacken på Lidingö. Två nedfarter – en barnbacke och en tävlingsbacke – och två liftar. Med en ny park, förbättrat barnområde och bräddad backe från 2024 tillgodoser backen alla, oavsett nivå.",
+      "Vi tränar i Ekholmsnäsbacken på Lidingö. Tre nedfarter – Familjebacken, Lilla backen och Stora parken – och tre liftar - Stora liften, Rullbandet och Rail-liften. En backe som tillgodoser alla, oavsett nivå.",
     perks: ["Skiduthyrning", "Café med enklare mat och fika", "Grill under helgerna"],
     link: "https://www.ekholmsnasbacken.se/",
   },
