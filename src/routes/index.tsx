@@ -20,8 +20,9 @@ const skidklubb = groups.find((g) => g.slug === "freeskiers-skidklubb")!;
 const privatlektioner = groups.find((g) => g.slug === "privatlektioner")!;
 const orderedGroups = [
   skidklubb,
+  helgskidskola,
   privatlektioner,
-  ...groups.filter((g) => g !== skidklubb && g !== privatlektioner),
+  hostsasong,
 ];
 
 export const Route = createFileRoute("/")({
