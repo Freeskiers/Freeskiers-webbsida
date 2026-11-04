@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, CheckCircle2, Clock3, Users } from "lucide-react";
 
 import { GroupContact } from "@/components/site/GroupContact";
@@ -199,6 +199,9 @@ function Helgskidskola() {
             Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
             eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
           </p>
+          <Link to="/avbokning" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            Läs alla avboknings- och återbetalningsregler →
+          </Link>
         </section>
 
       <GroupContact topic="Helgskidskolan" email={departmentEmail("helg")} />
