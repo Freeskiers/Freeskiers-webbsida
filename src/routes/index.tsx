@@ -18,9 +18,10 @@ import hoppNattAsset from "@/assets/photos/freeskiers-hopp-natt.png.asset.json";
 const skidskola = groups.find((g) => g.slug === "helgskidskola")!;
 const skidklubb = groups.find((g) => g.slug === "freeskiers-skidklubb")!;
 const privatlektioner = groups.find((g) => g.slug === "privatlektioner")!;
+const hostsasong = groups.find((g) => g.slug === "hostsasong")!;
 const orderedGroups = [
   skidklubb,
-  helgskidskola,
+  skidskola,
   privatlektioner,
   hostsasong,
 ];
