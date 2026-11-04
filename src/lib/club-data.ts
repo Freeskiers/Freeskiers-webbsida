@@ -649,10 +649,10 @@ export const clubEvents: ClubEvent[] = [
     time: "09:30 – 14:30", location: "Ekholmsnäsbacken, Lidingö", category: "helgskidskola", categoryLabel: "Helgskidskola",
     tagline: "Förmiddag 09.30–10.45 · Lunch 11.15–12.30 · Eftermiddag 13.15–14.30",
     description: "Helgskidskolans fjärde tillfälle. Backen är 100 % fri för vår skidskola hela dagen.",
-    actionLabel: "Läs om Helgskidskolan", actionUrl: "/helgskidskola", isPushedTop: false, badge: "HSS 4 · v. 7",
+    actionLabel: "Läs om Helgskidskolan", actionUrl: "/helgskidskola", isPushedTop: false, badge: "v. 7",
   },
   {
-    id: "hss-5-2027-02-21", title: "Helgskidskola – Tillfälle 5 (HSS 5)", shortDate: "Söndag 21 februari 2027",
+    id: "hss-5-2027-02-21", title: "Helgskidskola – Tillfälle 5", shortDate: "Söndag 21 februari 2027",
     day: "21", month: "FEB", year: "2027", monthIndex: 1, start: "20270221", end: "20270222",
     time: "09:30 – 14:30", location: "Ekholmsnäsbacken, Lidingö", category: "helgskidskola", categoryLabel: "Helgskidskola",
     tagline: "Förmiddag 09.30–10.45 · Lunch 11.15–12.30 · Eftermiddag 13.15–14.30",
