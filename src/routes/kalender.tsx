@@ -24,8 +24,8 @@ export const Route = createFileRoute("/kalender")({
 
 const categories = [
   { id: "all", label: "Alla händelser" },
-  { id: "traning", label: "Våra träningar" },
-  { id: "helgskidskola", label: "Helgskidskola (HSS 1–5)" },
+  { id: "traning", label: "Freeskiers Skidklubb" },
+  { id: "helgskidskola", label: "Freeskiers Helgskidskola " },
   { id: "tavling", label: "Tävling & Event" },
   { id: "anmalan", label: "Anmälan & Platser" },
   { id: "klubbkvall", label: "Klubbkvällar & Resa" },
