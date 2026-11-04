@@ -53,11 +53,11 @@ export const helgskidskola2027 = {
       "Vi planerar för 5 tillfällen, med ett extra reservdatum om vädret skulle ställa till det.",
     dateListIntro: "Följande datum gäller:",
     dates: [
-      { name: "TILLFÄLLE 1 (HSS 1)", date: "Lördag 30 januari", reserve: false },
-      { name: "TILLFÄLLE\u00a02 (HSS 2)", date: "Söndag 31 januari", reserve: false },
-      { name: "TILLFÄLLE\u00a03 (HSS 3)", date: "Lördag 6 februari", reserve: false },
-      { name: "TILLFÄLLE\u00a04 (HSS 4)", date: "Lördag 20 februari", reserve: false },
-      { name: "TILLFÄLLE\u00a05 (HSS 5)", date: "Söndag 21 februari", reserve: false },
+      { name: "TILLFÄLLE 1", date: "Lördag 30 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a02", date: "Söndag 31 januari", reserve: false },
+      { name: "TILLFÄLLE\u00a03", date: "Lördag 6 februari", reserve: false },
+      { name: "TILLFÄLLE\u00a04", date: "Lördag 20 februari", reserve: false },
+      { name: "TILLFÄLLE\u00a05", date: "Söndag 21 februari", reserve: false },
     ],
     dateNote:
       "Eftersom helgskidskolan är en utomhusaktivitet och därav väderberoende kan schemat behöva justeras. Tack för er förståelse!",
