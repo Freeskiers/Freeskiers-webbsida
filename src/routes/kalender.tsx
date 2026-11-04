@@ -111,8 +111,9 @@ function KalenderPage() {
             <p className="text-xs font-bold uppercase tracking-wider text-primary">SKIDKLUBB 2027</p>
             <h3 className="mt-1 text-lg">Träningstider Skidklubb</h3>
             <ul className="mt-3 space-y-1.5 text-xs leading-relaxed text-muted-foreground">
-              <li>\n\n\n</li>
-              <li>\n</li>
+              <li><strong className="text-heading">Årskurs 1–4:</strong> måndagar eller onsdagar, kl. 18.15–19.45</li>
+              <li><strong className="text-heading">Årskurs 5:</strong> onsdagar, kl. 19.45–21.15</li>
+              <li><strong className="text-heading">Årskurs 6–9:</strong> måndagar och onsdagar, kl. 19.45–21.15</li>
             </ul>
             <button type="button" onClick={() => setCat("traning")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
               Filtrera alla träningsdatum <ArrowRight className="size-3.5" />
