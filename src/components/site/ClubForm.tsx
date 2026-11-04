@@ -2,6 +2,8 @@ import { CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useServerFn } from "@tanstack/react-start";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -121,8 +123,8 @@ export function ClubForm({ title, description, fields, submitLabel, consent, rec
               <span>{consent}</span>
             </label>
           ) : null}
-          <Button type="submit" variant="cta" size="lg" className="mt-2 justify-self-start">
-            {submitLabel}
+          <Button type="submit" variant="cta" size="lg" className="mt-2 justify-self-start" disabled={sending}>
+            {sending ? "Skickar…" : submitLabel}
           </Button>
         </form>
       )}
