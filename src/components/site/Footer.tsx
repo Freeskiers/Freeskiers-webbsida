@@ -91,7 +91,6 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">Hemmabacke & kontakt</h3>
             <ul className="mt-4 space-y-3 text-sm text-accent">
               <li className="flex gap-2">
                 <MapPin className="mt-0.5 size-4 shrink-0" />
