@@ -293,6 +293,15 @@ function Skidklubb() {
           </div>
         </div>
 
+        {/* Avbokning & återbetalning */}
+        <div className="surface-card bg-card p-6">
+          <h2 className="text-xl">Avbokning &amp; återbetalning</h2>
+          <p className="mt-3 text-sm leading-relaxed">
+            Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
+            eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
+          </p>
+        </div>
+
         <GroupContact topic="Freeskiers Skidklubb" email={departmentEmail("skidklubb")} />
       </section>
     </>
