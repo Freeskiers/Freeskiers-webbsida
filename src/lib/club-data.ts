@@ -875,7 +875,7 @@ export const seasonPhases: SeasonPhase[] = [
 export const faqs = [
   {
     q: "Vilken utrustning behöver mitt barn ha med sig?",
-    a: "Godkänd hjälm är ett absolut krav i både Helgskidskolan och Freeskiers skidklubb. I skidklubben krävs även ryggskydd medan det endast rekommenderas till skidskolan.\nSkidorna ska ha fungerande bindningar inställda efter barnets längd och vikt. Stavar behövs inte för nybörjare.\nSkidor, pjäxor, stavar och hjälmar kan hyras av Ekholmsnäsbackens skiduthyrning.",
+    a: "Hälm är ett absolut krav i både Helgskidskolan och Freeskiers skidklubb. I skidklubben krävs även ryggskydd medan det endast rekommenderas till skidskolan. Skidorna ska ha fungerande bindningar inställda efter barnets längd och vikt. Stavar behövs inte för nybörjare. Skidor, pjäxor, stavar och hjälmar kan hyras av Ekholmsnäsbackens skiduthyrning.",
     tags: ["hjälm", "ryggskydd", "utrustning", "bindningar"],
   },
   {
