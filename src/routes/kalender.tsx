@@ -92,7 +92,7 @@ function KalenderPage() {
 
   return (
     <>
-      <PageBanner photo={jump} alt="Hopp i Ekholmsnäsbacken" eyebrow={`Säsongen ${SEASON}`} title="Säsongskalender & Event">
+      <PageBanner photo={jump.url} alt="Hopp i Ekholmsnäsbacken" eyebrow={`Säsongen ${SEASON}`} title="Säsongskalender & Event">
         <p className="mt-4 max-w-2xl text-base text-primary-foreground/85 sm:text-lg">
           Här samlar vi alla viktiga datum för klubben: anmälningssläpp, tränarutbildning, klubbkvällar i
           Alpingaraget, säsongsstart, Rookie Series och klubbmästerskap.
