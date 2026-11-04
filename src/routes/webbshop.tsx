@@ -63,7 +63,7 @@ function WebbshopPage() {
 
             <div className="mt-6">
               <h3 className="text-lg font-bold text-heading">
-                🛒 {webbshopSida.stepsTitle}
+                {webbshopSida.stepsTitle}
               </h3>
               <ul className="mt-3 space-y-2.5 text-sm sm:text-base">
                 {webbshopSida.steps.map((step) => (
