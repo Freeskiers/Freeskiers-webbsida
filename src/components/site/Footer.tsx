@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Mail, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { Facebook, Instagram, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 
 import { useLevelFinder } from "@/components/site/LevelFinder";
 
@@ -96,10 +96,6 @@ export function Footer() {
               <li className="flex gap-2">
                 <MapPin className="mt-0.5 size-4 shrink-0" />
                 <a href="https://maps.app.goo.gl/m3gQEfDvu73twtnh8" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground">Ekholmsnäsbacken<br />{SLOPE_ADDRESS}</a>
-              </li>
-              <li className="flex gap-2">
-                <Mail className="mt-0.5 size-4 shrink-0" />
-                <a href="mailto:admin@lidingofreeskiers.se" className="hover:text-primary-foreground">admin@lidingofreeskiers.se</a>
               </li>
               <li className="flex gap-2 pt-1 text-xs text-accent/80">
                 <ShieldCheck className="mt-0.5 size-4 shrink-0" />
