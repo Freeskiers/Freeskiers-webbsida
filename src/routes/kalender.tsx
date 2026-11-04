@@ -123,9 +123,9 @@ function KalenderPage() {
             <p className="text-xs font-bold uppercase tracking-wider text-primary">🎿 Helgskidskola (HSS 1–5)</p>
             <h3 className="mt-1 text-lg">5 helgtillfällen jan–feb</h3>
             <ul className="mt-3 space-y-1 text-xs leading-relaxed text-muted-foreground">
-              <li><strong className="text-heading">HSS 1:</strong> Lör 30 jan · <strong className="text-heading">HSS 2:</strong> Sön 31 jan (v. 4)</li>
-              <li><strong className="text-heading">HSS 3:</strong> Lör 6 feb (v. 5)</li>
-              <li><strong className="text-heading">HSS 4:</strong> Lör 20 feb · <strong className="text-heading">HSS 5:</strong> Sön 21 feb (v. 7)</li>
+              <li>Lör 30 jan · Sön 31 jan</li>
+              <li>&nbsp;Lör 6 feb</li>
+              <li>Lör 20 feb · Sön 21 feb</li>
             </ul>
             <button type="button" onClick={() => setCat("helgskidskola")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
               Visa Helgskidskolans datum <ArrowRight className="size-3.5" />
