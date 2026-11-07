@@ -5,7 +5,7 @@ import { GroupContact } from "@/components/site/GroupContact";
 import { GroupPage } from "@/components/site/GroupPage";
 import { LevelFinder } from "@/components/site/LevelFinder";
 import { Button } from "@/components/ui/button";
-import { BOOKING_URL, departmentEmail, helgskidskola2027 } from "@/lib/club-data";
+import { BOOKING_URL, departmentEmail, helgskidskola2027, privatlektionSida } from "@/lib/club-data";
 
 const skidskolegrupper = [
   {
