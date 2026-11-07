@@ -206,6 +206,23 @@ function Helgskidskola() {
 
       <GroupContact topic="Helgskidskolan" email={departmentEmail("helg")} />
 
+      <section className="border-y border-border bg-secondary/40 px-6 py-8 sm:px-8">
+        <h2 className="text-2xl sm:text-3xl">Privatlektioner</h2>
+        <p className="mt-4 max-w-3xl leading-relaxed">{privatlektionSida.audience}</p>
+        <p className="mt-2 max-w-3xl leading-relaxed">{privatlektionSida.format}</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {privatlektionSida.prices.map((p) => (
+            <div key={p.people} className="border-l-4 border-primary bg-card px-4 py-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">{p.people}</p>
+              <p className="mt-1 font-semibold text-heading">{p.price} · {p.duration}</p>
+            </div>
+          ))}
+        </div>
+        <Button variant="cta" size="lg" className="mt-6 rounded-full" asChild>
+          <Link to="/privatlektion">Läs mer &amp; boka privatlektion</Link>
+        </Button>
+      </section>
+
       <section className="rounded-3xl border border-border bg-secondary/40 p-6 sm:p-10">
         <div className="mx-auto mb-8 max-w-2xl text-center">
           <p className="text-eyebrow">Interaktiv Nivåguide</p>
