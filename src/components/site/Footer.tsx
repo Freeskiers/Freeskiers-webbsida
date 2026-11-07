@@ -70,10 +70,10 @@ export function Footer() {
             <ul className="mt-4 grid grid-cols-2 gap-2 text-sm text-accent">
               <li><Link to="/skidklubb" className="hover:text-primary-foreground">Skidklubb</Link></li>
               <li><Link to="/helgskidskola" className="hover:text-primary-foreground">Helgskidskola</Link></li>
+              <li><Link to="/privatlektion" className="hover:text-primary-foreground">Privatlektioner</Link></li>
               <li><Link to="/kalender" className="font-semibold hover:text-primary-foreground">Säsongskalender &amp; Event</Link></li>
               <li><Link to="/rookie-series" className="hover:text-primary-foreground">Rookie Series</Link></li>
               <li><Link to="/hostsasong" className="hover:text-primary-foreground">Höstsäsong</Link></li>
-              <li><Link to="/privatlektion" className="hover:text-primary-foreground">Privatlektion</Link></li>
               <li><Link to="/om-oss" className="hover:text-primary-foreground">Om oss</Link></li>
               <li><Link to="/om-oss" hash="european-snowsport" className="hover:text-primary-foreground">European Snowsport</Link></li>
               <li><Link to="/kontakt" className="hover:text-primary-foreground">Kontakt & FAQ</Link></li>
