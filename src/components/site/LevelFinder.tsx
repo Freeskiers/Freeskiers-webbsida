@@ -29,8 +29,8 @@ const questions: Question[] = [
     subtitle: "Var ärlig – rätt nivå ger absolut mest skidglädje och trygghet!",
     options: [
       { label: "Nybörjare", description: "Har aldrig åkt skidor tidigare.", value: "beginner" },
-      { label: "Avancerad nybörjare", description: "Kan få stopp på skidorna, svänga i barnbacken och åka arkarlift tillsammans med vuxen.", value: "intermediate" },
-      { label: "Trygg åkare", description: "Åker obehindrat och på ett kontrollerat sätt, svänger i plog och åker ankarlift själv.", value: "advanced" },
+      { label: "Avancerad nybörjare", description: "Kan få stopp på skidorna, svänga i barnbacken och åka ankarlift tillsammans med vuxen.", value: "intermediate" },
+      { label: "Fortsättning", description: "Åker på ett kontrollerat sätt, svänger i plog och åker ankarlift själv. Vill lära sig svänga med mer parallella skidor, få en säkrare åkning och klara av brantare backar.", value: "advanced" },
       { label: "Park", description: "Hoppar gärna på kickers, provar rails/boxar och vill utveckla hopp och trick.", value: "freestyle" },
       { label: "Avancerad åkare", description: "Åker säkert i alla backar, med parallella skidor och har god fartkontroll.", value: "expert" },
     ],
@@ -48,9 +48,15 @@ const questions: Question[] = [
 ];
 
 // För åkare som fyller 5–6 år visas bara skidskolans tre grupper – park och skidklubb kommer senare.
+// För avancerade åkare ("expert") och park ("freestyle") visas inte Helgskidskolan ("weekend"), eftersom Helgskidskolan bara är upp till nivån Fortsättning.
 const youngHidden = new Set(["freestyle", "expert"]);
-function optionsFor(q: Question, answers: string[]) {
-  if (answers[0] === "young") return q.options.filter((o) => !youngHidden.has(o.value));
+function optionsFor(q: Question, answers: string[], step: number) {
+  if (step === 1 && answers[0] === "young") {
+    return q.options.filter((o) => !youngHidden.has(o.value));
+  }
+  if (step === 2 && (answers[1] === "expert" || answers[1] === "freestyle")) {
+    return q.options.filter((o) => o.value !== "weekend");
+  }
   return q.options;
 }
 
@@ -83,7 +89,6 @@ function privateResult(older: boolean): Result {
 function recommend(a: string[]): Result {
 
   const [age, skill, goal] = a;
-  const skilled = skill === "advanced" || skill === "freestyle" || skill === "expert";
 
   if (age === "toddler") {
     return {
@@ -98,11 +103,11 @@ function recommend(a: string[]): Result {
 
   if (age === "adult") return privateResult(true);
 
-  if (skill === "expert" && goal !== "private") {
+  if ((skill === "expert" || skill === "freestyle") && goal !== "private") {
     return {
-      badge: "Skidklubb • Avancerad åkare",
+      badge: skill === "expert" ? "Skidklubb • Avancerad åkare" : "Skidklubb • Park & friåkning",
       title: "Freeskiers Skidklubb",
-      desc: "Du åker redan tryggt i alla backar \u2013 då är Freeskiers Skidklubb nästa steg. Där tränar du friåkning, hopp, park och carving med klubbens tränare i Ekholmsnäsbacken.",
+      desc: "Helgskidskolan sträcker sig upp till nivån Fortsättning. För dig som redan åker med parallella skidor eller vill satsa på park, hopp och skärande sväng är Freeskiers Skidklubb rätt steg!",
       to: "/skidklubb",
       linkText: "Se Skidklubben & minimikraven",
       details: ["Från åk 1 (fyller 7 år)", "Till och med året man fyller 15", "Ska uppnå skidklubbens minimikrav", "Hjälm & ryggskydd krävs"],
@@ -112,12 +117,12 @@ function recommend(a: string[]): Result {
   const older = age === "teen" || age === "senior";
   if (goal === "private" || (older && skill === "beginner")) return privateResult(older);
 
-  if ((age === "club" || age === "teen") && skilled && goal !== "weekend") {
+  if ((age === "club" || age === "teen" || age === "senior") && skill === "advanced" && goal === "club") {
 
     return {
       badge: "Skidklubb • Vardagar",
       title: "Freeskiers Skidklubb",
-      desc: "För åkare som vill träna regelbunden friåkning, carving, hopp, rails och park under vardagskvällar i Ekholmsnäsbacken. Åkaren behöver uppnå minimikraven på skidklubbens sida.",
+      desc: "För åkare som vill träna regelbunden friåkning, skärande sväng, hopp, rails och park under vardagskvällar i Ekholmsnäsbacken. Åkaren behöver uppnå minimikraven på skidklubbens sida.",
       to: "/skidklubb",
       linkText: "Se Skidklubben & minimikraven",
       details: ["Från åk 1 (fyller 7 år)", "Till och med året man fyller 15", "Ska uppnå skidklubbens minimikrav", "Hjälm & ryggskydd krävs"],
@@ -140,19 +145,19 @@ function recommend(a: string[]): Result {
     return {
       badge: "Helgskidskola • Blå Grupp (Avancerad nybörjare)",
       title: "Helgskidskola – Blå Grupp",
-      desc: "För den som kan få stopp på skidorna och vill lära sig stanna kontrollerat, svänga och åka lift själv.",
+      desc: "För den som kan få stopp på skidorna och vill lära sig stanna på ett mer kontrollerat sätt, svänga och åka lift själv.",
       to: "/helgskidskola",
       linkText: "Se Helgskidskolan & Anmäl",
-      details: [ageNote, "5 helger i jan–feb", "Krav: kan få stopp på skidorna"],
+      details: [ageNote, "5 helger i jan–feb", "Krav: kan få stopp på skidorna & åker lift med vuxen"],
     };
   }
   return {
     badge: "Helgskidskola • Röd Grupp (Fortsättning)",
     title: "Helgskidskola – Röd Grupp",
-    desc: "För den som åker kontrollerat och lift själv, och vill svänga med mer parallella skidor och klara brantare backar.",
+    desc: "För den som åker på ett kontrollerat sätt, svänger i plog och åker lift själv. Vi lär oss svänga med mer parallella skidor, få en säkrare åkning och klara av brantare backar.",
     to: "/helgskidskola",
     linkText: "Se Helgskidskolan & Anmäl",
-    details: [ageNote, "5 helger i jan–feb", "Krav: åker kontrollerat & lift själv"],
+    details: [ageNote, "5 helger i jan–feb", "Svänga med mer parallella skidor", "Få en säkrare åkning & klara brantare backar"],
   };
 }
 
@@ -185,7 +190,7 @@ export function LevelFinder({ onNavigate, modal = false }: { onNavigate?: () => 
             <span className="ml-2 text-xs font-bold text-muted-foreground">{step + 1} / {questions.length}</span>
           </div>
           <div className="space-y-2">
-            {optionsFor(q, answers).map((o) => (
+            {optionsFor(q, answers, step).map((o) => (
               <button
                 key={o.value}
                 type="button"
