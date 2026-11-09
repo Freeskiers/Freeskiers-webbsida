@@ -111,7 +111,9 @@ function Helgskidskola() {
           <h2 className="text-2xl sm:text-3xl">Datum</h2>
         </div>
         <p className="mt-4">{helgskidskola2027.schedule.extent}</p>
-        <p className="mt-2 max-w-3xl leading-relaxed">{helgskidskola2027.schedule.dateInfo}</p>
+        {helgskidskola2027.schedule.dateInfo ? (
+          <p className="mt-2 max-w-3xl leading-relaxed">{helgskidskola2027.schedule.dateInfo}</p>
+        ) : null}
         <p className="mt-6 font-semibold text-heading">{helgskidskola2027.schedule.dateListIntro}</p>
         <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {helgskidskola2027.schedule.dates.map((datum) => (

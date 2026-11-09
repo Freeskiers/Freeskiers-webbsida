@@ -31,9 +31,9 @@ const knowledge: { keys: string[]; answer: string }[] = [
       "Hjälm är obligatoriskt på all vår träning. I skidklubben krävs även ryggskydd – i skidskolan rekommenderar vi det. Egna skidor, pjäxor och stavar behövs – bra begagnat hittar du på Skidbytardagen. Goggles slår solglasögon varje gång!",
   },
   {
-    keys: ["snö", "väder", "inställt", "inställt", "stängd", "kallt"],
+    keys: ["snö", "väder", "inställt", "stängd", "kallt"],
     answer:
-      "Vid för lite snö eller stängd backe flyttar vi tillfället till ett nytt datum – ingen träning försvinner. Du får besked via e-post samma dag. Dagens snöläge står i banderollen högst upp på sajten.",
+      "Är vädret för dåligt eller om ett tillfälle måste ställas in så ställs den lektionen in och ersätts inte med ett nytt datum.",
   },
   {
     keys: ["skada", "pengar tillbaka", "återbetal", "avboka", "sjuk"],

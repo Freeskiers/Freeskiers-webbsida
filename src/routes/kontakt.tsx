@@ -89,8 +89,8 @@ function ContactPage() {
             {[
               {
                 icon: Snowflake,
-                t: "För lite snö",
-                d: "Ekholmsnäsbacken snölägger så fort kylan tillåter. Dröjer snön flyttas träningarna framåt eller ersätts med andra datum under säsongen.",
+                t: "Väder & snöläge",
+                d: "Om vädret är för dåligt så ställs lektionen in och ersätts inte med ett nytt datum.",
               },
               {
                 icon: ShieldCheck,

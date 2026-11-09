@@ -49,8 +49,7 @@ export const helgskidskola2027 = {
   },
   schedule: {
     extent: "Helgskidskolan omfattar 5 lektioner à 75 minuter.",
-    dateInfo:
-      "Vi planerar för 5 tillfällen, med ett extra reservdatum om vädret skulle ställa till det.",
+    dateInfo: "",
     dateListIntro: "Följande datum gäller:",
     dates: [
       { name: "TILLFÄLLE 1", date: "Lördag 30 januari", reserve: false },
@@ -60,7 +59,7 @@ export const helgskidskola2027 = {
       { name: "TILLFÄLLE\u00a05", date: "Söndag 21 februari", reserve: false },
     ],
     dateNote:
-      "Eftersom helgskidskolan är en utomhusaktivitet och därav väderberoende kan schemat behöva justeras. Tack för er förståelse!",
+      "Om vädret är för dåligt ställs lektionen in och ersätts inte med ett nytt datum.",
     timeInfo:
       "Du väljer pass vid anmälan. Tiden du väljer gäller vid samtliga tillfällen.",
     sessions: ["Förmiddag 09.30–10.45", "Lunch 11.15–12.30", "Eftermiddag 13.15–14.30"],
@@ -891,8 +890,8 @@ export const faqs = [
     tags: ["försäkring", "skidförbundet", "folksam", "trygghet"],
   },
   {
-    q: "Vad händer om det är för lite snö i Ekholmsnäsbacken?",
-    a: "Ekholmsnäsbacken har ett effektivt snökanonsystem och öppnar så fort kylan tillåter. Skulle snön dröja till säsongsstarten flyttas träningarna framåt eller ersätts med andra datum under säsongen.",
+    q: "Vad händer vid dåligt väder eller om det är för lite snö i Ekholmsnäsbacken?",
+    a: "Om vädret är för dåligt eller om en lektion måste ställas in på grund av väder- eller snöläget så ställs den lektionen in och ersätts inte med ett nytt datum.",
     tags: ["snö", "inställt", "väder", "snöläggning"],
   },
   {
