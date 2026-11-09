@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 # Project rules
+- **Lovable git sync (`lovable-repo`)**: Lovable is connected to the `main` branch of `https://github.com/Freeskiers/screenshot-magic-1129.git` (remote `lovable-repo`), while `origin` points to `https://github.com/Freeskiers/Freeskiers-webbsida.git`. Always `git fetch lovable-repo` and merge `lovable-repo/main` before working, and push commits to both `lovable-repo` (`main` and `lovable`) and `origin` (`main` and `lovable`) so Lovable and the main GitHub repo stay in sync.
 - Information-block text and border contrast is controlled by shared block tokens in src/styles.css, scoped to surface-card/bg-card regardless of element type; exclude full-width bands and photo frames from added borders to keep all pages consistent without altering buttons or photo overlays.
 - Club content (groups, coaches, FAQ, events, partners, booking URLs) lives in src/lib/club-data.ts — single source for all pages.
 - Each training group has its own route (/helgskidskola, /skidklubb, /hostsasong, /privatlektion) rendered via components/site/GroupPage — PROMPT.md requires distinct pages.
