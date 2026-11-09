@@ -14,6 +14,8 @@ import {
   Info
 } from 'lucide-react';
 import { MemberSkier } from '@/lib/memberData';
+import logoWhite from '@/assets/logo/freeskiers-logo-2027-off-white.png';
+import logoBlue from '@/assets/logo/freeskiers-logo-2027-blue.png';
 
 interface DigitalMembershipCardProps {
   skier: MemberSkier;
@@ -101,9 +103,9 @@ export const DigitalMembershipCard: React.FC<DigitalMembershipCardProps> = ({
           <div className="flex items-start justify-between gap-4 mb-6">
             <div className="flex items-center gap-3">
               <img 
-                src="/assets/logo/freeskiers-logo-skold.png" 
+                src={logoWhite} 
                 alt="IK Lidingö Freeskiers" 
-                className="w-12 h-12 object-contain drop-shadow"
+                className="h-10 w-auto object-contain drop-shadow"
               />
               <div>
                 <span className="text-[10px] font-bold tracking-widest uppercase text-freeskiers-lightcyan block leading-none">
@@ -261,9 +263,9 @@ export const DigitalMembershipCard: React.FC<DigitalMembershipCardProps> = ({
             </button>
 
             <img 
-              src="/assets/logo/freeskiers-logo-skold.png" 
+              src={logoBlue} 
               alt="Freeskiers" 
-              className="w-14 h-14 mx-auto object-contain mb-3"
+              className="h-12 w-auto mx-auto object-contain mb-3"
             />
 
             <h3 className="text-xl font-black text-freeskiers-navy">

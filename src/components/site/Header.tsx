@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
-import logo from "@/assets/freeskiers-logo-horizontal.png.asset.json";
+import logo from "@/assets/logo/freeskiers-logo-2027-blue.png";
 import { TopEventBanner } from "@/components/site/TopEventBanner";
 import { Button } from "@/components/ui/button";
 
@@ -24,12 +24,14 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <TopEventBanner />
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img src={logo.url} alt="Lidingö Freeskiers" width={630} height={634} className="size-12" />
-          <span className="hidden leading-tight sm:block">
-            <span className="block text-sm font-bold text-heading">Lidingö Freeskiers</span>
-            <span className="block text-[11px] text-muted-foreground">Ekholmsnäsbacken</span>
-          </span>
+        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
+          <img
+            src={logo}
+            alt="Lidingö Freeskiers"
+            width={1099}
+            height={587}
+            className="h-11 w-auto object-contain sm:h-12"
+          />
         </Link>
 
         <nav className="ml-auto hidden items-center gap-0.5 xl:flex">

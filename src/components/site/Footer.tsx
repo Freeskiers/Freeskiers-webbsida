@@ -3,7 +3,7 @@ import { Facebook, Instagram, Mail, MapPin, ShieldCheck, Sparkles } from "lucide
 
 import { useLevelFinder } from "@/components/site/LevelFinder";
 
-import logo from "@/assets/freeskiers-logo-2024-white.png.asset.json";
+import logo from "@/assets/logo/freeskiers-logo-2027-off-white.png";
 import {
   CONTACT_EMAIL,
   FACEBOOK_URL,
@@ -50,7 +50,13 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <img src={logo.url} alt="Lidingö Freeskiers" width={1817} height={1817} className="h-20 w-20" />
+            <img
+              src={logo}
+              alt="Lidingö Freeskiers"
+              width={1100}
+              height={587}
+              className="h-16 w-auto object-contain sm:h-20"
+            />
             <p className="mt-4 text-sm text-accent">
               Skidglädje utan prestationsångest. Sveriges största friåkningsklubb för barn och unga,
               hemma i Ekholmsnäsbacken sedan 2001.

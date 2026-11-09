@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, ExternalLink, MapPin, ShoppingBag, Tag } from "lucide-react";
 
-import logo from "@/assets/freeskiers-logo-horizontal.png.asset.json";
+import logo from "@/assets/logo/freeskiers-logo-2027-blue.png";
 import sunset from "@/assets/photos/ekholmsnas-sunset.jpg";
 import { PageBanner } from "@/components/site/PageBanner";
 import { Button } from "@/components/ui/button";
@@ -101,11 +101,11 @@ function WebbshopPage() {
 
           <div className="surface-card flex flex-col items-center justify-center bg-card p-8 text-center">
             <img
-              src={logo.url}
+              src={logo}
               alt="Lidingö Freeskiers"
-              width={630}
-              height={634}
-              className="h-44 w-auto object-contain sm:h-56"
+              width={1099}
+              height={587}
+              className="h-32 w-auto object-contain sm:h-40"
             />
             <p className="mt-4 text-sm font-semibold text-muted-foreground">
               Officiell klubbkollektion i samarbete med Intersport Lidingö Centrum
