@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, ExternalLink, Heart, Mail, Mountain, Users } from "lucide-react";
-import { useState } from "react";
 
 import teamPhoto from "@/assets/photos/coaches-group.jpg";
 import { ClubForm } from "@/components/site/ClubForm";
 import { PageBanner } from "@/components/site/PageBanner";
 import {
   board,
-  type CoachCategory,
   coaches,
   CONTACT_EMAIL,
   europeanSnowsportSamarbete,
@@ -27,23 +25,7 @@ export const Route = createFileRoute("/om-oss")({
   component: AboutPage,
 });
 
-const coachFilters: { id: "all" | CoachCategory; label: string }[] = [
-  { id: "all", label: "Alla" },
-  { id: "huvudtranare", label: "Huvudtränare" },
-  { id: "arena", label: "Arena" },
-  { id: "tranare", label: "Tränare" },
-];
-
 function AboutPage() {
-  const [coachCategory, setCoachCategory] = useState<"all" | CoachCategory>("all");
-  const matchesFilter = (c: (typeof coaches)[number], filter: "all" | CoachCategory) => {
-    if (filter === "all") return true;
-    if (filter === "arena") return Boolean(c.arena);
-    if (filter === "huvudtranare") return c.role === "Huvudtränare";
-    return c.category === filter;
-  };
-  const filteredCoaches = coaches.filter((c) => matchesFilter(c, coachCategory));
-
   return (
     <>
       <PageBanner photo={teamPhoto} alt="Åkare i Ekholmsnäsbacken" title="Om Lidingö Freeskiers" />
@@ -94,52 +76,17 @@ function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {coachFilters.map((f) => {
-            const count = coaches.filter((c) => matchesFilter(c, f.id)).length;
-            const active = coachCategory === f.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setCoachCategory(f.id)}
-                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-colors sm:text-sm ${
-                  active
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "surface-card bg-card text-foreground hover:border-primary/40"
-                }`}
-              >
-                <span>{f.label}</span>
-                <span
-                  className={`rounded-full px-2 py-0.5 text-[11px] ${
-                    active ? "bg-primary-foreground/20 text-primary-foreground" : "bg-secondary text-primary"
-                  }`}
-                >
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredCoaches.map((c) => (
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {coaches.map((c) => (
             <article key={c.name} className="surface-card flex items-center gap-3.5 bg-card p-4">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-base font-bold text-primary">
                 {c.name.charAt(0)}
               </span>
               <div className="min-w-0 flex-1">
                 <h3 className="truncate text-base font-bold text-heading">{c.name}</h3>
-                <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                  <span className="text-xs font-semibold text-primary">
-                    {c.role}
-                  </span>
-                  {c.arena ? (
-                    <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-primary">
-                      {c.arena}
-                    </span>
-                  ) : null}
-                </div>
+                <p className="mt-0.5 text-xs font-semibold text-primary">
+                  {c.role}
+                </p>
               </div>
             </article>
           ))}

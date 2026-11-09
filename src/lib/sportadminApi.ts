@@ -238,7 +238,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
   if (isTrainer) {
     role = 'tränare';
     groupLevel = 'tranare';
-    groupName = trainerGroupObj?.groupName || 'Tränare - Lidingö Freeskiers';
+    groupName = 'Tränare';
   } else if (isBoard) {
     role = 'styrelse';
     groupLevel = 'admin';
