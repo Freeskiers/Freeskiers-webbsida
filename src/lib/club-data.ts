@@ -203,6 +203,7 @@ export const skidklubbSida = {
     punkter: [
       "1–2 pass i veckan, måndag–onsdag kvällar, januari–mars.",
       "Parkträning med rails, boxar och hopp – och åkning i hela backen.",
+      "Fokus på sväng för att lära sig att åka på skär – träningen består av att åka i bana samt olika övningar för att hitta en skärande sväng.",
       "Glädje och utveckling först. Tävling är helt frivilligt.",
     ],
     forPasset: [
