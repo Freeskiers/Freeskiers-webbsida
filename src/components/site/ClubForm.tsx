@@ -2,10 +2,13 @@ import { CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useServerFn } from "@tanstack/react-start";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { submitClubForm } from "@/lib/club-form.functions";
 
 export type FormField = {
   name: string;
@@ -26,7 +29,9 @@ type Props = {
 
 export function ClubForm({ title, description, fields, submitLabel, consent, recipients }: Props) {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
   const [to, setTo] = useState(recipients?.[0]?.value ?? "");
+  const submitForm = useServerFn(submitClubForm);
 
   return (
     <div className="surface-card p-6 sm:p-8">
@@ -39,18 +44,38 @@ export function ClubForm({ title, description, fields, submitLabel, consent, rec
           <div className="text-sm">
             <p className="font-semibold text-primary">Tack, vi har tagit emot din anmälan!</p>
             <p className="mt-1 text-muted-foreground">
-              Vi hör av oss inom några dagar. (Just nu sparas inte svaren – säg till om du vill
-              kunna se inkomna anmälningar i en lista.)
+              Anmälan är sparad och ledningen hör av sig inom några dagar.
             </p>
           </div>
         </div>
       ) : (
         <form
           className="mt-6 grid gap-4"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            setSent(true);
-            toast.success("Tack! Din anmälan är skickad.");
+            const form = e.currentTarget;
+            const values = new FormData(form);
+            const submittedFields = fields.map((f) => ({
+              name: f.name,
+              label: f.label,
+              value: String(values.get(f.name) ?? ""),
+            }));
+            setSending(true);
+            try {
+              await submitForm({
+                data: {
+                  formName: title,
+                  recipient: recipients ? to : undefined,
+                  fields: submittedFields,
+                },
+              });
+              setSent(true);
+              toast.success("Tack! Din anmälan är mottagen.");
+            } catch {
+              toast.error("Något gick fel. Försök igen eller mejla oss direkt.");
+            } finally {
+              setSending(false);
+            }
           }}
         >
           {recipients ? (
@@ -98,8 +123,8 @@ export function ClubForm({ title, description, fields, submitLabel, consent, rec
               <span>{consent}</span>
             </label>
           ) : null}
-          <Button type="submit" variant="cta" size="lg" className="mt-2 justify-self-start">
-            {submitLabel}
+          <Button type="submit" variant="cta" size="lg" className="mt-2 justify-self-start" disabled={sending}>
+            {sending ? "Skickar…" : submitLabel}
           </Button>
         </form>
       )}

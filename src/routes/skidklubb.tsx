@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   CheckCircle2,
   HeartHandshake,
@@ -158,7 +158,7 @@ function Skidklubb() {
             <span className="h-1.5 w-8 rounded-full bg-primary" aria-hidden />
             {skidklubbSida.anmalan.title}
           </h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {skidklubbSida.anmalan.steps.map((s) => (
               <div key={s.title} className="surface-card bg-card p-5">
                 <span className="inline-block rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-primary">
@@ -240,8 +240,7 @@ function Skidklubb() {
 
         {/* Säsongens events */}
         <div className="surface-card bg-card p-6">
-          <h2 className="flex items-center gap-3 text-xl">
-            <Sparkles className="size-5 text-primary" aria-hidden />
+          <h2 className="text-xl">
             Säsongens events
           </h2>
           <p className="mt-3 text-sm leading-relaxed">{skidklubbSida.eventsIntro}</p>
@@ -291,6 +290,18 @@ function Skidklubb() {
               Läs mer om Ekholmsnäsbacken
             </a>
           </div>
+        </div>
+
+        {/* Avbokning & återbetalning */}
+        <div className="surface-card bg-card p-6">
+          <h2 className="text-xl">Avbokning &amp; återbetalning</h2>
+          <p className="mt-3 text-sm leading-relaxed">
+            Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
+            eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
+          </p>
+          <Link to="/avbokning" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            Läs alla avboknings- och återbetalningsregler →
+          </Link>
         </div>
 
         <GroupContact topic="Freeskiers Skidklubb" email={departmentEmail("skidklubb")} />

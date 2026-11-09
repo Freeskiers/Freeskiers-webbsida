@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays, CheckCircle2, Clock3, Users } from "lucide-react";
 
 import { GroupContact } from "@/components/site/GroupContact";
 import { GroupPage } from "@/components/site/GroupPage";
 import { LevelFinder } from "@/components/site/LevelFinder";
 import { Button } from "@/components/ui/button";
-import { BOOKING_URL, departmentEmail, helgskidskola2027 } from "@/lib/club-data";
+import { BOOKING_URL, departmentEmail, helgskidskola2027, privatlektionSida } from "@/lib/club-data";
 
 const skidskolegrupper = [
   {
@@ -165,11 +165,11 @@ function Helgskidskola() {
         <div>
           <h3 className="text-xl">Hyra utrustning</h3>
           <p className="mt-3 text-sm leading-relaxed">{helgskidskola2027.equipment.rental}</p>
-          <p className="mt-3 text-sm">
-            Vill du lägga till hyra i efterhand? Mejla
-            {" "}<a className="font-semibold text-primary underline underline-offset-4" href="mailto:helg@lidingofreeskiers.se">helg@lidingofreeskiers.se</a>
-            {" "}och ange barnets namn, längd, vikt och skostorlek.
-          </p>
+          <p className="mt-3 text-sm font-semibold">Pris: 940 kr. Priserna gäller innevarande säsong, med reservation för ändringar.</p>
+          <p className="mt-3 text-sm">{"Är du intresserad? Klicka på knappen nedan. Bokningen är öppen mellan 1 november och 20 december."}</p>
+          <Button variant="cta" size="lg" className="mt-4 rounded-full" asChild>
+            <a href="https://entry.sportadmin.se/groupsOverview?uid=k3zfkH" target="_blank" rel="noreferrer">Boka skidhyra här</a>
+          </Button>
         </div>
       </section>
 
@@ -193,7 +193,35 @@ function Helgskidskola() {
         <p className="mt-3 text-xs text-muted-foreground">{helgskidskola2027.membership.note}</p>
       </section>
 
+        <section className="surface-card bg-card p-6">
+          <h2 className="text-xl">Avbokning &amp; återbetalning</h2>
+          <p className="mt-3 text-sm leading-relaxed">
+            Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom
+            eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
+          </p>
+          <Link to="/avbokning" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
+            Läs alla avboknings- och återbetalningsregler →
+          </Link>
+        </section>
+
       <GroupContact topic="Helgskidskolan" email={departmentEmail("helg")} />
+
+      <section className="border-y border-border bg-secondary/40 px-6 py-8 sm:px-8">
+        <h2 className="text-2xl sm:text-3xl">Privatlektioner</h2>
+        <p className="mt-4 max-w-3xl leading-relaxed">{privatlektionSida.audience}</p>
+        <p className="mt-2 max-w-3xl leading-relaxed">{privatlektionSida.format}</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {privatlektionSida.prices.map((p) => (
+            <div key={p.people} className="border-l-4 border-primary bg-card px-4 py-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">{p.people}</p>
+              <p className="mt-1 font-semibold text-heading">{p.price} · {p.duration}</p>
+            </div>
+          ))}
+        </div>
+        <Button variant="cta" size="lg" className="mt-6 rounded-full" asChild>
+          <Link to="/privatlektion">Läs mer &amp; boka privatlektion</Link>
+        </Button>
+      </section>
 
       <section className="rounded-3xl border border-border bg-secondary/40 p-6 sm:p-10">
         <div className="mx-auto mb-8 max-w-2xl text-center">

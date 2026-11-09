@@ -63,7 +63,7 @@ function WebbshopPage() {
 
             <div className="mt-6">
               <h3 className="text-lg font-bold text-heading">
-                🛒 {webbshopSida.stepsTitle}
+                {webbshopSida.stepsTitle}
               </h3>
               <ul className="mt-3 space-y-2.5 text-sm sm:text-base">
                 {webbshopSida.steps.map((step) => (
@@ -77,7 +77,7 @@ function WebbshopPage() {
 
             <div className="mt-6 flex items-start gap-2.5 rounded-xl bg-secondary/70 p-4 text-sm font-semibold text-heading">
               <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
-              <span>💡 {webbshopSida.pickupNote}</span>
+              <span>{webbshopSida.pickupNote}</span>
             </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -87,15 +87,6 @@ function WebbshopPage() {
                   <ExternalLink className="size-4" />
                 </a>
               </Button>
-              <a
-                href={webbshopSida.originalPageUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-primary underline hover:opacity-80"
-              >
-                Länk till lidingofreeskiers.se/resor/
-                <ExternalLink className="size-3.5" />
-              </a>
             </div>
           </div>
 
@@ -132,13 +123,10 @@ function WebbshopPage() {
                 {webbshopSida.products.map((item) => (
                   <li
                     key={item.name}
-                    className="flex items-center justify-between py-3 text-sm sm:text-base"
+                    className="py-3 text-sm sm:text-base"
                   >
                     <span className="font-bold uppercase tracking-wide text-heading">
                       {item.name}
-                    </span>
-                    <span className="rounded-full bg-secondary px-3 py-1 text-sm font-bold text-primary">
-                      {item.price}
                     </span>
                   </li>
                 ))}

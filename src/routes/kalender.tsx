@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Clock, Copy, Download, Facebook, Grid, Instagram, List, MapPin, Share2 } from "lucide-react";
 import { useState } from "react";
 
-import jump from "@/assets/photos/freestyle-jump.jpg";
+import jump from "@/assets/kalender-banner-natt.jpg.asset.json";
 import { LevelFinderButton } from "@/components/site/LevelFinder";
 import { PageBanner } from "@/components/site/PageBanner";
 import { CLUB_URL, clubEvents, eventLink, FACEBOOK_URL, INSTAGRAM_URL, SEASON, type ClubEvent } from "@/lib/club-data";
@@ -24,8 +24,8 @@ export const Route = createFileRoute("/kalender")({
 
 const categories = [
   { id: "all", label: "Alla händelser" },
-  { id: "traning", label: "Våra träningar" },
-  { id: "helgskidskola", label: "Helgskidskola (HSS 1–5)" },
+  { id: "traning", label: "Freeskiers Skidklubb" },
+  { id: "helgskidskola", label: "Freeskiers Helgskidskola " },
   { id: "tavling", label: "Tävling & Event" },
   { id: "anmalan", label: "Anmälan & Platser" },
   { id: "klubbkvall", label: "Klubbkvällar & Resa" },
@@ -92,7 +92,7 @@ function KalenderPage() {
 
   return (
     <>
-      <PageBanner photo={jump} alt="Hopp i Ekholmsnäsbacken" eyebrow={`Säsongen ${SEASON}`} title="Säsongskalender & Event">
+      <PageBanner photo={jump.url} alt="Hopp i Ekholmsnäsbacken" eyebrow={`Säsongen ${SEASON}`} title="Säsongskalender & Event">
         <p className="mt-4 max-w-2xl text-base text-primary-foreground/85 sm:text-lg">
           Här samlar vi alla viktiga datum för klubben: anmälningssläpp, tränarutbildning, klubbkvällar i
           Alpingaraget, säsongsstart, Rookie Series och klubbmästerskap.
@@ -108,11 +108,13 @@ function KalenderPage() {
       <section id="kalender" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
         <div className="mb-8 grid gap-4 md:grid-cols-3">
           <div className="surface-card bg-card p-6">
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">⛷️ Våra träningar 2027</p>
-            <h3 className="mt-1 text-lg">Måndagar &amp; Onsdagar (11 jan – 24 mar)</h3>
+            <p className="text-xs font-bold uppercase tracking-wider text-primary">SKIDKLUBB 2027</p>
+            <h3 className="mt-1 text-lg">Träningstider Skidklubb</h3>
             <ul className="mt-3 space-y-1.5 text-xs leading-relaxed text-muted-foreground">
-              <li><strong className="text-heading">Måndagar:</strong> Åk 1–4 (18.15–19.45) · Åk 6–9 (19.45–21.15)</li>
-              <li><strong className="text-heading">Onsdagar:</strong> Åk 1–4 (18.15–19.45) · Åk 5 (19.45–21.15) · Åk 6–9 (19.45–21.15)</li>
+              <li><strong className="text-heading">Åk 1–4 – måndag:</strong> måndagar, kl. 18.15–19.45</li>
+              <li><strong className="text-heading">Åk 1–4 – onsdag:</strong> onsdagar, kl. 18.15–19.45</li>
+              <li><strong className="text-heading">Årskurs 5:</strong> onsdagar, kl. 19.45–21.15</li>
+              <li><strong className="text-heading">Årskurs 6–9:</strong> måndagar och onsdagar, kl. 19.45–21.15</li>
             </ul>
             <button type="button" onClick={() => setCat("traning")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
               Filtrera alla träningsdatum <ArrowRight className="size-3.5" />
@@ -120,12 +122,12 @@ function KalenderPage() {
           </div>
 
           <div className="surface-card bg-card p-6">
-            <p className="text-xs font-bold uppercase tracking-wider text-primary">🎿 Helgskidskola (HSS 1–5)</p>
-            <h3 className="mt-1 text-lg">5 helgtillfällen jan–feb</h3>
+            <p className="text-xs font-bold uppercase tracking-wider text-primary">HELGSKIDSKOLA 2027</p>
+            <h3 className="mt-1 text-lg">Datum Helgskidskola</h3>
             <ul className="mt-3 space-y-1 text-xs leading-relaxed text-muted-foreground">
-              <li><strong className="text-heading">HSS 1:</strong> Lör 30 jan · <strong className="text-heading">HSS 2:</strong> Sön 31 jan (v. 4)</li>
-              <li><strong className="text-heading">HSS 3:</strong> Lör 6 feb (v. 5)</li>
-              <li><strong className="text-heading">HSS 4:</strong> Lör 20 feb · <strong className="text-heading">HSS 5:</strong> Sön 21 feb (v. 7)</li>
+              <li>Lör 30 jan · Sön 31 jan</li>
+              <li>&nbsp;Lör 6 feb</li>
+              <li>Lör 20 feb · Sön 21 feb</li>
             </ul>
             <button type="button" onClick={() => setCat("helgskidskola")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
               Visa Helgskidskolans datum <ArrowRight className="size-3.5" />
@@ -136,7 +138,7 @@ function KalenderPage() {
             <p className="text-xs font-bold uppercase tracking-wider text-primary">🏆 Tävling &amp; Event 2027</p>
             <h3 className="mt-1 text-lg">Söndag 14 februari (v. 6)</h3>
             <ul className="mt-3 space-y-1.5 text-xs leading-relaxed text-muted-foreground">
-              <li><strong className="text-heading">Vår tävling (Freeski):</strong> Sön 14 feb kl. 09.30–14.00 (prisutdelning 14.15–14.45)</li>
+              <li><strong className="text-heading">Vår tävling:</strong> Sön 14 feb kl. 09.30–14.00 (prisutdelning 14.15–14.45)</li>
               <li><strong className="text-heading">Bortaresa:</strong> 14–17 jan (v. 2) · <strong className="text-heading">Utbildning park:</strong> 21–22 jan (v. 3)</li>
             </ul>
             <button type="button" onClick={() => setCat("tavling")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">

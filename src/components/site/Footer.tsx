@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Mail, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { Facebook, Instagram, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 
 import { useLevelFinder } from "@/components/site/LevelFinder";
 
@@ -76,10 +76,10 @@ export function Footer() {
             <ul className="mt-4 grid grid-cols-2 gap-2 text-sm text-accent">
               <li><Link to="/skidklubb" className="hover:text-primary-foreground">Skidklubb</Link></li>
               <li><Link to="/helgskidskola" className="hover:text-primary-foreground">Helgskidskola</Link></li>
+              <li><Link to="/privatlektion" className="hover:text-primary-foreground">Privatlektioner</Link></li>
               <li><Link to="/kalender" className="font-semibold hover:text-primary-foreground">Säsongskalender &amp; Event</Link></li>
               <li><Link to="/rookie-series" className="hover:text-primary-foreground">Rookie Series</Link></li>
               <li><Link to="/hostsasong" className="hover:text-primary-foreground">Höstsäsong</Link></li>
-              <li><Link to="/privatlektion" className="hover:text-primary-foreground">Privatlektion</Link></li>
               <li><Link to="/om-oss" className="hover:text-primary-foreground">Om oss</Link></li>
               <li><Link to="/om-oss" hash="european-snowsport" className="hover:text-primary-foreground">European Snowsport</Link></li>
               <li><Link to="/kontakt" className="hover:text-primary-foreground">Kontakt & FAQ</Link></li>
@@ -87,6 +87,7 @@ export function Footer() {
               <li><Link to="/medlem" className="font-bold hover:text-primary-foreground">Mina sidor &amp; medlemskort</Link></li>
               <li><Link to="/webbshop" className="font-bold hover:text-primary-foreground">Webbshop</Link></li>
               <li><Link to="/sponsor" className="font-bold hover:text-primary-foreground">Bli sponsor</Link></li>
+              <li><Link to="/avbokning" className="hover:text-primary-foreground">Avboknings- &amp; återbetalningsregler</Link></li>
               <li><Link to="/admin" className="hover:text-primary-foreground text-xs opacity-80">Kansli &amp; Admin</Link></li>
               <li className="col-span-2 pt-1">
                 <button type="button" onClick={openLevelFinder} className="inline-flex items-center gap-1.5 text-xs font-semibold hover:text-primary-foreground">
@@ -97,15 +98,10 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider">Hemmabacke & kontakt</h3>
             <ul className="mt-4 space-y-3 text-sm text-accent">
               <li className="flex gap-2">
                 <MapPin className="mt-0.5 size-4 shrink-0" />
                 <a href="https://maps.app.goo.gl/m3gQEfDvu73twtnh8" target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground">Ekholmsnäsbacken<br />{SLOPE_ADDRESS}</a>
-              </li>
-              <li className="flex gap-2">
-                <Mail className="mt-0.5 size-4 shrink-0" />
-                <a href="mailto:admin@lidingofreeskiers.se" className="hover:text-primary-foreground">admin@lidingofreeskiers.se</a>
               </li>
               <li className="flex gap-2 pt-1 text-xs text-accent/80">
                 <ShieldCheck className="mt-0.5 size-4 shrink-0" />
