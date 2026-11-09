@@ -4,7 +4,6 @@ import {
   SportAdminClub,
   SportAdminPerson,
   SportAdminMemberStatus,
-  formatCoachGroupName,
   mapSportAdminPersonToSkier
 } from "./sportadminApi";
 import { MemberSkier } from "./memberData";
@@ -200,10 +199,7 @@ export const fetchLiveMembersFn = createServerFn({ method: "POST" })
           return true;
         }
 
-        // 2. Alla som har gruppkoppling "faktureras ej", styrelse eller ligger i Tränare - Lidingö Freeskiers / Excel-listan
-        const fullName = `${p.firstName || ''} ${p.lastName || ''}`.replace(/\s+/g, ' ').trim();
-        if (formatCoachGroupName(fullName)) return true;
-
+        // 2. Alla som har gruppkoppling "faktureras ej", styrelse eller ligger i Tränare - Lidingö Freeskiers under aktuell säsong 2026/2027
         const hasFakturerasEjOrLeader = (p.groups || []).some((g) => {
           if (g.hasQuit) return false;
           const conn = (g.groupConnectionName || '').toLowerCase().trim();

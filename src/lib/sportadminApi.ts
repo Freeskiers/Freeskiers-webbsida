@@ -204,92 +204,6 @@ export async function fetchLivePersons(
 }
 
 /**
- * Specialroller och utbildningsnivåer från assets/Tränare Freeskiers_säsong26_27.xlsx,
- * matchade mot både SportAdmin-stavning och Excel-stavning.
- */
-export const COACH_EXCEL_ROLES: Record<string, { role: string; education?: string }> = {
-  "abbe olofsson": { role: "Tränare", education: "Intro" },
-  "agge ornby": { role: "Praktikant" },
-  "august ornby": { role: "Praktikant" },
-  "alexandra taube": { role: "Praktikant" },
-  "anton knave": { role: "Praktikant" },
-  "axel lundgren dahl": { role: "Tränare", education: "Intro" },
-  "billie åberg": { role: "Tränare", education: "Steg 1" },
-  "carl elmfeldt": { role: "Champion slalom/park", education: "Steg 1" },
-  "carl leuhusen": { role: "Tränare", education: "Steg 1" },
-  "carl nordlander": { role: "Tränare", education: "Steg 2" },
-  "carlaxel vikström": { role: "Praktikant" },
-  "ebba dangré": { role: "Praktikant" },
-  "ella riisberg": { role: "Tränare", education: "Intro" },
-  "ella-milou hamilon": { role: "Praktikant" },
-  "ella-milou feigin hamilton": { role: "Praktikant" },
-  "eric ryman": { role: "Praktikant" },
-  "erik norinder": { role: "Praktikant" },
-  "felix bergström": { role: "TA Arena", education: "Steg 1" },
-  "felix jonsberg nordahl": { role: "Praktikant" },
-  "filip ryman": { role: "Champion park", education: "Steg 2" },
-  "franca pielitz": { role: "Praktikant" },
-  "franca peilitz": { role: "Praktikant" },
-  "gustaf isakson": { role: "Champion slalom/park", education: "Steg 1" },
-  "hector nelker": { role: "Tränare", education: "Steg 1" },
-  "hedvig nelker": { role: "Praktikant" },
-  "hilma newman": { role: "Tränare helg", education: "Intro" },
-  "hugo riisberg": { role: "Tränare", education: "Intro" },
-  "ingrid rooth": { role: "Praktikant" },
-  "ingrid roth": { role: "Praktikant" },
-  "ivar zetterström": { role: "Praktikant" },
-  "john edéus": { role: "Champion park", education: "Intro" },
-  "john edeus": { role: "Champion park", education: "Intro" },
-  "julie ryott": { role: "Praktikant" },
-  "kian blomberg": { role: "TA - admin", education: "Steg 1" },
-  "klas lagerström": { role: "Tränare", education: "Steg 1" },
-  "leia fallan röd elgh": { role: "TA Helgskidskola", education: "Steg 1" },
-  "liv rammer": { role: "Champion", education: "Intro" },
-  "livia wetternin": { role: "Tränare", education: "Intro" },
-  "lovisa häggström": { role: "Praktikant" },
-  "lovisa högström": { role: "Praktikant" },
-  "luc pope": { role: "Tränare" },
-  "ludvig holmgren": { role: "Tränare", education: "Intro" },
-  "martina mellberg ahlström": { role: "Helgskidskola NB", education: "Steg 2" },
-  "max wrange": { role: "Tränare", education: "Steg 1" },
-  "nils harzin": { role: "TA Arena", education: "Steg 2" },
-  "nils hadzin": { role: "TA Arena", education: "Steg 2" },
-  "noah oscarsson": { role: "Praktikant" },
-  "olle dahlqvist": { role: "Tränare", education: "Intro" },
-  "oscar wolf": { role: "Tränare", education: "Intro" },
-  "otto wallentin": { role: "Praktikant" },
-  "petter wejstorp": { role: "Tränare", education: "Intro" },
-  "philip dahlbeck nobel": { role: "Praktikant" },
-  "saga boldt-christmas": { role: "Tränare", education: "Steg 1" },
-  "sam martinsson": { role: "Tränare", education: "Intro" },
-  "samuel malmquist": { role: "Tränare", education: "Intro" },
-  "signe nordblad": { role: "Tränare", education: "Steg 1" },
-  "sigrid zetterström": { role: "Tränare", education: "Intro" },
-  "simon agnblad": { role: "Praktikant" },
-  "sixten lundström": { role: "TA Träning", education: "Steg 2" },
-  "stella af sandberg": { role: "Praktikant" },
-  "stella af sandeberg": { role: "Praktikant" },
-  "svante dahlqvist": { role: "Praktikant" },
-  "thea elmfedt": { role: "Praktikant" },
-  "thea elmfeldt": { role: "Praktikant" },
-  "tom foulds": { role: "Tränare", education: "Intro" },
-  "tom leuhusen": { role: "Tränare", education: "Intro" },
-  "valter dahl": { role: "Champion slalom/park", education: "Steg 1" },
-  "vincent lindau carloni": { role: "Tränare", education: "Intro" },
-  "wilhelm lang": { role: "Praktikant" },
-  "william nagenius": { role: "TA Junior Helgskidskola", education: "Intro" },
-};
-
-export function formatCoachGroupName(fullName: string): string | undefined {
-  const key = fullName.replace(/\s+/g, " ").trim().toLowerCase();
-  const entry = COACH_EXCEL_ROLES[key];
-  if (!entry) return undefined;
-  return entry.education
-    ? `${entry.role} (${entry.education}) – Tränare`
-    : `${entry.role} – Tränare`;
-}
-
-/**
  * Helper to map a SportAdmin Person to our Freeskiers MemberSkier
  */
 export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: number): MemberSkier {
@@ -298,11 +212,9 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
     ? Number(pnr.slice(0, 4)) 
     : 2016;
 
-  const fullName = `${person.firstName || ''} ${person.lastName || ''}`.replace(/\s+/g, ' ').trim();
-  const excelCoachRole = formatCoachGroupName(fullName);
-
   // Determine active groups
   const activeGroups = person.groups?.filter(g => !g.hasQuit) || [];
+  const trainerGroupObj = activeGroups.find(g => (g.groupName || '').toLowerCase().includes('tränare'));
   const nonTrainerGroupObj = activeGroups.find(g => !(g.groupName || '').toLowerCase().includes('tränare'));
   const activeGroupObj = nonTrainerGroupObj || activeGroups[0] || person.groups?.[0];
   const groupNames = activeGroups.map(g => (g.groupName || '').toLowerCase());
@@ -311,7 +223,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
   const gLower = (mainGroup || '').toLowerCase();
 
   const isBoard = groupNames.some(g => g.includes('engagerade') || g.includes('styrelse')) || groupConnectionNames.some(c => c.includes('styrelse'));
-  const isTrainer = Boolean(excelCoachRole) || groupNames.some(g => g.includes('tränare'));
+  const isTrainer = Boolean(trainerGroupObj);
   const isParentGroup = groupNames.some(g => g.includes('föräldra') || g.includes('engagerade'));
   const isSkiGroup = groupNames.some(g => g.includes('skidor') || g.includes('snowboard') || g.includes('skidklubb') || g.includes('helgskidskola'));
   const hasFakturerasEj = activeGroups.some(g => {
@@ -326,7 +238,7 @@ export function mapSportAdminPersonToSkier(person: SportAdminPerson, index: numb
   if (isTrainer) {
     role = 'tränare';
     groupLevel = 'tranare';
-    groupName = excelCoachRole || mainGroup || 'Tränare - Lidingö Freeskiers';
+    groupName = trainerGroupObj?.groupName || 'Tränare - Lidingö Freeskiers';
   } else if (isBoard) {
     role = 'styrelse';
     groupLevel = 'admin';

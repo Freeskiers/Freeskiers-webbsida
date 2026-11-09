@@ -29,18 +29,20 @@ export const Route = createFileRoute("/om-oss")({
 
 const coachFilters: { id: "all" | CoachCategory; label: string }[] = [
   { id: "all", label: "Alla" },
-  { id: "ta", label: "Tränaransvariga (TA)" },
-  { id: "champion", label: "Champions" },
+  { id: "huvudtranare", label: "Huvudtränare" },
+  { id: "arena", label: "Arena" },
   { id: "tranare", label: "Tränare" },
-  { id: "praktikant", label: "Praktikanter" },
 ];
 
 function AboutPage() {
   const [coachCategory, setCoachCategory] = useState<"all" | CoachCategory>("all");
-  const filteredCoaches =
-    coachCategory === "all"
-      ? coaches
-      : coaches.filter((c) => c.category === coachCategory);
+  const matchesFilter = (c: (typeof coaches)[number], filter: "all" | CoachCategory) => {
+    if (filter === "all") return true;
+    if (filter === "arena") return Boolean(c.arena);
+    if (filter === "huvudtranare") return c.role === "Huvudtränare";
+    return c.category === filter;
+  };
+  const filteredCoaches = coaches.filter((c) => matchesFilter(c, coachCategory));
 
   return (
     <>
@@ -94,10 +96,7 @@ function AboutPage() {
 
         <div className="mt-8 flex flex-wrap gap-2">
           {coachFilters.map((f) => {
-            const count =
-              f.id === "all"
-                ? coaches.length
-                : coaches.filter((c) => c.category === f.id).length;
+            const count = coaches.filter((c) => matchesFilter(c, f.id)).length;
             const active = coachCategory === f.id;
             return (
               <button
@@ -135,9 +134,9 @@ function AboutPage() {
                   <span className="text-xs font-semibold text-primary">
                     {c.role}
                   </span>
-                  {c.education ? (
+                  {c.arena ? (
                     <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-bold text-primary">
-                      {c.education}
+                      {c.arena}
                     </span>
                   ) : null}
                 </div>
