@@ -30,7 +30,7 @@ export function Header() {
             alt="Lidingö Freeskiers"
             width={1099}
             height={587}
-            className="h-11 w-auto object-contain sm:h-12"
+            className="h-[53px] w-auto object-contain sm:h-[58px]"
           />
         </Link>
 
