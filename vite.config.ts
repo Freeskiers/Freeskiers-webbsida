@@ -6,6 +6,14 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Provide safe non-empty fallback values when Supabase is not configured in the environment
+// so auto-generated src/integrations/supabase/client.ts never throws at runtime.
+process.env.VITE_SUPABASE_URL ||= process.env.SUPABASE_URL || "https://placeholder.supabase.co";
+process.env.VITE_SUPABASE_PUBLISHABLE_KEY ||=
+  process.env.SUPABASE_PUBLISHABLE_KEY || "sb_publishable_placeholder";
+process.env.SUPABASE_URL ||= process.env.VITE_SUPABASE_URL;
+process.env.SUPABASE_PUBLISHABLE_KEY ||= process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
