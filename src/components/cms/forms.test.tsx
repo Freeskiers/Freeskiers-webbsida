@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { getCmsContent } from "@/lib/cmsContent";
@@ -14,6 +14,9 @@ import {
   CoachesManagerForm,
   PartnersManagerForm,
   GeneralHeroForm,
+  CORE_GROUP_SLUGS,
+  isCoreGroup,
+  deleteGroupFromGroups,
 } from "./index";
 
 describe("CMS Form Components & Image Upload Optimizer", () => {
@@ -99,19 +102,25 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain("Förhandsvisning av bannern");
     });
 
-    it("correctly triggers onChange with updated draft when fields change", () => {
-      let emitted: SiteContent | null = null;
-      const handleChange = (updated: SiteContent) => {
-        emitted = updated;
+    it("renders modified draft state with active warning banner in HTML", () => {
+      const customDraft: SiteContent = {
+        ...baseContent,
+        topBanner: {
+          enabled: true,
+          type: "warning",
+          text: "Backen stängd idag på grund av hård vind!",
+          linkText: "Se väderrapport",
+          linkUrl: "/status",
+        },
       };
 
-      // Directly call component functions to test emission logic
-      const topBanner = { ...baseContent.topBanner, enabled: true, text: "Viktigt meddelande" };
-      handleChange({ ...baseContent, topBanner });
+      const html = renderToString(<TopBannerForm draft={customDraft} onChange={() => {}} />);
 
-      expect(emitted).not.toBeNull();
-      expect(emitted!.topBanner.enabled).toBe(true);
-      expect(emitted!.topBanner.text).toBe("Viktigt meddelande");
+      // Verify active badge, custom text, and warning styling in HTML
+      expect(html).toContain("Aktiv");
+      expect(html).toContain("Backen stängd idag på grund av hård vind!");
+      expect(html).toContain("Se väderrapport");
+      expect(html).toContain("border-amber-500");
     });
   });
 
@@ -129,29 +138,35 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain(baseContent.cancellationRules.helgskidskolaDeduction);
     });
 
-    it("emits updated cancellation policy data", () => {
-      let updatedState: SiteContent | null = null;
-      const onChange = (u: SiteContent) => {
-        updatedState = u;
-      };
-
-      const customRules = {
-        ...baseContent.cancellationRules,
-        fullRefundUntil: "15 december",
-        skidklubbDeduction: "1 200 kr",
-      };
-
-      onChange({
+    it("renders custom policy dates, deductions, and policy text in HTML", () => {
+      const customDraft: SiteContent = {
         ...baseContent,
-        cancellationRules: customRules,
-      });
+        cancellationRules: {
+          fullRefundUntil: "10 december",
+          deductionPeriod: "11–23 december",
+          noRefundFrom: "24 december",
+          skidklubbDeduction: "1 250 kr",
+          helgskidskolaDeduction: "750 kr",
+          cancelledSeasonFee: "500 kr",
+          policyText: "Specialpolicy för säsongen 2026/2027.",
+        },
+      };
 
-      expect(updatedState!.cancellationRules.fullRefundUntil).toBe("15 december");
-      expect(updatedState!.cancellationRules.skidklubbDeduction).toBe("1 200 kr");
+      const html = renderToString(
+        <CancellationRulesForm draft={customDraft} onChange={() => {}} />,
+      );
+
+      expect(html).toContain("10 december");
+      expect(html).toContain("11–23 december");
+      expect(html).toContain("24 december");
+      expect(html).toContain("1 250 kr");
+      expect(html).toContain("750 kr");
+      expect(html).toContain("500 kr");
+      expect(html).toContain("Specialpolicy för säsongen 2026/2027.");
     });
   });
 
-  describe("GroupsForm Component", () => {
+  describe("GroupsForm Component & Core Group Protection", () => {
     it("renders group tabs and requirements list", () => {
       const html = renderToString(<GroupsForm draft={baseContent} onChange={() => {}} />);
       expect(html).toContain("Träningsgrupper &amp; Verksamhet");
@@ -160,26 +175,66 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain("Lägg till ny grupp");
     });
 
-    it("updates group prices and requirements immutably", () => {
-      let emitted: SiteContent | null = null;
-      const onChange = (u: SiteContent) => {
-        emitted = u;
-      };
+    it("identifies all core groups and protects them from deletion", () => {
+      // 4 core groups must be recognized
+      expect(CORE_GROUP_SLUGS).toEqual([
+        "helgskidskola",
+        "skidklubb",
+        "hostsasong",
+        "privatlektion",
+      ]);
 
-      const updatedGroups = {
+      CORE_GROUP_SLUGS.forEach((slug) => {
+        expect(isCoreGroup(slug)).toBe(true);
+      });
+      expect(isCoreGroup("ny-grupp-123")).toBe(false);
+
+      // Attempting to delete a core group must fail
+      const deleteResult = deleteGroupFromGroups(baseContent.groups, "skidklubb");
+      expect(deleteResult.success).toBe(false);
+      expect(deleteResult.error).toContain("kärngrupp");
+      expect(deleteResult.groups.skidklubb).toBeDefined();
+
+      // Deleting a custom group must succeed
+      const groupsWithCustom = {
         ...baseContent.groups,
-        helgskidskola: {
-          ...baseContent.groups.helgskidskola,
-          price: "3 200 kr",
-          requirements: ["Måste ha hjälm", "Nybörjare"],
+        "custom-camp": {
+          slug: "custom-camp",
+          name: "Påskcamp",
+          price: "1 900 kr",
+          registrationOpens: "Februari",
+          schedule: "Vecka 15",
+          requirements: ["Parallella skidor"],
+          bookingUrl: "https://sportadmin.se",
+        },
+      };
+      const customDeleteResult = deleteGroupFromGroups(groupsWithCustom, "custom-camp");
+      expect(customDeleteResult.success).toBe(true);
+      expect(customDeleteResult.groups["custom-camp"]).toBeUndefined();
+      expect(customDeleteResult.groups.helgskidskola).toBeDefined();
+    });
+
+    it("renders core group protection badge and modified group price in HTML", () => {
+      const customDraft: SiteContent = {
+        ...baseContent,
+        groups: {
+          ...baseContent.groups,
+          helgskidskola: {
+            ...baseContent.groups.helgskidskola,
+            price: "3 450 kr",
+            requirements: ["Hjälm och ryggskydd krävs", "Åkglädje i fokus"],
+          },
         },
       };
 
-      onChange({ ...baseContent, groups: updatedGroups });
+      const html = renderToString(<GroupsForm draft={customDraft} onChange={() => {}} />);
 
-      expect(emitted!.groups.helgskidskola.price).toBe("3 200 kr");
-      expect(emitted!.groups.helgskidskola.requirements.length).toBe(2);
-      expect(baseContent.groups.helgskidskola.price).not.toBe("3 200 kr");
+      // Core group badge must be present
+      expect(html).toContain("Kärngrupp – krävs för webbplatsens rutter");
+      expect(html).toContain("Kärngrupp (skyddad)");
+      expect(html).toContain("3 450 kr");
+      expect(html).toContain("Hjälm och ryggskydd krävs");
+      expect(html).toContain("Åkglädje i fokus");
     });
   });
 
@@ -191,35 +246,30 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain(baseContent.calendarEvents[0].title);
     });
 
-    it("supports adding, reordering and deleting calendar events", () => {
-      let resultEvents = [...baseContent.calendarEvents];
-      const onChange = (u: SiteContent) => {
-        resultEvents = u.calendarEvents;
+    it("renders customized calendar events with custom title, date and location in HTML", () => {
+      const customEvent = {
+        id: "event-alpint-2027",
+        title: "Klubbmästerskap & Grillfest 2027",
+        date: "28 mars 2027",
+        time: "Kl. 11:00–16:00",
+        location: "Ekholmsnäsbackens park",
+        category: "event",
+        description: "Årets stora avslutning med railsession och hamburgare.",
+        linkUrl: "/kalender/km-2027",
       };
 
-      // Add
-      const newEv = {
-        id: "ev-test",
-        title: "Test Event",
-        date: "2026-12-01",
-        time: "10:00",
-        location: "Lidingö",
-        category: "skidklubb",
-        description: "Test desc",
+      const customDraft: SiteContent = {
+        ...baseContent,
+        calendarEvents: [customEvent, ...baseContent.calendarEvents],
       };
-      onChange({
-        ...baseContent,
-        calendarEvents: [newEv, ...baseContent.calendarEvents],
-      });
-      expect(resultEvents.length).toBe(baseContent.calendarEvents.length + 1);
-      expect(resultEvents[0].id).toBe("ev-test");
 
-      // Delete
-      onChange({
-        ...baseContent,
-        calendarEvents: resultEvents.filter((e) => e.id !== "ev-test"),
-      });
-      expect(resultEvents.length).toBe(baseContent.calendarEvents.length);
+      const html = renderToString(<CalendarEventsForm draft={customDraft} onChange={() => {}} />);
+
+      expect(html).toContain("Klubbmästerskap &amp; Grillfest 2027");
+      expect(html).toContain("28 mars 2027");
+      expect(html).toContain("Kl. 11:00–16:00");
+      expect(html).toContain("Ekholmsnäsbackens park");
+      expect(html).toContain("Årets stora avslutning med railsession");
     });
   });
 
@@ -231,18 +281,24 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain(baseContent.faq[0].question);
     });
 
-    it("updates FAQ answers and categories immutably", () => {
-      let state: SiteContent = baseContent;
-      const onChange = (u: SiteContent) => {
-        state = u;
+    it("renders custom FAQ item and newly added category in HTML", () => {
+      const customFaqItem = {
+        id: "faq-liftkort-info",
+        question: "Ingår liftkort i träningsavgiften?",
+        answer: "Ja, liftkort under träningspassen ingår alltid i avgiften för Skidklubben.",
+        category: "Liftkort & Utrustning",
       };
 
-      const updatedFaq = baseContent.faq.map((item, i) =>
-        i === 0 ? { ...item, question: "Uppdaterad fråga?" } : item,
-      );
+      const customDraft: SiteContent = {
+        ...baseContent,
+        faq: [customFaqItem, ...baseContent.faq],
+      };
 
-      onChange({ ...baseContent, faq: updatedFaq });
-      expect(state.faq[0].question).toBe("Uppdaterad fråga?");
+      const html = renderToString(<FaqManagerForm draft={customDraft} onChange={() => {}} />);
+
+      expect(html).toContain("Ingår liftkort i träningsavgiften?");
+      expect(html).toContain("Ja, liftkort under träningspassen ingår alltid");
+      expect(html).toContain("Liftkort &amp; Utrustning");
     });
   });
 
@@ -255,27 +311,25 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain(baseContent.coaches[0].role);
     });
 
-    it("handles adding and updating a coach", () => {
-      let state: SiteContent = baseContent;
-      const onChange = (u: SiteContent) => {
-        state = u;
-      };
-
-      const newCoach = {
-        id: "coach-new",
-        name: "Test Tränare",
-        role: "Huvudtränare",
+    it("renders customized coach entry with custom role, name and avatar in HTML", () => {
+      const customCoach = {
+        id: "coach-johan-nord",
+        name: "Johan Nordström",
+        role: "Tränaransvarig Slopestyle",
         group: "Skidklubb",
-        photoUrl: "data:image/webp;base64,...",
+        photoUrl: "/assets/photos/coaches/johan-nord.jpg",
       };
 
-      onChange({
+      const customDraft: SiteContent = {
         ...baseContent,
-        coaches: [newCoach, ...baseContent.coaches],
-      });
+        coaches: [customCoach, ...baseContent.coaches],
+      };
 
-      expect(state.coaches.length).toBe(baseContent.coaches.length + 1);
-      expect(state.coaches[0].name).toBe("Test Tränare");
+      const html = renderToString(<CoachesManagerForm draft={customDraft} onChange={() => {}} />);
+
+      expect(html).toContain("Johan Nordström");
+      expect(html).toContain("Tränaransvarig Slopestyle");
+      expect(html).toContain("/assets/photos/coaches/johan-nord.jpg");
     });
   });
 
@@ -288,18 +342,28 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain("15% rabatt på skidutrustning");
     });
 
-    it("handles partner updates and discount codes", () => {
-      let state: SiteContent = baseContent;
-      const onChange = (u: SiteContent) => {
-        state = u;
+    it("renders customized partner discount, online code and instructions in HTML", () => {
+      const customPartner = {
+        id: "partner-stadium-lidingo",
+        name: "Stadium Lidingö",
+        discountSummary: "20% rabatt på alla skidjackor och hjälmar",
+        memberCode: "FREESKIERS20",
+        howToRedeem: "Visa medlemskortet i kassan eller uppge kod online.",
+        websiteUrl: "https://stadium.se",
+        logoUrl: "/assets/partners/stadium.png",
       };
 
-      const updatedPartners = baseContent.partners.map((p, i) =>
-        i === 0 ? { ...p, memberCode: "NYKOD2027" } : p,
-      );
+      const customDraft: SiteContent = {
+        ...baseContent,
+        partners: [customPartner, ...baseContent.partners],
+      };
 
-      onChange({ ...baseContent, partners: updatedPartners });
-      expect(state.partners[0].memberCode).toBe("NYKOD2027");
+      const html = renderToString(<PartnersManagerForm draft={customDraft} onChange={() => {}} />);
+
+      expect(html).toContain("Stadium Lidingö");
+      expect(html).toContain("20% rabatt på alla skidjackor och hjälmar");
+      expect(html).toContain("FREESKIERS20");
+      expect(html).toContain("Visa medlemskortet i kassan eller uppge kod online.");
     });
   });
 
@@ -314,23 +378,27 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain("100% skidglädje");
     });
 
-    it("updates hero section title and CTA buttons", () => {
-      let state: SiteContent = baseContent;
-      const onChange = (u: SiteContent) => {
-        state = u;
-      };
-
-      onChange({
+    it("renders customized hero title and CTA button texts in HTML", () => {
+      const customDraft: SiteContent = {
         ...baseContent,
         hero: {
-          ...baseContent.hero,
-          title: "Ny fantastisk skidsäsong!",
-          primaryCtaText: "Boka plats",
+          title: "Välkommen till Sveriges roligaste skidklubb!",
+          subtitle: "Vi lär barn och unga att älska skidåkning i Ekholmsnäsbacken.",
+          primaryCtaText: "Upptäck våra grupper",
+          primaryCtaUrl: "/skidklubb",
+          secondaryCtaText: "Läs om Helgskidskolan",
+          secondaryCtaUrl: "/helgskidskola",
+          heroPhotoUrl: "/assets/photos/custom-hero.jpg",
         },
-      });
+      };
 
-      expect(state.hero.title).toBe("Ny fantastisk skidsäsong!");
-      expect(state.hero.primaryCtaText).toBe("Boka plats");
+      const html = renderToString(<GeneralHeroForm draft={customDraft} onChange={() => {}} />);
+
+      expect(html).toContain("Välkommen till Sveriges roligaste skidklubb!");
+      expect(html).toContain("Vi lär barn och unga att älska skidåkning i Ekholmsnäsbacken.");
+      expect(html).toContain("Upptäck våra grupper");
+      expect(html).toContain("Läs om Helgskidskolan");
+      expect(html).toContain("/assets/photos/custom-hero.jpg");
     });
   });
 });

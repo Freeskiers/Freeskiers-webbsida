@@ -1,6 +1,7 @@
 export * from "./CmsPreviewBanner";
 export * from "./ImageUploadField";
 export * from "@/lib/imageOptimizer";
+export * from "@/lib/cmsGroups";
 export * from "./TopBannerForm";
 export * from "./CancellationRulesForm";
 export * from "./GroupsForm";

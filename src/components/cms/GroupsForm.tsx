@@ -10,7 +10,7 @@ import {
   Link as LinkIcon,
   CheckCircle2,
   ListPlus,
-  AlertCircle,
+  Shield,
 } from "lucide-react";
 import type { SiteContent, CmsGroupInfo } from "@/types/cms";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { isCoreGroup, deleteGroupFromGroups } from "@/lib/cmsGroups";
 import { ImageUploadField } from "./ImageUploadField";
 
 export interface GroupsFormProps {
@@ -36,6 +37,7 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
 
   const activeGroup: CmsGroupInfo | undefined = groups[activeGroupKey] || groups[groupKeys[0]];
   const effectiveKey = activeGroup ? (groups[activeGroupKey] ? activeGroupKey : groupKeys[0]) : "";
+  const isCurrentCore = isCoreGroup(effectiveKey);
 
   const updateCurrentGroup = (partial: Partial<CmsGroupInfo>) => {
     if (!effectiveKey) return;
@@ -77,10 +79,12 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
   };
 
   const handleDeleteGroup = (keyToDelete: string) => {
-    if (groupKeys.length <= 1) {
-      alert("Du kan inte ta bort den sista träningsgruppen.");
+    const res = deleteGroupFromGroups(groups, keyToDelete);
+    if (!res.success) {
+      alert(res.error);
       return;
     }
+
     if (
       !confirm(
         `Är du säker på att du vill ta bort gruppen "${groups[keyToDelete]?.name || keyToDelete}"?`,
@@ -89,13 +93,10 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
       return;
     }
 
-    const nextGroups = { ...groups };
-    delete nextGroups[keyToDelete];
-    const remainingKeys = Object.keys(nextGroups);
-
+    const remainingKeys = Object.keys(res.groups);
     onChange({
       ...draft,
-      groups: nextGroups,
+      groups: res.groups,
     });
 
     if (activeGroupKey === keyToDelete) {
@@ -174,18 +175,20 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
           {groupKeys.map((key) => {
             const grp = groups[key];
             const isSelected = key === effectiveKey;
+            const isCore = isCoreGroup(key);
             return (
               <button
                 key={key}
                 type="button"
                 onClick={() => setActiveGroupKey(key)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                className={`relative rounded-lg px-3 py-1.5 text-xs font-bold transition-all flex items-center gap-1.5 ${
                   isSelected
                     ? "bg-primary text-primary-foreground shadow-xs"
                     : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                 }`}
               >
-                {grp?.name || key}
+                {isCore && <Shield className="size-3 opacity-70" />}
+                <span>{grp?.name || key}</span>
               </button>
             );
           })}
@@ -195,23 +198,49 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
         {activeGroup ? (
           <div className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/50 pb-3">
-              <div>
-                <h3 className="text-base font-bold text-foreground">{activeGroup.name}</h3>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-foreground">{activeGroup.name}</h3>
+                  {isCurrentCore ? (
+                    <span className="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary">
+                      <Shield className="size-3" />
+                      Kärngrupp – krävs för webbplatsens rutter
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+                      Anpassad grupp
+                    </span>
+                  )}
+                </div>
                 <span className="text-xs text-muted-foreground font-mono">
                   Sökväg: /{activeGroup.slug}
                 </span>
               </div>
 
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => handleDeleteGroup(effectiveKey)}
-                className="h-8 text-xs text-destructive hover:bg-destructive/10 self-start sm:self-auto"
-              >
-                <Trash2 className="mr-1.5 size-3.5" />
-                Ta bort denna grupp
-              </Button>
+              {isCurrentCore ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled
+                  className="h-8 text-xs opacity-60 cursor-not-allowed text-muted-foreground self-start sm:self-auto"
+                  title="Kärngrupper krävs för webbplatsens rutter och kan inte raderas."
+                >
+                  <Shield className="mr-1.5 size-3.5 text-primary" />
+                  Kärngrupp (skyddad)
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleDeleteGroup(effectiveKey)}
+                  className="h-8 text-xs text-destructive hover:bg-destructive/10 self-start sm:self-auto"
+                >
+                  <Trash2 className="mr-1.5 size-3.5" />
+                  Ta bort denna grupp
+                </Button>
+              )}
             </div>
 
             {/* Basic details */}
@@ -231,18 +260,32 @@ export const GroupsForm: React.FC<GroupsFormProps> = ({ draft, onChange, classNa
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="group-slug" className="text-xs font-semibold text-foreground">
-                  Slug / URL-identifierare
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="group-slug" className="text-xs font-semibold text-foreground">
+                    Slug / URL-identifierare
+                  </Label>
+                  {isCurrentCore && (
+                    <span className="text-[10px] text-muted-foreground">Låst för rutt</span>
+                  )}
+                </div>
                 <Input
                   id="group-slug"
                   type="text"
+                  disabled={isCurrentCore}
                   value={activeGroup.slug || ""}
                   onChange={(e) =>
+                    !isCurrentCore &&
                     updateCurrentGroup({ slug: e.target.value.toLowerCase().trim() })
                   }
                   placeholder="t.ex. skidklubb"
-                  className="h-9 text-xs font-mono"
+                  className={`h-9 text-xs font-mono ${
+                    isCurrentCore ? "bg-muted/50 cursor-not-allowed opacity-80" : ""
+                  }`}
+                  title={
+                    isCurrentCore
+                      ? "Kärngruppens URL-slug är bunden till webbplatsens sida och kan inte ändras."
+                      : undefined
+                  }
                 />
               </div>
             </div>
