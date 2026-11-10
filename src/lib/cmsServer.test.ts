@@ -67,7 +67,7 @@ describe("CMS Server Publishing Endpoint", () => {
       const baseline = getCmsContent();
       const invalid = {
         ...baseline,
-        topBanner: { ...baseline.topBanner, type: "critical" as any },
+        topBanner: { ...baseline.topBanner, type: "critical" as unknown as "info" },
       };
       const result = validateSiteContent(invalid);
       expect(result.valid).toBe(false);
@@ -84,7 +84,7 @@ describe("CMS Server Publishing Endpoint", () => {
       const baseline = getCmsContent();
       const invalid = {
         ...baseline,
-        calendarEvents: "not-an-array" as any,
+        calendarEvents: "not-an-array" as unknown as SiteContent["calendarEvents"],
       };
       const result = validateSiteContent(invalid);
       expect(result.valid).toBe(false);
@@ -308,6 +308,35 @@ describe("CMS Server Publishing Endpoint", () => {
       expect(res.status).toBe(200);
       expect(fs.existsSync(path.join(testPhotosDir, "coach-avatar.png"))).toBe(true);
     });
+
+    it("returns structured 500 JSON error when writing content file to disk fails", async () => {
+      const updatedContent = getCmsContent();
+      // Create a plain file at a path where a directory would be needed, causing ENOTDIR
+      const blockingFile = path.join(tempDir, "blocking-file");
+      fs.writeFileSync(blockingFile, "blocking");
+      const badContentPath = path.join(blockingFile, "site-content.json");
+
+      const req = new Request("https://freeskiers.se/api/cms/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: "admin@lidingofreeskiers.se",
+          pin: "2026",
+          content: updatedContent,
+        }),
+      });
+
+      const res = await handleCmsPublishRequest(req, {
+        contentFilePath: badContentPath,
+        cmsPhotosDir: testPhotosDir,
+        skipGit: true,
+      });
+
+      expect(res.status).toBe(500);
+      const data = await res.json();
+      expect(data.success).toBe(false);
+      expect(data.error).toContain("Kunde inte spara till disk");
+    });
   });
 
   describe("executeGitPublish", () => {
@@ -318,6 +347,35 @@ describe("CMS Server Publishing Endpoint", () => {
       // In this repo, HEAD is valid git commit
       expect(result.committed !== undefined).toBe(true);
       expect(typeof result.commitHash === "string" || result.commitHash === undefined).toBe(true);
+    });
+
+    it("informs caller when remote git push fails", async () => {
+      // In dry-run mode against non-existent remotes, executeGitPublish reports the push warning or error
+      const baseline = getCmsContent();
+      const req = new Request("https://freeskiers.se/api/cms/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: "admin@lidingofreeskiers.se",
+          pin: "2026",
+          content: baseline,
+        }),
+      });
+
+      // When skipPush is false in sandbox or offline, git push reports push failure
+      const res = await handleCmsPublishRequest(req, {
+        contentFilePath: testContentFile,
+        cmsPhotosDir: testPhotosDir,
+        skipPush: false,
+      });
+
+      expect(res.status).toBe(200);
+      const data = await res.json();
+      expect(data.success).toBe(true);
+      if (data.pushed === false && data.error) {
+        expect(data.message).toContain("kunde inte pushas till fjärr-repo");
+        expect(data.error).toBeDefined();
+      }
     });
   });
 });

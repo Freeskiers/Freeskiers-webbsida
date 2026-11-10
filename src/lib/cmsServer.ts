@@ -359,13 +359,26 @@ export async function publishCmsContent(
   // 5. Write content to site-content.json
   const contentPath =
     options?.contentFilePath || path.resolve(process.cwd(), "src/data/site-content.json");
-  fs.mkdirSync(path.dirname(contentPath), { recursive: true });
-  fs.writeFileSync(contentPath, JSON.stringify(payload.content, null, 2) + "\n", "utf8");
+  try {
+    fs.mkdirSync(path.dirname(contentPath), { recursive: true });
+    fs.writeFileSync(contentPath, JSON.stringify(payload.content, null, 2) + "\n", "utf8");
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("Kunde inte skriva till innehållsfilen:", msg);
+    return {
+      success: false,
+      error: `Kunde inte spara till disk: ${msg}`,
+    };
+  }
 
   // 6. Decode and save any base64 images
   const photosDir = options?.cmsPhotosDir || path.resolve(process.cwd(), "src/assets/photos/cms");
   if (payload.images) {
-    fs.mkdirSync(photosDir, { recursive: true });
+    try {
+      fs.mkdirSync(photosDir, { recursive: true });
+    } catch (dirErr: unknown) {
+      console.warn("Kunde inte skapa bildmapp för CMS:", dirErr);
+    }
 
     const imageList: CmsImagePayload[] = Array.isArray(payload.images)
       ? payload.images
@@ -393,6 +406,16 @@ export async function publishCmsContent(
   // 7. Git commit and push
   const authorName = resolveAuthorName(email, payload.name || payload.authorName);
   const gitResult = await executeGitPublish(authorName, options);
+
+  if (gitResult.pushed === false && gitResult.error) {
+    return {
+      success: true,
+      message: `Ändringarna sparades lokalt, men kunde inte pushas till fjärr-repo: ${gitResult.error}`,
+      commitHash: gitResult.commitHash,
+      pushed: false,
+      error: gitResult.error,
+    };
+  }
 
   return {
     success: true,
@@ -492,10 +515,23 @@ export async function handleCmsPublishRequest(
     );
   }
 
-  const result = await publishCmsContent(payload, options);
-
-  return new Response(JSON.stringify(result), {
-    status: result.success ? 200 : 500,
-    headers: { "content-type": "application/json; charset=utf-8" },
-  });
+  try {
+    const result = await publishCmsContent(payload, options);
+    return new Response(JSON.stringify(result), {
+      status: result.success ? 200 : 500,
+      headers: { "content-type": "application/json; charset=utf-8" },
+    });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: `Oväntat serverfel: ${msg}`,
+      }),
+      {
+        status: 500,
+        headers: { "content-type": "application/json; charset=utf-8" },
+      },
+    );
+  }
 }
