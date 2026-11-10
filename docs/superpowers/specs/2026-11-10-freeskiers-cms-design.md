@@ -35,10 +35,11 @@ Superadmin och utvecklare fortsätter arbeta precis som vanligt via Lovable, Git
 ## 3. Behörighet & Inloggning
 
 * **Placering:** Integrerat i administratörsportalen under `/admin` (fliken "Innehåll / CMS") med direktlänk `/admin/cms`.
-* **Autentisering:** 
-  1. Kontroll av redaktörens e-postadress mot en lista över godkända adresser (`ALLOWED_CMS_EDITORS` i `src/lib/cmsConfig.ts`).
-  2. Klubb-PIN (samma säkra PIN som klubbens admin-gate).
-* **Rollstyrning:** Redaktörer ser endast de avskalade formulärfälten. Källkod, Git-konfiguration och systeminställningar är dolda och otillgängliga.
+* **Autentisering & Automatisk behörighet:** 
+  1. **SportAdmin-koppling (Automatisk behörighet):** Alla medlemmar som i SportAdmin har gruppkopplingen *"Styrelse"* eller *"Tränaransvarig"* har automatisk redigeringsbehörighet när de loggar in med sin e-postadress.
+  2. **Explcit redaktörslista (`ALLOWED_CMS_EDITORS` i `src/lib/cmsConfig.ts`):** Kompletterande lista över manuellt tillagda administratörer/redaktörer.
+  3. **Klubb-PIN:** Samma gemensamma klubb-PIN som skyddar adminportalen.
+* **Rollstyrning:** Redaktörer ser endast de avskalade formulärfälten. Källkod, Git-konfiguration och systeminställningar är dolda och otillgängliga. Superadmin har dessutom en flik för att hantera redaktörslistan.
 
 ---
 
