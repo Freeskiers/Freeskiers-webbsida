@@ -1,0 +1,749 @@
+{
+  "topBanner": {
+    "enabled": false,
+    "type": "info",
+    "text": "Välkommen till en ny säsong med Lidingö Freeskiers!",
+    "linkText": "Läs mer i kalendern",
+    "linkUrl": "/kalender"
+  },
+  "hero": {
+    "title": "100% skidglädje & gemenskap för barn och unga",
+    "subtitle": "Från de allra första svängarna i barnbacken till hopp, rails och friåkning. Skidklubben och Helgskidskolan där alla utvecklas i sin egen takt – helt utan prestationshets.",
+    "primaryCtaText": "Freeskiers Skidklubb",
+    "primaryCtaUrl": "/skidklubb",
+    "secondaryCtaText": "Anmäl till Helgskidskolan",
+    "secondaryCtaUrl": "/helgskidskola",
+    "heroPhotoUrl": "/assets/photos/hero-freeski-night-action.jpg"
+  },
+  "groups": {
+    "helgskidskola": {
+      "slug": "helgskidskola",
+      "name": "Freeskiers Helgskidskola",
+      "price": "2 980 kr",
+      "priceNote": "Träningsavgift för vintersäsongen. Med reservation för ändringar.",
+      "registrationOpens": "1 november kl. 09.00",
+      "schedule": "5 helgtillfällen på lördagar eller söndagar under januari–februari, 75 minuter per gång",
+      "requirements": [
+        "Alla barn måste ha hjälm i backen. Ryggskydd rekommenderas.",
+        "Grön grupp – nybörjare från 5 år",
+        "Blå grupp – avancerade nybörjare",
+        "Röd grupp – fortsättning"
+      ],
+      "photoUrl": "/assets/photos/helgskidskola-grupp-ljus.jpg",
+      "bookingUrl": "https://sportadmin.se/book/?F=7631cd86-189b-4c49-bfc0-3ba70fe1f127"
+    },
+    "skidklubb": {
+      "slug": "skidklubb",
+      "name": "Freeskiers Skidklubb",
+      "price": "3 130 kr",
+      "priceNote": "Åk 1–5: 3 130 kr (1 pass/v). Åk 6–9: 4 390 kr (2 pass/v). Alla priser inkluderar liftkort.",
+      "registrationOpens": "16 oktober kl. 09.00",
+      "schedule": "Träning 1–2 gånger i veckan, måndag–onsdag kväll, januari–mars",
+      "requirements": [
+        "Åkning ska kunna ske kontrollerat från topp till botten i backen",
+        "Åkning med huvudsakligen parallella skidor",
+        "Självständig åkning i lift samt säker avstigning",
+        "Förmåga att stanna kontrollerat utan problem"
+      ],
+      "photoUrl": "/assets/photos/skidklubb-hopp.jpg",
+      "bookingUrl": "https://sportadmin.se/book/?F=7631cd86-189b-4c49-bfc0-3ba70fe1f127"
+    },
+    "hostsasong": {
+      "slug": "hostsasong",
+      "name": "Freeskiers Höstsäsong",
+      "price": "795 kr",
+      "priceNote": "Barmark & trampolin: 795 kr. Endast trampolin: 600 kr.",
+      "registrationOpens": "September",
+      "schedule": "Onsdagar fram till jul – barmark kl. 18.30–19.30 vid Stockby & trampolinträning i Vikingahallen",
+      "requirements": [
+        "För barn och unga i åk 1–9",
+        "Förtur till Freeskiers Skidklubb för anmälda"
+      ],
+      "photoUrl": "/assets/photos/park-rails.jpg",
+      "bookingUrl": "https://sportadmin.se/book/?F=7631cd86-189b-4c49-bfc0-3ba70fe1f127"
+    },
+    "privatlektion": {
+      "slug": "privatlektion",
+      "name": "Privatlektioner",
+      "price": "850 kr",
+      "priceNote": "1 person: 850 kr/h. 2 personer: 1 300 kr/h. Liftkort ingår under lektionen.",
+      "registrationOpens": "Löpande under vintersäsongen",
+      "schedule": "60 minuter per pass, bokas direkt via instruktör",
+      "requirements": [
+        "För alla åldrar – barn, ungdomar och vuxna på alla nivåer",
+        "Vid 2 personer behöver båda kunna stanna kontrollerat och åka ankarlift"
+      ],
+      "photoUrl": "/assets/photos/privatlektioner-grupp.jpg",
+      "bookingUrl": "https://www.lidingofreeskiers.se/privatlektion/"
+    }
+  },
+  "cancellationRules": {
+    "fullRefundUntil": "30 november",
+    "skidklubbDeduction": "1 000 kr",
+    "helgskidskolaDeduction": "600 kr",
+    "cancelledSeasonFee": "400 kr",
+    "deductionPeriod": "1–20 december",
+    "noRefundFrom": "21 december",
+    "policyText": "Lidingö Freeskiers är en ideell förening och kan inte bära större ekonomiska förluster. Snöläggning och drift av Ekholmsnäsbacken sköts av en extern entreprenör. Om backen öppnar genomför vi träning och full avgift gäller. Om backen inte öppnar återbetalas avgiften minus 400 kr. Efter 21 december gäller ingen återbetalning vid skada, sjukdom eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen."
+  },
+  "calendarEvents": [
+    {
+      "id": "anmalan-oppnar-2026",
+      "title": "Anmälan till Freeskiers Skidklubb",
+      "date": "16 oktober 2026",
+      "time": "Kl. 09:00",
+      "location": "Freeskiers bokningssida",
+      "category": "anmalan",
+      "description": "Anmälan för alla lediga platser till Freeskiers Skidklubb öppnar 16 oktober kl. 09.00. Tidigare medlemmar och deltagare i Höstsäsongen har förtur. Vi har inget kösystem - först till kvarn gäller!",
+      "linkUrl": "/skidklubb"
+    },
+    {
+      "id": "anmalan-helgskidskola-2026",
+      "title": "Anmälan till Helgskidskolan",
+      "date": "1 november 2026",
+      "time": "Kl. 09:00",
+      "location": "Freeskiers bokningssida",
+      "category": "anmalan",
+      "description": "Anmälan till Helgskidskolan öppnar den 1 november kl. 09.00. Vi har inget kösystem - först till kvarn gäller!",
+      "linkUrl": "/helgskidskola"
+    },
+    {
+      "id": "camp-freeskiers-host-2026",
+      "title": "Camp Freeskiers",
+      "date": "7–8 november 2026",
+      "time": "Helgläger",
+      "location": "Ekholmsnäsbacken",
+      "category": "lager",
+      "description": "Camp Freeskiers den 7–8 november 2026 med fokus på skidglädje, gemenskap och förberedelse inför vintern.",
+      "linkUrl": "/om-oss"
+    },
+    {
+      "id": "klubbkvall-alpingaraget-2026",
+      "title": "Klubbkväll & Utrustningscheck i Alpingaraget",
+      "date": "30 november 2026",
+      "time": "18:00 – 20:30",
+      "location": "Alpingaraget, Birger Jarlsgatan, Stockholm",
+      "category": "klubbkvall",
+      "description": "Exklusiv klubbkväll hos vår samarbetspartner Alpingaraget. Träffa tränarna, prova ut rätt pjäxor och skidor med experthjälp, köp hjälm och ryggskydd med klubbrabatt samt beställ årets klubbjacka.",
+      "linkUrl": "/sponsor"
+    },
+    {
+      "id": "traning-2027-01-11",
+      "title": "Träning Måndag: Freeskiers Skidklubb Åk 1–4 & Åk 6–9",
+      "date": "Måndag 11 januari 2027",
+      "time": "18:15 – 21:15",
+      "location": "Ekholmsnäsbacken, Lidingö",
+      "category": "traning",
+      "description": "Första måndagsträningen i Ekholmsnäsbacken (v. 2). Åk 1–4 måndag tränar kl. 18.15–19.45 och Åk 6–9 kl. 19.45–21.15.",
+      "linkUrl": "/skidklubb"
+    },
+    {
+      "id": "hss-1-2027-01-30",
+      "title": "Helgskidskola – Tillfälle 1 (Premiär)",
+      "date": "Lördag 30 januari 2027",
+      "time": "09:30 – 14:30",
+      "location": "Ekholmsnäsbacken, Lidingö",
+      "category": "helgskidskola",
+      "description": "Premiär för Helgskidskolan i Grön, Blå och Röd grupp! Förmiddag 09.30–10.45, Lunch 11.15–12.30, Eftermiddag 13.15–14.30.",
+      "linkUrl": "/helgskidskola"
+    },
+    {
+      "id": "rookie-series-ekholmsnas-2027",
+      "title": "Rookie Series Stockholm i Ekholmsnäsbacken",
+      "date": "Söndag 14 februari 2027",
+      "time": "09:30 – 14:45",
+      "location": "Ekholmsnäsbacken Snowpark, Lidingö",
+      "category": "tavling",
+      "description": "Vår freeski-tävling i Ekholmsnäsbacken i samarbete med SSF. Jam-format för Kids, Ungdom och Junior med prisutdelning ca 14.15–14.45.",
+      "linkUrl": "/rookie-series"
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-utrustning",
+      "question": "Vilken utrustning behöver mitt barn ha med sig?",
+      "answer": "Hjälm är ett absolut krav i både Helgskidskolan och Freeskiers skidklubb. I skidklubben krävs även ryggskydd medan det endast rekommenderas till skidskolan. Skidorna ska ha fungerande bindningar inställda efter barnets längd och vikt. Stavar behövs inte för nybörjare. Skidor, pjäxor, stavar och hjälmar kan hyras av Ekholmsnäsbackens skiduthyrning.",
+      "category": "utrustning"
+    },
+    {
+      "id": "faq-liftkort",
+      "question": "Ingår liftkort i deltagaravgiften?",
+      "answer": "Liftkort behövs inte i Helgskidskolan – vi har en egen liftkö. Skidklubbens träningsavgifter inkluderar liftkort, och vid privatlektion ingår ett tillfälligt liftkort under lektionen.",
+      "category": "avgifter"
+    },
+    {
+      "id": "faq-fritidskortet",
+      "question": "Hur fungerar statliga Fritidskortet hos er?",
+      "answer": "IK Lidingö Freeskiers är anslutna till Riksidrottsförbundet och godkänd förening för Fritidskortet. Du kan använda ditt barns fritidskortsaldo för att betala hela eller delar av deltagar- och medlemsavgiften.",
+      "category": "avgifter"
+    },
+    {
+      "id": "faq-forsakring",
+      "question": "Är mitt barn försäkrat under träningarna?",
+      "answer": "Ja! Alla deltagare med erlagd medlemsavgift är olycksfallsförsäkrade genom Svenska Skidförbundets gemensamma medlemsförsäkring hos Folksam under klubbens organiserade träningar och resor.",
+      "category": "trygghet"
+    },
+    {
+      "id": "faq-vader",
+      "question": "Vad händer vid dåligt väder eller om det är för lite snö i Ekholmsnäsbacken?",
+      "answer": "Om vädret är för dåligt eller om en lektion måste ställas in på grund av väder- eller snöläget så ställs den lektionen in och ersätts inte med ett nytt datum.",
+      "category": "regler"
+    },
+    {
+      "id": "faq-avbokning",
+      "question": "Kan man få pengar tillbaka om barnet blir sjukt eller skadat?",
+      "answer": "Enligt klubbens avboknings- och återbetalningsregler utgår ingen återbetalning vid skada, sjukdom eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.",
+      "category": "regler"
+    },
+    {
+      "id": "faq-niva",
+      "question": "Vilken grupp passar mitt barn?",
+      "answer": "Gör skidtestet ”Hitta rätt nivå” här på sajten – tre frågor om ålder, kunskapsnivå och vad åkaren framför allt vill göra, och du får ett förslag. Helgskidskolan vänder sig till åkare från 5 år och Skidklubben till åk 1–9 som uppfyller minimikraven; för yngre nybörjare och vuxna passar en privatlektion.",
+      "category": "grupper"
+    },
+    {
+      "id": "faq-vuxna",
+      "question": "Kan vuxna åka med er?",
+      "answer": "Ja! Klubbens instruktörer erbjuder privatlektioner för barn, ungdomar och vuxna – en eller två personer i 60 minuter. Boka direkt på privatlektionssidan; liftkort ingår under lektionen.",
+      "category": "grupper"
+    }
+  ],
+  "coaches": [
+    {
+      "id": "abbe-olofsson",
+      "name": "Abbe Olofsson",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/abbe-olofsson.jpg"
+    },
+    {
+      "id": "alexandra-taube",
+      "name": "Alexandra Taube",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/alexandra-taube.jpg"
+    },
+    {
+      "id": "anton-knave",
+      "name": "Anton Knave",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/anton-knave.jpg"
+    },
+    {
+      "id": "august-ornby",
+      "name": "August Ornby",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/august-ornby.jpg"
+    },
+    {
+      "id": "axel-lundgren-dahl",
+      "name": "Axel Lundgren Dahl",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/axel-lundgren-dahl.jpg"
+    },
+    {
+      "id": "billie-aberg",
+      "name": "Billie Åberg",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/billie-aberg.jpg"
+    },
+    {
+      "id": "carl-elmfeldt",
+      "name": "Carl Elmfeldt",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/carl-elmfeldt.jpg"
+    },
+    {
+      "id": "carl-leuhusen",
+      "name": "Carl Leuhusen",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/carl-leuhusen.jpg"
+    },
+    {
+      "id": "carl-nordlander",
+      "name": "Carl Nordlander",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/carl-nordlander.jpg"
+    },
+    {
+      "id": "carlaxel-vikstrom",
+      "name": "Carlaxel Vikström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/carlaxel-vikstrom.jpg"
+    },
+    {
+      "id": "ebba-dangre",
+      "name": "Ebba Dangré",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/ebba-dangre.jpg"
+    },
+    {
+      "id": "ella-riisberg",
+      "name": "Ella Riisberg",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/ella-riisberg.jpg"
+    },
+    {
+      "id": "ella-milou-feigin-hamilton",
+      "name": "Ella-Milou Feigin Hamilton",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/ella-milou-feigin-hamilton.jpg"
+    },
+    {
+      "id": "eric-ryman",
+      "name": "Eric Ryman",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/eric-ryman.jpg"
+    },
+    {
+      "id": "erik-norinder",
+      "name": "Erik Norinder",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/erik-norinder.jpg"
+    },
+    {
+      "id": "felix-bergstrom",
+      "name": "Felix Bergström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/felix-bergstrom.jpg"
+    },
+    {
+      "id": "felix-jonsberg-nordahl",
+      "name": "Felix Jonsberg Nordahl",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/felix-jonsberg-nordahl.jpg"
+    },
+    {
+      "id": "filip-ryman",
+      "name": "Filip Ryman",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/filip-ryman.jpg"
+    },
+    {
+      "id": "franca-peilitz",
+      "name": "Franca Peilitz",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/franca-peilitz.jpg"
+    },
+    {
+      "id": "gustaf-isakson",
+      "name": "Gustaf Isakson",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "hector-nelker",
+      "name": "Hector Nelker",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "hedvig-nelker",
+      "name": "Hedvig Nelker",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/hedvig-nelker.jpg"
+    },
+    {
+      "id": "hilma-newman",
+      "name": "Hilma Newman",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/hilma-newman.jpg"
+    },
+    {
+      "id": "hugo-riisberg",
+      "name": "Hugo Riisberg",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/hugo-riisberg.jpg"
+    },
+    {
+      "id": "ingrid-roth",
+      "name": "Ingrid Roth",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/ingrid-roth.jpg"
+    },
+    {
+      "id": "ivar-zetterstrom",
+      "name": "Ivar Zetterström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/ivar-zetterstrom.jpg"
+    },
+    {
+      "id": "john-edeus",
+      "name": "John Edeus",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/john-edeus.jpg"
+    },
+    {
+      "id": "julie-ryott",
+      "name": "Julie Ryott",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/julie-ryott.jpg"
+    },
+    {
+      "id": "kian-blomberg",
+      "name": "Kian Blomberg",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "klas-lagerstrom",
+      "name": "Klas Lagerström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/klas-lagerstrom.jpg"
+    },
+    {
+      "id": "leia-fallan-rod-elgh",
+      "name": "Leia Fallan Röd Elgh",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "liv-rammer",
+      "name": "Liv Rammer",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/liv-rammer.jpg"
+    },
+    {
+      "id": "livia-wetternin",
+      "name": "Livia Wetternin",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/livia-wetternin.jpg"
+    },
+    {
+      "id": "lovisa-hogstrom",
+      "name": "Lovisa Högström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/lovisa-hogstrom.jpg"
+    },
+    {
+      "id": "luc-pope",
+      "name": "Luc Pope",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/luc-pope.jpg"
+    },
+    {
+      "id": "ludvig-holmgren",
+      "name": "Ludvig Holmgren",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "martina-mellberg-ahlstrom",
+      "name": "Martina Mellberg Ahlström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "max-wrange",
+      "name": "Max Wrange",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/max-wrange.jpg"
+    },
+    {
+      "id": "nils-hadzin",
+      "name": "Nils Hadzin",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/nils-hadzin.jpg"
+    },
+    {
+      "id": "noah-oscarsson",
+      "name": "Noah Oscarsson",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/noah-oscarsson.jpg"
+    },
+    {
+      "id": "olle-dahlqvist",
+      "name": "Olle Dahlqvist",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/olle-dahlqvist.jpg"
+    },
+    {
+      "id": "oscar-wolf",
+      "name": "Oscar Wolf",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/oscar-wolf.jpg"
+    },
+    {
+      "id": "otto-wallentin",
+      "name": "Otto Wallentin",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/otto-wallentin.jpg"
+    },
+    {
+      "id": "petter-wejstorp",
+      "name": "Petter Wejstorp",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/petter-wejstorp.jpg"
+    },
+    {
+      "id": "philip-dahlbeck-nobel",
+      "name": "Philip Dahlbeck Nobel",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/philip-dahlbeck-nobel.jpg"
+    },
+    {
+      "id": "saga-boldt-christmas",
+      "name": "Saga Boldt-Christmas",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/saga-boldt-christmas.jpg"
+    },
+    {
+      "id": "sam-martinsson",
+      "name": "Sam Martinsson",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/sam-martinsson.jpg"
+    },
+    {
+      "id": "samuel-malmquist",
+      "name": "Samuel Malmquist",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/samuel-malmquist.jpg"
+    },
+    {
+      "id": "signe-nordblad",
+      "name": "Signe Nordblad",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/signe-nordblad.jpg"
+    },
+    {
+      "id": "sigrid-zetterstrom",
+      "name": "Sigrid Zetterström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/sigrid-zetterstrom.jpg"
+    },
+    {
+      "id": "simon-agnblad",
+      "name": "Simon Agnblad",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/simon-agnblad.jpg"
+    },
+    {
+      "id": "sixten-lundstrom",
+      "name": "Sixten Lundström",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/sixten-lundstrom.jpg"
+    },
+    {
+      "id": "stella-af-sandeberg",
+      "name": "Stella Af Sandeberg",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/stella-af-sandeberg.jpg"
+    },
+    {
+      "id": "svante-dahlqvist",
+      "name": "Svante Dahlqvist",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/svante-dahlqvist.jpg"
+    },
+    {
+      "id": "thea-elmfeldt",
+      "name": "Thea Elmfeldt",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/thea-elmfeldt.jpg"
+    },
+    {
+      "id": "tom-foulds",
+      "name": "Tom Foulds",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "tom-leuhusen",
+      "name": "Tom Leuhusen",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/tom-leuhusen.jpg"
+    },
+    {
+      "id": "valter-dahl",
+      "name": "Valter Dahl",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/valter-dahl.jpg"
+    },
+    {
+      "id": "vincent-lindau-carloni",
+      "name": "Vincent Lindau Carloni",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": ""
+    },
+    {
+      "id": "wilhelm-lang",
+      "name": "Wilhelm Lang",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/wilhelm-lang.jpg"
+    },
+    {
+      "id": "william-nagenius",
+      "name": "William Nagenius",
+      "role": "Tränare",
+      "group": "Skidklubben & Helgskidskolan",
+      "photoUrl": "/assets/photos/coaches/william-nagenius.jpg"
+    },
+    {
+      "id": "ann-winitsky-sainer",
+      "name": "Ann Winitsky Säiner",
+      "role": "Ledare",
+      "group": "Styrelse & Kommunikation",
+      "photoUrl": "/assets/photos/coaches/ann-winitsky-sainer.jpg"
+    },
+    {
+      "id": "daniel-ryman",
+      "name": "Daniel Ryman",
+      "role": "Ledare",
+      "group": "Backansvarig",
+      "photoUrl": "/assets/photos/coaches/daniel-ryman.jpg"
+    },
+    {
+      "id": "fredrik-vikstrom",
+      "name": "Fredrik Vikström",
+      "role": "Ledare",
+      "group": "Ledare",
+      "photoUrl": "/assets/photos/coaches/fredrik-vikstrom.jpg"
+    },
+    {
+      "id": "gustav-leuhusen",
+      "name": "Gustav Leuhusen",
+      "role": "Ledare",
+      "group": "Ledare",
+      "photoUrl": "/assets/photos/coaches/gustav-leuhusen.jpg"
+    },
+    {
+      "id": "johan-bergstrom",
+      "name": "Johan Bergström",
+      "role": "Ledare",
+      "group": "Ledare",
+      "photoUrl": "/assets/photos/coaches/johan-bergstrom.jpg"
+    },
+    {
+      "id": "lars-hadzin",
+      "name": "Lars Hadzin",
+      "role": "Ledare",
+      "group": "Ledare",
+      "photoUrl": "/assets/photos/coaches/lars-hadzin.jpg"
+    },
+    {
+      "id": "simon-ornby",
+      "name": "Simon Ornby",
+      "role": "Ledare",
+      "group": "Ledare",
+      "photoUrl": "/assets/photos/coaches/simon-ornby.jpg"
+    },
+    {
+      "id": "sten-berggren",
+      "name": "Sten Berggren",
+      "role": "Ledare",
+      "group": "Kassör & Styrelse",
+      "photoUrl": "/assets/photos/coaches/sten-berggren.jpg"
+    }
+  ],
+  "partners": [
+    {
+      "id": "alpingaraget",
+      "name": "Alpingaraget",
+      "discountSummary": "15% rabatt på skidutrustning, bootfitting & klubbkläder",
+      "memberCode": "FREESKIERS15",
+      "howToRedeem": "Visa ditt digitala medlemskort i kassan i butiken på Birger Jarlsgatan, eller använd rabattkoden i webbshoppen.",
+      "websiteUrl": "https://www.alpingaraget.se",
+      "logoUrl": "/assets/partners/alpingaraget.png"
+    },
+    {
+      "id": "ekholmsnasbacken",
+      "name": "Ekholmsnäsbacken",
+      "discountSummary": "Förmånligt säsongskort & 10% på skidservice & slipning",
+      "howToRedeem": "Visa medlemskortets QR-kod vid köp av säsongskort eller vid inlämning av skidor i skidverkstaden.",
+      "websiteUrl": "https://www.ekholmsnasbacken.se",
+      "logoUrl": "/assets/partners/ekholmsnas.png"
+    },
+    {
+      "id": "kang-poles",
+      "name": "Kang Poles",
+      "discountSummary": "20% rabatt på hållbara friåknings- & parkstavar",
+      "memberCode": "KANGFREESKI20",
+      "howToRedeem": "Använd medlemskoden vid utcheckning på kangpoles.com.",
+      "websiteUrl": "https://kangpoles.com",
+      "logoUrl": "/assets/partners/kang.png"
+    },
+    {
+      "id": "gadelius",
+      "name": "Gadelius Fastighetsbyrå",
+      "discountSummary": "2 500 kr föreningsbonus vid bostadsförsäljning på Lidingö",
+      "howToRedeem": "Uppge att du är medlem i IK Lidingö Freeskiers vid kontakt med Gadelius fastighetsmäklare.",
+      "websiteUrl": "https://gadelius.se",
+      "logoUrl": "/assets/partners/gadelius.png"
+    },
+    {
+      "id": "stockholm-bordsuthyrning",
+      "name": "Stockholm Bordsuthyrning",
+      "discountSummary": "15% rabatt på bord, stolar & partytält",
+      "memberCode": "STHLMBORD15",
+      "howToRedeem": "Ange koden vid bokningsförfrågan online eller via telefon.",
+      "websiteUrl": "https://stockholmbordsuthyrning.se",
+      "logoUrl": "/assets/partners/stockholmbordsuthyrning.png"
+    },
+    {
+      "id": "lidingo-centrum",
+      "name": "Lidingö Centrum",
+      "discountSummary": "Mötesplats och samarbetspartner för event och klubbaktiviteter",
+      "howToRedeem": "Besök Lidingö Centrum för klubbevent och Intersport.",
+      "websiteUrl": "https://lidingocentrum.se",
+      "logoUrl": "/assets/partners/lidingocentrum.svg"
+    }
+  ]
+}
