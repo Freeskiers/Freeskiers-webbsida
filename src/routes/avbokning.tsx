@@ -51,7 +51,7 @@ function AvbokningPage() {
             <strong>Lidingö Freeskiers är en ideell förening och kan inte bära större ekonomiska förluster.</strong>{" "}
             Snöläggning och drift av Ekholmsnäsbacken sköts av en extern entreprenör.{" "}
             <strong>Om backen öppnar genomför vi träning och full avgift gäller.</strong> Om backen inte öppnar{" "}
-            <strong>återbetalar vi avgiften minus en anmälningsavgift på 400 kr.</strong>
+            <strong>återbetalar vi avgiften minus en anmälningsavgift på 1 000 kr för Skidklubben och 600 kr för Helgskidskolan.</strong>
           </p>
           <p className="mt-3 text-sm leading-relaxed">
             Föreningen följer myndigheternas rekommendationer vid pandemier eller andra händelser utanför vår kontroll.{" "}
