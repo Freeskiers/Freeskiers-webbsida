@@ -3,6 +3,7 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { handleSportAdminApiRequest } from "./lib/sportadminServer";
+import { handleCmsPublishRequest } from "./lib/cmsServer";
 
 if (typeof process !== "undefined" && process.env) {
   process.env.SUPABASE_URL ||= "https://placeholder.supabase.co";
@@ -56,6 +57,9 @@ export default {
       const url = new URL(request.url);
       if (url.pathname === "/api/sportadmin") {
         return await handleSportAdminApiRequest(request);
+      }
+      if (url.pathname === "/api/cms/publish") {
+        return await handleCmsPublishRequest(request);
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
