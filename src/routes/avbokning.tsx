@@ -20,7 +20,8 @@ export const Route = createFileRoute("/avbokning")({
 
 const avbokning = [
   "t.o.m 30 november: hela avgiften återbetalas.",
-  "1–20 december: återbetalning minus 400 kr.",
+  "Skidklubben 1–20 december: återbetalning minus 1 000 kr.",
+  "Helgskidskolan 1–20 december: återbetalning minus 600 kr.",
   "Från 21 december: ingen återbetalning.",
 ];
 
