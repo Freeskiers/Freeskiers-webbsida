@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, ExternalLink, Heart, Mail, Mountain, Users } from "lucide-react";
 
 import teamPhoto from "@/assets/photos/coaches-group.jpg";
 import { ClubForm } from "@/components/site/ClubForm";
 import { PageBanner } from "@/components/site/PageBanner";
+import { useCmsContent } from "@/contexts/CmsPreviewContext";
 import {
   board,
-  coaches,
+  coaches as defaultCoaches,
   CONTACT_EMAIL,
   europeanSnowsportSamarbete,
+  type Coach,
 } from "@/lib/club-data";
 
 export const Route = createFileRoute("/om-oss")({
@@ -26,10 +28,38 @@ export const Route = createFileRoute("/om-oss")({
   component: AboutPage,
 });
 
-function AboutPage() {
+export function AboutPage() {
+  const { coaches: cmsCoaches } = useCmsContent();
   const [activeTab, setActiveTab] = useState<"tranare" | "ledare">("tranare");
-  const trainersList = coaches.filter((c) => c.category === "tranare");
-  const leadersList = coaches.filter((c) => c.category === "ledare");
+
+  const coachList: Coach[] = useMemo(() => {
+    if (!cmsCoaches || cmsCoaches.length === 0) {
+      return defaultCoaches;
+    }
+
+    return cmsCoaches.map((cms) => {
+      const defaultMatch = defaultCoaches.find(
+        (dc) => dc.name.toLowerCase() === cms.name.toLowerCase(),
+      );
+
+      const isLeader =
+        cms.role.toLowerCase().includes("ledare") ||
+        cms.group?.toLowerCase().includes("ledare") ||
+        cms.group?.toLowerCase().includes("styrelse") ||
+        cms.group?.toLowerCase().includes("kassör") ||
+        defaultMatch?.category === "ledare";
+
+      return {
+        name: cms.name,
+        role: cms.role || defaultMatch?.role || "Tränare",
+        category: (isLeader ? "ledare" : "tranare") as "tranare" | "ledare",
+        photo: cms.photoUrl || defaultMatch?.photo,
+      };
+    });
+  }, [cmsCoaches]);
+
+  const trainersList = coachList.filter((c) => c.category === "tranare");
+  const leadersList = coachList.filter((c) => c.category === "ledare");
   const displayedCoaches = activeTab === "tranare" ? trainersList : leadersList;
 
   return (

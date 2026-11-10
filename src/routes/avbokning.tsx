@@ -3,6 +3,7 @@ import { CheckCircle2 } from "lucide-react";
 
 import sunset from "@/assets/photos/ekholmsnas-sunset.jpg";
 import { PageBanner } from "@/components/site/PageBanner";
+import { useCmsContent } from "@/contexts/CmsPreviewContext";
 
 export const Route = createFileRoute("/avbokning")({
   head: () => ({
@@ -18,14 +19,26 @@ export const Route = createFileRoute("/avbokning")({
   component: AvbokningPage,
 });
 
-const avbokning = [
-  "t.o.m 30 november: hela avgiften återbetalas.",
-  "Skidklubben 1–20 december: återbetalning minus 1 000 kr.",
-  "Helgskidskolan 1–20 december: återbetalning minus 600 kr.",
-  "Från 21 december: ingen återbetalning.",
-];
+export function AvbokningPage() {
+  const { cancellationRules } = useCmsContent();
 
-function AvbokningPage() {
+  const rules = cancellationRules || {
+    fullRefundUntil: "30 november",
+    deductionPeriod: "1–20 december",
+    skidklubbDeduction: "1 000 kr",
+    helgskidskolaDeduction: "600 kr",
+    cancelledSeasonFee: "400 kr",
+    noRefundFrom: "21 december",
+    policyText: "",
+  };
+
+  const avbokning = [
+    `t.o.m ${rules.fullRefundUntil || "30 november"}: hela avgiften återbetalas.`,
+    `Skidklubben ${rules.deductionPeriod || "1–20 december"}: återbetalning minus ${rules.skidklubbDeduction || "1 000 kr"}.`,
+    `Helgskidskolan ${rules.deductionPeriod || "1–20 december"}: återbetalning minus ${rules.helgskidskolaDeduction || "600 kr"}.`,
+    `Från ${rules.noRefundFrom || "21 december"}: ingen återbetalning.`,
+  ];
+
   return (
     <>
       <PageBanner photo={sunset} alt="Solnedgång över Ekholmsnäsbacken" eyebrow="Skidklubb & Helgskidskola" title="Avbokning & återbetalning" />
@@ -41,18 +54,25 @@ function AvbokningPage() {
             ))}
           </ul>
           <p className="mt-4 text-sm leading-relaxed">
-            Efter 21 december gäller ingen återbetalning. Inte heller vid skada, sjukdom eller missade tillfällen, då
-            tränare och backtider bokas och bekostas i förväg för hela säsongen.
+            {`Efter ${rules.noRefundFrom || "21 december"} gäller ingen återbetalning. Inte heller vid skada, sjukdom eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.`}
           </p>
         </div>
         <div className="surface-card bg-card p-6">
           <h2 className="text-2xl">Återbetalningsregler</h2>
-          <p className="mt-3 text-sm leading-relaxed">
-            <strong>Lidingö Freeskiers är en ideell förening och kan inte bära större ekonomiska förluster.</strong>{" "}
-            Snöläggning och drift av Ekholmsnäsbacken sköts av en extern entreprenör.{" "}
-            <strong>Om backen öppnar genomför vi träning och full avgift gäller.</strong> Om backen inte öppnar{" "}
-            <strong>återbetalar vi avgiften minus en anmälningsavgift på 1 000 kr för Skidklubben och 600 kr för Helgskidskolan.</strong>
-          </p>
+          {rules.policyText ? (
+            <p className="mt-3 text-sm leading-relaxed whitespace-pre-line">
+              {rules.policyText}
+            </p>
+          ) : (
+            <p className="mt-3 text-sm leading-relaxed">
+              <strong>Lidingö Freeskiers är en ideell förening och kan inte bära större ekonomiska förluster.</strong>{" "}
+              Snöläggning och drift av Ekholmsnäsbacken sköts av en extern entreprenör.{" "}
+              <strong>Om backen öppnar genomför vi träning och full avgift gäller.</strong> Om backen inte öppnar{" "}
+              <strong>
+                återbetalar vi avgiften minus en anmälningsavgift på {rules.skidklubbDeduction || "1 000 kr"} för Skidklubben och {rules.helgskidskolaDeduction || "600 kr"} för Helgskidskolan.
+              </strong>
+            </p>
+          )}
           <p className="mt-3 text-sm leading-relaxed">
             Föreningen följer myndigheternas rekommendationer vid pandemier eller andra händelser utanför vår kontroll.{" "}
             <strong>Om träning inte kan bedrivas på grund av sådana rekommendationer utgår ingen återbetalning av träningsavgiften.</strong>

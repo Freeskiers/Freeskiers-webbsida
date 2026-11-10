@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Clock, Copy, Download, Facebook, Grid, Instagram, List, MapPin, Share2 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import jump from "@/assets/kalender-banner-natt.jpg.asset.json";
 import { LevelFinderButton } from "@/components/site/LevelFinder";
 import { PageBanner } from "@/components/site/PageBanner";
-import { CLUB_URL, clubEvents, eventLink, FACEBOOK_URL, INSTAGRAM_URL, SEASON, type ClubEvent } from "@/lib/club-data";
+import { useCmsContent } from "@/contexts/CmsPreviewContext";
+import { CLUB_URL, clubEvents, eventLink, FACEBOOK_URL, INSTAGRAM_URL, SEASON, type ClubEvent, type EventCategory } from "@/lib/club-data";
 import { cn } from "@/lib/utils";
+import type { CmsCalendarEvent } from "@/types/cms";
 
 export const Route = createFileRoute("/kalender")({
   head: () => ({
@@ -40,6 +42,97 @@ const months: { index: number | "all"; label: string }[] = [
 ];
 
 
+function parseCmsEventToClubEvent(cmsEvent: CmsCalendarEvent, existing?: ClubEvent): ClubEvent {
+  const base: ClubEvent = existing ?? {
+    id: cmsEvent.id,
+    title: cmsEvent.title,
+    shortDate: cmsEvent.date,
+    day: "–",
+    month: "EVENT",
+    year: "2027",
+    monthIndex: -1,
+    start: "20270101",
+    end: "20270102",
+    time: cmsEvent.time || "",
+    location: cmsEvent.location || "",
+    category: (cmsEvent.category as EventCategory) || "traning",
+    categoryLabel: "Klubbhändelse",
+    tagline: "",
+    description: cmsEvent.description || "",
+    actionLabel: "Läs mer",
+    actionUrl: cmsEvent.linkUrl,
+    isPushedTop: false,
+  };
+
+  const monthMap: Record<string, { index: number; short: string }> = {
+    jan: { index: 0, short: "JAN" },
+    feb: { index: 1, short: "FEB" },
+    mar: { index: 2, short: "MAR" },
+    apr: { index: 3, short: "APR" },
+    maj: { index: 4, short: "MAJ" },
+    jun: { index: 5, short: "JUN" },
+    jul: { index: 6, short: "JUL" },
+    aug: { index: 7, short: "AUG" },
+    sep: { index: 8, short: "SEP" },
+    okt: { index: 9, short: "OKT" },
+    nov: { index: 10, short: "NOV" },
+    dec: { index: 11, short: "DEC" },
+  };
+
+  let day = base.day;
+  let month = base.month;
+  let year = base.year;
+  let monthIndex = base.monthIndex;
+
+  if (cmsEvent.date) {
+    const dayMatch = cmsEvent.date.match(/\b(\d{1,2})\b/);
+    if (dayMatch) day = dayMatch[1].padStart(2, "0");
+
+    const yearMatch = cmsEvent.date.match(/\b(20\d\d)\b/);
+    if (yearMatch) year = yearMatch[1];
+
+    const lowerDate = cmsEvent.date.toLowerCase();
+    for (const [key, val] of Object.entries(monthMap)) {
+      if (lowerDate.includes(key)) {
+        monthIndex = val.index;
+        month = val.short;
+        break;
+      }
+    }
+  }
+
+  const categoryLabelMap: Record<string, string> = {
+    anmalan: "Anmälan",
+    traning: "Träning",
+    skidklubb: "Skidklubb",
+    helgskidskola: "Helgskidskola",
+    skidskola: "Helgskidskola",
+    tavling: "Tävling & Event",
+    event: "Event",
+    klubbkvall: "Klubbkväll",
+    lager: "Camp & Läger",
+    resa: "Klubbresa",
+    ovrigt: "Övrigt",
+  };
+
+  return {
+    ...base,
+    id: cmsEvent.id,
+    title: cmsEvent.title,
+    shortDate: cmsEvent.date || base.shortDate,
+    day,
+    month,
+    year,
+    monthIndex,
+    time: cmsEvent.time || base.time,
+    location: cmsEvent.location || base.location,
+    category: (cmsEvent.category || base.category) as EventCategory,
+    categoryLabel: categoryLabelMap[cmsEvent.category] || base.categoryLabel || "Event",
+    description: cmsEvent.description || base.description,
+    actionUrl: cmsEvent.linkUrl !== undefined && cmsEvent.linkUrl !== "" ? cmsEvent.linkUrl : base.actionUrl,
+  };
+}
+
 function downloadIcs(ev: ClubEvent) {
   const esc = (t: string) => t.replace(/[,;]/g, (m) => `\\${m}`);
   const ics = [
@@ -62,17 +155,42 @@ function socialText(ev: ClubEvent) {
   return `❄️ ${ev.title.toUpperCase()} ❄️\n\n📅 Datum: ${ev.shortDate} (${ev.time})\n📍 Plats: ${ev.locationUrl ? `${ev.location} – ${ev.locationUrl}` : ev.location}\n\n${ev.description}\n\n👉 Läs mer: ${CLUB_URL}${ev.actionUrl ?? "/kalender"}\n\n#lidingofreeskiers #ekholmsnäsbacken #freeski`;
 }
 
-function KalenderPage() {
+export function KalenderPage() {
+  const { calendarEvents } = useCmsContent();
   const [cat, setCat] = useState("all");
   const [month, setMonth] = useState<number | "all">("all");
   const [view, setView] = useState<"timeline" | "months">("timeline");
   const [copied, setCopied] = useState<string | null>(null);
 
-  const list = clubEvents.filter(
-    (e) =>
-      (cat === "all" || e.category === cat || (cat === "klubbkvall" && e.category === "lager")) &&
-      (month === "all" || e.monthIndex === month),
-  );
+  const allEvents = useMemo(() => {
+    if (!calendarEvents || calendarEvents.length === 0) {
+      return clubEvents;
+    }
+
+    const cmsIds = new Set(calendarEvents.map((e) => e.id));
+    const cmsClubEvents = calendarEvents.map((cms) => {
+      const existing = clubEvents.find((e) => e.id === cms.id);
+      return parseCmsEventToClubEvent(cms, existing);
+    });
+
+    const remainingClubEvents = clubEvents.filter((ce) => !cmsIds.has(ce.id));
+
+    return [...cmsClubEvents, ...remainingClubEvents];
+  }, [calendarEvents]);
+
+  const list = allEvents.filter((e) => {
+    const matchesCat =
+      cat === "all" ||
+      e.category === cat ||
+      (cat === "traning" && (e.category === "skidklubb" || e.category === "traning")) ||
+      (cat === "helgskidskola" && (e.category === "skidskola" || e.category === "helgskidskola")) ||
+      (cat === "tavling" && (e.category === "event" || e.category === "tavling")) ||
+      (cat === "klubbkvall" && (e.category === "lager" || e.category === "resa" || e.category === "klubbkvall"));
+
+    const matchesMonth = month === "all" || e.monthIndex === month;
+
+    return matchesCat && matchesMonth;
+  });
 
   const copy = async (ev: ClubEvent) => {
     await navigator.clipboard.writeText(socialText(ev));
