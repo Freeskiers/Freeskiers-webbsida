@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FreeskiersStudioPage } from "@/components/cms/FreeskiersStudioPage";
 
+const AdminCmsComponent = () => <FreeskiersStudioPage embedded={true} />;
+
 export const Route = createFileRoute("/admin/cms")({
   head: () => ({
     meta: [
@@ -13,5 +15,5 @@ export const Route = createFileRoute("/admin/cms")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: FreeskiersStudioPage,
+  component: AdminCmsComponent,
 });

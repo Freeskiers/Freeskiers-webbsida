@@ -246,6 +246,15 @@ describe("Freeskiers Studio UI & Admin Integration", () => {
       expect(html).toContain("Meddelandetext");
       expect(html).toContain("Förhandsvisning av bannern");
     });
+
+    it("renders last published timestamp in header action bar", () => {
+      sessionStorage.setItem("freeskiers_cms_last_published", "2026-11-10 17:35");
+
+      const html = renderWithProviders(<FreeskiersStudioPage />);
+
+      expect(html).toContain("Senast publicerad:");
+      expect(html).toContain("2026-11-10 17:35");
+    });
   });
 
   describe("Admin Route & Dashboard Integration", () => {
@@ -276,6 +285,21 @@ describe("Freeskiers Studio UI & Admin Integration", () => {
       expect(html).toContain("Medlemmar &amp; SportAdmin API");
       expect(html).toContain("Innehåll / CMS (Freeskiers Studio)");
       expect(html).toContain("/admin/cms");
+    });
+
+    it("renders FreeskiersStudioPage embedded without duplicate headers", () => {
+      sessionStorage.setItem("freeskiers_admin_unlocked", "true");
+      expect(typeof (AdminCmsRoute as any).options.component).toBe("function");
+
+      const html = renderWithProviders(<FreeskiersStudioPage embedded={true} />);
+
+      // Should contain Freeskiers Studio action bar
+      expect(html).toContain("Freeskiers Studio");
+      expect(html).toContain("Inloggad Redaktör");
+      expect(html).toContain("Senast publicerad:");
+
+      // Should NOT contain duplicate dark hero breadcrumbs
+      expect(html).not.toContain("Hem / Kanslicenter / Freeskiers Studio");
     });
   });
 });

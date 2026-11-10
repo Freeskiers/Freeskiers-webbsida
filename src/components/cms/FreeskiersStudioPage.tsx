@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useMatches } from "@tanstack/react-router";
 import {
   Sparkles,
   Eye,
@@ -25,6 +25,7 @@ import {
   Layers,
   LogOut,
   ExternalLink,
+  Clock,
 } from "lucide-react";
 import { useCmsPreview } from "@/contexts/CmsPreviewContext";
 import { getCmsContent, mergeCmsPreview } from "@/lib/cmsContent";
@@ -148,6 +149,14 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
   }, [initialDraft, context]);
 
   const activatePreview = context.activatePreview;
+  const publishDraft = context.publishDraft;
+
+  // Auto-detect embedding inside /admin parent layout
+  const matches = useMatches();
+  const isInsideAdminParent = useMemo(() => {
+    return matches.some((m) => m.routeId === "/admin" || m.pathname?.startsWith("/admin"));
+  }, [matches]);
+  const isEmbedded = embedded || isInsideAdminParent;
 
   // Active Tab
   const [activeTab, setActiveTab] = useState<CmsTabKey>(initialTab);
@@ -233,6 +242,21 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
     commitHash?: string;
   } | null>(null);
 
+  const [lastPublished, setLastPublished] = useState<string>(() => {
+    if (typeof sessionStorage !== "undefined") {
+      try {
+        const stored = sessionStorage.getItem("freeskiers_cms_last_published");
+        if (stored) return stored;
+      } catch {
+        // ignore
+      }
+    }
+    return (
+      (workingContent as any).metadata?.lastPublishedAt ||
+      "Senast synkad med Git vid start"
+    );
+  });
+
   // Reset Confirmation Dialog State
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
 
@@ -244,7 +268,7 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
     }
   };
 
-  // Publish Execution
+  // Publish Execution (delegates to useCmsPreview context)
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!publishEmail.trim() || !publishPin.trim()) {
@@ -257,21 +281,18 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
     setPublishSuccess(null);
 
     try {
-      const res = await fetch("/api/cms/publish", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: publishEmail.trim(),
-          pin: publishPin.trim(),
-          content: workingContent,
-        }),
+      if (initialDraft !== undefined && !context.draftContent) {
+        context.setDraftContent(localDraft ?? initialDraft);
+      }
+
+      const res = await publishDraft({
+        email: publishEmail.trim(),
+        pin: publishPin.trim(),
       });
 
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
+      if (!res.success) {
         setPublishError(
-          data.error || data.message || `Publicering misslyckades med status ${res.status}`,
+          res.message || "Publicering misslyckades.",
         );
         setIsPublishing(false);
         return;
@@ -284,10 +305,20 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
         // ignore
       }
 
-      clearDraft();
+      const nowFormatted = new Date().toLocaleString("sv-SE", {
+        dateStyle: "short",
+        timeStyle: "short",
+      });
+      setLastPublished(nowFormatted);
+      try {
+        sessionStorage.setItem("freeskiers_cms_last_published", nowFormatted);
+      } catch {
+        // ignore
+      }
+
       setPublishSuccess({
-        message: data.message || "Ändringarna har publicerats och sparats i git!",
-        commitHash: data.commitHash,
+        message: res.message || "Ändringarna har publicerats och sparats i git!",
+        commitHash: res.commitHash,
       });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Ett fel uppstod vid kontakt med servern.";
@@ -378,7 +409,7 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
   return (
     <div className="min-h-screen bg-slate-50/60 pb-20">
       {/* Top Header / Breadcrumb (only on standalone route) */}
-      {!embedded && (
+      {!isEmbedded && (
         <section className="bg-freeskiers-navy text-white border-b border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -445,6 +476,18 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
             {/* Left: Branding & User Identity */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <div className="flex items-center gap-2.5 mr-1">
+                <div className="w-8 h-8 rounded-xl bg-freeskiers-navy text-freeskiers-cyan flex items-center justify-center font-bold text-xs shadow-xs">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-black text-slate-900 tracking-tight leading-tight">
+                    Freeskiers Studio
+                  </h2>
+                  <div className="text-[10px] text-slate-500 font-medium">Innehållshantering</div>
+                </div>
+              </div>
+
               <div className="flex items-center gap-2.5 bg-slate-100 border border-slate-200 rounded-2xl px-3.5 py-2">
                 <div className="w-8 h-8 rounded-xl bg-freeskiers-navy text-freeskiers-cyan flex items-center justify-center font-bold text-xs shadow-xs">
                   <ShieldCheck className="w-4 h-4" />
@@ -495,6 +538,15 @@ export const FreeskiersStudioPage: React.FC<FreeskiersStudioPageProps> = ({
                     <span className="text-xs font-semibold">I synk med produktion</span>
                   </>
                 )}
+              </div>
+
+              {/* Last Published Timestamp */}
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100/80 px-3 py-2 rounded-2xl border border-slate-200">
+                <Clock className="w-3.5 h-3.5 text-slate-400" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  Senast publicerad:
+                </span>
+                <span className="font-semibold text-slate-700">{lastPublished}</span>
               </div>
             </div>
 
