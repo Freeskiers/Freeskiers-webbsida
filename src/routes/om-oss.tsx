@@ -76,20 +76,44 @@ function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {coaches.map((c) => (
-            <article key={c.name} className="surface-card flex items-center gap-3.5 bg-card p-4">
-              <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-base font-bold text-primary">
-                {c.name.charAt(0)}
-              </span>
-              <div className="min-w-0 flex-1">
-                <h3 className="truncate text-base font-bold text-heading">{c.name}</h3>
-                <p className="mt-0.5 text-xs font-semibold text-primary">
-                  {c.role}
-                </p>
-              </div>
-            </article>
-          ))}
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {coaches.map((c) => {
+            const initials = c.name
+              .split(" ")
+              .filter(Boolean)
+              .slice(0, 2)
+              .map((part) => part.charAt(0))
+              .join("");
+
+            return (
+              <article key={c.name} className="surface-card flex flex-col overflow-hidden bg-card">
+                <div className="aspect-[4/5] w-full overflow-hidden bg-secondary">
+                  {c.photo ? (
+                    <img
+                      src={c.photo}
+                      alt={c.name}
+                      loading="lazy"
+                      width={600}
+                      height={750}
+                      className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.02]"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-secondary text-3xl font-bold text-primary/70">
+                      {initials}
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col justify-between p-3.5 sm:p-4">
+                  <h3 className="text-sm font-bold leading-snug text-heading sm:text-base">
+                    {c.name}
+                  </h3>
+                  <p className="mt-1 text-xs font-semibold text-primary">
+                    {c.role}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
