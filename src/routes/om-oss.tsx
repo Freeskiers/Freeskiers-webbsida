@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, ExternalLink, Heart, Mail, Mountain, Users } from "lucide-react";
 
@@ -26,6 +27,11 @@ export const Route = createFileRoute("/om-oss")({
 });
 
 function AboutPage() {
+  const [activeTab, setActiveTab] = useState<"tranare" | "ledare">("tranare");
+  const trainersList = coaches.filter((c) => c.category === "tranare");
+  const leadersList = coaches.filter((c) => c.category === "ledare");
+  const displayedCoaches = activeTab === "tranare" ? trainersList : leadersList;
+
   return (
     <>
       <PageBanner photo={teamPhoto} alt="Åkare i Ekholmsnäsbacken" title="Om Lidingö Freeskiers" />
@@ -76,8 +82,55 @@ function AboutPage() {
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {coaches.map((c) => {
+        <div className="mt-8 flex flex-wrap items-center gap-2" role="tablist" aria-label="Välj mellan tränare och ledare">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "tranare"}
+            onClick={() => setActiveTab("tranare")}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${
+              activeTab === "tranare"
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "bg-secondary text-heading hover:bg-secondary/80"
+            }`}
+          >
+            Tränare
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                activeTab === "tranare"
+                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  : "bg-background text-primary"
+              }`}
+            >
+              {trainersList.length}
+            </span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "ledare"}
+            onClick={() => setActiveTab("ledare")}
+            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${
+              activeTab === "ledare"
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "bg-secondary text-heading hover:bg-secondary/80"
+            }`}
+          >
+            Ledare
+            <span
+              className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                activeTab === "ledare"
+                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  : "bg-background text-primary"
+              }`}
+            >
+              {leadersList.length}
+            </span>
+          </button>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {displayedCoaches.map((c) => {
             const initials = c.name
               .split(" ")
               .filter(Boolean)
