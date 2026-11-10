@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from '@tanstack/react-router';
+import { Link, Outlet, useMatches } from '@tanstack/react-router';
 import {
   ShieldCheck,
   Database,
@@ -21,8 +21,10 @@ import {
   Lock,
   ArrowRight,
   LogOut,
-  Info
+  Info,
+  Sparkles
 } from 'lucide-react';
+import { FreeskiersStudioPage } from '@/components/cms/FreeskiersStudioPage';
 import { useMemberAuth } from '@/components/member/MemberAuthContext';
 import {
   sportadminAccounts,
@@ -46,7 +48,14 @@ export const AdminDashboardPage: React.FC = () => {
   // Admin access gate: either logged in with role admin/styrelse or authenticated via PIN
   const [adminPin, setAdminPin] = useState('');
   const [pinError, setPinError] = useState(false);
-  const [sessionUnlocked, setSessionUnlocked] = useState(false);
+  const [sessionUnlocked, setSessionUnlocked] = useState(() => {
+    if (typeof sessionStorage === 'undefined') return false;
+    try {
+      return sessionStorage.getItem('freeskiers_admin_unlocked') === 'true';
+    } catch {
+      return false;
+    }
+  });
 
   const isAuthorized = useMemo(() => {
     if (sessionUnlocked) return true;
@@ -55,6 +64,13 @@ export const AdminDashboardPage: React.FC = () => {
     }
     return false;
   }, [currentUser, sessionUnlocked]);
+
+  const matches = useMatches();
+  const isCmsRoute = useMemo(() => {
+    return matches.some((m) => m.routeId === '/admin/cms' || m.pathname?.endsWith('/cms'));
+  }, [matches]);
+
+  const [activeAdminTab, setActiveAdminTab] = useState<'sportadmin' | 'cms'>('sportadmin');
 
   // SportAdmin API State
   const [apiKeyInput, setApiKeyInput] = useState(() => {
@@ -103,6 +119,12 @@ export const AdminDashboardPage: React.FC = () => {
     if (adminPin.trim() === '2026' || adminPin.trim().toLowerCase() === 'freeskiers' || adminPin.trim().toLowerCase() === 'admin') {
       setSessionUnlocked(true);
       setPinError(false);
+      try {
+        sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
+        sessionStorage.setItem('freeskiers_admin_pin', adminPin.trim());
+      } catch {
+        /* ignore */
+      }
       login('admin@lidingofreeskiers.se');
     } else {
       setPinError(true);
@@ -111,6 +133,12 @@ export const AdminDashboardPage: React.FC = () => {
 
   const handleQuickAdminLogin = () => {
     setSessionUnlocked(true);
+    try {
+      sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
+      sessionStorage.setItem('freeskiers_admin_pin', '2026');
+    } catch {
+      /* ignore */
+    }
     login('admin@lidingofreeskiers.se');
   };
 
@@ -353,6 +381,13 @@ export const AdminDashboardPage: React.FC = () => {
 
             <div className="flex items-center gap-3">
               <Link
+                to="/admin/cms"
+                className="px-4 py-2.5 rounded-xl bg-freeskiers-cyan/20 hover:bg-freeskiers-cyan/30 text-freeskiers-lightcyan text-xs font-bold transition-all border border-freeskiers-cyan/40 flex items-center gap-1.5"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-freeskiers-lightcyan" />
+                <span>Freeskiers Studio (/admin/cms)</span>
+              </Link>
+              <Link
                 to="/medlem"
                 className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all border border-white/20"
               >
@@ -361,6 +396,11 @@ export const AdminDashboardPage: React.FC = () => {
               <button
                 onClick={() => {
                   setSessionUnlocked(false);
+                  try {
+                    sessionStorage.removeItem('freeskiers_admin_unlocked');
+                  } catch {
+                    /* ignore */
+                  }
                   logout();
                 }}
                 className="px-4 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 text-xs font-bold transition-all border border-rose-500/40 flex items-center gap-1.5"
@@ -373,8 +413,51 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+      {/* Admin Section Tabs */}
+      <div className="bg-slate-900 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 py-2.5 overflow-x-auto">
+            <Link
+              to="/admin"
+              onClick={() => setActiveAdminTab('sportadmin')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                (!isCmsRoute && activeAdminTab === 'sportadmin')
+                  ? 'bg-freeskiers-cyan text-freeskiers-navy shadow-soft font-black'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Database className="w-4 h-4" />
+              <span>Medlemmar & SportAdmin API</span>
+            </Link>
+
+            <Link
+              to="/admin/cms"
+              onClick={() => setActiveAdminTab('cms')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                (isCmsRoute || activeAdminTab === 'cms')
+                  ? 'bg-freeskiers-cyan text-freeskiers-navy shadow-soft font-black'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Innehåll / CMS (Freeskiers Studio)</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      {isCmsRoute ? (
+        <div className="mt-2">
+          <Outlet />
+        </div>
+      ) : activeAdminTab === 'cms' ? (
+        <div className="mt-2">
+          <FreeskiersStudioPage embedded={true} />
+        </div>
+      ) : (
+        /* Main Container: SportAdmin API & Medlemsregister */
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
 
         {/* ===================================================================== */}
         {/* SECTION 1: SPORTADMIN API v4 CONTROL CENTER                           */}
@@ -798,8 +881,8 @@ export const AdminDashboardPage: React.FC = () => {
             </p>
           )}
         </div>
-
       </div>
-    </div>
-  );
+    )}
+  </div>
+);
 };

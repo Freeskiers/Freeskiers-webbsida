@@ -49,33 +49,36 @@ export interface CmsPreviewContextValue {
   /**
    * Attempts to publish the current draft to the server publishing endpoint.
    */
-  publishDraft: () => Promise<{ success: boolean; message?: string }>;
+  publishDraft: (credentials?: {
+    email?: string;
+    pin?: string;
+  }) => Promise<{ success: boolean; message?: string; commitHash?: string }>;
 }
 
 const CmsPreviewContext = createContext<CmsPreviewContextValue | undefined>(undefined);
 
 function getSessionStorageItem(key: string): string | null {
-  if (typeof window === "undefined") return null;
+  if (typeof sessionStorage === "undefined") return null;
   try {
-    return window.sessionStorage.getItem(key);
+    return sessionStorage.getItem(key);
   } catch {
     return null;
   }
 }
 
 function setSessionStorageItem(key: string, value: string): void {
-  if (typeof window === "undefined") return;
+  if (typeof sessionStorage === "undefined") return;
   try {
-    window.sessionStorage.setItem(key, value);
+    sessionStorage.setItem(key, value);
   } catch (err) {
     console.error("Failed to write to sessionStorage", err);
   }
 }
 
 function removeSessionStorageItem(key: string): void {
-  if (typeof window === "undefined") return;
+  if (typeof sessionStorage === "undefined") return;
   try {
-    window.sessionStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   } catch (err) {
     console.error("Failed to remove from sessionStorage", err);
   }
@@ -103,7 +106,10 @@ export function setNestedPathValue(base: any, path: string, val: unknown): any {
   return root;
 }
 
-export const CmsPreviewProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CmsPreviewProvider: React.FC<{
+  children: React.ReactNode;
+  initialDraft?: Partial<SiteContent> | null;
+}> = ({ children, initialDraft }) => {
   const [isPreviewActive, setIsPreviewActive] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
     try {
@@ -111,20 +117,16 @@ export const CmsPreviewProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       if (urlParams.get("preview") === "true") {
         return true;
       }
-      return window.sessionStorage.getItem(CMS_PREVIEW_ACTIVE_KEY) === "true";
+      return getSessionStorageItem(CMS_PREVIEW_ACTIVE_KEY) === "true";
     } catch {
       return false;
     }
   });
 
   const [draftContent, setDraftContentState] = useState<Partial<SiteContent> | null>(() => {
-    if (typeof window === "undefined") return null;
-    try {
-      const saved = window.sessionStorage.getItem(CMS_DRAFT_KEY);
-      return saved ? JSON.parse(saved) : null;
-    } catch {
-      return null;
-    }
+    if (initialDraft !== undefined) return initialDraft;
+    const saved = getSessionStorageItem(CMS_DRAFT_KEY);
+    return saved ? JSON.parse(saved) : null;
   });
 
   useEffect(() => {
@@ -236,34 +238,47 @@ export const CmsPreviewProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     }
   }, []);
 
-  const publishDraft = useCallback(async (): Promise<{ success: boolean; message?: string }> => {
-    if (!draftContent) {
-      return { success: false, message: "Inget utkast att publicera." };
-    }
-    try {
-      const payload = mergeCmsPreview(draftContent);
-      const res = await fetch("/api/cms/publish", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: payload }),
-      });
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
+  const publishDraft = useCallback(
+    async (credentials?: {
+      email?: string;
+      pin?: string;
+    }): Promise<{ success: boolean; message?: string; commitHash?: string }> => {
+      if (!draftContent) {
+        return { success: false, message: "Inget utkast att publicera." };
+      }
+      try {
+        const payload = mergeCmsPreview(draftContent);
+        const res = await fetch("/api/cms/publish", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content: payload,
+            email: credentials?.email,
+            pin: credentials?.pin,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          return {
+            success: false,
+            message: data.error || data.message || `Publicering misslyckades (${res.status})`,
+          };
+        }
+        clearDraft();
+        return {
+          success: true,
+          message: data.message || "Ändringarna har publicerats!",
+          commitHash: data.commitHash,
+        };
+      } catch (err: any) {
         return {
           success: false,
-          message: errData.error || `Publicering misslyckades (${res.status})`,
+          message: err?.message || "Ett fel uppstod vid kontakt med servern.",
         };
       }
-      const data = await res.json().catch(() => ({}));
-      clearDraft();
-      return { success: true, message: data.message || "Ändringarna har publicerats!" };
-    } catch (err: any) {
-      return {
-        success: false,
-        message: err?.message || "Ett fel uppstod vid kontakt med servern.",
-      };
-    }
-  }, [draftContent, clearDraft]);
+    },
+    [draftContent, clearDraft],
+  );
 
   const content = useMemo<SiteContent>(() => {
     if (!isPreviewActive) {

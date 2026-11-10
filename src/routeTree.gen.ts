@@ -24,6 +24,7 @@ import { Route as SkidklubbRouteImport } from './routes/skidklubb'
 import { Route as SponsorRouteImport } from './routes/sponsor'
 import { Route as VerifieraRouteImport } from './routes/verifiera'
 import { Route as WebbshopRouteImport } from './routes/webbshop'
+import { Route as AdminCmsRouteImport } from './routes/admin/cms'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -100,10 +101,15 @@ const WebbshopRoute = WebbshopRouteImport.update({
   path: '/webbshop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCmsRoute = AdminCmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/avbokning': typeof AvbokningRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
@@ -117,10 +123,11 @@ export interface FileRoutesByFullPath {
   '/sponsor': typeof SponsorRoute
   '/verifiera': typeof VerifieraRoute
   '/webbshop': typeof WebbshopRoute
+  '/admin/cms': typeof AdminCmsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/avbokning': typeof AvbokningRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
@@ -134,11 +141,12 @@ export interface FileRoutesByTo {
   '/sponsor': typeof SponsorRoute
   '/verifiera': typeof VerifieraRoute
   '/webbshop': typeof WebbshopRoute
+  '/admin/cms': typeof AdminCmsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/avbokning': typeof AvbokningRoute
   '/helgskidskola': typeof HelgskidskolaRoute
   '/hostsasong': typeof HostsasongRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/sponsor': typeof SponsorRoute
   '/verifiera': typeof VerifieraRoute
   '/webbshop': typeof WebbshopRoute
+  '/admin/cms': typeof AdminCmsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/sponsor'
     | '/verifiera'
     | '/webbshop'
+    | '/admin/cms'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/sponsor'
     | '/verifiera'
     | '/webbshop'
+    | '/admin/cms'
   id:
     | '__root__'
     | '/'
@@ -205,11 +216,12 @@ export interface FileRouteTypes {
     | '/sponsor'
     | '/verifiera'
     | '/webbshop'
+    | '/admin/cms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AvbokningRoute: typeof AvbokningRoute
   HelgskidskolaRoute: typeof HelgskidskolaRoute
   HostsasongRoute: typeof HostsasongRoute
@@ -332,12 +344,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebbshopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/cms': {
+      id: '/admin/cms'
+      path: '/cms'
+      fullPath: '/admin/cms'
+      preLoaderRoute: typeof AdminCmsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminCmsRoute: typeof AdminCmsRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCmsRoute: AdminCmsRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AvbokningRoute: AvbokningRoute,
   HelgskidskolaRoute: HelgskidskolaRoute,
   HostsasongRoute: HostsasongRoute,

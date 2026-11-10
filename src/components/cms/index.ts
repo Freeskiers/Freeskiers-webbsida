@@ -10,3 +10,5 @@ export * from "./FaqManagerForm";
 export * from "./CoachesManagerForm";
 export * from "./PartnersManagerForm";
 export * from "./GeneralHeroForm";
+export * from "./FreeskiersStudioPage";
+
