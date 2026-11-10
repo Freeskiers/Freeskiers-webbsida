@@ -50,7 +50,7 @@ export const CmsPreviewBanner: React.FC = () => {
       <aside
         role="region"
         aria-label="Förhandsgranskning aktiv"
-        className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-2rem)] max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-300"
+        className="fixed bottom-20 sm:bottom-4 left-1/2 z-50 -translate-x-1/2 w-[calc(100%-2rem)] max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-300"
       >
         <div className="flex flex-col gap-3 rounded-2xl border-2 border-accent bg-card/95 p-3.5 shadow-2xl backdrop-blur-md dark:bg-card/95 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-3">
           <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-foreground">

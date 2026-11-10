@@ -90,6 +90,10 @@ function removeSessionStorageItem(key: string): void {
 export function setNestedPathValue(base: any, path: string, val: unknown): any {
   if (!path) return val;
   const parts = path.split(".");
+  // Prototype pollution guard
+  if (parts.some((p) => p === "__proto__" || p === "constructor" || p === "prototype")) {
+    return base;
+  }
   const root = { ...(base || {}) };
   let current: any = root;
   for (let i = 0; i < parts.length - 1; i++) {

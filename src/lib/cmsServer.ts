@@ -280,14 +280,20 @@ export async function executeGitPublish(
 
     if (!options?.skipPush) {
       try {
-        await execAsync("git push lovable-repo main && git push origin main", { cwd });
+        await execAsync("git push lovable-repo main:main main:lovable && git push origin main:main main:lovable", { cwd });
         pushed = true;
-      } catch (pushErr: unknown) {
-        pushError = pushErr instanceof Error ? pushErr.message : String(pushErr);
-        console.warn(
-          "CMS git push kunde inte slutföras direkt (ändringar sparade lokalt):",
-          pushError,
-        );
+      } catch {
+        // Fallback if lovable branch does not exist or single branch push is preferred
+        try {
+          await execAsync("git push lovable-repo main && git push origin main", { cwd });
+          pushed = true;
+        } catch (pushErr: unknown) {
+          pushError = pushErr instanceof Error ? pushErr.message : String(pushErr);
+          console.warn(
+            "CMS git push kunde inte slutföras direkt (ändringar sparade lokalt):",
+            pushError,
+          );
+        }
       }
     }
 
@@ -389,6 +395,11 @@ export async function publishCmsContent(
       if (!img || !img.filename || !img.data) continue;
 
       let safeName = path.basename(img.filename).replace(/[^a-zA-Z0-9._-]/g, "_");
+      const ext = path.extname(safeName).toLowerCase();
+      const ALLOWED_EXTS = [".webp", ".jpg", ".jpeg", ".png", ".gif", ".svg"];
+      if (!ALLOWED_EXTS.includes(ext)) {
+        safeName = `${path.parse(safeName).name || "image"}.webp`;
+      }
       if (!safeName || safeName === "." || safeName === "..") {
         safeName = `cms_image_${Date.now()}_${idx}.webp`;
       }
