@@ -254,7 +254,7 @@ export const groups: Group[] = [
     to: "/helgskidskola",
     cta: "Anmäl till Helgskidskolan",
     name: "Freeskiers Helgskidskola",
-    age: "Från 5 år",
+    age: "5–10 år",
     level: "Nybörjare & fortsättning",
     badge: "",
     when: "5 tillfällen på lördagar eller söndagar, januari–februari",
@@ -262,7 +262,7 @@ export const groups: Group[] = [
     summary:
       "För barn och unga som vill lära sig åka skidor eller ta sin åkning till nästa nivå. Vi kör 5 intensiva och roliga tillfällen på helger under januari och februari i Ekholmsnäsbacken.",
     bullets: [
-      "Grön grupp – nybörjare från 5 år",
+      "Grön grupp – nybörjare (5–10 år)",
       "Blå grupp – avancerade nybörjare",
       "Röd grupp – fortsättning",
       "Hjälm är obligatoriskt. Ryggskydd rekommenderas",
@@ -924,7 +924,7 @@ export const faqs = [
   },
   {
     q: "Vilken grupp passar mitt barn?",
-    a: "Gör skidtestet ”Hitta rätt nivå” här på sajten – tre frågor om ålder, kunskapsnivå och vad åkaren framför allt vill göra, och du får ett förslag. Helgskidskolan vänder sig till åkare från 5 år och Skidklubben till åk 1–9 som uppfyller minimikraven; för yngre nybörjare och vuxna passar en privatlektion.",
+    a: "Gör skidtestet ”Hitta rätt nivå” här på sajten – tre frågor om ålder, kunskapsnivå och vad åkaren framför allt vill göra, och du får ett förslag. Helgskidskolan vänder sig till åkare i åldern 5–10 år och Skidklubben till åk 1–9 som uppfyller minimikraven; för äldre nybörjare och vuxna passar en privatlektion.",
     tags: ["nivå", "grupp", "guide"],
   },
   {

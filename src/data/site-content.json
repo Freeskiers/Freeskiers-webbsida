@@ -22,12 +22,12 @@
       "price": "2 980 kr",
       "priceNote": "Träningsavgift för vintersäsongen. Med reservation för ändringar.",
       "registrationOpens": "1 november kl. 09.00",
-      "schedule": "5 helgtillfällen på lördagar eller söndagar under januari–februari, 75 minuter per gång",
+      "schedule": "5 helgtillfällen på lördagar eller söndagar under januari–februari, 75 minuter per gång (5–10 år)",
       "requirements": [
         "Alla barn måste ha hjälm i backen. Ryggskydd rekommenderas.",
-        "Grön grupp – nybörjare från 5 år",
-        "Blå grupp – avancerade nybörjare",
-        "Röd grupp – fortsättning"
+        "Grön grupp – nybörjare (5–10 år)",
+        "Blå grupp – avancerade nybörjare (5–10 år)",
+        "Röd grupp – fortsättning (5–10 år)"
       ],
       "photoUrl": "/assets/photos/helgskidskola-grupp-ljus.jpg",
       "bookingUrl": "https://sportadmin.se/book/?F=7631cd86-189b-4c49-bfc0-3ba70fe1f127"

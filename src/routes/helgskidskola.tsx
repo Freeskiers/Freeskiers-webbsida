@@ -11,8 +11,8 @@ const skidskolegrupper = [
   {
     color: "Grön Grupp",
     name: "Nybörjare",
-    age: "Från 5 år och uppåt",
-    krav: ["Inga förkunskaper krävs", "Barnet fyller minst 5 år under året"],
+    age: "5–10 år",
+    krav: ["Inga förkunskaper krävs", "Barnet fyller 5–10 år under året"],
     larOss: ["Kontrollera skidorna", "Börja bromsa", "Åka lift med lärare", "Själv ta sig ned för halva backen"],
   },
   {
