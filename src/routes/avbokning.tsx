@@ -61,7 +61,11 @@ export function AvbokningPage() {
           <h2 className="text-2xl">Återbetalningsregler</h2>
           {rules.policyText ? (
             <p className="mt-3 text-sm leading-relaxed whitespace-pre-line">
-              {rules.policyText}
+              {rules.policyText
+                .replace(
+                  /minus (?:en anmälningsavgift på )?400 kr/gi,
+                  `minus en anmälningsavgift på ${rules.skidklubbDeduction || "1 000 kr"} för Skidklubben och ${rules.helgskidskolaDeduction || "600 kr"} för Helgskidskolan`
+                )}
             </p>
           ) : (
             <p className="mt-3 text-sm leading-relaxed">
@@ -70,7 +74,8 @@ export function AvbokningPage() {
               <strong>Om backen öppnar genomför vi träning och full avgift gäller.</strong> Om backen inte öppnar{" "}
               <strong>
                 återbetalar vi avgiften minus en anmälningsavgift på {rules.skidklubbDeduction || "1 000 kr"} för Skidklubben och {rules.helgskidskolaDeduction || "600 kr"} för Helgskidskolan.
-              </strong>
+              </strong>{" "}
+              Efter {rules.noRefundFrom || "21 december"} gäller ingen återbetalning vid skada, sjukdom eller missade tillfällen, då tränare och backtider bokas och bekostas i förväg för hela säsongen.
             </p>
           )}
           <p className="mt-3 text-sm leading-relaxed">
