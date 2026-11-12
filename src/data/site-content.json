@@ -752,7 +752,7 @@
       "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
       "howToRedeem": "Besök stellarequipment.com/se för mer information.",
       "websiteUrl": "https://stellarequipment.com/se",
-      "logoUrl": ""
+      "logoUrl": "/assets/partners/stellar.jpeg"
     },
     {
       "id": "1000-skis",
@@ -760,7 +760,7 @@
       "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
       "howToRedeem": "Besök 1000skis.com för mer information.",
       "websiteUrl": "https://www.1000skis.com",
-      "logoUrl": ""
+      "logoUrl": "/assets/partners/1000skis.avif"
     }
   ]
 }
