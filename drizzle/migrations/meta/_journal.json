@@ -8,6 +8,13 @@
       "when": 1793833725006,
       "tag": "0000_create_club_form_submissions",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794481194982,
+      "tag": "0001_lock_down_club_form_submissions",
+      "breakpoints": true
     }
   ]
 }
