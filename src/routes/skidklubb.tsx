@@ -22,7 +22,7 @@ export const Route = createFileRoute("/skidklubb")({
       {
         name: "description",
         content:
-          "Regelbunden friåkning och freestyle för barn och unga i årskurs 1–9. Träning 1–2 gånger i veckan måndag–onsdag kvällar, januari–mars i Ekholmsnäsbacken.",
+          "Regelbunden friåkning och freestyle för barn och unga i årskurs 1–9. Träning 1–2 gånger i veckan måndagar och onsdagar kvällar, januari–mars i Ekholmsnäsbacken.",
       },
       { property: "og:title", content: "Freeskiers Skidklubb" },
       {
@@ -129,6 +129,34 @@ function Skidklubb() {
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Nivåer i Skidklubben */}
+        <div className="space-y-5">
+          <h2 className="flex items-center gap-3 text-2xl">
+            <span className="h-1.5 w-8 rounded-full bg-primary" aria-hidden />
+            Nivåer i Skidklubben
+          </h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="surface-card bg-card p-5">
+              <h3 className="text-base font-semibold text-heading">Medelgod åkare</h3>
+              <p className="mt-2 text-sm leading-relaxed">
+                Bättre än fortsättning och man kan åka med parallella skidor.
+              </p>
+            </div>
+            <div className="surface-card bg-card p-5">
+              <h3 className="text-base font-semibold text-heading">Avancerad åkare</h3>
+              <p className="mt-2 text-sm leading-relaxed">
+                Åker säkert i alla backar, med parallella skidor och god fartkontroll.
+              </p>
+            </div>
+            <div className="surface-card bg-card p-5">
+              <h3 className="text-base font-semibold text-heading">Park</h3>
+              <p className="mt-2 text-sm leading-relaxed">
+                Hoppar på kickers, kör rails och boxar och vill utveckla hopp och trick.
+              </p>
             </div>
           </div>
         </div>

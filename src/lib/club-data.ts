@@ -89,7 +89,7 @@ export const privatlektionSida = {
   intro:
     "Vill du ta nästa steg i din åkning? Våra privatlektioner anpassas helt efter nivå, mål och ålder.",
   audience:
-    "För alla åkare som vill ta nästa steg. Vi erbjuder privatlektioner för barn, ungdomar och vuxna – från total nybörjare till avancerad åkare.",
+    "För alla åkare från 4 år som vill ta nästa steg. Vi erbjuder privatlektioner för barn, ungdomar och vuxna – från total nybörjare till avancerad åkare.",
   format:
     "Med fullt fokus från instruktören finns tid att öva, få individuell feedback och skapa en trygg grund för fortsatt åkglädje.",
   prices: [
@@ -191,7 +191,7 @@ export const skidklubbSida = {
     "Alla priser inkluderar liftkort.\nPriserna gäller innevarande säsong. Med reservation för ändringar.",
   requirements: [
     "Åkning ska kunna ske kontrollerat från topp till botten i backen",
-    "Åkning med huvudsakligen parallella skidor",
+    "Kunna åka med parallella skidor",
     "Självständig åkning i lift samt säker avstigning",
     "Förmåga att stanna kontrollerat utan problem",
   ],
@@ -201,7 +201,7 @@ export const skidklubbSida = {
     intro:
       "Åkarna är indelade efter åldersanpassade grupper som leds av klubbens instruktörer.",
     punkter: [
-      "1–2 pass i veckan, måndag–onsdag kvällar, januari–mars.",
+      "1–2 pass i veckan, måndagar och onsdagar kvällar, januari–mars.",
       "Parkträning med rails, boxar och hopp – och åkning i hela backen.",
       "Fokus på sväng för att lära sig att åka på skär – träningen består av att åka i bana samt olika övningar för att hitta en skärande sväng.",
       "Glädje och utveckling först. Tävling är helt frivilligt.",
@@ -263,8 +263,9 @@ export const groups: Group[] = [
       "För barn och unga som vill lära sig åka skidor eller ta sin åkning till nästa nivå. Vi kör 5 intensiva och roliga tillfällen på helger under januari och februari i Ekholmsnäsbacken.",
     bullets: [
       "Grön grupp – nybörjare (5–10 år)",
-      "Blå grupp – avancerade nybörjare",
-      "Röd grupp – fortsättning",
+      "Blå grupp – avancerad nybörjare (5–10 år)",
+      "Röd grupp – fortsättning (5–10 år)",
+      "Krav: barnet måste kunna ta instruktioner på svenska",
       "Hjälm är obligatoriskt. Ryggskydd rekommenderas",
       "Liftkort behövs inte. Vi har en egen liftkö",
     ],
@@ -284,7 +285,7 @@ export const groups: Group[] = [
     age: "Åk 1-9",
     level: "Vana åkare",
     badge: "",
-    when: "Träning 1–2 gånger i veckan, måndag–onsdag kväll, januari–mars",
+    when: "Träning 1–2 gånger i veckan, måndagar och onsdagar kväll, januari–mars",
     booking: "club",
     summary:
       "För barn och unga som vill träna regelbunden friåkning och freestyle under vintersäsongen. Vi kör vardagskvällar i Ekholmsnäsbacken med fokus på hopp, rails, allsidig skidteknik och stark gemenskap.",
@@ -333,7 +334,7 @@ export const groups: Group[] = [
     to: "/privatlektion",
     cta: "Boka privatlektion",
     name: "Privatlektioner",
-    age: "Alla åldrar",
+    age: "Från 4 år",
     level: "Alla nivåer",
     badge: "",
     when: "60 minuter för en eller två personer, bokas direkt på sidan",
@@ -813,15 +814,17 @@ export function departmentEmail(id: string) {
   return departmentEmails.find((d) => d.id === id)?.email ?? CONTACT_EMAIL;
 }
 
-export type Partner = { name: string; logo: string };
+export type Partner = { name: string; logo?: string; url?: string };
 
 export const partners: Partner[] = [
-  { name: "Gadelius", logo: gadeliusLogo },
-  { name: "Ekholmsnäsbacken", logo: ekholmsnasLogo },
-  { name: "Alpingaraget", logo: alpingaragetLogo },
-  { name: "Kang Poles", logo: kangLogo },
-  { name: "Stockholm Bordsuthyrning", logo: stockholmbordsuthyrningLogo },
-  { name: "Lidingö Centrum", logo: lidingocentrumLogo },
+  { name: "Gadelius", logo: gadeliusLogo, url: "https://gadelius.se" },
+  { name: "Ekholmsnäsbacken", logo: ekholmsnasLogo, url: "https://www.ekholmsnasbacken.se" },
+  { name: "Alpingaraget", logo: alpingaragetLogo, url: "https://www.alpingaraget.se" },
+  { name: "Kang Poles", logo: kangLogo, url: "https://kangpoles.com" },
+  { name: "Stockholm Bordsuthyrning", logo: stockholmbordsuthyrningLogo, url: "https://stockholmbordsuthyrning.se" },
+  { name: "Lidingö Centrum", logo: lidingocentrumLogo, url: "https://lidingocentrum.se" },
+  { name: "Stellar", url: "https://stellarequipment.com/se" },
+  { name: "1000 Skis", url: "https://www.1000skis.com" },
 ];
 
 export type GalleryPhoto = { src: string; alt: string };

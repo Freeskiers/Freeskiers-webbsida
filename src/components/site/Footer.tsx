@@ -21,20 +21,42 @@ export function Footer() {
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Stolta samarbetspartners &amp; vänner
           </p>
-          <ul className="mt-6 grid grid-cols-2 items-center gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
-            {partners.map((p) => (
-              <li
-                key={p.name}
-                className="flex h-14 items-center justify-center rounded-2xl bg-background p-2.5 shadow-sm sm:h-16 sm:p-3"
-              >
+          <ul className="mt-6 grid grid-cols-2 items-center gap-3 sm:grid-cols-4 sm:gap-4">
+            {partners.map((p) => {
+              const content = p.logo ? (
                 <img
                   src={p.logo}
                   alt={p.name}
                   loading="lazy"
                   className="max-h-full max-w-full object-contain"
                 />
-              </li>
-            ))}
+              ) : (
+                <span className="font-heading text-sm font-bold tracking-wide text-heading">
+                  {p.name}
+                </span>
+              );
+
+              return (
+                <li
+                  key={p.name}
+                  className="flex h-14 items-center justify-center rounded-2xl bg-background p-2.5 shadow-sm transition-opacity hover:opacity-90 sm:h-16 sm:p-3"
+                >
+                  {p.url ? (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={p.name}
+                      className="flex h-full w-full items-center justify-center"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    content
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <div className="mt-8 text-center">
             <Link

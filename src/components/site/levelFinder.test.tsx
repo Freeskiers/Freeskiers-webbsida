@@ -3,10 +3,11 @@ import { recommend } from "./LevelFinder";
 
 describe("LevelFinder recommendation logic (Nivåväljaren)", () => {
   describe("Under 5 years (toddler)", () => {
-    it("returns 'Inte gammal nog än' for toddler", () => {
+    it("returns 'Inte gammal nog än' and refers to private lessons from age 4", () => {
       const res = recommend(["toddler"]);
       expect(res.badge).toContain("Inte gammal nog än");
-      expect(res.to).toBe("/helgskidskola");
+      expect(res.to).toBe("/privatlektion");
+      expect(res.title).toContain("4 år");
     });
   });
 
@@ -16,6 +17,7 @@ describe("LevelFinder recommendation logic (Nivåväljaren)", () => {
       expect(res.title).toContain("Helgskidskola – Grön Grupp");
       expect(res.to).toBe("/helgskidskola");
       expect(res.details[0]).toContain("5–10 år");
+      expect(res.details).toContain("Kunna ta instruktioner på svenska");
     });
 
     it("recommends Helgskidskola Blå for 7-10 year old intermediate", () => {
@@ -77,6 +79,13 @@ describe("LevelFinder recommendation logic (Nivåväljaren)", () => {
     it("refers to Skidklubben for 11-15 year old freestyle / park skier", () => {
       const res = recommend(["teen", "freestyle", "club"]);
       expect(res.title).toBe("Freeskiers Skidklubb");
+      expect(res.to).toBe("/skidklubb");
+    });
+
+    it("refers to Skidklubben for 7-10 year old with Medelgod åkare level", () => {
+      const res = recommend(["child", "skidklubb_mid", "club"]);
+      expect(res.title).toBe("Freeskiers Skidklubb");
+      expect(res.badge).toContain("Medelgod åkare");
       expect(res.to).toBe("/skidklubb");
     });
   });

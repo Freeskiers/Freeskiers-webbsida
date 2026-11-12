@@ -30,8 +30,9 @@ const questions: Question[] = [
       { label: "Nybörjare", description: "Har aldrig åkt skidor tidigare.", value: "beginner" },
       { label: "Avancerad nybörjare", description: "Kan få stopp på skidorna, svänga i barnbacken och åka ankarlift tillsammans med vuxen.", value: "intermediate" },
       { label: "Fortsättning", description: "Åker på ett kontrollerat sätt, svänger i plog och åker ankarlift själv. Vill lära sig svänga med mer parallella skidor, få en säkrare åkning och klara av brantare backar.", value: "advanced" },
-      { label: "Park", description: "Hoppar gärna på kickers, provar rails/boxar och vill utveckla hopp och trick.", value: "freestyle" },
+      { label: "Medelgod åkare", description: "Bättre än fortsättning och man kan åka med parallella skidor.", value: "skidklubb_mid" },
       { label: "Avancerad åkare", description: "Åker säkert i alla backar, med parallella skidor och har god fartkontroll.", value: "expert" },
+      { label: "Park", description: "Hoppar gärna på kickers, provar rails/boxar och vill utveckla hopp och trick.", value: "freestyle" },
     ],
   },
   {
@@ -40,19 +41,19 @@ const questions: Question[] = [
     options: [
       { label: "Träning på helger", description: "5 intensiva och roliga lördagar eller söndagar i Ekholmsnäsbacken (5–10 år).", value: "weekend" },
       { label: "Träning på vardagar", description: "Träna 1–2 vardagskvällar i veckan hela vintern i Skidklubben (7–15 år).", value: "club" },
-      { label: "Egen tränare – privatlektion", description: "Personlig coachning anpassad efter dina behov (alla åldrar).", value: "private" },
+      { label: "Egen tränare – privatlektion", description: "Personlig coachning anpassad efter dina behov (från 4 år).", value: "private" },
     ],
   },
 ];
 
 // För åkare som fyller 5–6 år visas bara skidskolans tre grupper – park och skidklubb kommer senare.
-// För avancerade åkare ("expert") och park ("freestyle") visas inte Helgskidskolan ("weekend"), eftersom Helgskidskolan bara är upp till nivån Fortsättning.
-const youngHidden = new Set(["freestyle", "expert"]);
+// För medelgoda/avancerade åkare och park visas inte Helgskidskolan ("weekend"), eftersom Helgskidskolan bara är upp till nivån Fortsättning.
+const youngHidden = new Set(["skidklubb_mid", "freestyle", "expert"]);
 function optionsFor(q: Question, answers: string[], step: number) {
   if (step === 1 && answers[0] === "young") {
     return q.options.filter((o) => !youngHidden.has(o.value));
   }
-  if (step === 2 && (answers[1] === "expert" || answers[1] === "freestyle")) {
+  if (step === 2 && (answers[1] === "skidklubb_mid" || answers[1] === "expert" || answers[1] === "freestyle")) {
     return q.options.filter((o) => o.value !== "weekend");
   }
   return q.options;
@@ -110,12 +111,12 @@ export function recommend(a: string[]): Result {
 
   if (age === "toddler") {
     return {
-      badge: "Inte gammal nog än",
-      title: "Välkommen nästa säsong!",
-      desc: "Helgskidskolan tar emot barn som fyller 5–10 år det år skidskolan äger rum. Kom tillbaka igen när barnet har fyllt fem!",
-      to: "/helgskidskola",
-      linkText: "Läs om Helgskidskolan",
-      details: ["Barnet ska fylla 5–10 år", "Välkommen igen nästa säsong"],
+      badge: "Inte gammal nog än för Helgskidskolan",
+      title: "Privatlektion från 4 år",
+      desc: "Helgskidskolan tar emot barn som fyller 5–10 år det år skidskolan äger rum. Är barnet 4 år går det däremot bra att boka privatlektion!",
+      to: "/privatlektion",
+      linkText: "Läs om privatlektioner (från 4 år)",
+      details: ["Privatlektion från 4 år", "Helgskidskola från 5 år", "Välkommen till grupp nästa säsong"],
     };
   }
 
@@ -128,17 +129,19 @@ export function recommend(a: string[]): Result {
   // Åkare över 10 år (11–15 år)
   if (age === "teen") {
     const isClubCandidate =
-      (skill === "advanced" || skill === "expert" || skill === "freestyle") &&
+      (skill === "advanced" || skill === "skidklubb_mid" || skill === "expert" || skill === "freestyle") &&
       goal === "club";
-    const isFreestyleOrExpert = skill === "expert" || skill === "freestyle";
+    const isSkidklubbLevel = skill === "skidklubb_mid" || skill === "expert" || skill === "freestyle";
 
-    if (isClubCandidate || isFreestyleOrExpert) {
+    if (isClubCandidate || isSkidklubbLevel) {
       return {
         badge:
           skill === "expert"
             ? "Skidklubb • Avancerad åkare"
             : skill === "freestyle"
             ? "Skidklubb • Park & friåkning"
+            : skill === "skidklubb_mid"
+            ? "Skidklubb • Medelgod åkare"
             : "Skidklubb • Vardagar",
         title: "Freeskiers Skidklubb",
         desc: "För åkare i åk 5–9 som åker säkert i hela backen och vill träna regelbunden friåkning, skärande sväng, hopp, rails och park under vardagskvällar i Ekholmsnäsbacken.",
@@ -146,7 +149,7 @@ export function recommend(a: string[]): Result {
         linkText: "Se Skidklubben & minimikraven",
         details: [
           "Årskurs 5–9 (fyller 11–15 år)",
-          "Måndag & onsdag kvällar",
+          "Måndagar & onsdagar kvällar",
           "Ska uppnå skidklubbens minimikrav",
           "Hjälm & ryggskydd krävs",
         ],
@@ -158,13 +161,15 @@ export function recommend(a: string[]): Result {
     return privateResult("overAgeHelg");
   }
 
-  // Åkare 7–10 år (child) med expert- eller park-vana
-  if ((skill === "expert" || skill === "freestyle") && age === "child") {
+  // Åkare 7–10 år (child) med medelgod, avancerad eller park-vana
+  if ((skill === "skidklubb_mid" || skill === "expert" || skill === "freestyle") && age === "child") {
     return {
       badge:
         skill === "expert"
           ? "Skidklubb • Avancerad åkare"
-          : "Skidklubb • Park & friåkning",
+          : skill === "freestyle"
+          ? "Skidklubb • Park & friåkning"
+          : "Skidklubb • Medelgod åkare",
       title: "Freeskiers Skidklubb",
       desc: "Helgskidskolan sträcker sig upp till nivån Fortsättning. För dig som redan åker med parallella skidor eller vill satsa på park, hopp och skärande sväng är Freeskiers Skidklubb rätt steg!",
       to: "/skidklubb",
@@ -204,7 +209,7 @@ export function recommend(a: string[]): Result {
       desc: "Perfekt för barn (5–10 år) som tar sina första svängar eller behöver bygga självförtroende i barnbacken och liften. Trygga instruktörer och massor av skidglädje!",
       to: "/helgskidskola",
       linkText: "Se Helgskidskolan & Anmäl",
-      details: [ageNote, "5 helgtillfällen i jan–feb", "Inga förkunskaper krävs", "Hjälm krävs, ryggskydd rekommenderas"],
+      details: [ageNote, "5 helgtillfällen i jan–feb", "Kunna ta instruktioner på svenska", "Inga förkunskaper krävs", "Hjälm krävs, ryggskydd rekommenderas"],
     };
   }
   if (skill === "intermediate") {
@@ -214,7 +219,7 @@ export function recommend(a: string[]): Result {
       desc: "För barn (5–10 år) som kan få stopp på skidorna och vill lära sig stanna på ett mer kontrollerat sätt, svänga och åka lift själv.",
       to: "/helgskidskola",
       linkText: "Se Helgskidskolan & Anmäl",
-      details: [ageNote, "5 helger i jan–feb", "Krav: kan få stopp på skidorna & åker lift med vuxen"],
+      details: [ageNote, "5 helger i jan–feb", "Kunna ta instruktioner på svenska", "Krav: kan få stopp på skidorna & åker lift med vuxen"],
     };
   }
   return {
@@ -223,7 +228,7 @@ export function recommend(a: string[]): Result {
     desc: "För barn (5–10 år) som åker på ett kontrollerat sätt, svänger i plog och åker lift själv. Vi lär oss svänga med mer parallella skidor, få en säkrare åkning och klara av brantare backar.",
     to: "/helgskidskola",
     linkText: "Se Helgskidskolan & Anmäl",
-    details: [ageNote, "5 helger i jan–feb", "Svänga med mer parallella skidor", "Få en säkrare åkning & klara brantare backar"],
+    details: [ageNote, "5 helger i jan–feb", "Kunna ta instruktioner på svenska", "Svänga med mer parallella skidor", "Klara brantare backar"],
   };
 }
 

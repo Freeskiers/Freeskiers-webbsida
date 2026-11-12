@@ -24,9 +24,10 @@
       "registrationOpens": "1 november kl. 09.00",
       "schedule": "5 helgtillfällen på lördagar eller söndagar under januari–februari, 75 minuter per gång (5–10 år)",
       "requirements": [
+        "Alla barn måste kunna ta instruktioner på svenska",
         "Alla barn måste ha hjälm i backen. Ryggskydd rekommenderas.",
         "Grön grupp – nybörjare (5–10 år)",
-        "Blå grupp – avancerade nybörjare (5–10 år)",
+        "Blå grupp – avancerad nybörjare (5–10 år)",
         "Röd grupp – fortsättning (5–10 år)"
       ],
       "photoUrl": "/assets/photos/helgskidskola-grupp-ljus.jpg",
@@ -38,10 +39,10 @@
       "price": "3 130 kr",
       "priceNote": "Åk 1–5: 3 130 kr (1 pass/v). Åk 6–9: 4 390 kr (2 pass/v). Alla priser inkluderar liftkort.",
       "registrationOpens": "16 oktober kl. 09.00",
-      "schedule": "Träning 1–2 gånger i veckan, måndag–onsdag kväll, januari–mars",
+      "schedule": "Träning 1–2 gånger i veckan, måndagar och onsdagar kväll, januari–mars",
       "requirements": [
         "Åkning ska kunna ske kontrollerat från topp till botten i backen",
-        "Åkning med huvudsakligen parallella skidor",
+        "Kunna åka med parallella skidor",
         "Självständig åkning i lift samt säker avstigning",
         "Förmåga att stanna kontrollerat utan problem"
       ],
@@ -70,7 +71,7 @@
       "registrationOpens": "Löpande under vintersäsongen",
       "schedule": "60 minuter per pass, bokas direkt via instruktör",
       "requirements": [
-        "För alla åldrar – barn, ungdomar och vuxna på alla nivåer",
+        "Från 4 år – barn, ungdomar och vuxna på alla nivåer",
         "Vid 2 personer behöver båda kunna stanna kontrollerat och åka ankarlift"
       ],
       "photoUrl": "/assets/photos/privatlektioner-grupp.jpg",
@@ -744,6 +745,22 @@
       "howToRedeem": "Besök Lidingö Centrum för klubbevent och Intersport.",
       "websiteUrl": "https://lidingocentrum.se",
       "logoUrl": "/assets/partners/lidingocentrum.svg"
+    },
+    {
+      "id": "stellar",
+      "name": "Stellar",
+      "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
+      "howToRedeem": "Besök stellarequipment.com/se för mer information.",
+      "websiteUrl": "https://stellarequipment.com/se",
+      "logoUrl": ""
+    },
+    {
+      "id": "1000-skis",
+      "name": "1000 Skis",
+      "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
+      "howToRedeem": "Besök 1000skis.com för mer information.",
+      "websiteUrl": "https://www.1000skis.com",
+      "logoUrl": ""
     }
   ]
 }
