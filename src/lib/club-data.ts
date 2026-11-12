@@ -359,7 +359,7 @@ export const groups: Group[] = [
 
 export type Coach = {
   name: string;
-  role: "Tränare" | "Ledare";
+  role: "Tränare" | "Ledare" | (string & {});
   category: "tranare" | "ledare";
   photo?: string;
 };

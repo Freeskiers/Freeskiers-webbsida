@@ -211,8 +211,8 @@ function resolveAuthorName(email: string, payloadName?: string): string {
     return explicit.name;
   }
   const account = sportadminAccounts.find((a) => a.email?.toLowerCase().trim() === cleanEmail);
-  if (account && account.memberName) {
-    return account.memberName;
+  if (account && account.guardianName) {
+    return account.guardianName;
   }
   return email || "Redaktör";
 }

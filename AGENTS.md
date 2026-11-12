@@ -20,3 +20,5 @@
 - Club events (clubEvents in src/lib/club-data.ts) feed TopEventBanner (in Header), /kalender and the start-page preview — one list keeps dates consistent.
 - The private-lesson booking widget is loaded only by AgendoBooking on /privatlektion using profile 252, preventing duplicate global scripts and buttons.
 - Member portal (/medlem, /verifiera) lives in src/components/member with data in src/lib/memberData.ts and memberOffers.ts — ported from the Freeskiers-webbsida repo into the TanStack app, which stays the single codebase.
+
+- TypeScript runs `strict` without `noPropertyAccessFromIndexSignature`, `noUncheckedIndexedAccess` or `exactOptionalPropertyTypes`, because the synced studio/CMS code is not written for them and they broke the preview build.
