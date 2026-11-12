@@ -179,13 +179,15 @@ export function KalenderPage() {
   }, [calendarEvents]);
 
   const list = allEvents.filter((e) => {
+    // CMS events can still carry legacy category names, so compare as plain strings.
+    const category: string = e.category;
     const matchesCat =
       cat === "all" ||
-      e.category === cat ||
-      (cat === "traning" && (e.category === "skidklubb" || e.category === "traning")) ||
-      (cat === "helgskidskola" && (e.category === "skidskola" || e.category === "helgskidskola")) ||
-      (cat === "tavling" && (e.category === "event" || e.category === "tavling")) ||
-      (cat === "klubbkvall" && (e.category === "lager" || e.category === "resa" || e.category === "klubbkvall"));
+      category === cat ||
+      (cat === "traning" && (category === "skidklubb" || category === "traning")) ||
+      (cat === "helgskidskola" && (category === "skidskola" || category === "helgskidskola")) ||
+      (cat === "tavling" && (category === "event" || category === "tavling")) ||
+      (cat === "klubbkvall" && (category === "lager" || category === "resa" || category === "klubbkvall"));
 
     const matchesMonth = month === "all" || e.monthIndex === month;
 
