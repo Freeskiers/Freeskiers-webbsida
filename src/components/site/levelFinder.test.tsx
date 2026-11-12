@@ -27,17 +27,15 @@ describe("LevelFinder recommendation logic (Nivåväljaren)", () => {
       expect(res.details[0]).toContain("5–10 år");
     });
 
-    it("recommends Helgskidskola Röd for 7-10 year old advanced seeking weekend", () => {
+    it("recommends Helgskidskola Röd for 7-10 year old Fortsättning (never Skidklubben)", () => {
       const res = recommend(["child", "advanced", "weekend"]);
       expect(res.title).toContain("Helgskidskola – Röd Grupp");
       expect(res.to).toBe("/helgskidskola");
       expect(res.details[0]).toContain("5–10 år");
-    });
 
-    it("recommends Skidklubben for 7-10 year old advanced seeking weekday club", () => {
-      const res = recommend(["child", "advanced", "club"]);
-      expect(res.title).toBe("Freeskiers Skidklubb");
-      expect(res.to).toBe("/skidklubb");
+      const resEvenIfClubPassed = recommend(["child", "advanced", "club"]);
+      expect(resEvenIfClubPassed.title).toContain("Helgskidskola – Röd Grupp");
+      expect(resEvenIfClubPassed.to).toBe("/helgskidskola");
     });
 
     it("recommends Privatlektion if 5-10 year old chooses private coach", () => {
@@ -69,11 +67,10 @@ describe("LevelFinder recommendation logic (Nivåväljaren)", () => {
       expect(res.to).toBe("/privatlektion");
     });
 
-    it("refers to Skidklubben for 11-15 year old with advanced skills seeking weekday club", () => {
+    it("refers to Privatlektion for 11-15 year old with Fortsättning level (Helgskidskola max age 10, Skidklubben requires Medelgod+)", () => {
       const res = recommend(["teen", "advanced", "club"]);
-      expect(res.title).toBe("Freeskiers Skidklubb");
-      expect(res.to).toBe("/skidklubb");
-      expect(res.details[0]).toContain("11–15 år");
+      expect(res.title).toBe("Privatlektion");
+      expect(res.to).toBe("/privatlektion");
     });
 
     it("refers to Skidklubben for 11-15 year old freestyle / park skier", () => {

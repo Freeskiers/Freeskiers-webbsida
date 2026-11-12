@@ -48,13 +48,19 @@ const questions: Question[] = [
 
 // För åkare som fyller 5–6 år visas bara skidskolans tre grupper – park och skidklubb kommer senare.
 // För medelgoda/avancerade åkare och park visas inte Helgskidskolan ("weekend"), eftersom Helgskidskolan bara är upp till nivån Fortsättning.
+// För nybörjare, avancerade nybörjare och fortsättning visas inte Skidklubben ("club"), eftersom de hänvisas till Helgskidskolan eller Privatlektioner.
 const youngHidden = new Set(["skidklubb_mid", "freestyle", "expert"]);
+const helgOnlySkills = new Set(["beginner", "intermediate", "advanced"]);
+const klubbOnlySkills = new Set(["skidklubb_mid", "expert", "freestyle"]);
 function optionsFor(q: Question, answers: string[], step: number) {
   if (step === 1 && answers[0] === "young") {
     return q.options.filter((o) => !youngHidden.has(o.value));
   }
-  if (step === 2 && (answers[1] === "skidklubb_mid" || answers[1] === "expert" || answers[1] === "freestyle")) {
+  if (step === 2 && klubbOnlySkills.has(answers[1])) {
     return q.options.filter((o) => o.value !== "weekend");
+  }
+  if (step === 2 && helgOnlySkills.has(answers[1])) {
+    return q.options.filter((o) => o.value !== "club");
   }
   return q.options;
 }
@@ -128,21 +134,16 @@ export function recommend(a: string[]): Result {
 
   // Åkare över 10 år (11–15 år)
   if (age === "teen") {
-    const isClubCandidate =
-      (skill === "advanced" || skill === "skidklubb_mid" || skill === "expert" || skill === "freestyle") &&
-      goal === "club";
     const isSkidklubbLevel = skill === "skidklubb_mid" || skill === "expert" || skill === "freestyle";
 
-    if (isClubCandidate || isSkidklubbLevel) {
+    if (isSkidklubbLevel) {
       return {
         badge:
           skill === "expert"
             ? "Skidklubb • Avancerad åkare"
             : skill === "freestyle"
             ? "Skidklubb • Park & friåkning"
-            : skill === "skidklubb_mid"
-            ? "Skidklubb • Medelgod åkare"
-            : "Skidklubb • Vardagar",
+            : "Skidklubb • Medelgod åkare",
         title: "Freeskiers Skidklubb",
         desc: "För åkare i åk 5–9 som åker säkert i hela backen och vill träna regelbunden friåkning, skärande sväng, hopp, rails och park under vardagskvällar i Ekholmsnäsbacken.",
         to: "/skidklubb",
@@ -156,7 +157,7 @@ export function recommend(a: string[]): Result {
       };
     }
 
-    // Alla andra 11–15-åringar (nybörjare, avancerade nybörjare eller som vill ha helgträning)
+    // Alla andra 11–15-åringar (nybörjare, avancerade nybörjare eller fortsättning)
     // Helgskidskolan har övre gräns 10 år -> hänvisa till privatlektion!
     return privateResult("overAgeHelg");
   }
@@ -182,24 +183,7 @@ export function recommend(a: string[]): Result {
     };
   }
 
-  // Åkare 7–10 år som vill träna vardagskvällar i klubben och har god skidvana
-  if (age === "child" && skill === "advanced" && goal === "club") {
-    return {
-      badge: "Skidklubb • Vardagar",
-      title: "Freeskiers Skidklubb",
-      desc: "För åkare i åk 1–4 som vill träna regelbunden friåkning, skärande sväng, hopp, rails och park under vardagskvällar i Ekholmsnäsbacken. Åkaren behöver uppnå minimikraven på skidklubbens sida.",
-      to: "/skidklubb",
-      linkText: "Se Skidklubben & minimikraven",
-      details: [
-        "Åk 1–4 (fyller 7–10 år)",
-        "Träning 1 kväll/vecka",
-        "Ska uppnå skidklubbens minimikrav",
-        "Hjälm & ryggskydd krävs",
-      ],
-    };
-  }
-
-  // Resterande barn 5–10 år -> Helgskidskolan (Grön, Blå eller Röd grupp)
+  // Resterande barn 5–10 år -> Helgskidskolan (Grön, Blå eller Röd grupp) eller Privatlektion (hanterat ovan)
   const ageNote = "Fyller 5–10 år (övre åldersgräns 10 år)";
 
   if (skill === "beginner") {
