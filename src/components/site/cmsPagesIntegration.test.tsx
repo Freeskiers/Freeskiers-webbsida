@@ -230,6 +230,8 @@ describe("CMS Consumer Integration Tests", () => {
 
       expect(html).toContain("Våra tränare &amp; ledare");
       expect(html).toContain("Abbe Olofsson");
+      expect(html).not.toContain('src="/assets/photos/coaches/abbe-olofsson.jpg"');
+      expect(html).toContain("abbe-olofsson");
     });
 
     it("reflects updated coaches data from preview draft", () => {

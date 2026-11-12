@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { resolvePhotoUrl } from "@/lib/club-data";
 import { ImageUploadField } from "./ImageUploadField";
 
 export interface CoachesManagerFormProps {
@@ -279,7 +280,7 @@ export const CoachesManagerForm: React.FC<CoachesManagerFormProps> = ({
                         <div className="size-12 shrink-0 overflow-hidden rounded-full border border-border bg-muted/40">
                           {coach.photoUrl ? (
                             <img
-                              src={coach.photoUrl}
+                              src={resolvePhotoUrl(coach.photoUrl)}
                               alt={coach.name}
                               className="size-full object-cover"
                               onError={(e) => {

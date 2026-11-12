@@ -11,6 +11,7 @@ import {
   coaches as defaultCoaches,
   CONTACT_EMAIL,
   europeanSnowsportSamarbete,
+  resolvePhotoUrl,
   type Coach,
 } from "@/lib/club-data";
 
@@ -53,7 +54,7 @@ export function AboutPage() {
         name: cms.name,
         role: cms.role || defaultMatch?.role || "Tränare",
         category: (isLeader ? "ledare" : "tranare") as "tranare" | "ledare",
-        photo: cms.photoUrl || defaultMatch?.photo,
+        photo: resolvePhotoUrl(cms.photoUrl) || defaultMatch?.photo,
       };
     });
   }, [cmsCoaches]);

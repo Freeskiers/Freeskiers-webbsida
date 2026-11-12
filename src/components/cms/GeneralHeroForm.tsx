@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { resolvePhotoUrl } from "@/lib/club-data";
 import { ImageUploadField } from "./ImageUploadField";
 
 export interface GeneralHeroFormProps {
@@ -190,7 +191,7 @@ export const GeneralHeroForm: React.FC<GeneralHeroFormProps> = ({
             {hero.heroPhotoUrl && (
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none"
-                style={{ backgroundImage: `url(${hero.heroPhotoUrl})` }}
+                style={{ backgroundImage: `url(${resolvePhotoUrl(hero.heroPhotoUrl)})` }}
               />
             )}
             <div className="relative z-10 space-y-3 max-w-xl">

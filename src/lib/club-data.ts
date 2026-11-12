@@ -363,13 +363,35 @@ export type Coach = {
   photo?: string;
 };
 
-const coachPhotoModules = import.meta.glob<string>("../assets/photos/coaches/*.jpg", {
-  eager: true,
-  import: "default",
-});
+const allPhotoModules = import.meta.glob<string>(
+  "../assets/photos/**/*.{jpg,jpeg,png,webp,gif,svg}",
+  { eager: true, import: "default" },
+);
+
+const allAssetJsonModules = import.meta.glob<{ url?: string }>(
+  "../assets/photos/**/*.asset.json",
+  { eager: true, import: "default" },
+);
+
+/**
+ * Resolves a CMS photo path (such as `/assets/photos/coaches/foo.jpg` or
+ * `/assets/photos/cms/bar.webp`) to its Vite-bundled URL, falling back to
+ * `.asset.json` pointers or the original string for external/data URLs.
+ */
+export function resolvePhotoUrl(url?: string): string | undefined {
+  if (!url) return undefined;
+  if (url.startsWith("/assets/photos/")) {
+    const rel = url.slice("/assets/photos/".length);
+    const direct = allPhotoModules[`../assets/photos/${rel}`];
+    if (direct) return direct;
+    const assetJson = allAssetJsonModules[`../assets/photos/${rel}.asset.json`];
+    if (assetJson?.url) return assetJson.url;
+  }
+  return url;
+}
 
 const coachPhoto = (slug: string): string | undefined =>
-  coachPhotoModules[`../assets/photos/coaches/${slug}.jpg`];
+  allPhotoModules[`../assets/photos/coaches/${slug}.jpg`];
 
 // Synkad direkt mot SportAdmin (säsong 2026/2027):
 // - "tranare" = ligger i gruppen "Tränare - Lidingö Freeskiers" i SportAdmin (61 st)
