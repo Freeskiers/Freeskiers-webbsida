@@ -754,7 +754,7 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       ) : (
         /* Main Container: SportAdmin API & Medlemsregister */
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
         {/* ===================================================================== */}
         {/* SECTION 1: SPORTADMIN API v4 CONTROL CENTER                           */}
