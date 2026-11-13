@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { canUserEditCms, isSuperAdmin } from './cmsAuth';
+import { canUserEditCms, isSuperAdmin, canAccessAdmin } from './cmsAuth';
 
 describe('CMS Authorization', () => {
   describe('Explicit editor config', () => {
@@ -124,6 +124,47 @@ describe('CMS Authorization', () => {
       expect(isSuperAdmin('kontakt@lidingofreeskiers.se')).toBe(false);
       expect(isSuperAdmin('ann.sainer@gmail.com')).toBe(false);
       expect(isSuperAdmin('random@example.com')).toBe(false);
+    });
+  });
+
+  describe('canAccessAdmin (Kansli & Admin for Styrelse & TA)', () => {
+    it('allows superadmin account admin@lidingofreeskiers.se', () => {
+      const auth = canAccessAdmin('admin@lidingofreeskiers.se');
+      expect(auth.allowed).toBe(true);
+      expect(auth.role).toBe('admin');
+    });
+
+    it('allows Styrelse member Stefan Aaröe (stefan@lidingofreeskiers.se & stefan.aaroe@me.com)', () => {
+      const auth1 = canAccessAdmin('stefan@lidingofreeskiers.se');
+      expect(auth1.allowed).toBe(true);
+      expect(auth1.role).toBe('styrelse');
+
+      const auth2 = canAccessAdmin('stefan.aaroe@me.com');
+      expect(auth2.allowed).toBe(true);
+      expect(auth2.role).toBe('styrelse');
+    });
+
+    it('allows TA Klara Tengstrand (klara.tengstrand@gmail.com)', () => {
+      const auth = canAccessAdmin('klara.tengstrand@gmail.com');
+      expect(auth.allowed).toBe(true);
+      expect(auth.name?.toLowerCase()).toContain('klara');
+    });
+
+    it('allows Board members in SportAdmin (Sten Berggren, Ann Sainer, Dan Josefsson)', () => {
+      expect(canAccessAdmin('sten.berggren@icloud.com').allowed).toBe(true);
+      expect(canAccessAdmin('ann.sainer@gmail.com').allowed).toBe(true);
+      expect(canAccessAdmin('danjo75@hotmail.com').allowed).toBe(true);
+    });
+
+    it('rejects regular members without board/TA role', () => {
+      const auth = canAccessAdmin('magdalena@langenskiold.com');
+      expect(auth.allowed).toBe(false);
+      expect(auth.reason).toContain('SportAdmin');
+    });
+
+    it('rejects unknown or invalid emails', () => {
+      expect(canAccessAdmin('').allowed).toBe(false);
+      expect(canAccessAdmin('unauthorized@test.com').allowed).toBe(false);
     });
   });
 });

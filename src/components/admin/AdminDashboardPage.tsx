@@ -22,10 +22,14 @@ import {
   ArrowRight,
   LogOut,
   Info,
-  Sparkles
+  Sparkles,
+  Mail,
+  ShieldAlert,
+  Loader2
 } from 'lucide-react';
 import { FreeskiersStudioPage } from '@/components/cms/FreeskiersStudioPage';
 import { useMemberAuth } from '@/components/member/MemberAuthContext';
+import { canAccessAdmin } from '@/lib/cmsAuth';
 import {
   sportadminAccounts,
   sportadminSkiers,
@@ -35,6 +39,7 @@ import { MemberSkier } from '@/lib/memberData';
 import {
   testSportAdminConnectionFn,
   fetchLiveMembersFn,
+  verifyMemberStatusFn,
   SportAdminConnectionResult,
   SportAdminSyncResult
 } from '@/lib/sportadminServer';
@@ -45,9 +50,18 @@ const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v3';
 export const AdminDashboardPage: React.FC = () => {
   const { currentUser, login, logout } = useMemberAuth();
 
-  // Admin access gate: either logged in with role admin/styrelse or authenticated via PIN
-  const [adminPin, setAdminPin] = useState('');
-  const [pinError, setPinError] = useState(false);
+  // Admin access gate: synchronized against SportAdmin for Styrelse and TA
+  const [adminEmail, setAdminEmail] = useState(() => {
+    if (typeof sessionStorage === 'undefined') return '';
+    try {
+      return sessionStorage.getItem('freeskiers_admin_email') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [emailInput, setEmailInput] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [sessionUnlocked, setSessionUnlocked] = useState(() => {
     if (typeof sessionStorage === 'undefined') return false;
     try {
@@ -59,11 +73,21 @@ export const AdminDashboardPage: React.FC = () => {
 
   const isAuthorized = useMemo(() => {
     if (sessionUnlocked) return true;
+    if (currentUser?.email) {
+      const auth = canAccessAdmin(currentUser.email);
+      if (auth.allowed) return true;
+    }
     if (currentUser && (currentUser.role === 'admin' || currentUser.role === 'styrelse')) {
       return true;
     }
     return false;
   }, [currentUser, sessionUnlocked]);
+
+  const activeAdminAuth = useMemo(() => {
+    const email = currentUser?.email || adminEmail;
+    if (!email) return null;
+    return canAccessAdmin(email);
+  }, [currentUser, adminEmail]);
 
   const matches = useMatches();
   const isCmsRoute = useMemo(() => {
@@ -113,33 +137,95 @@ export const AdminDashboardPage: React.FC = () => {
   const [copiedEmails, setCopiedEmails] = useState(false);
   const [showKeyGuide, setShowKeyGuide] = useState(false);
 
-  // Handle Admin Gate Login
-  const handleUnlock = (e: React.FormEvent) => {
+  // Handle Admin Email Login (synchronized with SportAdmin for Styrelse & TA)
+  const handleAdminEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPin.trim() === '2026' || adminPin.trim().toLowerCase() === 'freeskiers' || adminPin.trim().toLowerCase() === 'admin') {
-      setSessionUnlocked(true);
-      setPinError(false);
-      try {
-        sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
-        sessionStorage.setItem('freeskiers_admin_pin', adminPin.trim());
-      } catch {
-        /* ignore */
-      }
-      login('admin@lidingofreeskiers.se');
-    } else {
-      setPinError(true);
+    const cleanEmail = emailInput.trim().toLowerCase();
+    if (!cleanEmail) {
+      setAuthError('Ange din e-postadress.');
+      return;
     }
-  };
 
-  const handleQuickAdminLogin = () => {
-    setSessionUnlocked(true);
+    setAuthError(null);
+    setIsVerifying(true);
+
     try {
-      sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
-      sessionStorage.setItem('freeskiers_admin_pin', '2026');
-    } catch {
-      /* ignore */
+      // 1. First check local SportAdmin database & CMS editor accounts
+      const localResult = canAccessAdmin(cleanEmail);
+      if (localResult.allowed) {
+        setSessionUnlocked(true);
+        setAdminEmail(cleanEmail);
+        try {
+          sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
+          sessionStorage.setItem('freeskiers_admin_email', cleanEmail);
+        } catch {
+          /* ignore */
+        }
+        login(cleanEmail);
+        setIsVerifying(false);
+        return;
+      }
+
+      // 2. Fallback: check live SportAdmin API via verifyMemberStatusFn
+      try {
+        const verifyResult = await verifyMemberStatusFn({
+          data: { email: cleanEmail }
+        });
+
+        if (verifyResult.success && verifyResult.isMember) {
+          const isLeaderOrBoard = verifyResult.statuses?.some(s => {
+            const hasBoardCard = s.memberCards?.some(card => {
+              const text = `${card.title || ''} ${card.group || ''} ${card.groupConnection || ''}`.toLowerCase();
+              return (
+                text.includes('styrelse') ||
+                text.includes('ledare') ||
+                text.includes('tränare') ||
+                text.includes('ta ') ||
+                text.includes('arena') ||
+                text.includes('engagerade vuxna')
+              );
+            });
+            const name = (s.memberFullName || '').toLowerCase();
+            const isKnownTaOrBoard =
+              name.includes('klara tengstrand') ||
+              name.includes('felix bergström') ||
+              name.includes('stefan aaröe') ||
+              name.includes('sten berggren');
+
+            return Boolean(hasBoardCard || isKnownTaOrBoard);
+          });
+
+          if (isLeaderOrBoard) {
+            setSessionUnlocked(true);
+            setAdminEmail(cleanEmail);
+            try {
+              sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
+              sessionStorage.setItem('freeskiers_admin_email', cleanEmail);
+            } catch {
+              /* ignore */
+            }
+            login(cleanEmail);
+            setIsVerifying(false);
+            return;
+          }
+
+          setAuthError(
+            `Kontot (${cleanEmail}) är registrerat i SportAdmin, men saknar administratörsbehörighet (Styrelse eller TA).`
+          );
+          setIsVerifying(false);
+          return;
+        }
+      } catch (err) {
+        console.warn('SportAdmin live verify check failed or offline:', err);
+      }
+
+      // 3. Not found or unauthorized
+      setAuthError(
+        `E-postadressen (${cleanEmail}) hittades inte bland behöriga för Styrelse eller TA. Kontrollera att du anger samma e-postadress som finns registrerad i SportAdmin.`
+      );
+    } finally {
+      setIsVerifying(false);
     }
-    login('admin@lidingofreeskiers.se');
   };
 
   // Test SportAdmin API Connection via Server Function
@@ -292,57 +378,82 @@ export const AdminDashboardPage: React.FC = () => {
               Klubbadministration
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
-              Endast för styrelse, ledning och kansliansvariga i IK Lidingö Freeskiers.
+              Endast för klubbens <strong>styrelse</strong> och <strong>tränaransvariga (TA)</strong> synkat mot SportAdmin.
             </p>
           </div>
 
-          <form onSubmit={handleUnlock} className="space-y-4">
+          <form onSubmit={handleAdminEmailSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Kanslikod / PIN
+                E-postadress
               </label>
-              <input
-                type="password"
-                required
-                value={adminPin}
-                onChange={(e) => {
-                  setAdminPin(e.target.value);
-                  setPinError(false);
-                }}
-                placeholder="Ange kanslikod (test: 2026)..."
-                className="w-full px-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
-              />
-              {pinError && (
-                <p className="text-xs text-rose-600 font-semibold mt-1.5 flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  <span>Felaktig behörighetskod. Försök igen.</span>
-                </p>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <input
+                  type="email"
+                  required
+                  value={emailInput}
+                  onChange={(e) => {
+                    setEmailInput(e.target.value);
+                    if (authError) setAuthError(null);
+                  }}
+                  placeholder="namn@lidingofreeskiers.se..."
+                  className="w-full pl-10 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
+                />
+              </div>
+              {authError && (
+                <div className="mt-3 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
+                  <ShieldAlert className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="font-bold">Åtkomst nekad</p>
+                    <p className="mt-0.5 text-rose-600 leading-relaxed">{authError}</p>
+                  </div>
+                </div>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+              disabled={isVerifying}
+              className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
             >
-              <span>Lås upp kanslipanelen</span>
-              <ArrowRight className="w-4 h-4 text-freeskiers-cyan" />
+              {isVerifying ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-freeskiers-cyan" />
+                  <span>Verifierar behörighet...</span>
+                </>
+              ) : (
+                <>
+                  <span>Logga in till Kansli & Admin</span>
+                  <ArrowRight className="w-4 h-4 text-freeskiers-cyan" />
+                </>
+              )}
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-            <button
-              type="button"
-              onClick={handleQuickAdminLogin}
-              className="text-xs font-bold text-freeskiers-cyan hover:underline inline-flex items-center gap-1"
-            >
-              <span>Logga in direkt som Klubbadmin (admin@lidingofreeskiers.se)</span>
-            </button>
-          </div>
+          <div className="mt-6 pt-5 border-t border-slate-100 space-y-3 text-xs text-slate-500">
+            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+              <p className="font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Synkad mot SportAdmin</span>
+              </p>
+              <p className="text-[11px] leading-relaxed text-slate-600">
+                Inloggningen kontrollerar ditt konto i SportAdmin. Tillgång beviljas för registrerade styrelsemedlemmar och tränaransvariga (TA).
+              </p>
+            </div>
 
-          <div className="mt-4 text-center">
-            <Link to="/" className="text-xs text-slate-400 hover:text-slate-600">
-              ← Tillbaka till hemsidan
-            </Link>
+            <p className="text-center pt-2">
+              Är du åkare eller förälder?{' '}
+              <Link to="/medlem" className="text-freeskiers-navy font-bold hover:underline">
+                Gå till Mina Sidor
+              </Link>
+            </p>
+
+            <div className="mt-2 text-center">
+              <Link to="/" className="text-xs text-slate-400 hover:text-slate-600">
+                ← Tillbaka till hemsidan
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -369,13 +480,25 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-freeskiers-cyan/20 border border-freeskiers-cyan/40 text-freeskiers-lightcyan text-xs font-bold uppercase tracking-wider mb-2">
                 <ShieldCheck className="w-3.5 h-3.5 text-freeskiers-lightcyan" />
-                <span>Klubbadministration</span>
+                <span>Klubbadministration (Styrelse & TA)</span>
               </div>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight">
                 Kanslicenter & SportAdmin Synk
               </h1>
               <p className="text-slate-300 text-sm mt-1 max-w-2xl">
-                Hantera klubbens medlemsregister, aktivera och testa SportAdmin API v4 och synka årets åkare i realtid.
+                {currentUser?.guardianName || activeAdminAuth?.name ? (
+                  <>
+                    Inloggad som: <strong className="text-white">{currentUser?.guardianName || activeAdminAuth?.name}</strong>{' '}
+                    <span className="text-freeskiers-cyan text-xs font-medium">({currentUser?.email || adminEmail})</span>
+                  </>
+                ) : (
+                  <>Inloggad som: <strong className="text-white">{currentUser?.email || adminEmail || 'Administratör'}</strong></>
+                )}
+                {activeAdminAuth?.reason && (
+                  <span className="block text-xs text-slate-400 mt-0.5">
+                    {activeAdminAuth.reason}
+                  </span>
+                )}
               </p>
             </div>
 
@@ -396,8 +519,11 @@ export const AdminDashboardPage: React.FC = () => {
               <button
                 onClick={() => {
                   setSessionUnlocked(false);
+                  setAdminEmail('');
                   try {
                     sessionStorage.removeItem('freeskiers_admin_unlocked');
+                    sessionStorage.removeItem('freeskiers_admin_email');
+                    sessionStorage.removeItem('freeskiers_admin_pin');
                   } catch {
                     /* ignore */
                   }

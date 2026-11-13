@@ -8,6 +8,13 @@ export interface CmsAuthResult {
   reason: string;
 }
 
+export interface AdminAuthResult {
+  allowed: boolean;
+  role?: string;
+  name?: string;
+  reason: string;
+}
+
 /**
  * Normalized keywords identifying board members and lead coaches
  * in SportAdmin groups and roles.
@@ -17,7 +24,9 @@ export const BOARD_ROLE_KEYWORDS = [
   'tränaransvarig',
   'tranaransvarig',
   'huvudtränare',
-  'huvudtranare'
+  'huvudtranare',
+  'ta arena',
+  'engagerade vuxna'
 ];
 
 /**
@@ -138,4 +147,106 @@ export function isSuperAdmin(
 ): boolean {
   const auth = canUserEditCms(email, editors);
   return auth.allowed && auth.role === 'superadmin';
+}
+
+/**
+ * Evaluates whether an email is authorized to access the Kansli & Admin portal (/admin).
+ * Grants access to:
+ * - Explicit administrators (INITIAL_CMS_EDITORS)
+ * - Styrelsemedlemmar in SportAdmin (role 'styrelse' or 'admin')
+ * - TA (Tränaransvarig, Huvudtränare, TA Arena) in SportAdmin
+ */
+export function canAccessAdmin(
+  email: string,
+  editors: CmsEditorEntry[] = INITIAL_CMS_EDITORS,
+  accounts: MemberAccount[] = [...demoAccounts, ...sportadminAccounts],
+  skiers: SportAdminSkierRecord[] = sportadminSkiers
+): AdminAuthResult {
+  const cleanEmail = typeof email === 'string' ? email.toLowerCase().trim() : '';
+
+  if (!cleanEmail) {
+    return {
+      allowed: false,
+      reason: 'Ingen giltig e-postadress angiven'
+    };
+  }
+
+  // 1. Check explicit administrators
+  const explicitEntry = editors.find(
+    e => e.email.toLowerCase().trim() === cleanEmail
+  );
+  if (explicitEntry) {
+    return {
+      allowed: true,
+      role: explicitEntry.role === 'superadmin' ? 'admin' : 'styrelse',
+      name: explicitEntry.name,
+      reason: `Tillåten via administratörslista (${explicitEntry.role})`
+    };
+  }
+
+  // 2. Check SportAdmin accounts (primary & alternate emails)
+  for (const account of accounts) {
+    const isPrimaryMatch = account.email?.toLowerCase().trim() === cleanEmail;
+    const isAltMatch = account.alternateEmails?.some(
+      alt => alt?.toLowerCase().trim() === cleanEmail
+    );
+
+    if (isPrimaryMatch || isAltMatch) {
+      if (account.role === 'styrelse' || account.role === 'admin') {
+        return {
+          allowed: true,
+          role: account.role,
+          name: account.guardianName,
+          reason: `Tillåten via SportAdmin (${account.role})`
+        };
+      }
+
+      for (const skier of account.skiers || []) {
+        if (
+          skier.role === 'styrelse' ||
+          skier.role === 'admin' ||
+          hasBoardKeyword(skier.role) ||
+          hasBoardKeyword(skier.groupName) ||
+          (skier.paymentDate && skier.paymentDate.toLowerCase().includes('styrelse')) ||
+          (skier.firstName?.toLowerCase() === 'klara' && skier.lastName?.toLowerCase() === 'tengstrand') ||
+          (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström')
+        ) {
+          return {
+            allowed: true,
+            role: skier.role === 'admin' ? 'admin' : 'styrelse',
+            name: account.guardianName || `${skier.firstName} ${skier.lastName}`,
+            reason: `Tillåten via SportAdmin TA / Styrelse (${skier.groupName || skier.role})`
+          };
+        }
+      }
+    }
+  }
+
+  // 3. Check SportAdmin skier database directly (guardian email)
+  for (const skier of skiers) {
+    const isGuardianMatch = skier.guardianEmail?.toLowerCase().trim() === cleanEmail;
+    if (isGuardianMatch) {
+      if (
+        skier.role === 'styrelse' ||
+        skier.role === 'admin' ||
+        hasBoardKeyword(skier.role) ||
+        hasBoardKeyword(skier.groupName) ||
+        (skier.paymentDate && skier.paymentDate.toLowerCase().includes('styrelse')) ||
+        (skier.firstName?.toLowerCase() === 'klara' && skier.lastName?.toLowerCase() === 'tengstrand') ||
+        (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström')
+      ) {
+        return {
+          allowed: true,
+          role: skier.role === 'admin' ? 'admin' : 'styrelse',
+          name: skier.guardianName || `${skier.firstName} ${skier.lastName}`,
+          reason: `Tillåten via SportAdmin-koppling (${skier.groupName || skier.role})`
+        };
+      }
+    }
+  }
+
+  return {
+    allowed: false,
+    reason: 'E-postadressen saknar behörighet som Styrelse eller TA i SportAdmin'
+  };
 }
