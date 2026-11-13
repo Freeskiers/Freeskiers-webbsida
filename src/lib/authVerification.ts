@@ -73,7 +73,10 @@ export async function createAndSendVerificationCode(
 
   const isTestEnv = typeof process !== 'undefined' && (process.env?.['NODE_ENV'] === 'test' || Boolean(process.env?.['VITEST']));
 
-  if (resendApiKey) {
+  if (isTestEnv) {
+    // In test runner without outbound internet access, simulate successful dispatch
+    emailSent = true;
+  } else if (resendApiKey) {
     try {
       const fromAddress =
         envObj['RESEND_FROM_EMAIL'] ||
@@ -81,8 +84,26 @@ export async function createAndSendVerificationCode(
         'Lidingö Freeskiers <noreply@lidingofreeskiers.se>';
 
       const contextTitle = context === 'admin' ? 'Kansli & Styrelse' : 'Mina Sidor';
+      const emailHtml = `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <h1 style="color: #0f172a; font-size: 24px; font-weight: 800; margin: 0;">IK Lidingö Freeskiers</h1>
+            <p style="color: #64748b; font-size: 14px; margin-top: 4px;">Inloggning till ${contextTitle}</p>
+          </div>
+          <p style="color: #334155; font-size: 15px; line-height: 1.5;">Hej,</p>
+          <p style="color: #334155; font-size: 15px; line-height: 1.5;">Här är din engångskod för att logga in på <strong>lidingofreeskiers.se</strong>:</p>
+          <div style="text-align: center; margin: 28px 0;">
+            <div style="display: inline-block; background-color: #f1f5f9; padding: 14px 28px; border-radius: 12px; letter-spacing: 6px; font-size: 32px; font-weight: 900; color: #0f172a; border: 2px solid #06b6d4;">
+              ${code}
+            </div>
+          </div>
+          <p style="color: #64748b; font-size: 13px; line-height: 1.5;">Koden är giltig i 10 minuter och kan endast användas en gång. Om du inte har begärt denna kod kan du ignorera detta meddelande.</p>
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
+          <p style="color: #94a3b8; font-size: 12px; text-align: center; margin: 0;">IK Lidingö Freeskiers · Ekholmsnäsbacken, Lidingö</p>
+        </div>
+      `;
 
-      const emailRes = await fetch('https://api.resend.com/emails', {
+      let emailRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${resendApiKey}`,
@@ -92,41 +113,49 @@ export async function createAndSendVerificationCode(
           from: fromAddress,
           to: [cleanEmail],
           subject: `${code} är din inloggningskod till Lidingö Freeskiers (${contextTitle})`,
-          html: `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff;">
-              <div style="text-align: center; margin-bottom: 24px;">
-                <h1 style="color: #0f172a; font-size: 24px; font-weight: 800; margin: 0;">IK Lidingö Freeskiers</h1>
-                <p style="color: #64748b; font-size: 14px; margin-top: 4px;">Inloggning till ${contextTitle}</p>
-              </div>
-              <p style="color: #334155; font-size: 15px; line-height: 1.5;">Hej,</p>
-              <p style="color: #334155; font-size: 15px; line-height: 1.5;">Här är din engångskod för att logga in på <strong>lidingofreeskiers.se</strong>:</p>
-              <div style="text-align: center; margin: 28px 0;">
-                <div style="display: inline-block; background-color: #f1f5f9; padding: 14px 28px; border-radius: 12px; letter-spacing: 6px; font-size: 32px; font-weight: 900; color: #0f172a; border: 2px solid #06b6d4;">
-                  ${code}
-                </div>
-              </div>
-              <p style="color: #64748b; font-size: 13px; line-height: 1.5;">Koden är giltig i 10 minuter och kan endast användas en gång. Om du inte har begärt denna kod kan du ignorera detta meddelande.</p>
-              <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
-              <p style="color: #94a3b8; font-size: 12px; text-align: center; margin: 0;">IK Lidingö Freeskiers · Ekholmsnäsbacken, Lidingö</p>
-            </div>
-          `
+          html: emailHtml
         })
       });
 
+      // If custom domain is not yet verified in DNS, try Resend onboarding sender as temporary fallback
+      if (!emailRes.ok) {
+        const firstErrText = await emailRes.text();
+        console.warn('Initial Resend send attempt returned:', firstErrText);
+
+        const fallbackRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from: 'Lidingö Freeskiers <onboarding@resend.dev>',
+            to: [cleanEmail],
+            subject: `${code} är din inloggningskod till Lidingö Freeskiers (${contextTitle})`,
+            html: emailHtml
+          })
+        });
+
+        if (fallbackRes.ok) {
+          emailRes = fallbackRes;
+        } else {
+          const fallbackErr = await fallbackRes.text();
+          console.warn('Fallback Resend send attempt returned:', fallbackErr);
+          if (firstErrText.includes('domain is not verified') || fallbackErr.includes('verify a domain')) {
+            sendError = 'E-postdomänen lidingofreeskiers.se behöver verifieras i Resend (resend.com/domains) för att kunna skicka till denna adress.';
+          } else {
+            sendError = 'Kunde inte leverera e-post via Resend. Kontrollera adressen eller försök igen.';
+          }
+        }
+      }
+
       if (emailRes.ok) {
         emailSent = true;
-      } else {
-        const errText = await emailRes.text();
-        console.warn('Resend email sending error:', errText);
-        sendError = 'E-post kunde inte levereras via e-posttjänsten. Kontrollera adressen eller försök igen.';
       }
     } catch (err) {
       console.warn('Could not dispatch email via Resend:', err);
       sendError = 'Ett nätverksfel uppstod vid kontakt med e-posttjänsten.';
     }
-  } else if (isTestEnv) {
-    // In test runner without live API key, simulate success
-    emailSent = true;
   } else {
     // No email provider configured on server
     sendError = 'E-posttjänsten är inte konfigurerad ännu (RESEND_API_KEY saknas). Verifieringskoden kunde inte skickas till din inkorg. Vänligen kontakta administratören.';
