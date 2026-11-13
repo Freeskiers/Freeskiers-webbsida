@@ -150,10 +150,11 @@ describe('CMS Authorization', () => {
       expect(auth.name?.toLowerCase()).toContain('klara');
     });
 
-    it('allows Board members in SportAdmin (Sten Berggren, Ann Sainer, Dan Josefsson)', () => {
+    it('allows Board members in SportAdmin (Sten Berggren, Ann Sainer, Dan Josefsson, Ellinor Strömstedt)', () => {
       expect(canAccessAdmin('sten.berggren@icloud.com').allowed).toBe(true);
       expect(canAccessAdmin('ann.sainer@gmail.com').allowed).toBe(true);
       expect(canAccessAdmin('danjo75@hotmail.com').allowed).toBe(true);
+      expect(canAccessAdmin('ellinorcarlsson82@gmail.com').allowed).toBe(true);
     });
 
     it('rejects regular members without board/TA role', () => {

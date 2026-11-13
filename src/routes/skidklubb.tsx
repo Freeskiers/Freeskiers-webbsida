@@ -178,6 +178,17 @@ function Skidklubb() {
           <p className="mt-3 text-xs italic text-muted-foreground">
             {skidklubbSida.requirementsNote}
           </p>
+          <div className="mt-4 rounded-xl border border-primary/20 bg-secondary/60 p-4 text-sm">
+            <p className="font-semibold text-heading">Uppfyller du inte minimikraven än?</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              Om man inte uppfyller minimikraven är man varmt välkommen att boka privatlektioner istället för att snabbt och tryggt hitta skidvanan och flytet i backen.
+            </p>
+            <div className="mt-3">
+              <Button variant="outline" size="sm" className="rounded-full" asChild>
+                <Link to="/privatlektion">Boka privatlektion →</Link>
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Anmälan & förtur */}

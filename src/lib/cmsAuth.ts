@@ -209,7 +209,9 @@ export function canAccessAdmin(
           hasBoardKeyword(skier.groupName) ||
           (skier.paymentDate && skier.paymentDate.toLowerCase().includes('styrelse')) ||
           (skier.firstName?.toLowerCase() === 'klara' && skier.lastName?.toLowerCase() === 'tengstrand') ||
-          (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström')
+          (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström') ||
+          (skier.firstName?.toLowerCase() === 'ellinor' && skier.lastName?.toLowerCase() === 'strömstedt') ||
+          (account.guardianName?.toLowerCase().includes('ellinor strömstedt'))
         ) {
           return {
             allowed: true,
@@ -233,7 +235,8 @@ export function canAccessAdmin(
         hasBoardKeyword(skier.groupName) ||
         (skier.paymentDate && skier.paymentDate.toLowerCase().includes('styrelse')) ||
         (skier.firstName?.toLowerCase() === 'klara' && skier.lastName?.toLowerCase() === 'tengstrand') ||
-        (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström')
+        (skier.firstName?.toLowerCase() === 'felix' && skier.lastName?.toLowerCase() === 'bergström') ||
+        (skier.firstName?.toLowerCase() === 'ellinor' && skier.lastName?.toLowerCase() === 'strömstedt')
       ) {
         return {
           allowed: true,

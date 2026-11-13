@@ -36,7 +36,7 @@ export const WEBCAM_URL = CLUB_URL;
 export const CONTACT_EMAIL = "kontakt@lidingofreeskiers.se";
 export const SLOPE_ADDRESS = "Ekholmsnäsvägen 87, 181 41 Lidingö";
 export const INSTAGRAM_URL = "https://www.instagram.com/lidingofreeskiers/";
-export const FACEBOOK_URL = "https://www.facebook.com/freeskierslidingo/";
+export const FACEBOOK_URL = "https://www.facebook.com/lidingofreeskiers";
 export const WEBBSHOP_URL = "https://intersportlidingo.se/Login.aspx?out=1";
 export const REGISTRATION_OPEN = "16 oktober kl. 09.00";
 export const SEASON = "2026/2027";
@@ -198,7 +198,7 @@ export const skidklubbSida = {
     "Förmåga att stanna kontrollerat utan problem",
   ],
   requirementsNote:
-    "Inga krav ställs på trick, hopp eller avancerade svängar – dessa moment introduceras och utvecklas inom verksamheten.",
+    "Inga krav ställs på trick, hopp eller avancerade svängar – dessa moment introduceras och utvecklas inom verksamheten. Om man inte uppfyller minimikraven är man varmt välkommen att boka privatlektioner istället.",
   traning: {
     intro:
       "Åkarna är indelade efter åldersanpassade grupper som leds av klubbens instruktörer.",
@@ -480,7 +480,7 @@ export const board: { name: string; role?: string }[] = [
   { name: "Ann Winitsky Säiner", role: "Sponsor- och kommunikationsansvarig" },
   { name: "Daniel Ryman", role: "Backansvarig (gällande LFS´s aktiviteter, ej driften)" },
   { name: "Erik Rune", role: "Design" },
-  { name: "Javier Rojas", role: "Resurs" },
+  { name: "Ellinor Strömstedt", role: "Ansvarig för Helgskidskolan" },
 ];
 
 export type EventCategory = "anmalan" | "traning" | "helgskidskola" | "tavling" | "klubbkvall" | "lager";
