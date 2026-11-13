@@ -339,7 +339,7 @@ describe("CMS Form Components & Image Upload Optimizer", () => {
       expect(html).toContain("Samarbetspartners &amp; Medlemsförmåner");
       expect(html).toContain("Lägg till partner");
       expect(html).toContain(baseContent.partners[0].name);
-      expect(html).toContain("15% rabatt på skidutrustning");
+      expect(html).toContain(baseContent.partners[0].discountSummary);
     });
 
     it("renders customized partner discount, online code and instructions in HTML", () => {

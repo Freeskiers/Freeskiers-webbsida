@@ -696,47 +696,45 @@
   ],
   "partners": [
     {
-      "id": "alpingaraget",
-      "name": "Alpingaraget",
-      "discountSummary": "15% rabatt på skidutrustning, bootfitting & klubbkläder",
-      "memberCode": "FREESKIERS15",
-      "howToRedeem": "Visa ditt digitala medlemskort i kassan i butiken på Birger Jarlsgatan, eller använd rabattkoden i webbshoppen.",
-      "websiteUrl": "https://www.alpingaraget.se",
-      "logoUrl": "/assets/partners/alpingaraget.png"
-    },
-    {
       "id": "ekholmsnasbacken",
       "name": "Ekholmsnäsbacken",
-      "discountSummary": "Förmånligt säsongskort & 10% på skidservice & slipning",
-      "howToRedeem": "Visa medlemskortets QR-kod vid köp av säsongskort eller vid inlämning av skidor i skidverkstaden.",
+      "discountSummary": "1 100 kr rabatt på säsongskort. Visa upp medlemskort i kassan",
+      "howToRedeem": "Visa upp medlemskort i kassan vid köp av säsongskort.",
       "websiteUrl": "https://www.ekholmsnasbacken.se",
       "logoUrl": "/assets/partners/ekholmsnas.png"
     },
     {
       "id": "kang-poles",
       "name": "Kang Poles",
-      "discountSummary": "20% rabatt på hållbara friåknings- & parkstavar",
-      "memberCode": "KANGFREESKI20",
-      "howToRedeem": "Använd medlemskoden vid utcheckning på kangpoles.com.",
+      "discountSummary": "20% rabatt online för medlemmar (kod: LFSGROM2627), 25% för tränare/styrelse/ledare (kod: PRO-LFS2627)",
+      "memberCode": "LFSGROM2627",
+      "howToRedeem": "Använd medlemskoden LFSGROM2627 (eller ledarkoden PRO-LFS2627) vid utcheckning på kangpoles.com.",
       "websiteUrl": "https://kangpoles.com",
       "logoUrl": "/assets/partners/kang.png"
     },
     {
-      "id": "gadelius",
-      "name": "Gadelius Fastighetsbyrå",
-      "discountSummary": "2 500 kr föreningsbonus vid bostadsförsäljning på Lidingö",
-      "howToRedeem": "Uppge att du är medlem i IK Lidingö Freeskiers vid kontakt med Gadelius fastighetsmäklare.",
-      "websiteUrl": "https://gadelius.se",
-      "logoUrl": "/assets/partners/gadelius.png"
+      "id": "alpingaraget",
+      "name": "Alpingaraget",
+      "discountSummary": "Erbjudande kommer",
+      "howToRedeem": "Information om säsongens förmåner och klubberbjudande presenteras inom kort.",
+      "websiteUrl": "https://www.alpingaraget.se",
+      "logoUrl": "/assets/partners/alpingaraget.png"
     },
     {
-      "id": "stockholm-bordsuthyrning",
-      "name": "Stockholm Bordsuthyrning",
-      "discountSummary": "15% rabatt på bord, stolar & partytält",
-      "memberCode": "STHLMBORD15",
-      "howToRedeem": "Ange koden vid bokningsförfrågan online eller via telefon.",
-      "websiteUrl": "https://stockholmbordsuthyrning.se",
-      "logoUrl": "/assets/partners/stockholmbordsuthyrning.png"
+      "id": "stellar",
+      "name": "Stellar",
+      "discountSummary": "Erbjudande kommer",
+      "howToRedeem": "Besök stellarequipment.com/se för mer information.",
+      "websiteUrl": "https://stellarequipment.com/se",
+      "logoUrl": "/assets/partners/stellar.jpeg"
+    },
+    {
+      "id": "1000-skis",
+      "name": "1000 Skis",
+      "discountSummary": "Erbjudande kommer",
+      "howToRedeem": "Besök 1000skis.com för mer information.",
+      "websiteUrl": "https://www.1000skis.com",
+      "logoUrl": "/assets/partners/1000skis.avif"
     },
     {
       "id": "lidingo-centrum",
@@ -745,22 +743,6 @@
       "howToRedeem": "Besök Lidingö Centrum för klubbevent och Intersport.",
       "websiteUrl": "https://lidingocentrum.se",
       "logoUrl": "/assets/partners/lidingocentrum.svg"
-    },
-    {
-      "id": "stellar",
-      "name": "Stellar",
-      "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
-      "howToRedeem": "Besök stellarequipment.com/se för mer information.",
-      "websiteUrl": "https://stellarequipment.com/se",
-      "logoUrl": "/assets/partners/stellar.jpeg"
-    },
-    {
-      "id": "1000-skis",
-      "name": "1000 Skis",
-      "discountSummary": "Samarbetspartner & sponsor till IK Lidingö Freeskiers",
-      "howToRedeem": "Besök 1000skis.com för mer information.",
-      "websiteUrl": "https://www.1000skis.com",
-      "logoUrl": "/assets/partners/1000skis.avif"
     }
   ]
 }

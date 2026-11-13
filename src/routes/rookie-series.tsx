@@ -67,7 +67,7 @@ function RookieSeries() {
           <h2 className="text-3xl sm:text-4xl">Vad är Rookie Series?</h2>
           <p><strong className="text-heading">Rookie Series</strong> är Svenska Skidförbundets officiella instegstävling för unga skid- och snowboardåkare runt om i landet. Tävlingen är skapad för att sänka tröskeln till tävlingsåkning och ge alla unga åkare en positiv och stöttande första tävlingsupplevelse.</p>
           <p>Hos IK Lidingö Freeskiers i Ekholmsnäsbacken kör vi tävlingen med ett avslappnat <em>jam-format</em>. Det innebär att åkarna får åka så många åk de hinner under ett tidspass, istället för att bli utslagna efter ett enda åk.</p>
-          <p>Under tävlingsdagen bjuder vi på DJ, grym stämning, grillade hamburgare i solen och ett välfyllt prisbord från klubbens samarbetspartners som <strong className="text-heading">Gadelius Fastighetsbyrå</strong> och <strong className="text-heading">Alpingaraget</strong>.</p>
+          <p>Under tävlingsdagen bjuder vi på DJ, grym stämning, grillade hamburgare i solen och ett välfyllt prisbord från klubbens samarbetspartners som <strong className="text-heading">Alpingaraget</strong> och <strong className="text-heading">våra sponsorer</strong>.</p>
           <ul className="space-y-2 text-sm font-medium">
             <li className="flex gap-2"><CheckCircle2 className="size-5 text-primary" /> Ingen utslagning – alla kör massor av åk</li>
             <li className="flex gap-2"><CheckCircle2 className="size-5 text-primary" /> Hjälm och ryggskydd obligatoriskt</li>

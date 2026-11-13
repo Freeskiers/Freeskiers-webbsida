@@ -19,11 +19,9 @@ import europeanSnowsportPhoto from "@/assets/photos/european-snowsport-skidskola
 import alpingaragetLogo from "@/assets/partners/alpingaraget.png";
 import ekholmsnasLogo from "@/assets/partners/ekholmsnas.png";
 import europeanSnowsportLogo from "@/assets/partners/european-snowsport.png";
-import gadeliusLogo from "@/assets/partners/gadelius.png";
 import kangLogo from "@/assets/partners/kang.png";
 import lidingocentrumLogo from "@/assets/partners/lidingocentrum.svg";
 import stellarLogo from "@/assets/partners/stellar.jpeg";
-import stockholmbordsuthyrningLogo from "@/assets/partners/stockholmbordsuthyrning.png";
 import thousandSkisLogo from "@/assets/partners/1000skis.avif";
 
 // Klubbens riktiga länkar (visas aldrig som systemnamn för besökarna)
@@ -819,11 +817,9 @@ export function departmentEmail(id: string) {
 export type Partner = { name: string; logo?: string; url?: string };
 
 export const partners: Partner[] = [
-  { name: "Gadelius", logo: gadeliusLogo, url: "https://gadelius.se" },
   { name: "Ekholmsnäsbacken", logo: ekholmsnasLogo, url: "https://www.ekholmsnasbacken.se" },
   { name: "Alpingaraget", logo: alpingaragetLogo, url: "https://www.alpingaraget.se" },
   { name: "Kang Poles", logo: kangLogo, url: "https://kangpoles.com" },
-  { name: "Stockholm Bordsuthyrning", logo: stockholmbordsuthyrningLogo, url: "https://stockholmbordsuthyrning.se" },
   { name: "Lidingö Centrum", logo: lidingocentrumLogo, url: "https://lidingocentrum.se" },
   { name: "Stellar", logo: stellarLogo, url: "https://stellarequipment.com/se" },
   { name: "1000 Skis", logo: thousandSkisLogo, url: "https://www.1000skis.com" },
