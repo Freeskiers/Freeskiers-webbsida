@@ -4,6 +4,7 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { handleSportAdminApiRequest } from "./lib/sportadminServer";
 import { handleCmsPublishRequest } from "./lib/cmsServer";
+import { handleAuthVerificationRequest } from "./lib/authVerification";
 
 if (typeof process !== "undefined" && process.env) {
   process.env.SUPABASE_URL ||= "https://placeholder.supabase.co";
@@ -60,6 +61,9 @@ export default {
       }
       if (url.pathname === "/api/cms/publish") {
         return await handleCmsPublishRequest(request);
+      }
+      if (url.pathname === "/api/auth/send-code" || url.pathname === "/api/auth/verify-code") {
+        return await handleAuthVerificationRequest(request);
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, Outlet, useMatches } from '@tanstack/react-router';
 import {
   ShieldCheck,
@@ -25,11 +25,18 @@ import {
   Sparkles,
   Mail,
   ShieldAlert,
-  Loader2
+  Loader2,
+  KeyRound,
+  ArrowLeft,
+  MailCheck
 } from 'lucide-react';
 import { FreeskiersStudioPage } from '@/components/cms/FreeskiersStudioPage';
 import { useMemberAuth } from '@/components/member/MemberAuthContext';
 import { canAccessAdmin } from '@/lib/cmsAuth';
+import {
+  requestVerificationCode,
+  submitVerificationCode
+} from '@/lib/authVerification';
 import {
   sportadminAccounts,
   sportadminSkiers,
@@ -50,7 +57,8 @@ const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v3';
 export const AdminDashboardPage: React.FC = () => {
   const { currentUser, login, logout } = useMemberAuth();
 
-  // Admin access gate: synchronized against SportAdmin for Styrelse and TA
+  // Admin access gate: 2-step verification (Email -> 6-digit OTP code)
+  const [authStep, setAuthStep] = useState<'email' | 'code'>('email');
   const [adminEmail, setAdminEmail] = useState(() => {
     if (typeof sessionStorage === 'undefined') return '';
     try {
@@ -60,8 +68,20 @@ export const AdminDashboardPage: React.FC = () => {
     }
   });
   const [emailInput, setEmailInput] = useState('');
+  const [codeInput, setCodeInput] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [demoNotice, setDemoNotice] = useState<string | null>(null);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const timer = setInterval(() => {
+      setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
+
   const [sessionUnlocked, setSessionUnlocked] = useState(() => {
     if (typeof sessionStorage === 'undefined') return false;
     try {
@@ -137,8 +157,8 @@ export const AdminDashboardPage: React.FC = () => {
   const [copiedEmails, setCopiedEmails] = useState(false);
   const [showKeyGuide, setShowKeyGuide] = useState(false);
 
-  // Handle Admin Email Login (synchronized with SportAdmin for Styrelse & TA)
-  const handleAdminEmailSubmit = async (e: React.FormEvent) => {
+  // Step 1: Validate email authorization against SportAdmin & request OTP code
+  const handleRequestCode = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = emailInput.trim().toLowerCase();
     if (!cleanEmail) {
@@ -148,84 +168,147 @@ export const AdminDashboardPage: React.FC = () => {
 
     setAuthError(null);
     setIsVerifying(true);
+    setDemoNotice(null);
 
     try {
       // 1. First check local SportAdmin database & CMS editor accounts
-      const localResult = canAccessAdmin(cleanEmail);
-      if (localResult.allowed) {
-        setSessionUnlocked(true);
-        setAdminEmail(cleanEmail);
+      let isAllowed = canAccessAdmin(cleanEmail).allowed;
+
+      // 2. Fallback: check live SportAdmin API via verifyMemberStatusFn
+      if (!isAllowed) {
         try {
-          sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
-          sessionStorage.setItem('freeskiers_admin_email', cleanEmail);
-        } catch {
-          /* ignore */
+          const verifyResult = await verifyMemberStatusFn({
+            data: { email: cleanEmail }
+          });
+
+          if (verifyResult.success && verifyResult.isMember) {
+            const isLeaderOrBoard = verifyResult.statuses?.some(s => {
+              const hasBoardCard = s.memberCards?.some(card => {
+                const text = `${card.title || ''} ${card.group || ''} ${card.groupConnection || ''}`.toLowerCase();
+                return (
+                  text.includes('styrelse') ||
+                  text.includes('ledare') ||
+                  text.includes('tränare') ||
+                  text.includes('ta ') ||
+                  text.includes('arena') ||
+                  text.includes('engagerade vuxna')
+                );
+              });
+              const name = (s.memberFullName || '').toLowerCase();
+              const isKnownTaOrBoard =
+                name.includes('klara tengstrand') ||
+                name.includes('felix bergström') ||
+                name.includes('stefan aaröe') ||
+                name.includes('sten berggren') ||
+                name.includes('ellinor strömstedt');
+
+              return Boolean(hasBoardCard || isKnownTaOrBoard);
+            });
+
+            if (isLeaderOrBoard) {
+              isAllowed = true;
+            } else {
+              setAuthError(
+                `Kontot (${cleanEmail}) är registrerat i SportAdmin, men saknar behörighet som Styrelse eller TA.`
+              );
+              setIsVerifying(false);
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn('SportAdmin live verify check failed or offline:', err);
         }
-        login(cleanEmail);
+      }
+
+      if (!isAllowed) {
+        setAuthError(
+          `E-postadressen (${cleanEmail}) hittades inte bland behöriga för Styrelse eller TA. Kontrollera att du anger samma e-postadress som finns registrerad i SportAdmin.`
+        );
         setIsVerifying(false);
         return;
       }
 
-      // 2. Fallback: check live SportAdmin API via verifyMemberStatusFn
-      try {
-        const verifyResult = await verifyMemberStatusFn({
-          data: { email: cleanEmail }
-        });
-
-        if (verifyResult.success && verifyResult.isMember) {
-          const isLeaderOrBoard = verifyResult.statuses?.some(s => {
-            const hasBoardCard = s.memberCards?.some(card => {
-              const text = `${card.title || ''} ${card.group || ''} ${card.groupConnection || ''}`.toLowerCase();
-              return (
-                text.includes('styrelse') ||
-                text.includes('ledare') ||
-                text.includes('tränare') ||
-                text.includes('ta ') ||
-                text.includes('arena') ||
-                text.includes('engagerade vuxna')
-              );
-            });
-            const name = (s.memberFullName || '').toLowerCase();
-            const isKnownTaOrBoard =
-              name.includes('klara tengstrand') ||
-              name.includes('felix bergström') ||
-              name.includes('stefan aaröe') ||
-              name.includes('sten berggren');
-
-            return Boolean(hasBoardCard || isKnownTaOrBoard);
-          });
-
-          if (isLeaderOrBoard) {
-            setSessionUnlocked(true);
-            setAdminEmail(cleanEmail);
-            try {
-              sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
-              sessionStorage.setItem('freeskiers_admin_email', cleanEmail);
-            } catch {
-              /* ignore */
-            }
-            login(cleanEmail);
-            setIsVerifying(false);
-            return;
-          }
-
-          setAuthError(
-            `Kontot (${cleanEmail}) är registrerat i SportAdmin, men saknar administratörsbehörighet (Styrelse eller TA).`
-          );
-          setIsVerifying(false);
-          return;
-        }
-      } catch (err) {
-        console.warn('SportAdmin live verify check failed or offline:', err);
+      // 3. Email is authorized! Now generate & send the 6-digit verification code
+      const codeResult = await requestVerificationCode(cleanEmail, 'admin');
+      if (!codeResult.success) {
+        setAuthError(codeResult.error || 'Kunde inte skicka verifieringskod.');
+        setIsVerifying(false);
+        return;
       }
 
-      // 3. Not found or unauthorized
-      setAuthError(
-        `E-postadressen (${cleanEmail}) hittades inte bland behöriga för Styrelse eller TA. Kontrollera att du anger samma e-postadress som finns registrerad i SportAdmin.`
-      );
+      setAuthStep('code');
+      setCodeInput('');
+      setResendCooldown(60);
+      if (codeResult.demoCode) {
+        setDemoNotice(codeResult.demoCode);
+      }
     } finally {
       setIsVerifying(false);
     }
+  };
+
+  // Step 2: Verify the submitted 6-digit OTP code
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = emailInput.trim().toLowerCase();
+    const cleanCode = codeInput.trim().replace(/\s+/g, '');
+
+    if (!cleanCode || cleanCode.length < 6) {
+      setAuthError('Ange den 6-siffriga koden du mottagit.');
+      return;
+    }
+
+    setAuthError(null);
+    setIsVerifying(true);
+
+    try {
+      const verifyRes = await submitVerificationCode(cleanEmail, cleanCode);
+      if (!verifyRes.success) {
+        setAuthError(verifyRes.error || 'Felaktig verifieringskod.');
+        setIsVerifying(false);
+        return;
+      }
+
+      // Success! Grant access
+      setSessionUnlocked(true);
+      setAdminEmail(cleanEmail);
+      try {
+        sessionStorage.setItem('freeskiers_admin_unlocked', 'true');
+        sessionStorage.setItem('freeskiers_admin_email', cleanEmail);
+      } catch {
+        /* ignore */
+      }
+      login(cleanEmail);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    if (resendCooldown > 0) return;
+    const cleanEmail = emailInput.trim().toLowerCase();
+    setIsVerifying(true);
+    setAuthError(null);
+    try {
+      const res = await requestVerificationCode(cleanEmail, 'admin');
+      if (res.success) {
+        setResendCooldown(60);
+        if (res.demoCode) {
+          setDemoNotice(res.demoCode);
+        }
+      } else {
+        setAuthError(res.error || 'Kunde inte skicka ny kod.');
+      }
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
+  const handleChangeEmail = () => {
+    setAuthStep('email');
+    setCodeInput('');
+    setAuthError(null);
+    setDemoNotice(null);
   };
 
   // Test SportAdmin API Connection via Server Function
@@ -360,85 +443,190 @@ export const AdminDashboardPage: React.FC = () => {
   };
 
   // ===========================================================================
-  // 1. LOCKED VIEW (ADMIN LOGIN GATE)
+  // 1. LOCKED VIEW (ADMIN LOGIN GATE WITH OTP VERIFICATION)
   // ===========================================================================
   if (!isAuthorized) {
     return (
       <div className="bg-slate-50 min-h-[80vh] py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div className="max-w-md w-full bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-2xl">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-freeskiers-navy text-freeskiers-cyan flex items-center justify-center mx-auto mb-4 shadow-soft">
-              <Lock className="w-8 h-8" />
-            </div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-freeskiers-cyan/15 text-freeskiers-navy text-xs font-bold uppercase tracking-wider mb-2">
-              <ShieldCheck className="w-3.5 h-3.5 text-freeskiers-cyan" />
-              <span>Kansli & Behörighet</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-freeskiers-navy tracking-tight">
-              Klubbadministration
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-2">
-              Endast för klubbens <strong>styrelse</strong> och <strong>tränaransvariga (TA)</strong> synkat mot SportAdmin.
-            </p>
-          </div>
-
-          <form onSubmit={handleAdminEmailSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                E-postadress
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="email"
-                  required
-                  value={emailInput}
-                  onChange={(e) => {
-                    setEmailInput(e.target.value);
-                    if (authError) setAuthError(null);
-                  }}
-                  placeholder="namn@lidingofreeskiers.se..."
-                  className="w-full pl-10 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
-                />
+          {authStep === 'email' ? (
+            <>
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 rounded-2xl bg-freeskiers-navy text-freeskiers-cyan flex items-center justify-center mx-auto mb-4 shadow-soft">
+                  <Lock className="w-8 h-8" />
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-freeskiers-cyan/15 text-freeskiers-navy text-xs font-bold uppercase tracking-wider mb-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-freeskiers-cyan" />
+                  <span>Kansli & Behörighet</span>
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-black text-freeskiers-navy tracking-tight">
+                  Klubbadministration
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-500 mt-2">
+                  Endast för klubbens <strong>styrelse</strong> och <strong>tränaransvariga (TA)</strong> synkat mot SportAdmin.
+                </p>
               </div>
-              {authError && (
-                <div className="mt-3 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
-                  <ShieldAlert className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <p className="font-bold">Åtkomst nekad</p>
-                    <p className="mt-0.5 text-rose-600 leading-relaxed">{authError}</p>
+
+              <form onSubmit={handleRequestCode} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    E-postadress
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="email"
+                      required
+                      value={emailInput}
+                      onChange={(e) => {
+                        setEmailInput(e.target.value);
+                        if (authError) setAuthError(null);
+                      }}
+                      placeholder="namn@lidingofreeskiers.se..."
+                      className="w-full pl-10 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
+                    />
+                  </div>
+                  {authError && (
+                    <div className="mt-3 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
+                      <ShieldAlert className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="font-bold">Åtkomst nekad</p>
+                        <p className="mt-0.5 text-rose-600 leading-relaxed">{authError}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isVerifying}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+                >
+                  {isVerifying ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-freeskiers-cyan" />
+                      <span>Verifierar behörighet...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Skicka verifieringskod</span>
+                      <ArrowRight className="w-4 h-4 text-freeskiers-cyan" />
+                    </>
+                  )}
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-cyan-50 text-freeskiers-navy flex items-center justify-center mx-auto mb-4 border border-cyan-200 shadow-soft">
+                  <KeyRound className="w-8 h-8 text-cyan-600" />
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-100 text-cyan-900 text-xs font-bold uppercase tracking-wider mb-2">
+                  <MailCheck className="w-3.5 h-3.5 text-cyan-700" />
+                  <span>Kod skickad</span>
+                </div>
+                <h1 className="text-2xl font-black text-freeskiers-navy tracking-tight">
+                  Verifiera din e-post
+                </h1>
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                  Vi har skickat en 6-siffrig engångskod till:
+                  <br />
+                  <strong className="text-freeskiers-navy font-black text-sm">{emailInput}</strong>
+                </p>
+              </div>
+
+              {demoNotice && (
+                <div className="mb-4 p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-950 flex items-start gap-2.5">
+                  <Info className="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-bold text-sky-900">Verifieringskod (demo/testläge):</p>
+                    <p className="mt-0.5 text-sky-800">
+                      Din kod är <span className="font-mono font-black text-sm bg-sky-100 px-1.5 py-0.5 rounded text-sky-950 tracking-wider">{demoNotice}</span>. (Vid ansluten Resend/SMTP-nyckel skickas den direkt till din inkorg).
+                    </p>
                   </div>
                 </div>
               )}
-            </div>
 
-            <button
-              type="submit"
-              disabled={isVerifying}
-              className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
-            >
-              {isVerifying ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-freeskiers-cyan" />
-                  <span>Verifierar behörighet...</span>
-                </>
-              ) : (
-                <>
-                  <span>Logga in till Kansli & Admin</span>
-                  <ArrowRight className="w-4 h-4 text-freeskiers-cyan" />
-                </>
-              )}
-            </button>
-          </form>
+              <form onSubmit={handleVerifyCode} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 text-center">
+                    Ange 6-siffrig verifieringskod
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoFocus
+                    required
+                    maxLength={6}
+                    value={codeInput}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+                      setCodeInput(val);
+                      if (authError) setAuthError(null);
+                    }}
+                    placeholder="------"
+                    className="w-full text-center font-mono font-black text-2xl tracking-[0.5em] py-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan focus:bg-white text-slate-900 shadow-inner"
+                  />
+                  {authError && (
+                    <div className="mt-3 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
+                      <ShieldAlert className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="font-bold">Felaktig kod</p>
+                        <p className="mt-0.5 text-rose-600 leading-relaxed">{authError}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isVerifying || codeInput.length < 6}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 disabled:opacity-50 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+                >
+                  {isVerifying ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-freeskiers-cyan" />
+                      <span>Verifierar kod...</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShieldCheck className="w-4 h-4 text-freeskiers-cyan" />
+                      <span>Verifiera och logga in</span>
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <button
+                  type="button"
+                  onClick={handleChangeEmail}
+                  className="text-slate-500 hover:text-slate-800 font-semibold inline-flex items-center gap-1"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Byt e-post</span>
+                </button>
+                <button
+                  type="button"
+                  disabled={resendCooldown > 0 || isVerifying}
+                  onClick={handleResendCode}
+                  className="text-freeskiers-cyan hover:underline font-bold disabled:text-slate-400 disabled:no-underline"
+                >
+                  {resendCooldown > 0 ? `Ny kod om ${resendCooldown}s` : 'Skicka ny kod'}
+                </button>
+              </div>
+            </>
+          )}
 
           <div className="mt-6 pt-5 border-t border-slate-100 space-y-3 text-xs text-slate-500">
             <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
               <p className="font-bold text-slate-700 mb-1 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Synkad mot SportAdmin</span>
+                <span>Synkad behörighet (SportAdmin)</span>
               </p>
               <p className="text-[11px] leading-relaxed text-slate-600">
-                Inloggningen kontrollerar ditt konto i SportAdmin. Tillgång beviljas för registrerade styrelsemedlemmar och tränaransvariga (TA).
+                Åtkomst beviljas för registrerade styrelsemedlemmar och tränaransvariga (TA). Verifieringskoden bekräftar att du äger e-postadressen.
               </p>
             </div>
 

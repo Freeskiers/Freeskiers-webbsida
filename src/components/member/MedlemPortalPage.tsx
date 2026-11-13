@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { 
   ShieldCheck, 
@@ -17,6 +17,9 @@ import {
   Tag, 
   FileText, 
   ArrowRight,
+  ArrowLeft,
+  MailCheck,
+  Info,
   Users,
   ChevronRight,
   Shield,
@@ -35,6 +38,7 @@ import {
 import { useMemberAuth } from './MemberAuthContext';
 import { DigitalMembershipCard } from './DigitalMembershipCard';
 import { memberOffers, MemberOffer } from '@/lib/memberOffers';
+import { requestVerificationCode, submitVerificationCode } from '@/lib/authVerification';
 import { 
   sportadminAccounts, 
   sportadminSkiers, 
@@ -61,9 +65,22 @@ export const MedlemPortalPage: React.FC = () => {
     demoAccounts 
   } = useMemberAuth();
 
+  const [authStep, setAuthStep] = useState<'email' | 'code'>('email');
   const [emailInput, setEmailInput] = useState('');
+  const [codeInput, setCodeInput] = useState('');
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [demoNotice, setDemoNotice] = useState<string | null>(null);
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const [pendingAccount, setPendingAccount] = useState<MemberAccount | null>(null);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const timer = setInterval(() => {
+      setResendCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
   const [activeTab, setActiveTab] = useState<'kort' | 'erbjudanden' | 'schema' | 'info' | 'admin'>('kort');
   const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
   const [adminGroupFilter, setAdminGroupFilter] = useState<string>('alla');
@@ -109,85 +126,170 @@ export const MedlemPortalPage: React.FC = () => {
     }
   };
 
-  // Skarp inloggning via e-postkontroll mot SportAdmin
+  // Steg 1: Kontrollera SportAdmin-medlemskap och skicka verifieringskod
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
+    setDemoNotice(null);
     const cleanEmail = emailInput.trim().toLowerCase();
     if (!cleanEmail) return;
 
     setIsLoggingIn(true);
 
     try {
+      let isMember = false;
+      let accountToLogin: MemberAccount | null = null;
+
       // 1. Kontrollera lokalt verifierade SportAdmin-konton (alla 638 aktiva medlemmar 2026/2027)
-      const ok = login(cleanEmail);
-      if (ok) {
-        setIsLoggingIn(false);
-        setEmailInput('');
-        return;
+      const foundInAccounts = sportadminAccounts.some(
+        (a) => a.email.toLowerCase() === cleanEmail || a.alternateEmails?.some((alt) => alt.toLowerCase() === cleanEmail)
+      ) || demoAccounts.some((a) => a.email.toLowerCase() === cleanEmail);
+
+      if (foundInAccounts) {
+        isMember = true;
       }
 
       // 2. Kontrollera lokalt synkade medlemmar (om kansliet kört manuell live-synk)
-      const syncedMatch = adminMembersList.filter(
-        (s) => s.guardianEmail?.toLowerCase() === cleanEmail
-      );
-      if (syncedMatch.length > 0) {
-        const syncedAccount: MemberAccount = {
-          email: cleanEmail,
-          guardianName: syncedMatch[0]!.guardianName || 'Medlem',
-          phone: syncedMatch[0]!.guardianPhone || '',
-          role: syncedMatch.some(s => s.role === 'tränare') ? 'tränare' : (syncedMatch.some(s => s.role === 'styrelse') ? 'styrelse' : 'medlem'),
-          skiers: syncedMatch
-        };
-        login(cleanEmail, syncedAccount);
-        setIsLoggingIn(false);
-        setEmailInput('');
-        return;
+      if (!isMember) {
+        const syncedMatch = adminMembersList.filter(
+          (s) => s.guardianEmail?.toLowerCase() === cleanEmail
+        );
+        if (syncedMatch.length > 0) {
+          isMember = true;
+          accountToLogin = {
+            email: cleanEmail,
+            guardianName: syncedMatch[0]!.guardianName || 'Medlem',
+            phone: syncedMatch[0]!.guardianPhone || '',
+            role: syncedMatch.some(s => s.role === 'tränare') ? 'tränare' : (syncedMatch.some(s => s.role === 'styrelse') ? 'styrelse' : 'medlem'),
+            skiers: syncedMatch
+          };
+        }
       }
 
       // 3. Fallback: Verifiera live mot SportAdmin API i realtid (för helt nyregistrerade medlemmar)
-      const verifyRes = await verifyMemberStatusFn({ data: { email: cleanEmail } });
-      if (verifyRes.success && verifyRes.isMember) {
-        const fullName = verifyRes.memberFullName || 'Medlem';
-        const liveAccount: MemberAccount = {
-          email: cleanEmail,
-          guardianName: fullName,
-          phone: '',
-          role: 'medlem',
-          skiers: [
-            {
-              id: `FS-SA-${Math.floor(1000 + Math.random() * 9000)}`,
-              firstName: fullName.split(' ')[0] || fullName,
-              lastName: fullName.split(' ').slice(1).join(' ') || 'Freeskier',
-              birthYear: 2016,
-              groupName: verifyRes.statuses?.[0]?.memberCards?.[0]?.group || 'Freeskiers Medlem',
-              groupLevel: 'skidklubb',
-              season: '2026/2027',
-              status: 'active',
-              role: 'åkare',
-              memberSince: '2026',
-              insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-              location: 'Ekholmsnäsbacken'
-            }
-          ]
-        };
-        login(cleanEmail, liveAccount);
-        setIsLoggingIn(false);
-        setEmailInput('');
-        return;
+      if (!isMember) {
+        const verifyRes = await verifyMemberStatusFn({ data: { email: cleanEmail } });
+        if (verifyRes.success && verifyRes.isMember) {
+          isMember = true;
+          const fullName = verifyRes.memberFullName || 'Medlem';
+          accountToLogin = {
+            email: cleanEmail,
+            guardianName: fullName,
+            phone: '',
+            role: 'medlem',
+            skiers: [
+              {
+                id: `FS-SA-${Math.floor(1000 + Math.random() * 9000)}`,
+                firstName: fullName.split(' ')[0] || fullName,
+                lastName: fullName.split(' ').slice(1).join(' ') || 'Freeskier',
+                birthYear: 2016,
+                groupName: verifyRes.statuses?.[0]?.memberCards?.[0]?.group || 'Freeskiers Medlem',
+                groupLevel: 'skidklubb',
+                season: '2026/2027',
+                status: 'active',
+                role: 'åkare',
+                memberSince: '2026',
+                insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
+                location: 'Ekholmsnäsbacken'
+              }
+            ]
+          };
+        }
       }
 
       // 4. Ej aktiv medlem för aktuell säsong
+      if (!isMember) {
+        setIsLoggingIn(false);
+        setLoginError(
+          'Ingen aktiv medlem hittades med denna e-postadress för säsongen 2026/2027. Kontrollera att du anger samma e-postadress som användes vid klubbanmälan i SportAdmin (t.ex. målsmans eller åkarens e-post), eller kontakta kansliet på info@lidingofreeskiers.se.'
+        );
+        return;
+      }
+
+      // 5. Medlem hittad! Generera och skicka 6-siffrig verifieringskod
+      setPendingAccount(accountToLogin);
+      const codeRes = await requestVerificationCode(cleanEmail, 'medlem');
+
+      if (!codeRes.success) {
+        setIsLoggingIn(false);
+        setLoginError(codeRes.error || 'Kunde inte skicka verifieringskod.');
+        return;
+      }
+
+      setAuthStep('code');
+      setCodeInput('');
+      setResendCooldown(60);
+      if (codeRes.demoCode) {
+        setDemoNotice(codeRes.demoCode);
+      }
       setIsLoggingIn(false);
-      setLoginError(
-        'Ingen aktiv medlem hittades med denna e-postadress för säsongen 2026/2027. Kontrollera att du anger samma e-postadress som användes vid klubbanmälan i SportAdmin (t.ex. målsmans eller åkarens e-post), eller kontakta kansliet på info@lidingofreeskiers.se.'
-      );
     } catch {
       setIsLoggingIn(false);
       setLoginError(
-        'Ingen aktiv medlem hittades med denna e-postadress för säsongen 2026/2027. Kontrollera att du anger samma e-postadress som användes vid klubbanmälan i SportAdmin, eller kontakta kansliet på info@lidingofreeskiers.se.'
+        'Ett fel uppstod vid medlemskontrollen. Kontrollera din anslutning eller försök igen.'
       );
     }
+  };
+
+  // Steg 2: Verifiera 6-siffrig kod och logga in
+  const handleVerifyCodeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = emailInput.trim().toLowerCase();
+    const cleanCode = codeInput.trim().replace(/\s+/g, '');
+
+    if (!cleanCode || cleanCode.length < 6) {
+      setLoginError('Ange den 6-siffriga koden du mottagit.');
+      return;
+    }
+
+    setLoginError(null);
+    setIsLoggingIn(true);
+
+    try {
+      const verifyRes = await submitVerificationCode(cleanEmail, cleanCode);
+      if (!verifyRes.success) {
+        setLoginError(verifyRes.error || 'Felaktig verifieringskod.');
+        setIsLoggingIn(false);
+        return;
+      }
+
+      // Lyckad verifiering! Logga in användaren
+      login(cleanEmail, pendingAccount || undefined);
+      setIsLoggingIn(false);
+      setAuthStep('email');
+      setEmailInput('');
+      setCodeInput('');
+    } catch {
+      setIsLoggingIn(false);
+      setLoginError('Kunde inte verifiera koden. Försök igen.');
+    }
+  };
+
+  const handleResendMemberCode = async () => {
+    if (resendCooldown > 0) return;
+    const cleanEmail = emailInput.trim().toLowerCase();
+    setIsLoggingIn(true);
+    setLoginError(null);
+    try {
+      const res = await requestVerificationCode(cleanEmail, 'medlem');
+      if (res.success) {
+        setResendCooldown(60);
+        if (res.demoCode) {
+          setDemoNotice(res.demoCode);
+        }
+      } else {
+        setLoginError(res.error || 'Kunde inte skicka ny kod.');
+      }
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const handleChangeMemberEmail = () => {
+    setAuthStep('email');
+    setCodeInput('');
+    setLoginError(null);
+    setDemoNotice(null);
   };
 
   const handleCopyCode = (id: string, code: string) => {
@@ -320,83 +422,189 @@ export const MedlemPortalPage: React.FC = () => {
             <div className="max-w-xl mx-auto">
               <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-2xl">
                 
-                <div className="text-center mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-sky-50 border border-freeskiers-cyan/30 flex items-center justify-center text-freeskiers-cyan mx-auto mb-4 shadow-soft">
-                    <User className="w-8 h-8" />
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl font-black text-freeskiers-navy tracking-tight">
-                    Logga in på Mina Sidor
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-2">
-                    Ange den e-postadress du använde vid klubbanmälan i SportAdmin.
-                  </p>
-                </div>
-
-                {/* SportAdmin Real Data Status Banner */}
-                <div className="mb-6 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3 text-xs text-emerald-950">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse" />
-                  <div className="leading-snug">
-                    <span className="font-bold text-emerald-900 block">
-                      Medlemsverifiering mot SportAdmin (2026/2027)
-                    </span>
-                    <span className="text-slate-600 text-[11px]">
-                      Endast aktiva medlemmar och målsmän registrerade i Lidingö Freeskiers ges tillgång till digitalt medlemskort och förmåner.
-                    </span>
-                  </div>
-                </div>
-
-                {loginError && (
-                  <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-start gap-3 animate-in fade-in duration-200">
-                    <ShieldAlert className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
-                    <div className="leading-relaxed">
-                      <strong className="block font-bold text-amber-900 mb-1">Inloggningen nekades</strong>
-                      {loginError}
+                {authStep === 'email' ? (
+                  <>
+                    <div className="text-center mb-8">
+                      <div className="w-16 h-16 rounded-2xl bg-sky-50 border border-freeskiers-cyan/30 flex items-center justify-center text-freeskiers-cyan mx-auto mb-4 shadow-soft">
+                        <User className="w-8 h-8" />
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-black text-freeskiers-navy tracking-tight">
+                        Logga in på Mina Sidor
+                      </h2>
+                      <p className="text-xs sm:text-sm text-slate-500 mt-2">
+                        Ange den e-postadress du använde vid klubbanmälan i SportAdmin.
+                      </p>
                     </div>
-                  </div>
-                )}
 
-                <form onSubmit={handleEmailSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      E-postadress
-                    </label>
-                    <div className="relative">
-                      <Mail className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
-                      <input
-                        type="email"
-                        required
-                        value={emailInput}
-                        onChange={(e) => {
-                          setEmailInput(e.target.value);
-                          if (loginError) setLoginError(null);
-                        }}
-                        placeholder="namn@epost.se (samma som i SportAdmin)"
-                        className="w-full pl-11 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
-                      />
+                    {/* SportAdmin Real Data Status Banner */}
+                    <div className="mb-6 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3 text-xs text-emerald-950">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse" />
+                      <div className="leading-snug">
+                        <span className="font-bold text-emerald-900 block">
+                          Medlemsverifiering mot SportAdmin (2026/2027)
+                        </span>
+                        <span className="text-slate-600 text-[11px]">
+                          Endast aktiva medlemmar och målsmän registrerade i Lidingö Freeskiers ges tillgång till digitalt medlemskort och förmåner.
+                        </span>
+                      </div>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-1.5">
-                      Använd samma e-postadress som registrerades vid anmälan till klubben.
-                    </p>
-                  </div>
 
-                  <button
-                    type="submit"
-                    disabled={isLoggingIn || !emailInput.trim()}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
-                  >
-                    {isLoggingIn ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Kontrollerar medlemskap i SportAdmin...</span>
-                      </>
-                    ) : (
-                      <>
-                        <ShieldCheck className="w-4 h-4" />
-                        <span>Logga in på Mina Sidor</span>
-                      </>
+                    {loginError && (
+                      <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-start gap-3 animate-in fade-in duration-200">
+                        <ShieldAlert className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+                        <div className="leading-relaxed">
+                          <strong className="block font-bold text-amber-900 mb-1">Inloggningen nekades</strong>
+                          {loginError}
+                        </div>
+                      </div>
                     )}
-                  </button>
-                </form>
+
+                    <form onSubmit={handleEmailSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                          E-postadress
+                        </label>
+                        <div className="relative">
+                          <Mail className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
+                          <input
+                            type="email"
+                            required
+                            value={emailInput}
+                            onChange={(e) => {
+                              setEmailInput(e.target.value);
+                              if (loginError) setLoginError(null);
+                            }}
+                            placeholder="namn@epost.se (samma som i SportAdmin)"
+                            className="w-full pl-11 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
+                          />
+                        </div>
+                        <p className="text-[11px] text-slate-500 mt-1.5">
+                          Använd samma e-postadress som registrerades vid anmälan till klubben.
+                        </p>
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isLoggingIn || !emailInput.trim()}
+                        className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+                      >
+                        {isLoggingIn ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>Kontrollerar medlemskap i SportAdmin...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Skicka verifieringskod</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-center mb-6">
+                      <div className="w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-200 flex items-center justify-center text-freeskiers-navy mx-auto mb-4 shadow-soft">
+                        <KeyRound className="w-8 h-8 text-cyan-600" />
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-100 text-cyan-900 text-xs font-bold uppercase tracking-wider mb-2">
+                        <MailCheck className="w-3.5 h-3.5 text-cyan-700" />
+                        <span>Kod skickad</span>
+                      </div>
+                      <h2 className="text-2xl font-black text-freeskiers-navy tracking-tight">
+                        Verifiera din e-post
+                      </h2>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                        Vi har skickat en 6-siffrig engångskod till:
+                        <br />
+                        <strong className="text-freeskiers-navy font-black text-sm">{emailInput}</strong>
+                      </p>
+                    </div>
+
+                    {demoNotice && (
+                      <div className="mb-4 p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-950 flex items-start gap-2.5">
+                        <Info className="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-bold text-sky-900">Verifieringskod (demo/testläge):</p>
+                          <p className="mt-0.5 text-sky-800">
+                            Din kod är <span className="font-mono font-black text-sm bg-sky-100 px-1.5 py-0.5 rounded text-sky-950 tracking-wider">{demoNotice}</span>. (Vid ansluten Resend/SMTP-nyckel skickas den direkt till din inkorg).
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {loginError && (
+                      <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-start gap-2">
+                        <ShieldAlert className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="font-bold">Felaktig kod</p>
+                          <p className="mt-0.5 text-rose-600 leading-relaxed">{loginError}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    <form onSubmit={handleVerifyCodeSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 text-center">
+                          Ange 6-siffrig verifieringskod
+                        </label>
+                        <input
+                          type="text"
+                          inputMode="numeric"
+                          autoFocus
+                          required
+                          maxLength={6}
+                          value={codeInput}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+                            setCodeInput(val);
+                            if (loginError) setLoginError(null);
+                          }}
+                          placeholder="------"
+                          className="w-full text-center font-mono font-black text-2xl tracking-[0.5em] py-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan focus:bg-white text-slate-900 shadow-inner"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={isLoggingIn || codeInput.length < 6}
+                        className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 disabled:opacity-50 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+                      >
+                        {isLoggingIn ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin text-freeskiers-cyan" />
+                            <span>Verifierar kod...</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShieldCheck className="w-4 h-4 text-freeskiers-cyan" />
+                            <span>Verifiera och logga in</span>
+                          </>
+                        )}
+                      </button>
+                    </form>
+
+                    <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                      <button
+                        type="button"
+                        onClick={handleChangeMemberEmail}
+                        className="text-slate-500 hover:text-slate-800 font-semibold inline-flex items-center gap-1"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" />
+                        <span>Byt e-post</span>
+                      </button>
+                      <button
+                        type="button"
+                        disabled={resendCooldown > 0 || isLoggingIn}
+                        onClick={handleResendMemberCode}
+                        className="text-freeskiers-cyan hover:underline font-bold disabled:text-slate-400 disabled:no-underline"
+                      >
+                        {resendCooldown > 0 ? `Ny kod om ${resendCooldown}s` : 'Skicka ny kod'}
+                      </button>
+                    </div>
+                  </>
+                )}
 
                 <div className="mt-8 pt-6 border-t border-slate-200 text-center">
                   <p className="text-xs text-slate-500 leading-relaxed">
