@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from '@tanstack/react-router';
 import { 
   ShieldCheck, 
@@ -38,6 +38,7 @@ import {
 import { useMemberAuth } from './MemberAuthContext';
 import { DigitalMembershipCard } from './DigitalMembershipCard';
 import { memberOffers, MemberOffer } from '@/lib/memberOffers';
+import { canAccessAdmin } from '@/lib/cmsAuth';
 import { requestVerificationCode, submitVerificationCode } from '@/lib/authVerification';
 import { 
   sportadminAccounts, 
@@ -365,6 +366,32 @@ export const MedlemPortalPage: React.FC = () => {
     });
   }, [adminMembersList, adminGroupFilter, adminSearchTerm]);
 
+  // Exclusive offers for coaches, board and leaders
+  const isLeaderOrStaff = useMemo(() => {
+    if (!currentUser) return false;
+    if (currentUser.role === 'tränare' || currentUser.role === 'styrelse' || currentUser.role === 'admin') {
+      return true;
+    }
+    if (canAccessAdmin(currentUser.email).allowed) {
+      return true;
+    }
+    if (currentUser.alternateEmails?.some((alt) => canAccessAdmin(alt).allowed)) {
+      return true;
+    }
+    return currentUser.skiers.some(
+      (s) => s.role === 'tränare' || s.role === 'styrelse' || s.role === 'admin' || s.groupLevel === 'tranare'
+    );
+  }, [currentUser]);
+
+  const visibleOffers = useMemo(() => {
+    return memberOffers.filter((offer) => {
+      if (offer.audience === 'ledare') {
+        return isLeaderOrStaff;
+      }
+      return true;
+    });
+  }, [isLeaderOrStaff]);
+
   return (
     <div className="bg-white min-h-[85vh]">
 
@@ -662,7 +689,7 @@ export const MedlemPortalPage: React.FC = () => {
                     <Tag className="w-4 h-4 text-freeskiers-cyan" />
                     <span>Medlemsförmåner & Rabatter</span>
                     <span className="text-[10px] bg-freeskiers-cyan text-white px-1.5 py-0.5 rounded-full font-black">
-                      {memberOffers.length}
+                      {visibleOffers.length}
                     </span>
                   </button>
 
@@ -812,7 +839,7 @@ export const MedlemPortalPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {memberOffers.map((offer) => (
+                      {visibleOffers.map((offer: MemberOffer) => (
                         <div 
                           key={offer.id}
                           className="bg-white rounded-3xl p-6 border border-slate-200 shadow-card hover:shadow-elevated transition-all flex flex-col justify-between"
@@ -827,9 +854,16 @@ export const MedlemPortalPage: React.FC = () => {
                                   className="max-h-8 max-w-full object-contain"
                                 />
                               </div>
-                              <span className="px-2.5 py-1 rounded-full text-xs font-black bg-freeskiers-cyan/15 text-freeskiers-navy border border-freeskiers-cyan/30">
-                                {offer.discountBadge}
-                              </span>
+                              <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                                {offer.audience === 'ledare' && (
+                                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300">
+                                    Ledare & Tränare
+                                  </span>
+                                )}
+                                <span className="px-2.5 py-1 rounded-full text-xs font-black bg-freeskiers-cyan/15 text-freeskiers-navy border border-freeskiers-cyan/30">
+                                  {offer.discountBadge}
+                                </span>
+                              </div>
                             </div>
 
                             <h4 className="font-extrabold text-base text-freeskiers-navy mb-2 leading-snug">

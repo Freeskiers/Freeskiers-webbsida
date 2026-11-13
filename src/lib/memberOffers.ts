@@ -10,6 +10,7 @@ export interface MemberOffer {
   inStoreInstructions: string;
   validThrough: string;
   category: 'utrustning' | 'backe' | 'ovrigt';
+  audience?: 'alla' | 'ledare';
 }
 
 export const memberOffers: MemberOffer[] = [
@@ -24,7 +25,8 @@ export const memberOffers: MemberOffer[] = [
     onlineCode: 'LFSGROM2627',
     inStoreInstructions: 'Gäller online på kangpoles.com.',
     validThrough: 'Gäller säsongen 2026/2027',
-    category: 'utrustning'
+    category: 'utrustning',
+    audience: 'alla'
   },
   {
     id: 'kang-poles-ledare',
@@ -37,7 +39,8 @@ export const memberOffers: MemberOffer[] = [
     onlineCode: 'PRO-LFS2627',
     inStoreInstructions: 'Gäller tränare, styrelse och ledare på kangpoles.com.',
     validThrough: 'Gäller säsongen 2026/2027',
-    category: 'utrustning'
+    category: 'utrustning',
+    audience: 'ledare'
   },
   {
     id: 'ekholmsnas-liftkort',
@@ -49,7 +52,8 @@ export const memberOffers: MemberOffer[] = [
     howToRedeem: 'Visa upp ditt digitala medlemskort i kassan i Ekholmsnäsbacken vid köp av säsongskort.',
     inStoreInstructions: 'Visa upp medlemskort i kassan.',
     validThrough: 'Vintersäsongen 2026/2027',
-    category: 'backe'
+    category: 'backe',
+    audience: 'alla'
   },
   {
     id: 'alpingaraget-rabatt',
@@ -61,7 +65,8 @@ export const memberOffers: MemberOffer[] = [
     howToRedeem: 'Information om säsongens förmåner hos Alpingaraget publiceras här inom kort.',
     inStoreInstructions: 'Erbjudande kommer.',
     validThrough: 'Säsongen 2026/2027',
-    category: 'utrustning'
+    category: 'utrustning',
+    audience: 'alla'
   },
   {
     id: '1000skis-rabatt',
@@ -73,7 +78,8 @@ export const memberOffers: MemberOffer[] = [
     howToRedeem: 'Information om säsongens erbjudande publiceras här inom kort.',
     inStoreInstructions: 'Erbjudande kommer.',
     validThrough: 'Säsongen 2026/2027',
-    category: 'utrustning'
+    category: 'utrustning',
+    audience: 'alla'
   },
   {
     id: 'stellar-rabatt',
@@ -85,6 +91,7 @@ export const memberOffers: MemberOffer[] = [
     howToRedeem: 'Information om säsongens erbjudande publiceras här inom kort.',
     inStoreInstructions: 'Erbjudande kommer.',
     validThrough: 'Säsongen 2026/2027',
-    category: 'utrustning'
+    category: 'utrustning',
+    audience: 'alla'
   }
 ];
