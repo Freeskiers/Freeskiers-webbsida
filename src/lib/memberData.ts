@@ -54,123 +54,8 @@ export const adminAccount: MemberAccount = {
 };
 
 export const demoAccounts: MemberAccount[] = [
-  adminAccount,
-  {
-    email: 'stefan@lidingofreeskiers.se',
-    guardianName: 'Stefan Aaröe',
-    phone: '070-555 12 34',
-    role: 'styrelse',
-    skiers: [
-      {
-        id: 'FS-2026-1042',
-        firstName: 'Liam',
-        lastName: 'Aaröe',
-        birthYear: 2014,
-        groupName: 'Freeskiers Skidklubb',
-        groupLevel: 'skidklubb',
-        season: '2026/2027',
-        status: 'active',
-        role: 'åkare',
-        memberSince: '2021',
-        insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-        trainingTime: 'Tisdagar & Torsdagar 18:00 – 19:30',
-        location: 'Ekholmsnäsbacken Snowpark'
-      },
-      {
-        id: 'FS-2026-1043',
-        firstName: 'Ella',
-        lastName: 'Aaröe',
-        birthYear: 2017,
-        groupName: 'Helgskidskola – Röd Grupp',
-        groupLevel: 'rod',
-        season: '2026/2027',
-        status: 'active',
-        role: 'åkare',
-        memberSince: '2023',
-        insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-        trainingTime: 'Söndagar 10:30 – 11:45 (Jan–Feb)',
-        location: 'Ekholmsnäsbacken Stora Backen'
-      }
-    ]
-  },
-  {
-    email: 'medlem@freeskiers.se',
-    guardianName: 'Anna Lindqvist',
-    phone: '070-888 44 22',
-    role: 'medlem',
-    skiers: [
-      {
-        id: 'FS-2026-2189',
-        firstName: 'Hugo',
-        lastName: 'Lindqvist',
-        birthYear: 2018,
-        groupName: 'Helgskidskola – Blå Grupp',
-        groupLevel: 'bla',
-        season: '2026/2027',
-        status: 'active',
-        role: 'åkare',
-        memberSince: '2024',
-        insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-        trainingTime: 'Lördagar 09:00 – 10:15 (Jan–Feb)',
-        location: 'Ekholmsnäsbacken'
-      }
-    ]
-  },
-  {
-    email: 'tranare@freeskiers.se',
-    guardianName: 'Filippa Berg',
-    phone: '073-111 99 88',
-    role: 'tränare',
-    skiers: [
-      {
-        id: 'FS-2026-0084',
-        firstName: 'Filippa',
-        lastName: 'Berg',
-        birthYear: 2006,
-        groupName: 'Certifierad Tränare & Ledare',
-        groupLevel: 'tranare',
-        season: '2026/2027',
-        status: 'active',
-        role: 'tränare',
-        memberSince: '2016',
-        insuranceStatus: 'Ledarförsäkring via Svenska Skidförbundet & RF',
-        trainingTime: 'Tisdagar & Torsdagar 17:45 – 19:45',
-        location: 'Ekholmsnäsbacken'
-      }
-    ]
-  }
+  adminAccount
 ];
-
-// Helper to generate a dynamic account for any arbitrary email address
-export const createDynamicAccount = (email: string): MemberAccount => {
-  const username = email.split('@')[0] || 'Medlem';
-  const capitalized = username.charAt(0).toUpperCase() + username.slice(1);
-  const randomId = Math.floor(1000 + Math.random() * 9000);
-
-  return {
-    email: email.toLowerCase().trim(),
-    guardianName: `${capitalized} Medlem`,
-    phone: '070-123 45 67',
-    role: 'medlem',
-    skiers: [
-      {
-        id: `FS-2026-${randomId}`,
-        firstName: capitalized,
-        lastName: 'Freeskier',
-        birthYear: 2016,
-        groupName: 'Helgskidskola – Blå Grupp',
-        groupLevel: 'bla',
-        season: '2026/2027',
-        status: 'active',
-        role: 'åkare',
-        memberSince: '2025',
-        insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
-        trainingTime: 'Söndagar 09:00 – 10:15 (Jan–Feb)',
-        location: 'Ekholmsnäsbacken'
-      }
-    ]
-  };
-};
 
 import { 
   sportadminAccounts, 
@@ -182,7 +67,7 @@ import {
 export { sportadminAccounts, sportadminSkiers, allUniqueMemberEmails, type SportAdminSkierRecord };
 
 export const allMemberAccounts: MemberAccount[] = [
-  ...demoAccounts,
+  adminAccount,
   ...sportadminAccounts
 ];
 
@@ -193,11 +78,26 @@ export const findMemberAccount = (email: string): MemberAccount | undefined => {
   // 1. Check admin account (Kansli)
   if (clean === adminAccount.email.toLowerCase()) return adminAccount;
 
-  // 2. Stefan Aaröe club aliases (Styrelse)
-  if (clean === 'stefan@lidingofreeskiers.se' || clean === 'stefan@everybodyknows.se') {
+  // 2. Stefan Aaröe club aliases (Ordförande / Styrelse i SportAdmin)
+  if (
+    clean === 'stefan@lidingofreeskiers.se' ||
+    clean === 'stefan@everybodyknows.se' ||
+    clean === 'stefan.aaroe@me.com'
+  ) {
     const stefanSa = sportadminAccounts.find(a => a.email.toLowerCase() === 'stefan.aaroe@me.com');
-    if (stefanSa) return { ...stefanSa, email: clean, role: 'styrelse' };
-    return demoAccounts[1];
+    if (stefanSa) {
+      return {
+        ...stefanSa,
+        email: clean,
+        role: 'styrelse',
+        alternateEmails: [
+          'stefan@lidingofreeskiers.se',
+          'stefan@everybodyknows.se',
+          'stefan.aaroe@me.com',
+          ...(stefanSa.alternateEmails || [])
+        ]
+      };
+    }
   }
 
   // 3. Direct match on primary email in SportAdmin
@@ -216,21 +116,17 @@ export const findMemberAccount = (email: string): MemberAccount | undefined => {
   );
   if (saSkierGuardian) return saSkierGuardian;
 
-  // 6. Check demo accounts as fallback for development
-  const demoMatch = demoAccounts.find(a => a.email.toLowerCase() === clean);
-  if (demoMatch) return demoMatch;
-
   return undefined;
 };
 
-// Curated accounts for instant 1-click testing in the UI
+// Curated verified accounts for testing in the UI
 export const featuredDemoAccounts: MemberAccount[] = [
   adminAccount, // Kansli & Klubbadmin (admin@lidingofreeskiers.se)
-  demoAccounts[1]!, // Stefan Aaröe (Styrelse / 2 åkare)
-  findMemberAccount('jennifer.farde@gmail.com') ?? demoAccounts[1]!, // Jennifer & Johan Ståhle (Familjekonto / 4 medlemmar)
-  findMemberAccount('petter.samlin@altor.com') ?? demoAccounts[1]!, // Petter Samlin (3 åkare / Cesar, Astrid, Sofie)
-  findMemberAccount('beatricewestermark@hotmail.com') ?? demoAccounts[2]!, // Beatrice Lindgren (Helgskidskola / Molly)
-  findMemberAccount('carolinne.sjostedt@gmail.com') ?? demoAccounts[2]!, // Carolinne Sjöstedt (Skidklubb / James)
+  findMemberAccount('stefan.aaroe@me.com') ?? adminAccount, // Stefan Aaröe (Styrelse / Ruben & Stefan)
+  findMemberAccount('jennifer.farde@gmail.com') ?? adminAccount, // Jennifer & Johan Ståhle (Familjekonto / 4 medlemmar)
+  findMemberAccount('petter.samlin@altor.com') ?? adminAccount, // Petter Samlin (3 åkare / Cesar, Astrid, Sofie)
+  findMemberAccount('beatricewestermark@hotmail.com') ?? adminAccount, // Beatrice Lindgren (Helgskidskola / Molly)
+  findMemberAccount('carolinne.sjostedt@gmail.com') ?? adminAccount, // Carolinne Sjöstedt (Skidklubb / James)
 ];
 
 

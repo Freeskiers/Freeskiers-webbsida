@@ -14806,7 +14806,9 @@ export const sportadminAccounts: MemberAccount[] = [
       }
     ],
     "alternateEmails": [
-      "charlotte@cvdlab.se"
+      "charlotte@cvdlab.se",
+      "stefan@lidingofreeskiers.se",
+      "stefan@everybodyknows.se"
     ]
   },
   {

@@ -18,8 +18,8 @@ interface MemberAuthContextType {
 
 const MemberAuthContext = createContext<MemberAuthContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'freeskiers_member_user_v1';
-const ACTIVE_SKIER_KEY = 'freeskiers_active_skier_id_v1';
+const STORAGE_KEY = 'freeskiers_member_user_v3';
+const ACTIVE_SKIER_KEY = 'freeskiers_active_skier_id_v3';
 
 export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<MemberAccount | null>(null);
@@ -28,8 +28,23 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     try {
+      // Purge old v1/v2 storage keys that had demo children (Liam/Ella)
+      localStorage.removeItem('freeskiers_member_user_v1');
+      localStorage.removeItem('freeskiers_member_user_v2');
+      localStorage.removeItem('freeskiers_active_skier_id_v1');
+      localStorage.removeItem('freeskiers_active_skier_id_v2');
+
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setCurrentUser(JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // If it was an old demo account with Liam/Ella, don't use it
+        const hasFakeKids = parsed?.skiers?.some((s: { firstName: string }) => s.firstName === 'Liam' || s.firstName === 'Ella' || s.firstName === 'Hugo');
+        if (!hasFakeKids) {
+          setCurrentUser(parsed);
+        } else {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
       setActiveSkierId(localStorage.getItem(ACTIVE_SKIER_KEY));
     } catch {
       /* ignore */

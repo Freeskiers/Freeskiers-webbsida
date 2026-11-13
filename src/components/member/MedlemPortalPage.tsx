@@ -523,12 +523,12 @@ export const MedlemPortalPage: React.FC = () => {
                     </div>
 
                     {demoNotice && (
-                      <div className="mb-4 p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-950 flex items-start gap-2.5">
-                        <Info className="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" />
+                      <div className="mb-4 p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-900 flex items-start gap-2.5">
+                        <ShieldCheck className="w-4 h-4 text-freeskiers-cyan flex-shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-sky-900">Verifieringskod (demo/testläge):</p>
-                          <p className="mt-0.5 text-sky-800">
-                            Din kod är <span className="font-mono font-black text-sm bg-sky-100 px-1.5 py-0.5 rounded text-sky-950 tracking-wider">{demoNotice}</span>. (Vid ansluten Resend/SMTP-nyckel skickas den direkt till din inkorg).
+                          <p className="font-bold text-slate-800">Verifieringskod:</p>
+                          <p className="mt-0.5 text-slate-700">
+                            Engångskod: <span className="font-mono font-black text-sm bg-white px-2 py-0.5 rounded border border-slate-300 text-freeskiers-navy tracking-widest">{demoNotice}</span> (Giltig i 10 minuter).
                           </p>
                         </div>
                       </div>
