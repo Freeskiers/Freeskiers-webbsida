@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { 
   ShieldCheck, 
+  ShieldAlert,
+  Loader2,
   User, 
   Mail, 
   KeyRound, 
@@ -36,14 +38,15 @@ import { memberOffers, MemberOffer } from '@/lib/memberOffers';
 import { 
   sportadminAccounts, 
   sportadminSkiers, 
-  allUniqueMemberEmails 
+  allUniqueMemberEmails,
+  MemberAccount
 } from '@/lib/memberData';
 import { type SportAdminSkierRecord } from '@/lib/sportadminData';
 import { 
   testSportAdminConnection, 
   SPORTADMIN_BASE_URL 
 } from '@/lib/sportadminApi';
-import { testSportAdminConnectionFn } from '@/lib/sportadminServer';
+import { testSportAdminConnectionFn, verifyMemberStatusFn } from '@/lib/sportadminServer';
 
 const SYNCED_MEMBERS_STORAGE = 'freeskiers_sportadmin_synced_members_v2';
 
@@ -59,12 +62,10 @@ export const MedlemPortalPage: React.FC = () => {
   } = useMemberAuth();
 
   const [emailInput, setEmailInput] = useState('');
-  const [step, setStep] = useState<'email' | 'code'>('email');
-  const [codeInput, setCodeInput] = useState('');
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [activeTab, setActiveTab] = useState<'kort' | 'erbjudanden' | 'schema' | 'info' | 'admin'>('kort');
   const [copiedCodeId, setCopiedCodeId] = useState<string | null>(null);
-  const [memberSearch, setMemberSearch] = useState('');
-  const [showMemberBrowser, setShowMemberBrowser] = useState(false);
   const [adminGroupFilter, setAdminGroupFilter] = useState<string>('alla');
   const [adminSearchTerm, setAdminSearchTerm] = useState<string>('');
   const [copiedEmails, setCopiedEmails] = useState(false);
@@ -108,26 +109,85 @@ export const MedlemPortalPage: React.FC = () => {
     }
   };
 
-  // Handle email submit
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  // Skarp inloggning via e-postkontroll mot SportAdmin
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!emailInput.trim()) return;
-    setStep('code');
-    setCodeInput('2026'); // Pre-fill sample verification code for seamless UX
-  };
+    setLoginError(null);
+    const cleanEmail = emailInput.trim().toLowerCase();
+    if (!cleanEmail) return;
 
-  // Handle login completion
-  const handleCodeSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    login(emailInput);
-    setStep('email');
-    setEmailInput('');
-    setCodeInput('');
-  };
+    setIsLoggingIn(true);
 
-  // Direct login via demo buttons
-  const handleDemoLogin = (email: string) => {
-    login(email);
+    try {
+      // 1. Kontrollera lokalt verifierade SportAdmin-konton (alla 638 aktiva medlemmar 2026/2027)
+      const ok = login(cleanEmail);
+      if (ok) {
+        setIsLoggingIn(false);
+        setEmailInput('');
+        return;
+      }
+
+      // 2. Kontrollera lokalt synkade medlemmar (om kansliet kört manuell live-synk)
+      const syncedMatch = adminMembersList.filter(
+        (s) => s.guardianEmail?.toLowerCase() === cleanEmail
+      );
+      if (syncedMatch.length > 0) {
+        const syncedAccount: MemberAccount = {
+          email: cleanEmail,
+          guardianName: syncedMatch[0]!.guardianName || 'Medlem',
+          phone: syncedMatch[0]!.guardianPhone || '',
+          role: syncedMatch.some(s => s.role === 'tränare') ? 'tränare' : (syncedMatch.some(s => s.role === 'styrelse') ? 'styrelse' : 'medlem'),
+          skiers: syncedMatch
+        };
+        login(cleanEmail, syncedAccount);
+        setIsLoggingIn(false);
+        setEmailInput('');
+        return;
+      }
+
+      // 3. Fallback: Verifiera live mot SportAdmin API i realtid (för helt nyregistrerade medlemmar)
+      const verifyRes = await verifyMemberStatusFn({ data: { email: cleanEmail } });
+      if (verifyRes.success && verifyRes.isMember) {
+        const fullName = verifyRes.memberFullName || 'Medlem';
+        const liveAccount: MemberAccount = {
+          email: cleanEmail,
+          guardianName: fullName,
+          phone: '',
+          role: 'medlem',
+          skiers: [
+            {
+              id: `FS-SA-${Math.floor(1000 + Math.random() * 9000)}`,
+              firstName: fullName.split(' ')[0] || fullName,
+              lastName: fullName.split(' ').slice(1).join(' ') || 'Freeskier',
+              birthYear: 2016,
+              groupName: verifyRes.statuses?.[0]?.memberCards?.[0]?.group || 'Freeskiers Medlem',
+              groupLevel: 'skidklubb',
+              season: '2026/2027',
+              status: 'active',
+              role: 'åkare',
+              memberSince: '2026',
+              insuranceStatus: 'Folksam Olycksfallsförsäkring via Svenska Skidförbundet',
+              location: 'Ekholmsnäsbacken'
+            }
+          ]
+        };
+        login(cleanEmail, liveAccount);
+        setIsLoggingIn(false);
+        setEmailInput('');
+        return;
+      }
+
+      // 4. Ej aktiv medlem för aktuell säsong
+      setIsLoggingIn(false);
+      setLoginError(
+        'Ingen aktiv medlem hittades med denna e-postadress för säsongen 2026/2027. Kontrollera att du anger samma e-postadress som användes vid klubbanmälan i SportAdmin (t.ex. målsmans eller åkarens e-post), eller kontakta kansliet på info@lidingofreeskiers.se.'
+      );
+    } catch {
+      setIsLoggingIn(false);
+      setLoginError(
+        'Ingen aktiv medlem hittades med denna e-postadress för säsongen 2026/2027. Kontrollera att du anger samma e-postadress som användes vid klubbanmälan i SportAdmin, eller kontakta kansliet på info@lidingofreeskiers.se.'
+      );
+    }
   };
 
   const handleCopyCode = (id: string, code: string) => {
@@ -268,7 +328,7 @@ export const MedlemPortalPage: React.FC = () => {
                     Logga in på Mina Sidor
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-500 mt-2">
-                    Lösenordsfri inloggning kopplat till din e-postadress.
+                    Ange den e-postadress du använde vid klubbanmälan i SportAdmin.
                   </p>
                 </div>
 
@@ -277,183 +337,74 @@ export const MedlemPortalPage: React.FC = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1 shrink-0 animate-pulse" />
                   <div className="leading-snug">
                     <span className="font-bold text-emerald-900 block">
-                      {adminMembersList.length} aktiva SportAdmin-medlemmar inlästa (2026/2027)
+                      Medlemsverifiering mot SportAdmin (2026/2027)
                     </span>
                     <span className="text-slate-600 text-[11px]">
-                      Ange den e-postadress du använde vid klubbanmälan för att logga in direkt, eller välj ett snabbval nedan.
+                      Endast aktiva medlemmar och målsmän registrerade i Lidingö Freeskiers ges tillgång till digitalt medlemskort och förmåner.
                     </span>
                   </div>
                 </div>
 
-                {step === 'email' ? (
-                  <form onSubmit={handleEmailSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        E-postadress
-                      </label>
-                      <div className="relative">
-                        <Mail className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
-                        <input
-                          type="email"
-                          required
-                          list="sportadmin-email-list"
-                          value={emailInput}
-                          onChange={(e) => setEmailInput(e.target.value)}
-                          placeholder="namn@epost.se (samma som i SportAdmin)"
-                          className="w-full pl-11 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
-                        />
-                        <datalist id="sportadmin-email-list">
-                          {sportadminAccounts.map((a) => (
-                            <option key={a.email} value={a.email}>
-                              {a.guardianName} ({a.skiers.map(s => s.firstName).join(', ')})
-                            </option>
-                          ))}
-                        </datalist>
-                      </div>
-                      <p className="text-[11px] text-slate-500 mt-1.5">
-                        Skriv in den e-postadress som användes vid klubbanmälan.
-                      </p>
+                {loginError && (
+                  <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-start gap-3 animate-in fade-in duration-200">
+                    <ShieldAlert className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+                    <div className="leading-relaxed">
+                      <strong className="block font-bold text-amber-900 mb-1">Inloggningen nekades</strong>
+                      {loginError}
                     </div>
-
-                    <button
-                      type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
-                    >
-                      <span>Fortsätt med e-post</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleCodeSubmit} className="space-y-4 animate-in fade-in duration-200">
-                    <div className="p-3.5 rounded-xl bg-sky-50 border border-sky-100 text-xs text-sky-900 flex items-center justify-between">
-                      <div>
-                        <span>Engångskod skickad till: </span>
-                        <strong>{emailInput}</strong>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setStep('email')}
-                        className="text-freeskiers-cyan font-bold underline"
-                      >
-                        Ändra
-                      </button>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        4-siffrig engångskod
-                      </label>
-                      <div className="relative">
-                        <KeyRound className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
-                        <input
-                          type="text"
-                          required
-                          maxLength={6}
-                          value={codeInput}
-                          onChange={(e) => setCodeInput(e.target.value)}
-                          placeholder="2026"
-                          className="w-full pl-11 pr-4 py-3 text-center tracking-widest text-lg font-mono font-bold bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan"
-                        />
-                      </div>
-                      <p className="text-[11px] text-emerald-600 font-semibold mt-1">
-                        ✓ Testkod i demo: 2026 (fylls i automatiskt)
-                      </p>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-navy hover:bg-slate-800 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
-                    >
-                      <ShieldCheck className="w-4 h-4" />
-                      <span>Logga in & Visa mitt kort</span>
-                    </button>
-                  </form>
+                  </div>
                 )}
 
-                {/* Instant Demo Accounts for fast testing */}
-                <div className="mt-8 pt-6 border-t border-slate-200">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                      Snabbval för att testa:
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setShowMemberBrowser(!showMemberBrowser)}
-                      className="text-[11px] font-bold text-freeskiers-cyan hover:underline inline-flex items-center gap-1"
-                    >
-                      <Search className="w-3 h-3" />
-                      <span>{showMemberBrowser ? 'Dölj sök' : `Sök bland alla ${sportadminAccounts.length} konton`}</span>
-                    </button>
-                  </div>
-
-                  {/* Search Browser for all 164 SportAdmin members */}
-                  {showMemberBrowser && (
-                    <div className="mb-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 animate-in fade-in duration-150">
-                      <div className="relative mb-2.5">
-                        <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-                        <input
-                          type="text"
-                          value={memberSearch}
-                          onChange={(e) => setMemberSearch(e.target.value)}
-                          placeholder="Sök på efternamn, förnamn eller e-post..."
-                          className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-freeskiers-cyan"
-                        />
-                      </div>
-                      <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
-                        {sportadminAccounts
-                          .filter((acc) => {
-                            if (!memberSearch.trim()) return true;
-                            const q = memberSearch.toLowerCase().trim();
-                            return (
-                              acc.guardianName.toLowerCase().includes(q) ||
-                              acc.email.toLowerCase().includes(q) ||
-                              acc.skiers.some((s) => `${s.firstName} ${s.lastName}`.toLowerCase().includes(q))
-                            );
-                          })
-                          .slice(0, 12)
-                          .map((acc) => (
-                            <button
-                              key={acc.email}
-                              type="button"
-                              onClick={() => handleDemoLogin(acc.email)}
-                              className="w-full text-left p-2 rounded-lg bg-white border border-slate-200 hover:border-freeskiers-cyan hover:bg-sky-50/50 flex items-center justify-between text-xs transition-colors"
-                            >
-                              <div className="truncate pr-2">
-                                <span className="font-bold text-slate-800">{acc.guardianName}</span>
-                                <span className="text-[10px] text-slate-500 block truncate">
-                                  {acc.skiers.map((s) => s.firstName).join(', ')} ({acc.skiers.length} åkare) • {acc.email}
-                                </span>
-                              </div>
-                              <span className="text-[10px] font-bold text-freeskiers-cyan shrink-0">
-                                Välj →
-                              </span>
-                            </button>
-                          ))}
-                      </div>
+                <form onSubmit={handleEmailSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                      E-postadress
+                    </label>
+                    <div className="relative">
+                      <Mail className="w-5 h-5 text-slate-400 absolute left-3.5 top-3" />
+                      <input
+                        type="email"
+                        required
+                        value={emailInput}
+                        onChange={(e) => {
+                          setEmailInput(e.target.value);
+                          if (loginError) setLoginError(null);
+                        }}
+                        placeholder="namn@epost.se (samma som i SportAdmin)"
+                        className="w-full pl-11 pr-4 py-3 text-sm bg-white border border-slate-300 rounded-xl focus:outline-none focus:border-freeskiers-cyan font-medium text-slate-800"
+                      />
                     </div>
-                  )}
-
-                  <div className="space-y-2">
-                    {demoAccounts.map((demo) => (
-                      <button
-                        key={demo.email}
-                        onClick={() => handleDemoLogin(demo.email)}
-                        className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-freeskiers-cyan/50 hover:bg-sky-50/50 transition-all flex items-center justify-between text-xs group"
-                      >
-                        <div>
-                          <div className="font-extrabold text-freeskiers-navy group-hover:text-freeskiers-cyan">
-                            {demo.guardianName}
-                          </div>
-                          <div className="text-[11px] text-slate-500">
-                            {demo.email} • {demo.skiers.map(s => s.firstName).join(', ')} ({demo.skiers[0]?.groupName})
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-bold text-freeskiers-cyan bg-white px-2 py-1 rounded-md border border-slate-200 shrink-0">
-                          Logga in →
-                        </span>
-                      </button>
-                    ))}
+                    <p className="text-[11px] text-slate-500 mt-1.5">
+                      Använd samma e-postadress som registrerades vid anmälan till klubben.
+                    </p>
                   </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoggingIn || !emailInput.trim()}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-freeskiers-cyan hover:bg-freeskiers-lightcyan disabled:opacity-60 text-white py-3.5 rounded-xl font-bold text-sm shadow-soft transition-all"
+                  >
+                    {isLoggingIn ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Kontrollerar medlemskap i SportAdmin...</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>Logga in på Mina Sidor</span>
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                <div className="mt-8 pt-6 border-t border-slate-200 text-center">
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Har du nyligen anmält ditt barn eller blivit medlem och kommer inte in? Kontakta klubbens kansli via{' '}
+                    <a href="mailto:info@lidingofreeskiers.se" className="font-bold text-freeskiers-cyan hover:underline">
+                      info@lidingofreeskiers.se
+                    </a>.
+                  </p>
                 </div>
 
               </div>

@@ -2,17 +2,15 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { 
   MemberAccount, 
   MemberSkier, 
-  demoAccounts, 
   featuredDemoAccounts, 
-  findMemberAccount, 
-  createDynamicAccount 
+  findMemberAccount 
 } from '@/lib/memberData';
 
 interface MemberAuthContextType {
   currentUser: MemberAccount | null;
   activeSkier: MemberSkier | null;
   isLoggedIn: boolean;
-  login: (email: string) => boolean;
+  login: (email: string, customAccount?: MemberAccount) => boolean;
   logout: () => void;
   switchActiveSkier: (skierId: string) => void;
   demoAccounts: MemberAccount[];
@@ -48,16 +46,16 @@ export const MemberAuthProvider: React.FC<{ children: ReactNode }> = ({ children
     return currentUser.skiers[0] ?? null;
   }, [currentUser, activeSkierId]);
 
-  const login = (email: string): boolean => {
+  const login = (email: string, customAccount?: MemberAccount): boolean => {
     const cleanEmail = email.toLowerCase().trim();
     if (!cleanEmail) return false;
 
-    // Check if it's in our member database (SportAdmin or demo accounts)
-    let account = findMemberAccount(cleanEmail);
+    // Check if it's in our member database (SportAdmin or admin/styrelse) or custom verified account
+    const account = customAccount || findMemberAccount(cleanEmail);
 
-    // If not, generate a dynamic valid account
+    // If not found in the verified member register, reject login
     if (!account) {
-      account = createDynamicAccount(cleanEmail);
+      return false;
     }
 
     setCurrentUser(account);

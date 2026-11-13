@@ -190,19 +190,35 @@ export const findMemberAccount = (email: string): MemberAccount | undefined => {
   const clean = email.toLowerCase().trim();
   if (!clean) return undefined;
 
-  // 1. Check demo accounts first
-  const demoMatch = demoAccounts.find(a => a.email.toLowerCase() === clean);
-  if (demoMatch) return demoMatch;
+  // 1. Check admin account (Kansli)
+  if (clean === adminAccount.email.toLowerCase()) return adminAccount;
 
-  // 2. Direct match on primary email in SportAdmin
+  // 2. Stefan Aaröe club aliases (Styrelse)
+  if (clean === 'stefan@lidingofreeskiers.se' || clean === 'stefan@everybodyknows.se') {
+    const stefanSa = sportadminAccounts.find(a => a.email.toLowerCase() === 'stefan.aaroe@me.com');
+    if (stefanSa) return { ...stefanSa, email: clean, role: 'styrelse' };
+    return demoAccounts[1];
+  }
+
+  // 3. Direct match on primary email in SportAdmin
   const saDirect = sportadminAccounts.find(a => a.email.toLowerCase() === clean);
   if (saDirect) return saDirect;
 
-  // 3. Match on alternate emails (co-guardian or skier email)
+  // 4. Match on alternate emails (co-guardian or skier email in SportAdmin)
   const saAlt = sportadminAccounts.find(a =>
     a.alternateEmails?.some(alt => alt.toLowerCase() === clean)
   );
   if (saAlt) return saAlt;
+
+  // 5. Match on any skier's guardianEmail in SportAdmin
+  const saSkierGuardian = sportadminAccounts.find(a =>
+    a.skiers.some(s => s.guardianEmail?.toLowerCase() === clean)
+  );
+  if (saSkierGuardian) return saSkierGuardian;
+
+  // 6. Check demo accounts as fallback for development
+  const demoMatch = demoAccounts.find(a => a.email.toLowerCase() === clean);
+  if (demoMatch) return demoMatch;
 
   return undefined;
 };
