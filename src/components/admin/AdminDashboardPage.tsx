@@ -71,7 +71,6 @@ export const AdminDashboardPage: React.FC = () => {
   const [codeInput, setCodeInput] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
-  const [demoNotice, setDemoNotice] = useState<string | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
 
   useEffect(() => {
@@ -168,7 +167,6 @@ export const AdminDashboardPage: React.FC = () => {
 
     setAuthError(null);
     setIsVerifying(true);
-    setDemoNotice(null);
 
     try {
       // 1. First check local SportAdmin database & CMS editor accounts
@@ -239,9 +237,6 @@ export const AdminDashboardPage: React.FC = () => {
       setAuthStep('code');
       setCodeInput('');
       setResendCooldown(60);
-      if (codeResult.demoCode) {
-        setDemoNotice(codeResult.demoCode);
-      }
     } finally {
       setIsVerifying(false);
     }
@@ -293,9 +288,6 @@ export const AdminDashboardPage: React.FC = () => {
       const res = await requestVerificationCode(cleanEmail, 'admin');
       if (res.success) {
         setResendCooldown(60);
-        if (res.demoCode) {
-          setDemoNotice(res.demoCode);
-        }
       } else {
         setAuthError(res.error || 'Kunde inte skicka ny kod.');
       }
@@ -308,7 +300,6 @@ export const AdminDashboardPage: React.FC = () => {
     setAuthStep('email');
     setCodeInput('');
     setAuthError(null);
-    setDemoNotice(null);
   };
 
   // Test SportAdmin API Connection via Server Function
@@ -533,20 +524,12 @@ export const AdminDashboardPage: React.FC = () => {
                   Vi har skickat en 6-siffrig engångskod till:
                   <br />
                   <strong className="text-freeskiers-navy font-black text-sm">{emailInput}</strong>
+                  <br />
+                  <span className="text-[11px] text-slate-500">
+                    Kontrollera din inkorg och eventuell skräppostmapp.
+                  </span>
                 </p>
               </div>
-
-              {demoNotice && (
-                <div className="mb-4 p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-900 flex items-start gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-freeskiers-cyan flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-bold text-slate-800">Verifieringskod:</p>
-                    <p className="mt-0.5 text-slate-700">
-                      Engångskod: <span className="font-mono font-black text-sm bg-white px-2 py-0.5 rounded border border-slate-300 text-freeskiers-navy tracking-widest">{demoNotice}</span> (Giltig i 10 minuter).
-                    </p>
-                  </div>
-                </div>
-              )}
 
               <form onSubmit={handleVerifyCode} className="space-y-4">
                 <div>

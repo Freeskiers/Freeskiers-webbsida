@@ -63,7 +63,7 @@ export default {
         return await handleCmsPublishRequest(request);
       }
       if (url.pathname === "/api/auth/send-code" || url.pathname === "/api/auth/verify-code") {
-        return await handleAuthVerificationRequest(request);
+        return await handleAuthVerificationRequest(request, env);
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
