@@ -72,6 +72,7 @@ export const MedlemPortalPage: React.FC = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [verificationToken, setVerificationToken] = useState<string | undefined>(undefined);
   const [pendingAccount, setPendingAccount] = useState<MemberAccount | null>(null);
 
   useEffect(() => {
@@ -215,6 +216,7 @@ export const MedlemPortalPage: React.FC = () => {
         return;
       }
 
+      setVerificationToken(codeRes.token);
       setAuthStep('code');
       setCodeInput('');
       setResendCooldown(60);
@@ -242,7 +244,7 @@ export const MedlemPortalPage: React.FC = () => {
     setIsLoggingIn(true);
 
     try {
-      const verifyRes = await submitVerificationCode(cleanEmail, cleanCode);
+      const verifyRes = await submitVerificationCode(cleanEmail, cleanCode, verificationToken);
       if (!verifyRes.success) {
         setLoginError(verifyRes.error || 'Felaktig verifieringskod.');
         setIsLoggingIn(false);
@@ -255,6 +257,7 @@ export const MedlemPortalPage: React.FC = () => {
       setAuthStep('email');
       setEmailInput('');
       setCodeInput('');
+      setVerificationToken(undefined);
     } catch {
       setIsLoggingIn(false);
       setLoginError('Kunde inte verifiera koden. Försök igen.');
@@ -270,6 +273,9 @@ export const MedlemPortalPage: React.FC = () => {
       const res = await requestVerificationCode(cleanEmail, 'medlem');
       if (res.success) {
         setResendCooldown(60);
+        if (res.token) {
+          setVerificationToken(res.token);
+        }
       } else {
         setLoginError(res.error || 'Kunde inte skicka ny kod.');
       }

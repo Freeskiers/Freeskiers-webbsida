@@ -16,10 +16,12 @@ export const verificationStore = new Map<string, VerificationStoreEntry>();
 
 const CODE_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_ATTEMPTS = 5;
+const OTP_HMAC_SECRET = 'freeskiers-otp-secret-2026-v1';
 
 export interface SendCodeResult {
   success: boolean;
   emailSent: boolean;
+  token?: string;
   expiresInSeconds?: number;
   message: string;
   error?: string;
@@ -29,6 +31,41 @@ export interface VerifyCodeResult {
   success: boolean;
   verifiedEmail?: string;
   error?: string;
+}
+
+/**
+ * Generate a stateless cryptographic signature token for an OTP code.
+ * Ensures verification works across any serverless worker isolate or edge point of presence.
+ */
+export async function generateOtpSignature(email: string, code: string, expiresAt: number): Promise<string> {
+  const enc = new TextEncoder();
+  const data = `${email.trim().toLowerCase()}:${code.trim()}:${expiresAt}`;
+  const key = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(OTP_HMAC_SECRET),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, enc.encode(data));
+  const hex = Array.from(new Uint8Array(signature))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  return `${expiresAt}.${hex}`;
+}
+
+/**
+ * Verify a stateless OTP signature token against a submitted code.
+ */
+export async function verifyOtpSignature(email: string, code: string, token: string): Promise<boolean> {
+  const parts = token.split('.');
+  if (parts.length !== 2) return false;
+  const expiresAt = parseInt(parts[0]!, 10);
+  if (isNaN(expiresAt) || Date.now() > expiresAt) {
+    return false;
+  }
+  const expectedToken = await generateOtpSignature(email, code, expiresAt);
+  return expectedToken === token;
 }
 
 // Builtin fallback key for production mail delivery (assembled at runtime)
@@ -56,6 +93,7 @@ export async function createAndSendVerificationCode(
   // Generate secure 6-digit numeric code
   const code = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = Date.now() + CODE_EXPIRY_MS;
+  const token = await generateOtpSignature(cleanEmail, code, expiresAt);
 
   verificationStore.set(cleanEmail, {
     code,
@@ -177,18 +215,50 @@ export async function createAndSendVerificationCode(
   return {
     success: true,
     emailSent: true,
+    token,
     expiresInSeconds: Math.floor(CODE_EXPIRY_MS / 1000),
     message: `En 6-siffrig verifieringskod har skickats till ${cleanEmail}.`
   };
 }
 
 /**
- * Validate a submitted code against stored codes.
+ * Validate a submitted code against stored codes or stateless cryptographic token.
  */
-export function verifySubmittedCode(email: string, code: string): VerifyCodeResult {
+export async function verifySubmittedCode(
+  email: string,
+  code: string,
+  token?: string
+): Promise<VerifyCodeResult> {
   const cleanEmail = email.trim().toLowerCase();
   const cleanCode = code.trim().replace(/\s+/g, '');
 
+  // 1. Primary verification: Stateless cryptographic HMAC token (works across all Cloudflare isolates)
+  if (token && token.includes('.')) {
+    const parts = token.split('.');
+    const expiresAt = parts[0] ? parseInt(parts[0], 10) : 0;
+    if (expiresAt && Date.now() > expiresAt) {
+      return {
+        success: false,
+        error: 'Verifieringskoden har gått ut (giltig i 10 minuter). Begär en ny kod.'
+      };
+    }
+
+    const isValid = await verifyOtpSignature(cleanEmail, cleanCode, token);
+    if (isValid) {
+      verificationStore.delete(cleanEmail);
+      return {
+        success: true,
+        verifiedEmail: cleanEmail
+      };
+    }
+
+    return {
+      success: false,
+      error: 'Felaktig verifieringskod. Kontrollera koden i ditt senaste mejl och försök igen.'
+    };
+  }
+
+  // 2. Fallback verification: In-memory store
   const entry = verificationStore.get(cleanEmail);
 
   if (!entry) {
@@ -266,7 +336,8 @@ export async function handleAuthVerificationRequest(
     if (url.pathname === '/api/auth/verify-code') {
       const email = typeof payload.email === 'string' ? payload.email : '';
       const code = typeof payload.code === 'string' ? payload.code : '';
-      const result = verifySubmittedCode(email, code);
+      const token = typeof payload.token === 'string' ? payload.token : undefined;
+      const result = await verifySubmittedCode(email, code, token);
       return new Response(JSON.stringify(result), {
         status: result.success ? 200 : 400,
         headers: { 'content-type': 'application/json; charset=utf-8' }
@@ -325,17 +396,18 @@ export async function requestVerificationCode(
  */
 export async function submitVerificationCode(
   email: string,
-  code: string
+  code: string,
+  token?: string
 ): Promise<VerifyCodeResult> {
   if (typeof window === 'undefined') {
-    return verifySubmittedCode(email, code);
+    return verifySubmittedCode(email, code, token);
   }
 
   try {
     const res = await fetch('/api/auth/verify-code', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, code })
+      body: JSON.stringify({ email, code, token })
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
@@ -348,6 +420,6 @@ export async function submitVerificationCode(
   } catch (err) {
     // Client-side fallback
     console.warn('Using client-side verification fallback:', err);
-    return verifySubmittedCode(email, code);
+    return verifySubmittedCode(email, code, token);
   }
 }
