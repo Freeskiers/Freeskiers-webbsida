@@ -692,6 +692,18 @@
       "role": "Ledare",
       "group": "Kassör & Styrelse",
       "photoUrl": "/assets/photos/coaches/sten-berggren.jpg"
+    },
+    {
+      "id": "klara-tengstrand",
+      "name": "Klara Tengstrand",
+      "role": "Ledare",
+      "group": "Tränaransvarig & Styrelse"
+    },
+    {
+      "id": "stefan-aaroe",
+      "name": "Stefan Aaröe",
+      "role": "Ledare",
+      "group": "Ordförande & Styrelse"
     }
   ],
   "partners": [

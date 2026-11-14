@@ -466,8 +466,10 @@ export const coaches: Coach[] = [
   { name: "Fredrik Vikström", role: "Ledare", category: "ledare", photo: coachPhoto("fredrik-vikstrom") },
   { name: "Gustav Leuhusen", role: "Ledare", category: "ledare", photo: coachPhoto("gustav-leuhusen") },
   { name: "Johan Bergström", role: "Ledare", category: "ledare", photo: coachPhoto("johan-bergstrom") },
+  { name: "Klara Tengstrand", role: "Ledare", category: "ledare" },
   { name: "Lars Hadzin", role: "Ledare", category: "ledare", photo: coachPhoto("lars-hadzin") },
   { name: "Simon Ornby", role: "Ledare", category: "ledare", photo: coachPhoto("simon-ornby") },
+  { name: "Stefan Aaröe", role: "Ledare", category: "ledare" },
   { name: "Sten Berggren", role: "Ledare", category: "ledare", photo: coachPhoto("sten-berggren") },
 ];
 
