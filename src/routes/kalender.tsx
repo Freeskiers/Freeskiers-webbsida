@@ -246,7 +246,7 @@ export function KalenderPage() {
             <h3 className="mt-1 text-lg">Datum Helgskidskola</h3>
             <ul className="mt-3 space-y-1 text-xs leading-relaxed text-muted-foreground">
               <li>Lör 30 jan · Sön 31 jan</li>
-              <li>&nbsp;Lör 6 feb</li>
+              <li>Lör 6 feb</li>
               <li>Lör 20 feb · Sön 21 feb</li>
             </ul>
             <button type="button" onClick={() => setCat("helgskidskola")} className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-primary hover:underline">
