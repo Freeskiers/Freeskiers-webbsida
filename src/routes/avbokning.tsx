@@ -44,7 +44,7 @@ export function AvbokningPage() {
       <PageBanner photo={sunset} alt="Solnedgång över Ekholmsnäsbacken" eyebrow="Skidklubb & Helgskidskola" title="Avbokning & återbetalning" />
       <section className="mx-auto grid max-w-4xl gap-6 px-4 py-12 sm:px-6">
         <div className="surface-card bg-card p-6">
-          <h2 className="text-2xl">Avbokningsregler</h2>
+          <h2 className="text-2xl">Ordinarie avbokningsregler</h2>
           <ul className="mt-4 grid gap-3">
             {avbokning.map((t) => (
               <li key={t} className="flex gap-3 border-l-4 border-primary bg-secondary/40 px-4 py-3 font-semibold text-heading">
