@@ -625,8 +625,8 @@ export const MedlemPortalPage: React.FC = () => {
                 <div className="mt-8 pt-6 border-t border-slate-200 text-center">
                   <p className="text-xs text-slate-500 leading-relaxed">
                     Har du nyligen anmält ditt barn eller blivit medlem och kommer inte in? Kontakta klubbens kansli via{' '}
-                    <a href="mailto:info@lidingofreeskiers.se" className="font-bold text-freeskiers-cyan hover:underline">
-                      info@lidingofreeskiers.se
+                    <a href="mailto:admin@lidingofreeskiers.se" className="font-bold text-freeskiers-cyan hover:underline">
+                      {'admin@lidingofreeskiers.se\n'}
                     </a>.
                   </p>
                 </div>
