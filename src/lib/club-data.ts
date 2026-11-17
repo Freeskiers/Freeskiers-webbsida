@@ -19,6 +19,7 @@ import europeanSnowsportPhoto from "@/assets/photos/european-snowsport-skidskola
 import alpingaragetLogo from "@/assets/partners/alpingaraget.png";
 import ekholmsnasLogo from "@/assets/partners/ekholmsnas.png";
 import europeanSnowsportLogo from "@/assets/partners/european-snowsport.png";
+import gadeliusLogo from "@/assets/partners/gadelius.png";
 import kangLogo from "@/assets/partners/kang.png";
 import lidingocentrumLogo from "@/assets/partners/lidingocentrum.svg";
 import stellarLogo from "@/assets/partners/stellar.jpeg";
@@ -820,6 +821,7 @@ export function departmentEmail(id: string) {
 export type Partner = { name: string; logo?: string; url?: string };
 
 export const partners: Partner[] = [
+  { name: "Gadelius", logo: gadeliusLogo, url: "https://gadelius.se" },
   { name: "Ekholmsnäsbacken", logo: ekholmsnasLogo, url: "https://www.ekholmsnasbacken.se" },
   { name: "Alpingaraget", logo: alpingaragetLogo, url: "https://www.alpingaraget.se" },
   { name: "Kang Poles", logo: kangLogo, url: "https://kangpoles.com" },

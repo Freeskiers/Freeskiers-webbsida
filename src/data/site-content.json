@@ -708,6 +708,14 @@
   ],
   "partners": [
     {
+      "id": "gadelius",
+      "name": "Gadelius",
+      "discountSummary": "Samarbetspartner och sponsor till IK Lidingö Freeskiers",
+      "howToRedeem": "Besök gadelius.se för mer information.",
+      "websiteUrl": "https://gadelius.se",
+      "logoUrl": "/assets/partners/gadelius.png"
+    },
+    {
       "id": "ekholmsnasbacken",
       "name": "Ekholmsnäsbacken",
       "discountSummary": "1 100 kr rabatt på säsongskort. Visa upp medlemskort i kassan",
