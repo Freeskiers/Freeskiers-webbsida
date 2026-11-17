@@ -8,7 +8,7 @@ export { coachesGroup };
 import ekholmsnasSunset from "@/assets/photos/ekholmsnas-sunset.jpg";
 import heroNightAction from "@/assets/photos/hero-freeski-night-action.jpg.asset.json";
 import freeskiPowder from "@/assets/photos/freeski-powder-hero.jpg";
-import parkRails from "@/assets/photos/park-rails.jpg";
+import hostsasongLopning from "@/assets/hostsasong-lopning.jpg.asset.json";
 import privatCoach from "@/assets/photos/privatlektion-coach.jpg";
 import helgskidskolaGrupp from "@/assets/photos/helgskidskola-grupp-ljus.jpg";
 import skidklubbHopp from "@/assets/photos/skidklubb-hopp.jpg.asset.json";
@@ -326,8 +326,8 @@ export const groups: Group[] = [
       { label: "Pris", value: "795 kr" },
       { label: "Plats", value: "Stockby & Vikingahallen, Lidingö" },
     ],
-    photo: parkRails,
-    photoAlt: "Åkare på rails i parken",
+    photo: hostsasongLopning.url,
+    photoAlt: "Barn och ungdomar på barmarkslöpning i höstlandskapet",
   },
   {
     slug: "privatlektioner",
