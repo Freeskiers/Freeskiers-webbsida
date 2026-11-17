@@ -151,6 +151,21 @@ describe("CMS Consumer Integration Tests", () => {
       expect(html).toContain("21 december");
     });
 
+    it("shows the season 26/27 cancellation rules box above the ordinary rules", () => {
+      const html = renderWithDraft(<AvbokningPage />);
+
+      expect(html).toContain("Avbokningsregler säsongen 26/27");
+      expect(html).toContain("Avbokning t.o.m. 30 november: hela avgiften återbetalas.");
+      expect(html).toContain("1–20 december: återbetalning minus 400 kr.");
+      expect(html).toContain("Från 21 december: ingen återbetalning.");
+
+      const season = html.indexOf("Avbokningsregler säsongen 26/27");
+      const ordinary = html.indexOf("Ordinarie avbokningsregler");
+      expect(season).toBeGreaterThan(-1);
+      expect(ordinary).toBeGreaterThan(-1);
+      expect(season).toBeLessThan(ordinary);
+    });
+
     it("reflects updated cancellation rules from CMS preview draft", () => {
       const html = renderWithDraft(<AvbokningPage />, {
         cancellationRules: {
