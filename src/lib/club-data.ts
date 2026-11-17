@@ -262,9 +262,9 @@ export const groups: Group[] = [
     summary:
       "För barn och unga som vill lära sig åka skidor eller ta sin åkning till nästa nivå. Vi kör 5 intensiva och roliga tillfällen på helger under januari och februari i Ekholmsnäsbacken.",
     bullets: [
-      "Grön grupp – nybörjare (5–10 år)",
-      "Blå grupp – avancerad nybörjare (5–10 år)",
-      "Röd grupp – fortsättning (5–10 år)",
+      "Grön grupp – nybörjare",
+      "Blå grupp – avancerad nybörjare",
+      "Röd grupp – fortsättning",
       "Krav: barnet måste kunna ta instruktioner på svenska",
       "Hjälm är obligatoriskt. Ryggskydd rekommenderas",
       "Liftkort behövs inte. Vi har en egen liftkö",

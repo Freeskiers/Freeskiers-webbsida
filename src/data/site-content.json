@@ -26,9 +26,9 @@
       "requirements": [
         "Alla barn måste kunna ta instruktioner på svenska",
         "Alla barn måste ha hjälm i backen. Ryggskydd rekommenderas.",
-        "Grön grupp – nybörjare (5–10 år)",
-        "Blå grupp – avancerad nybörjare (5–10 år)",
-        "Röd grupp – fortsättning (5–10 år)"
+        "Grön grupp – nybörjare",
+        "Blå grupp – avancerad nybörjare",
+        "Röd grupp – fortsättning"
       ],
       "photoUrl": "/assets/photos/helgskidskola-grupp-ljus.jpg",
       "bookingUrl": "https://sportadmin.se/book/?F=7631cd86-189b-4c49-bfc0-3ba70fe1f127"
