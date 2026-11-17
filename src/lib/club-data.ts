@@ -270,6 +270,7 @@ export const groups: Group[] = [
       "Liftkort behövs inte. Vi har en egen liftkö",
     ],
     facts: [
+      { label: "Ålder", value: "5–10 år" },
       { label: "Omfattning", value: "5 helgtillfällen (jan–feb)" },
       { label: "Passlängd", value: "75 minuter per gång" },
       { label: "Plats", value: "Ekholmsnäsbacken, Lidingö" },

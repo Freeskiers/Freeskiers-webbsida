@@ -27,3 +27,5 @@
 - [x] Ange roll för Javier Rojas i styrelsen på /om-oss: "Resurs"
 - [x] Lägg till Lidingö Centrums logga i partnerlistan (sidfotens "Stolta samarbetspartners & vänner" och /sponsor)
 - [x] Minska partnerrutorna så att alla sex logotyper ryms på en rad i sidfoten och på /sponsor (3+3 på mindre skärm)
+- [x] Lägg till en åldersrad ("Ålder 5–10 år") i faktablocket på /helgskidskola
+- [x] Få de fyra faktrutorna på /helgskidskola att passa på en rad i datorvy

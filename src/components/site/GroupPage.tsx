@@ -20,6 +20,10 @@ type Props = {
 export function GroupPage({ slug, intro, children, showFacts = true, showOverview = true, heroAction, showHeroLevelFinder = true }: Props) {
   const g = groups.find((x) => x.slug === slug)!;
   const coach = g.booking === "coach";
+  const factLayout =
+    g.facts.length === 4
+      ? "sm:grid-cols-2 lg:grid-cols-4"
+      : "pr-28 sm:grid-cols-3 lg:pr-52";
   const cta = coach ? (
     <Link to="/kontakt">{g.cta}</Link>
   ) : (
@@ -42,7 +46,7 @@ export function GroupPage({ slug, intro, children, showFacts = true, showOvervie
 
       {showOverview ? (
         <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6">
-          <dl className="grid gap-4 rounded-3xl border border-border bg-card p-6 pr-28 sm:grid-cols-3 lg:pr-52">
+          <dl className={`grid gap-4 rounded-3xl border border-border bg-card p-6 ${factLayout}`}>
             {g.facts.map((f) => (
               <div key={f.label}>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
